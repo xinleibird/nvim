@@ -7,6 +7,7 @@ Personal use [Neovim](https://neovim.io) config files.
 ### Prerequisites
 
 - Base on [**Neovim**](https://neovim.io). Install it by your own preferred.
+- Idea from [NvChad](https://nvchad.com).
 
 ### Optional
 

@@ -88,8 +88,8 @@ local full_version = " "
   .. vim.version().minor
   .. "."
   .. vim.version().patch
-  .. "                                   "
-  .. "xinlei "
+  .. "                         "
+  .. "idea from nvchad 󱍄"
 
 local footer = {
   type = "text",
