@@ -110,12 +110,13 @@ local components = {
       if not modifiable then
         return icons.ui.Lock .. " " .. filename
       end
+
       if modified then
-        return filename .. icons.ui.Modified
+        return icons.ui.FileOutline .. " " .. filename .. icons.ui.Modified
       end
-      return filename .. " "
+
+      return icons.ui.FileOutline .. " " .. filename .. " "
     end,
-    icon = icons.ui.FileOutline,
     padding = { left = 2, right = 0 },
     file_status = false,
   },

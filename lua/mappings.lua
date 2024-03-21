@@ -230,13 +230,13 @@ map(
 )
 
 -------------------------------------------------------------------------------
----[[Gitlazy]]
+---[[Neogit]]
 map("n", "<leader>gg", function()
-  local ok, gitlazy = pcall(require, "gitlazy")
+  local ok, neogit = pcall(require, "neogit")
   if ok then
-    gitlazy.open()
+    neogit.open()
   end
-end, { desc = "Open lazygit" })
+end, { desc = "Neogit" })
 
 -------------------------------------------------------------------------------
 ---[[GitSigns]]

@@ -6,7 +6,7 @@ Personal use [Neovim](https://neovim.io) config files.
 
 ### Prerequisites
 
-- Base on [Neovim](https://neovim.io).
+- Base on [**Neovim**](https://neovim.io). Install it by your own preferred.
 
 ### Optional
 
@@ -21,7 +21,6 @@ Inside Neovim, use the cmd command to install.
 
 ```
 :Lazy sync
-
 ```
 
 - Install all Lsp, Formatter, Linter and debug adapter:
