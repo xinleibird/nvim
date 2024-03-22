@@ -1,0 +1,71 @@
+{
+  "define module": {
+    "prefix": "define",
+    "body": [
+      "define([",
+      "\t'require',",
+      "\t'${1:dependency}'",
+      "], function(require, ${2:factory}) {",
+      "\t'use strict';",
+      "\t$0",
+      "});"
+    ],
+    "description": "define module"
+  },
+  "Public Method Definition": {
+    "prefix": "public method",
+    "body": ["/**", " * ${1:name}", " */", "${1:name}() {", "\t$0", "}"],
+    "description": "Public Method Definition"
+  },
+  "Private Method Definition": {
+    "prefix": "private method",
+    "body": ["#${1:name}() {", "\t$0", "}"],
+    "description": "Private Method Definition"
+  },
+  "Define a full property": {
+    "prefix": "prop",
+    "body": [
+      "",
+      "#${1:value};",
+      "",
+      "get ${1:value}() {",
+      "\treturn this.#${1:value};",
+      "}",
+      "",
+      "set ${1:value}(v) {",
+      "\tthis.#${1:value} = v;",
+      "}",
+      ""
+    ],
+    "description": "Define a full property"
+  },
+  "Property getter": {
+    "prefix": "get",
+    "body": ["", "get ${1:value}() {", "\t${3:return $0}", "}", ""],
+    "description": "Property getter"
+  },
+  "Property setter": {
+    "prefix": "set",
+    "body": ["", "public set ${1:value}(v) {", "\tthis.$3 = v;", "}", ""],
+    "description": "Property setter"
+  },
+  "Function Statement": {
+    "prefix": "function",
+    "body": ["function ${1:name}(${2:params}) {", "\t$TM_SELECTED_TEXT$0", "}"],
+    "description": "Function Statement"
+  },
+  "Async Function Statement": {
+    "prefix": "async function",
+    "body": [
+      "async function ${1:name}(${2:params}) {",
+      "\t$TM_SELECTED_TEXT$0",
+      "}"
+    ],
+    "description": "Async Function Statement"
+  },
+  "Async Function Expression": {
+    "prefix": "async arrow function",
+    "body": ["async (${1:params}) => {", "\t$TM_SELECTED_TEXT$0", "}"],
+    "description": "Async Function Expression"
+  }
+}

@@ -1,11 +1,4 @@
 local icons = require("core.configs.icons")
--- local colors = require("lualine.themes.catppuccin")
-
--- local get_palette = require("catppuccin.utils.lualine")
--- local theme = vim.opt.background == "dark" and "mocha" or "latte"
---
--- local colors = get_palette(theme)
-
 local colors = {
   bg = "#202328",
   fg = "#bbc2cf",
@@ -64,7 +57,7 @@ local components = {
   sep = {
     "mode",
     fmt = function()
-      return "󰌷"
+      return " "
     end,
     padding = { left = 0, right = 0 },
     color = { bg = "None" },
@@ -73,26 +66,40 @@ local components = {
   mode = {
     "mode",
     fmt = function(mode)
-      local icon = icons.ui.Ghost
-      if mode ~= "NORMAL" then
-        icon = icons.ui.GhostOutline
+      if mode == "NORMAL" then
+        return icons.ui.Ghost .. " " .. string.format("%-7s", mode)
       end
 
-      return icon .. " " .. string.format("%-7s", mode)
+      return icons.ui.GhostOutline .. " " .. string.format("%-7s", mode)
     end,
     separator = { left = " ", right = "" },
     padding = { left = 0, right = 0 },
   },
 
+  cwd = {
+    "mode",
+    fmt = function(mode)
+      local cwd = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+      local icon = icons.ui.Path
+
+      if vim.g.cwd_is_git then
+        return icon .. " " .. cwd .. " " .. icons.ui.GitFolderSign
+      end
+
+      if mode == "NORMAL" then
+        return icon .. " " .. cwd .. " " .. icons.ui.FolderOpen
+      end
+
+      return icon .. " " .. cwd .. " " .. icons.ui.FolderEmptyOpen
+    end,
+    separator = { left = "", right = "" },
+    padding = { left = 0, right = 0 },
+  },
+
   branch = {
     "branch",
-    -- fmt = function()
-    --   return vim.g.gitsigns_head
-    -- end,
-    "b:gitsigns_head",
     icon = icons.ui.Branch,
-    separator = { left = "", right = "" },
-    padding = { left = 2, right = 1 },
+    padding = { left = 1, right = 0 },
   },
 
   filename = {
@@ -124,7 +131,7 @@ local components = {
       return icons.ui.FileOutline .. " " .. filename .. " "
     end,
     separator = { left = "", right = "" },
-    padding = { left = 0, right = 0 },
+    padding = { left = 1, right = 0 },
     file_status = false,
   },
 
@@ -179,7 +186,6 @@ local components = {
       local formatter_batch = ""
       local formatters = {}
       local conform_ok, conform = pcall(require, "conform")
-
       if conform_ok then
         formatters = conform.list_formatters_for_buffer(0)
       end
@@ -188,19 +194,22 @@ local components = {
         formatter_batch = formatter_batch .. formatter .. " "
       end
 
-      if client_batch == "" and formatter_batch == "" then
+      local linter_batch = ""
+      local linters = require("lint")._resolve_linter_by_ft(vim.bo.ft)
+
+      for _, linter in ipairs(linters) do
+        linter_batch = linter_batch .. linter .. " "
+      end
+
+      if client_batch == "" and formatter_batch == "" and linter_batch == "" then
         return ""
       end
 
       return (
-        (client_batch == "" and "" or icons.ui.Protocol)
-        .. " "
-        .. client_batch
-        .. " "
-        .. (formatter_batch == "" and "" or icons.ui.Bookshelf)
-        .. " "
-        .. formatter_batch
-        .. " "
+        ""
+        .. (client_batch == "" and "" or (icons.ui.Protocol .. " " .. client_batch .. " "))
+        .. (formatter_batch == "" and "" or (icons.ui.Formatter .. " " .. formatter_batch .. " "))
+        .. (linter_batch == "" and "" or (icons.ui.Linter .. " " .. linter_batch .. " "))
         .. icons.ui.ChevronLeft
       )
     end,
@@ -209,7 +218,8 @@ local components = {
 
   filetype = {
     "filetype",
-    padding = { left = 0, right = 2 },
+    padding = { left = 0, right = 1 },
+    icon_only = true,
   },
 
   location = {
@@ -254,12 +264,14 @@ local M = {
     lualine_a = {
       components.mode,
       components.sep,
-      components.filename,
+      components.cwd,
+      components.sep,
     },
     lualine_b = {
-      components.branch,
+      components.filename,
     },
     lualine_c = {
+      components.branch,
       components.diff,
       components.diagnostics,
       "%=",
@@ -284,7 +296,25 @@ local M = {
     lualine_z = { "location" },
   },
   tabline = {},
+  winbar = {},
   extensions = {},
 }
 
-return M
+local function init()
+  vim.api.nvim_create_autocmd({ "VimEnter", "DirChanged" }, {
+    group = vim.api.nvim_create_augroup("user_detect_git_when_dir_changed", { clear = true }),
+    callback = function()
+      local git_path = vim.loop.cwd() .. "/.git"
+      local _, err = vim.loop.fs_stat(git_path)
+      vim.g.cwd_is_git = true
+
+      if err then
+        vim.g.cwd_is_git = false
+      end
+    end,
+  })
+
+  return M
+end
+
+return init()

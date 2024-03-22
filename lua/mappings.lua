@@ -22,8 +22,6 @@ map("n", "<C-j>", "<C-w>j", { desc = "Window down" })
 map("n", "<C-k>", "<C-w>k", { desc = "Window up" })
 
 -- remap start of line
-map("i", "<C-a>", "<Home>", { desc = "Move begin of line" })
-map("i", "<C-e>", "<End>", { desc = "Move end of line" })
 map("c", "<C-a>", "<C-b>", { desc = "Move beginning of line", remap = true })
 
 -- esc clear highlights
@@ -46,7 +44,7 @@ if vim.g.neovide then
 end
 
 map(
-  "i",
+  { "i", "t" },
   paste_map,
   "<esc>:set paste<cr>a<c-r>=getreg('+')<cr><esc>:set nopaste<cr>mi`[=`]`ia",
   { desc = "Paste in INSERT mode" }

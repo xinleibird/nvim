@@ -41,15 +41,6 @@ local M = {
     end,
     config = function(_, opts)
       require("mason").setup(opts)
-
-      -- custom cmd to install all mason binaries listed
-      vim.api.nvim_create_user_command("MasonInstallAll", function()
-        if opts.ensure_installed and #opts.ensure_installed > 0 then
-          vim.cmd("MasonInstall " .. table.concat(opts.ensure_installed, " "))
-        end
-      end, {})
-
-      vim.g.mason_binaries_list = opts.ensure_installed
     end,
   },
 
@@ -69,11 +60,9 @@ local M = {
       {
         -- snippet plugin
         "L3MON4D3/LuaSnip",
-        dependencies = "rafamadriz/friendly-snippets",
-        opts = { history = true, updateevents = "TextChanged,TextChangedI" },
-        config = function(_, opts)
-          require("luasnip").config.set_config(opts)
-          require("core.configs.luasnip")
+        -- dependencies = "rafamadriz/friendly-snippets",
+        opts = function()
+          return require("core.configs.luasnip")
         end,
       },
 
@@ -118,6 +107,17 @@ local M = {
     end,
     config = function(_, opts)
       require("conform").setup(opts)
+    end,
+  },
+
+  {
+    "mfussenegger/nvim-lint",
+    event = "BufEnter",
+    opts = function()
+      return require("core.configs.lint")
+    end,
+    config = function(_, opts)
+      require("lint").linters_by_ft = opts.linters_by_ft
     end,
   },
 
@@ -185,6 +185,26 @@ local M = {
   -----------------------------------------------------------------------------
   -- UI
   -----------------------------------------------------------------------------
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+    lazy = false,
+    opts = function()
+      return require("core.configs.catppuccin")
+    end,
+    config = function(_, opts)
+      ---@diagnostic disable-next-line: missing-fields
+      require("nvim-treesitter.configs").setup({
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = false,
+        },
+      })
+
+      require("catppuccin").setup(opts)
+    end,
+  },
 
   {
     "nvim-tree/nvim-web-devicons",
@@ -210,7 +230,6 @@ local M = {
 
   {
     "folke/which-key.nvim",
-    -- keys = { "<leader>", "<c-r>", "<c-w>", '"', "'", "`", "c", "v", "g" },
     keys = { "<leader>", "<c-r>", '"', "'", "g" },
     cmd = "WhichKey",
     opts = function()
@@ -262,7 +281,6 @@ local M = {
     dependencies = {
       {
         "tiagovla/scope.nvim",
-        lazy = false,
         config = function()
           require("scope").setup()
         end,
@@ -299,10 +317,7 @@ local M = {
     config = function()
       require("toggleterm").setup({
         highlights = {
-          -- highlights which map to a highlight group name and a table of it's values
-          -- NOTE: this is only a subset of values, any group placed here will be set for the terminal window split
           Normal = {
-            -- link = "Normal",
             link = "ToggleTermBg",
           },
           NormalFloat = {

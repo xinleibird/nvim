@@ -77,16 +77,16 @@ local config = function()
     root_dir = util.root_pattern("deno.json", "deno.jsonc"),
   })
 
-  lspconfig.eslint.setup({
-    on_init = on_init,
-    on_attach = on_attach,
-    capabilities = capabilities,
-    settings = {
-      rulesCustomizations = {
-        { rule = "*", severity = "info" },
-      },
-    },
-  })
+  -- lspconfig.eslint.setup({
+  --   on_init = on_init,
+  --   on_attach = on_attach,
+  --   capabilities = capabilities,
+  --   settings = {
+  --     rulesCustomizations = {
+  --       { rule = "*", severity = "info" },
+  --     },
+  --   },
+  -- })
 
   lspconfig.tsserver.setup({
     on_init = on_init,

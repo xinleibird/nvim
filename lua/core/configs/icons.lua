@@ -40,7 +40,7 @@ M.lspkind = {
 }
 
 M.diagnostics = {
-  Hint = "",
+  Hint = "",
   Info = "",
   Warning = "",
   Error = "",
@@ -93,7 +93,10 @@ M.ui = {
   Bug = "󰃤",
   BugOutline = "󰨰",
   Protocol = "󰿘",
-  Bookshelf = "󱉟",
+  Formatter = "󰦏",
+  Linter = "",
+  Path = "",
+  GitFolderSign = "",
 }
 
 M.git = {

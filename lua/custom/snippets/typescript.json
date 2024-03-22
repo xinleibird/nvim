@@ -1,0 +1,83 @@
+{
+  "Public Method Definition": {
+    "prefix": "public method",
+    "body": ["/**", " * ${1:name}", " */", "public ${1:name}() {", "\t$0", "}"],
+    "description": "Public Method Definition"
+  },
+  "Private Method Definition": {
+    "prefix": "private method",
+    "body": ["private ${1:name}() {", "\t$0", "}"],
+    "description": "Private Method Definition"
+  },
+  "Define a full property": {
+    "prefix": "prop",
+    "body": [
+      "",
+      "private _${1:value} : ${2:string};",
+      "",
+      "public get ${1:value}() : ${2:string} {",
+      "\treturn this._${1:value};",
+      "}",
+      "",
+      "public set ${1:value}(v : ${2:string}) {",
+      "\tthis._${1:value} = v;",
+      "}",
+      ""
+    ],
+    "description": "Define a full property"
+  },
+  "Triple-slash reference": {
+    "prefix": "ref",
+    "body": ["/// <reference path=\"$1\" />", "$0"],
+    "description": "Triple-slash reference"
+  },
+  "Property getter": {
+    "prefix": "get",
+    "body": [
+      "",
+      "public get ${1:value}() : ${2:string} {",
+      "\t${3:return $0}",
+      "}",
+      ""
+    ],
+    "description": "Property getter"
+  },
+  "Property setter": {
+    "prefix": "set",
+    "body": [
+      "",
+      "public set ${1:value}(v : ${2:string}) {",
+      "\tthis.$3 = v;",
+      "}",
+      ""
+    ],
+    "description": "Property setter"
+  },
+  "Function Statement": {
+    "prefix": "function",
+    "body": [
+      "function ${1:name}(${2:params}:${3:type}) {",
+      "\t$TM_SELECTED_TEXT$0",
+      "}"
+    ],
+    "description": "Function Statement"
+  },
+  "Async Function Statement": {
+    "prefix": "async function",
+    "body": [
+      "async function ${1:name}(${2:params}: ${3:type}) {",
+      "\t$TM_SELECTED_TEXT$0",
+      "}"
+    ],
+    "description": "Async Function Statement"
+  },
+  "Async Function Expression": {
+    "prefix": "async arrow function",
+    "body": [
+      "async (${1:params}: ${2:type}) => {",
+      "\t$TM_SELECTED_TEXT$0",
+      "}"
+    ],
+    "description": "Async Function Expression"
+  }
+}

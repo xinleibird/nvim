@@ -109,14 +109,3 @@ vim.api.nvim_create_autocmd("User", {
   group = vim.api.nvim_create_augroup("user_leave_alpha_close_bufferline", { clear = true }),
   command = "set showtabline=2|set laststatus=3",
 })
-
-vim.api.nvim_create_autocmd("VimEnter", {
-  group = vim.api.nvim_create_augroup("user_start_clock_timmer", { clear = true }),
-  callback = function()
-    vim.fn.timer_start((60 - vim.fn.strftime("%S")) * 1000, function()
-      vim.fn.timer_start(60 * 1000, function()
-        vim.opt_local.ro = vim.opt_local.ro
-      end, { ["repeat"] = -1 })
-    end, { ["repeat"] = 1 })
-  end,
-})

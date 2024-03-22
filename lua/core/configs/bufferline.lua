@@ -1,39 +1,53 @@
 local icons = require("core.configs.icons")
 
-local function diagnostics_indicator(_, level)
-  local icon = " "
-
-  if level:match("error") then
-    icon = icons.diagnostics.Error
-  end
-  if level:match("warn") then
-    icon = icons.diagnostics.Warning
-  end
-  if level:match("info") then
-    icon = icons.diagnostics.Info
-  end
-  if level:match("hint") then
-    icon = icons.diagnostics.Hint
-  end
-
-  return " " .. icon
-end
+-- local function diagnostics_indicator(_, level)
+--   local icon = " "
+--
+--   if level:match("error") then
+--     icon = icons.diagnostics.Error
+--   end
+--   if level:match("warn") then
+--     icon = icons.diagnostics.Warning
+--   end
+--   if level:match("info") then
+--     icon = icons.diagnostics.Info
+--   end
+--   if level:match("hint") then
+--     icon = icons.diagnostics.Hint
+--   end
+--
+--   return " " .. icon
+-- end
 
 -- local function diagnostics_indicator(_, _, diagnostics, _)
---   local result = {}
 --   local symbols = {
---     hint = icons.diagnostics.Hint,
---     info = icons.diagnostics.Info,
---     warning = icons.diagnostics.Warning,
 --     error = icons.diagnostics.Error,
+--     warning = icons.diagnostics.Warning,
+--     info = icons.diagnostics.Info,
+--     hint = icons.diagnostics.Hint,
 --   }
+--
+--   local errors = ""
+--   local warnings = ""
+--   local infos = ""
+--   local hints = ""
+--
 --   for name, count in pairs(diagnostics) do
---     if symbols[name] and count > 0 then
---       table.insert(result, symbols[name] .. " " .. count)
+--     if name == "error" then
+--       errors = symbols[name] .. " " .. count .. " "
+--     end
+--     if name == "warning" then
+--       warnings = symbols[name] .. " " .. count .. " "
+--     end
+--     if name == "info" then
+--       infos = symbols[name] .. " " .. count .. " "
+--     end
+--     if name == "hint" then
+--       hints = symbols[name] .. " " .. count .. " "
 --     end
 --   end
---   local bat = table.concat(result, " ")
---   return #result > 0 and bat or ""
+--
+--   return errors .. warnings .. infos .. hints
 -- end
 
 local function is_ft(b, ft)
@@ -122,13 +136,14 @@ local M = {
 
       return buf.name or ""
     end,
-    max_name_length = 18,
-    max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
-    truncate_names = true, -- whether or not tab names should be truncated
-    tab_size = 18,
+    max_name_length = 24,
+    max_prefix_length = 16, -- prefix used when a buffer is de-duplicated
+    truncate_names = false, -- whether or not tab names should be truncated
+    tab_size = 20,
     diagnostics = "nvim_lsp",
     diagnostics_update_in_insert = false,
-    diagnostics_indicator = diagnostics_indicator,
+    -- diagnostics_indicator = diagnostics_indicator,
+    diagnostics_indicator = nil,
     -- NOTE: this will be called a lot so don't do any heavy processing here
     custom_filter = custom_filter,
     custom_areas = {
@@ -215,4 +230,21 @@ local M = {
   },
 }
 
-return M
+local function init()
+  vim.api.nvim_create_autocmd("VimEnter", {
+    group = vim.api.nvim_create_augroup("user_start_clock_timmer", { clear = true }),
+    callback = function()
+      vim.fn.timer_start((60 - vim.fn.strftime("%S")) * 1000, function()
+        vim.opt_local.ro = vim.opt_local.ro
+
+        vim.fn.timer_start(60 * 1000, function()
+          vim.opt_local.ro = vim.opt_local.ro
+        end, { ["repeat"] = -1 })
+      end, { ["repeat"] = 1 })
+    end,
+  })
+
+  return M
+end
+
+return init()
