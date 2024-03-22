@@ -61,18 +61,24 @@ local function diff_source()
 end
 
 local components = {
+  sep = {
+    "mode",
+    fmt = function()
+      return "󰌷"
+    end,
+    padding = { left = 0, right = 0 },
+    color = { bg = "None" },
+  },
+
   mode = {
     "mode",
     fmt = function(mode)
-      local l_icon = icons.ui.Ghost
-      local r_icon = icons.ui.FolderOpen
+      local icon = icons.ui.Ghost
       if mode ~= "NORMAL" then
-        l_icon = icons.ui.GhostOutline
-        r_icon = icons.ui.FolderEmptyOpen
+        icon = icons.ui.GhostOutline
       end
 
-      local path = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-      return l_icon .. " " .. path .. " " .. r_icon
+      return icon .. " " .. string.format("%-7s", mode)
     end,
     separator = { left = " ", right = "" },
     padding = { left = 0, right = 0 },
@@ -80,10 +86,10 @@ local components = {
 
   branch = {
     "branch",
-    fmt = function(branch)
-      return branch
-    end,
-    -- "b:gitsigns_head",
+    -- fmt = function()
+    --   return vim.g.gitsigns_head
+    -- end,
+    "b:gitsigns_head",
     icon = icons.ui.Branch,
     separator = { left = "", right = "" },
     padding = { left = 2, right = 1 },
@@ -117,7 +123,8 @@ local components = {
 
       return icons.ui.FileOutline .. " " .. filename .. " "
     end,
-    padding = { left = 2, right = 0 },
+    separator = { left = "", right = "" },
+    padding = { left = 0, right = 0 },
     file_status = false,
   },
 
@@ -129,13 +136,12 @@ local components = {
       modified = icons.git.LineModified .. " ",
       removed = icons.git.LineRemoved .. " ",
     },
-    padding = { left = 1, right = 0 },
     diff_color = {
       added = { fg = colors.green },
       modified = { fg = colors.yellow },
       removed = { fg = colors.red },
     },
-    separator = { left = "", right = "" },
+    padding = { left = 2, right = 0 },
     icon = icons.ui.ArrowClosed .. "  " .. icons.ui.GitCompare .. " ",
     cond = nil,
   },
@@ -143,7 +149,7 @@ local components = {
   diagnostics = {
     "diagnostics",
     icon = icons.ui.ArrowClosed .. "  " .. icons.ui.BugOutline .. " ",
-    padding = { left = 1, right = 0 },
+    padding = { left = 2, right = 0 },
     sources = { "nvim_diagnostic" },
     symbols = {
       error = icons.diagnostics.Error .. " ",
@@ -190,6 +196,7 @@ local components = {
         (client_batch == "" and "" or icons.ui.Protocol)
         .. " "
         .. client_batch
+        .. " "
         .. (formatter_batch == "" and "" or icons.ui.Bookshelf)
         .. " "
         .. formatter_batch
@@ -202,7 +209,7 @@ local components = {
 
   filetype = {
     "filetype",
-    padding = { left = 1, right = 1 },
+    padding = { left = 0, right = 2 },
   },
 
   location = {
@@ -246,13 +253,13 @@ local M = {
   sections = {
     lualine_a = {
       components.mode,
-      components.cwd,
+      components.sep,
+      components.filename,
     },
     lualine_b = {
       components.branch,
     },
     lualine_c = {
-      components.filename,
       components.diff,
       components.diagnostics,
       "%=",

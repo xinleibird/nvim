@@ -76,8 +76,11 @@ return {
           CmpPmenu = { bg = colors.mantle },
           CmpSel = { link = "PmenuSel", bold = true },
 
-          -- NvimTree opened file
-          CursorLine = { bg = colors.surface0 },
+          -- NvimTree under cursor highlight
+          CursorLine = { bg = colors.crust },
+
+          -- NvimTree under cursor highlight
+          TelescopeSelection = { bg = colors.crust },
 
           ToggleTermBg = { bg = colors.base },
         }
