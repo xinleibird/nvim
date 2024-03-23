@@ -11,27 +11,6 @@ local default_terminal = {
   },
 }
 
-local function init()
-  local function rest_colors()
-    local green = vim.g.terminal_color_2
-    local blue = vim.g.terminal_color_4
-    local gray = vim.g.terminal_color_8
-    local black = vim.g.terminal_color_15
-    vim.api.nvim_set_hl(0, "NeovimDashboardLogo1", { fg = blue })
-    vim.api.nvim_set_hl(0, "NeovimDashboardLogo2", { fg = green, bg = blue })
-    vim.api.nvim_set_hl(0, "NeovimDashboardLogo3", { fg = green })
-    vim.api.nvim_set_hl(0, "NeovimDashboardLogo4", { fg = gray })
-    vim.api.nvim_set_hl(0, "NeovimDashboardLogo5", { fg = black, bold = true })
-  end
-
-  vim.api.nvim_create_autocmd("ColorScheme", {
-    group = vim.api.nvim_create_augroup("neovim_alpha", { clear = true }),
-    callback = function()
-      rest_colors()
-    end,
-  })
-end
-
 local default_header = {
   type = "text",
   val = {
@@ -62,38 +41,46 @@ local default_header = {
       { { "", 0, 0 } },
       { { "", 0, 0 } },
       { { "", 0, 0 } },
-      { { "NeovimDashboardLogo1", 6, 8 }, { "NeovimDashboardLogo3", 9, 22 } },
+      { { "AlphaDashLogoFBlue", 6, 8 }, { "AlphaDashLogoFGreen", 9, 22 } },
       {
-        { "NeovimDashboardLogo1", 6, 8 },
-        { "NeovimDashboardLogo2", 9, 11 },
-        { "NeovimDashboardLogo3", 12, 24 },
+        { "AlphaDashLogoFBlue", 6, 8 },
+        { "AlphaDashLogoFGreenBBlue", 9, 11 },
+        { "AlphaDashLogoFGreen", 12, 24 },
       },
-      { { "NeovimDashboardLogo1", 6, 11 }, { "NeovimDashboardLogo3", 12, 26 } },
-      { { "NeovimDashboardLogo1", 6, 11 }, { "NeovimDashboardLogo3", 12, 24 } },
-      { { "NeovimDashboardLogo1", 6, 11 }, { "NeovimDashboardLogo3", 12, 22 } },
+      { { "AlphaDashLogoFBlue", 6, 11 }, { "AlphaDashLogoFGreen", 12, 26 } },
+      { { "AlphaDashLogoFBlue", 6, 11 }, { "AlphaDashLogoFGreen", 12, 24 } },
+      { { "AlphaDashLogoFBlue", 6, 11 }, { "AlphaDashLogoFGreen", 12, 22 } },
       { { "", 0, 0 } },
       { { "", 0, 0 } },
-      { { "NeovimDashboardLogo4", 0, 8 }, { "NeovimDashboardLogo5", 9, 17 } },
+      { { "AlphaDashLogoFGray", 0, 8 }, { "AlphaDashLogoFBlackBold", 9, 17 } },
     },
     -- wrap = "overflow";
   },
 }
 
-local pacman =
+local footer_pacman =
   "󰮯·············································󱙝󰊠󱙝"
 
-local full_version = " "
+local footer_version = " "
   .. vim.version().major
   .. "."
   .. vim.version().minor
   .. "."
   .. vim.version().patch
-  .. "                         "
-  .. "idea from nvchad 󱍄"
+
+local lazy_stats = require("lazy").stats()
+local stats = lazy_stats.loaded .. " / " .. lazy_stats.count
+local footer_plugins = stats .. " "
+
+local padding_width = vim.fn.strdisplaywidth(footer_pacman)
+  - vim.fn.strdisplaywidth(footer_version)
+  - vim.fn.strdisplaywidth(footer_plugins)
+
+local padding = string.rep(" ", padding_width)
 
 local footer = {
   type = "text",
-  val = { pacman, full_version },
+  val = { footer_pacman, footer_version .. padding .. footer_plugins },
   opts = {
     position = "center",
     hl = "Number",
@@ -168,7 +155,35 @@ local M = {
   opts = {
     margin = 5,
   },
-  init = init,
 }
 
-return M
+local function init()
+  local function rest_colors()
+    local green = vim.g.terminal_color_2
+    local blue = vim.g.terminal_color_4
+    local gray = vim.g.terminal_color_8
+    local black = vim.g.terminal_color_15
+    vim.api.nvim_set_hl(0, "AlphaDashLogoFBlue", { fg = blue })
+    vim.api.nvim_set_hl(0, "AlphaDashLogoFGreenBBlue", { fg = green, bg = blue })
+    vim.api.nvim_set_hl(0, "AlphaDashLogoFGreen", { fg = green })
+    vim.api.nvim_set_hl(0, "AlphaDashLogoFGray", { fg = gray })
+    vim.api.nvim_set_hl(0, "AlphaDashLogoFBlackBold", { fg = black, bold = true })
+  end
+
+  vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
+    group = vim.api.nvim_create_augroup("user_alpha_dashboard_color_init", { clear = true }),
+    callback = function()
+      rest_colors()
+    end,
+  })
+  --
+  -- vim.api.nvim_create_autocmd("User", {
+  --   pattern = "AlphaReady",
+  --   group = vim.api.nvim_create_augroup("user_enter_alpha_close_bufferline", { clear = true }),
+  --   callback = function() end,
+  -- })
+
+  return M
+end
+
+return init()

@@ -249,12 +249,10 @@ local M = {
 
   {
     "goolord/alpha-nvim",
+    dependencies = "folke/lazy.nvim",
     event = "VimEnter",
-    init = function()
-      require("core.configs.dashboard").init()
-    end,
     opts = function()
-      return require("core.configs.dashboard")
+      return require("core.configs.alpha")
     end,
     config = function(_, opts)
       require("alpha").setup(opts)
