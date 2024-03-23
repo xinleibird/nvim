@@ -59,28 +59,28 @@ local default_header = {
 }
 
 local footer_pacman =
-  "󰮯·············································󱙝󰊠󱙝"
+  "󰮯··············································󱙝󰊠󱙝"
 
-local footer_version = " "
-  .. vim.version().major
-  .. "."
-  .. vim.version().minor
-  .. "."
-  .. vim.version().patch
+local footer_skills =
+  "            󰟬  󱏿          󰎙      󰜫  󰨞  "
+
+local version = " " .. vim.version().major .. "." .. vim.version().minor .. "." .. vim.version().patch
 
 local lazy_stats = require("lazy").stats()
 local stats = lazy_stats.loaded .. " / " .. lazy_stats.count
-local footer_plugins = stats .. " "
+local plugins = stats .. " "
 
 local padding_width = vim.fn.strdisplaywidth(footer_pacman)
-  - vim.fn.strdisplaywidth(footer_version)
-  - vim.fn.strdisplaywidth(footer_plugins)
+  - vim.fn.strdisplaywidth(version)
+  - vim.fn.strdisplaywidth(plugins)
 
 local padding = string.rep(" ", padding_width)
 
+local footer_summary = version .. padding .. plugins
+
 local footer = {
   type = "text",
-  val = { footer_pacman, footer_version .. padding .. footer_plugins },
+  val = { footer_pacman, footer_skills, footer_summary },
   opts = {
     position = "center",
     hl = "Number",
@@ -125,12 +125,12 @@ end
 local buttons = {
   type = "group",
   val = {
-    button("Spc bn", " New Buffer"),
-    button("Spc sp", " Find Files"),
-    button("Spc sr", " Old Files"),
-    button("Spc st", "󰮗 Live Grep"),
-    button("Spc sP", " Recent Projects"),
-    button("Spc  q", "󰗽 Quit"),
+    button("Spc  bn", "  New Buffer"),
+    button("Spc  sp", "  Find Files"),
+    button("Spc  sr", "  Old Files"),
+    button("Spc  st", "󰮗  Live Grep"),
+    button("Spc  sP", "  Recent Projects"),
+    button("Spc  q ", "󰗽  Quit"),
   },
   opts = {
     spacing = 1,
