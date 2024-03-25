@@ -55,8 +55,8 @@ local M = {
     }, function(err)
       if not err then
         -- winid = open_progress_win()
-        require("fidget.notification").notify("ok", vim.log.levels.INFO, {
-          annote = "Formatting",
+        require("fidget.notification").notify("Formatting", vim.log.levels.INFO, {
+          annote = "Finished!",
           ttl = 1,
         })
       end

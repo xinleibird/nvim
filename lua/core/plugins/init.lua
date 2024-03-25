@@ -47,6 +47,9 @@ local M = {
   {
     "neovim/nvim-lspconfig",
     event = "BufRead",
+    dependencies = {
+      "folke/neodev.nvim",
+    },
     config = function()
       require("core.configs.lspconfig").config()
     end,
@@ -102,6 +105,20 @@ local M = {
   {
     "stevearc/conform.nvim",
     event = "BufWritePre",
+    dependencies = {
+      "j-hui/fidget.nvim",
+      event = "LspAttach",
+      opts = {
+        progress = {
+          display = {
+            render_limit = 16, -- How many LSP messages to show at once
+            done_ttl = 1, -- How long a message should persist after completion
+            done_icon = require("core.configs.icons").ui.CheckBold, -- Icon shown when all LSP progress tasks are complete
+            progress_icon = { pattern = "circle_halves", period = 1 },
+          },
+        },
+      },
+    },
     opts = function()
       return require("core.configs.conform")
     end,
@@ -213,6 +230,16 @@ local M = {
     end,
     config = function(_, opts)
       require("nvim-web-devicons").setup(opts)
+    end,
+  },
+  {
+    "hedyhli/outline.nvim",
+    event = "VimEnter",
+    opts = function()
+      return require("core.configs.outline")
+    end,
+    config = function(_, opts)
+      require("outline").setup(opts)
     end,
   },
 
