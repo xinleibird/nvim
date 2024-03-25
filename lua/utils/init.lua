@@ -56,7 +56,7 @@ M.quickfix_toggle = function()
   local no_qf = vim.fn.empty(vim.fn.filter(vim.fn.getwininfo(), "v:val.quickfix"))
   if no_qf == 1 then
     -- vim.cmd("rightbelow copen")
-    vim.cmd("topleft copen")
+    vim.cmd("copen")
   else
     vim.cmd("cclose")
   end
@@ -72,7 +72,7 @@ M.loclist_toggle = function()
     end
 
     -- vim.cmd("rightbelow lopen")
-    vim.cmd("topleft lopen")
+    vim.cmd("lopen")
   else
     vim.cmd("lclose")
   end

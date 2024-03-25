@@ -22,15 +22,16 @@ vim.diagnostic.config({
 -- local on_attach = function(client, bufnr) end
 local on_attach = function(_, _) end
 
--- disable semanticTokens
-local on_init = function(client, _)
-  if client.supports_method("textDocument/semanticTokens") then
-    client.server_capabilities.semanticTokensProvider = nil
+local on_init = function(client, buf)
+  -- semanticTokens 'vim.g.semantic_tokens'
+  if not vim.g["semantic_tokens"] or not vim.b[buf]["semantic_tokens"] then
+    if client.supports_method("textDocument/semanticTokens") then
+      client.server_capabilities.semanticTokensProvider = nil
+    end
   end
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-
 capabilities.textDocument.completion.completionItem = {
   documentationFormat = { "markdown", "plaintext" },
   snippetSupport = true,

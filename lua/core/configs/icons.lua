@@ -114,10 +114,16 @@ M.git = {
 }
 
 M.devicons = {
+  ["js"] = {
+    icon = "󰌞",
+    name = "Js",
+  },
+  ["ts"] = {
+    icon = "",
+    name = "Ts",
+  },
   [".prettierrc"] = {
     icon = "󰰙",
-    color = "#4285F4",
-    cterm_color = "33",
     name = "PrettierConfig",
   },
 }

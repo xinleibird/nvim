@@ -136,10 +136,10 @@ local M = {
 
       return buf.name or ""
     end,
-    max_name_length = 24,
-    max_prefix_length = 16, -- prefix used when a buffer is de-duplicated
+    max_name_length = 18,
+    max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
     truncate_names = false, -- whether or not tab names should be truncated
-    tab_size = 20,
+    tab_size = 18,
     diagnostics = "nvim_lsp",
     diagnostics_update_in_insert = false,
     -- diagnostics_indicator = diagnostics_indicator,

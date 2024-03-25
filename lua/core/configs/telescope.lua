@@ -113,56 +113,24 @@ local M = {
         ["<D-v>"] = { "<C-r>+", type = "command" },
         ["<C-u>"] = false,
 
-        ["<C-Tab>"] = function(list)
-          actions.send_to_loclist(list)
-          vim.cmd([[topleft lopen]])
-        end,
+        ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
 
-        ["<C-S-Tab>"] = function(list)
-          if list ~= nil then
-            actions.send_selected_to_loclist(list)
-            vim.cmd([[topleft lopen]])
-          end
-        end,
+        ["<C-S-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
 
-        ["<C-q>"] = function(list)
-          actions.send_to_qflist(list)
-          vim.cmd([[topleft copen]])
-        end,
+        ["<C-tab>"] = actions.send_to_loclist + actions.open_loclist,
 
-        ["<C-S-q>"] = function(list)
-          if list ~= nil then
-            actions.send_selected_to_qflist(list)
-            vim.cmd([[topleft copen]])
-          end
-        end,
+        ["<C-S-tab>"] = actions.send_selected_to_loclist + actions.open_loclist,
 
         ["<M-q>"] = false,
       },
       n = {
-        ["<C-Tab>"] = function(list)
-          actions.send_to_loclist(list)
-          vim.cmd([[topleft lopen]])
-        end,
+        ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
 
-        ["<C-S-Tab>"] = function(list)
-          if list ~= nil then
-            actions.send_selected_to_loclist(list)
-            vim.cmd([[topleft lopen]])
-          end
-        end,
+        ["<C-S-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
 
-        ["<C-q>"] = function(list)
-          actions.send_to_qflist(list)
-          vim.cmd([[topleft copen]])
-        end,
+        ["<C-tab>"] = actions.send_to_loclist + actions.open_loclist,
 
-        ["<C-S-q>"] = function(list)
-          if list ~= nil then
-            actions.send_selected_to_qflist(list)
-            vim.cmd([[topleft copen]])
-          end
-        end,
+        ["<C-S-tab>"] = actions.send_selected_to_loclist + actions.open_loclist,
 
         ["<M-q>"] = false,
 
@@ -175,6 +143,7 @@ local M = {
     "fzf",
     "projects",
     "ui-select",
+    "todo-comments",
   },
   extensions = {
     fzf = {

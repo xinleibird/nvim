@@ -98,6 +98,12 @@ vim.api.nvim_create_autocmd("FileType", {
   command = "nnoremap <buffer><silent> <Esc> <CMD>close!<CR>|nnoremap <buffer><silent> q <CMD>close!<CR>",
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "qf" },
+  group = vim.api.nvim_create_augroup("user_add_qf_top_position", { clear = true }),
+  command = "wincmd K",
+})
+
 vim.api.nvim_create_autocmd("User", {
   pattern = "AlphaReady",
   group = vim.api.nvim_create_augroup("user_enter_alpha_close_bufferline", { clear = true }),

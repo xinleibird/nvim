@@ -36,6 +36,7 @@ local M = {
     return {
       ActionHintsDefinition = { fg = colors.yellow },
       ActionHintsReferences = { fg = colors.blue },
+
       EyelinerPrimary = { fg = colors.peach, style = { "bold", "underline" } },
       EyelinerSecondary = { fg = colors.sky, style = { "bold" } },
 
@@ -67,7 +68,11 @@ local M = {
       -- NvimTree under cursor highlight
       TelescopeSelection = { bg = colors.crust },
 
+      -- ToggleTerm background
       ToggleTermBg = { bg = colors.base },
+
+      DevIconJs = { fg = colors.yellow },
+      DevIconTs = { fg = colors.blue },
     }
   end,
   integrations = {

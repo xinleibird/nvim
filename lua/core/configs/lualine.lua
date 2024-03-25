@@ -1,20 +1,4 @@
 local icons = require("core.configs.icons")
-local colors = {
-  bg = "#202328",
-  fg = "#bbc2cf",
-  dark = "#202328",
-  gray = "#bbc2cf",
-  yellow = "#ECBE7B",
-  cyan = "#008080",
-  darkblue = "#081633",
-  green = "#98be65",
-  orange = "#FF8800",
-  violet = "#a9a1e1",
-  magenta = "#c678dd",
-  purple = "#c678dd",
-  blue = "#51afef",
-  red = "#ec5f67",
-}
 
 local function selected()
   local mode = vim.fn.mode()
@@ -78,22 +62,17 @@ local components = {
 
   cwd = {
     "mode",
-    fmt = function(mode)
+    fmt = function()
       local cwd = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-      local icon = icons.ui.Path
 
       if vim.g.cwd_is_git then
-        return icon .. " " .. cwd .. " " .. icons.ui.GitFolderSign
+        return icons.ui.GitFolderSign .. " " .. cwd
       end
 
-      if mode == "NORMAL" then
-        return icon .. " " .. cwd .. " " .. icons.ui.FolderOpen
-      end
-
-      return icon .. " " .. cwd .. " " .. icons.ui.FolderEmptyOpen
+      return icons.ui.Path .. " " .. cwd
     end,
-    separator = { left = "", right = "" },
-    padding = { left = 0, right = 0 },
+    separator = { left = "" },
+    padding = { left = 0, right = 1 },
   },
 
   branch = {
@@ -131,7 +110,7 @@ local components = {
       return icons.ui.FileOutline .. " " .. filename .. " "
     end,
     separator = { left = "", right = "" },
-    padding = { left = 1, right = 0 },
+    padding = { left = 0, right = 0 },
     file_status = false,
   },
 
@@ -142,11 +121,6 @@ local components = {
       added = icons.git.LineAdded .. " ",
       modified = icons.git.LineModified .. " ",
       removed = icons.git.LineRemoved .. " ",
-    },
-    diff_color = {
-      added = { fg = colors.green },
-      modified = { fg = colors.yellow },
-      removed = { fg = colors.red },
     },
     padding = { left = 2, right = 0 },
     icon = icons.ui.ArrowClosed .. "  " .. icons.ui.GitCompare .. " ",
@@ -265,7 +239,6 @@ local M = {
       components.mode,
       components.sep,
       components.cwd,
-      components.sep,
     },
     lualine_b = {
       components.filename,

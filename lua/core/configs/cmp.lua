@@ -91,9 +91,9 @@ local M = {
   },
   sources = {
     { name = "nvim_lsp_signature_help", priority = 1000 },
-    { name = "nvim_lsp", priority = 900 },
-    { name = "nvim_lua", priority = 800 },
-    { name = "luasnip", priority = 700 },
+    { name = "luasnip", priority = 900 },
+    { name = "nvim_lsp", priority = 800 },
+    { name = "nvim_lua", priority = 700 },
     { name = "buffer", priority = 600 },
     { name = "path", priority = 500 },
   },

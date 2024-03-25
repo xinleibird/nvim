@@ -4,9 +4,13 @@ M.toggle = function(character)
   local buf = vim.api.nvim_win_get_buf(0)
 
   if not vim.bo[buf].modifiable then
-    -- vim.notify("Buffer is not modifiable.", vim.log.levels.WARN, {
-    --   title = "Readonly!",
-    -- })
+    local ok, notify = pcall(require, "notify")
+    if ok then
+      notify("Buffer is not modifiable.", vim.log.levels.WARN, {
+        title = "Readonly!",
+      })
+    end
+
     return
   end
 
