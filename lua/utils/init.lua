@@ -20,12 +20,13 @@ M.detect_os = function()
   vim.notify("Can not detect your OS")
 end
 
+M.detect_term = function()
+  return vim.api.nvim_get_chan_info(vim.api.nvim_list_uis()[1].chan).client.name
+end
+
 M.detect_dark_mode = function()
   local modes = {
-    macos = vim.fn
-      .system("defaults read -g AppleInterfaceStyle 2>/dev/null || echo Light")
-      :gsub("\n", "")
-      :lower(),
+    macos = vim.fn.system("defaults read -g AppleInterfaceStyle 2>/dev/null || echo Light"):gsub("\n", ""):lower(),
     windows = vim.fn
       .system(
         'reg.exe query "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize" /v AppsUseLightTheme'
@@ -56,7 +57,7 @@ M.quickfix_toggle = function()
   local no_qf = vim.fn.empty(vim.fn.filter(vim.fn.getwininfo(), "v:val.quickfix"))
   if no_qf == 1 then
     -- vim.cmd("rightbelow copen")
-    vim.cmd("copen")
+    vim.cmd("copen|wincmd J")
   else
     vim.cmd("cclose")
   end
@@ -66,11 +67,10 @@ M.loclist_toggle = function()
   local no_ll = vim.fn.empty(vim.fn.filter(vim.fn.getwininfo(), "v:val.loclist"))
   if no_ll == 1 then
     if next(vim.fn.getloclist(0)) == nil then
-      vim.notify("[Location List] empty!", vim.log.levels.INFO, { title = "loclist" })
-      -- print("[Location List] empty!")
+      vim.notify("loclist empty!", vim.log.levels.INFO, { title = "loclist" })
+      -- print("loclist empty!")
       return
     end
-
     -- vim.cmd("rightbelow lopen")
     vim.cmd("lopen")
   else
@@ -96,6 +96,25 @@ M.any_terminal_open = function()
   return true
 end
 
+M.any_sidebar_open = function()
+  local sidebar_found = false
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    local buf = vim.api.nvim_win_get_buf(win)
+    local bufname = vim.api.nvim_buf_get_name(buf)
+    if string.find(bufname, "NvimTree") then
+      sidebar_found = true
+      break
+    end
+
+    local ft = vim.api.nvim_get_option_value("filetype", { buf = buf })
+    if ft == "snacks_layout_box" then
+      sidebar_found = true
+      break
+    end
+  end
+  return sidebar_found
+end
+
 M.buf_kill = function(kill_command, bufnr, force)
   kill_command = kill_command or "bd"
 
@@ -109,6 +128,7 @@ M.buf_kill = function(kill_command, bufnr, force)
   end
 
   local bufname = api.nvim_buf_get_name(bufnr)
+  local buftype = vim.bo[bufnr].buftype
 
   if not force then
     local choice
@@ -123,7 +143,7 @@ M.buf_kill = function(kill_command, bufnr, force)
       else
         return
       end
-    elseif api.nvim_buf_get_option(bufnr, "buftype") == "terminal" then
+    elseif buftype == "terminal" or buftype == "quickfix" or buftype == "loclist" then
       choice = fn.confirm(fmt([[Close "%s"?]], bufname), "&Yes\n&No\n&Cancel")
       if choice == 1 then
         force = true
