@@ -2,10 +2,10 @@ local M = {
   linters_by_ft = {
 
     -- markdown = {'vale',}
-    javascript = { "eslint_d" },
-    -- javascriptreact = { "eslint" },
-    -- typescript = { "eslint" },
-    -- typescriptreact = { "eslint" },
+    javascript = { "eslint" },
+    javascriptreact = { "eslint" },
+    typescript = { "eslint" },
+    typescriptreact = { "eslint" },
 
     bash = { "shellcheck" },
     zsh = { "shellcheck" },

@@ -109,6 +109,7 @@ M.buf_kill = function(kill_command, bufnr, force)
   end
 
   local bufname = api.nvim_buf_get_name(bufnr)
+  local buftype = api.nvim_buf_get_option(bufnr, "buftype")
 
   if not force then
     local choice
@@ -123,7 +124,7 @@ M.buf_kill = function(kill_command, bufnr, force)
       else
         return
       end
-    elseif api.nvim_buf_get_option(bufnr, "buftype") == "terminal" then
+    elseif buftype == "terminal" or buftype == "quickfix" or buftype == "loclist" then
       choice = fn.confirm(fmt([[Close "%s"?]], bufname), "&Yes\n&No\n&Cancel")
       if choice == 1 then
         force = true

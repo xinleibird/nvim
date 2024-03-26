@@ -104,15 +104,15 @@ local M = {
       enabled = true,
       virtual_text = {
         errors = { "italic" },
-        hints = { "italic" },
         warnings = { "italic" },
         information = { "italic" },
+        hints = { "italic" },
       },
       underlines = {
         errors = { "undercurl" },
-        hints = { "undercurl" },
         warnings = { "undercurl" },
         information = { "undercurl" },
+        hints = { "undercurl" },
       },
       inlay_hints = {
         background = true,

@@ -93,10 +93,9 @@ local config = function()
     on_init = on_init,
     on_attach = on_attach,
     capabilities = capabilities,
-    root_dir = util.root_pattern("tsconfig.json", "jsconfig.json"),
-    settings = {
-      -- diagnostics = { ignoredCodes = { 6133 } },
-    },
+    -- settings = {
+    --   diagnostics = { ignoredCodes = { 6133 } },
+    -- },
   })
 
   local ss_ok, schemastore = pcall(require, "schemastore")
