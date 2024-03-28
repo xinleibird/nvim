@@ -28,12 +28,7 @@ local lazy_config = require("core.configs.lazy")
 -- load plugins
 require("lazy").setup({
   {
-    lazy = false,
     import = "core.plugins",
-  },
-
-  {
-    import = "custom.plugins",
   },
 }, lazy_config)
 

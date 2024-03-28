@@ -3,7 +3,8 @@ local M = {
   event = "VimEnter",
   config = function()
     require("virt-column").setup({
-      char = "",
+      -- char = "",
+      char = "▕",
       highlight = "VirtColumn",
     })
 

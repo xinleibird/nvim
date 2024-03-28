@@ -2,11 +2,6 @@ local map = vim.keymap.set
 
 local os = require("utils").detect_os()
 
-local system_alt_key = os == "macos" and "M" or "A"
-if vim.g.neovide then
-  system_alt_key = "D"
-end
-
 -------------------------------------------------------------------------------
 ---[[general]]
 
@@ -70,54 +65,15 @@ map("n", "<leader>W", "<cmd>noautocmd w<CR>", { desc = "Save without formatting"
 map("v", "<", "<gv", { desc = "Indent line forward" })
 map("v", ">", ">gv", { desc = "Indent line backward" })
 
--- quickfix toggle
-map("n", "<C-q>", function()
-  require("utils").quickfix_toggle()
-end, { desc = "Toggle quickfix" })
-
--- loclist toggle
-map("n", "<C-Tab>", function()
-  require("utils").loclist_toggle()
-end, { desc = "Toggle loclist" })
-
--------------------------------------------------------------------------------
----[[bufferline]]
-map("n", "<leader>c", function()
-  require("utils").buf_kill("bd")
-end, { desc = "Close current buffer" })
-
-map("n", "<leader>be", "<cmd>enew<CR>", { desc = "New buffer" })
-
-map("n", "<leader>bb", "<cmd>BufferLineCyclePrev<CR>", { desc = "Goto prev buffer" })
-
-map("n", "<leader>bn", "<cmd>BufferLineCycleNext<CR>", { desc = "Goto next buffer" })
-
-map("n", "<leader>bp", "<cmd>BufferLineCyclePrev<CR>", { desc = "Goto prev buffer" })
-
-map("n", "<leader>bo", "<cmd>BufferLineCloseOthers<CR>", { desc = "Close others buffers" })
-
-map("n", "<leader>bh", "<cmd>BufferLineCloseLeft<CR>", { desc = "Close left buffers" })
-
-map("n", "<leader>bl", "<cmd>BufferLineCloseRight<CR>", { desc = "Close right buffers" })
-
--------------------------------------------------------------------------------
----[[Alpha toggle]]
-map("n", "<leader>;", "<cmd>Alpha<CR>", { desc = "Toggle Alpha" })
-
--------------------------------------------------------------------------------
----[[ToggleTerm]]
-map(
-  { "n", "t" },
-  "<" .. system_alt_key .. "-j>",
-  "<cmd>ToggleTerm<CR>",
-  { desc = "Terminal New horizontal term" }
-)
-
-map("t", "<C-x>", "<C-\\><C-N>", { desc = "Terminal Escape terminal mode" })
-
--------------------------------------------------------------------------------
----[[NvimTree]]
-map("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle NvimTree" })
+-- -- quickfix toggle
+-- map("n", "<C-q>", function()
+--   require("utils").quickfix_toggle()
+-- end, { desc = "Toggle quickfix" })
+--
+-- -- loclist toggle
+-- map("n", "<C-Tab>", function()
+--   require("utils").loclist_toggle()
+-- end, { desc = "Toggle loclist" })
 
 -------------------------------------------------------------------------------
 ---[[Lsp]]
@@ -176,106 +132,3 @@ end, { desc = "Lsp next diagnostic" })
 map("n", "<leader>lq", vim.diagnostic.setqflist, { desc = "Lsp all diagnostic quickfix" })
 
 map("n", "<leader>le", vim.diagnostic.setloclist, { desc = "Lsp buf diagnostic loclist" })
-
-map("n", "<leader>ld", "<cmd>Telescope diagnostics bufnr=0 <CR>", { desc = "Lsp buf diagnostic Telescope" })
-
-map("n", "<leader>lw", "<cmd>Telescope diagnostics<CR>", { desc = "Lsp workspace diagnostic Telescope" })
-
--------------------------------------------------------------------------------
----[[Comment]]
-
-map("n", "<leader>/", function()
-  require("Comment.api").toggle.linewise.current()
-end, { desc = "Toggle comment" })
-
-map(
-  "v",
-  "<leader>/",
-  "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
-  { desc = "Toggle comment" }
-)
-
--------------------------------------------------------------------------------
----[[Telescope]]
-map("n", "<leader>sP", "<cmd>Telescope projects<CR>", { desc = "Search projects" })
-
-map("n", "<leader>sp", "<cmd>Telescope find_files<cr>", { desc = "Search files" })
-
-map(
-  "n",
-  "<leader>sa",
-  "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>",
-  { desc = "Search files contains ignored and hidden" }
-)
-
-map("n", "<leader>st", "<cmd>Telescope live_grep<CR>", { desc = "Search text" })
-
-map("n", "<leader>sc", "<cmd>Telescope grep_string<CR>", { desc = "Search text under cursor" })
-
-map("v", "<leader>sc", "<cmd>Telescope grep_string<CR>", { desc = "Search text visual selected" })
-
-map("n", "<leader>sb", "<cmd>Telescope buffers<CR>", { desc = "Search buffers" })
-
-map("n", "<leader>sh", "<cmd>Telescope help_tags<CR>", { desc = "Search Help page" })
-
-map("n", "<leader>sr", "<cmd>Telescope oldfiles<CR>", { desc = "Search recnet oldfiles" })
-
-map(
-  "n",
-  "<leader>sz",
-  "<cmd>Telescope current_buffer_fuzzy_find<CR>",
-  { desc = "Search current buffer fuzzy" }
-)
-
--------------------------------------------------------------------------------
----[[Neogit]]
-map("n", "<leader>gg", function()
-  local ok, neogit = pcall(require, "neogit")
-  if ok then
-    neogit.open()
-  end
-end, { desc = "Neogit" })
-
--------------------------------------------------------------------------------
----[[GitSigns]]
-map("n", "<leader>go", "<cmd>Telescope git_status<CR>", { desc = "Search changed files" })
-
-map("n", "<leader>gj", function()
-  require("gitsigns").next_hunk()
-end, { desc = "Jump to next hunk", expr = true })
-
-map("n", "<leader>gk", function()
-  require("gitsigns").prev_hunk()
-end, { desc = "Jump to prev hunk", expr = true })
-
-map("n", "]c", function()
-  if vim.wo.diff then
-    return "]c"
-  end
-  vim.schedule(function()
-    require("gitsigns").next_hunk()
-  end)
-  return "<Ignore>"
-end, { desc = "Jump to next hunk", expr = true })
-
-map("n", "[c", function()
-  if vim.wo.diff then
-    return "[c"
-  end
-  vim.schedule(function()
-    require("gitsigns").prev_hunk()
-  end)
-  return "<Ignore>"
-end, { desc = "Jump to prev hunk", expr = true })
-
-map("n", "<leader>gb", function()
-  package.loaded.gitsigns.blame_line()
-end, { desc = "Blame line", expr = true })
-
-map("n", "<leader>gd", function()
-  require("gitsigns").diffthis("", { split = "belowright" })
-end, { desc = "Diff this file", expr = true })
-
--------------------------------------------------------------------------------
----[[Outline]]
-map("n", "<leader>o", "<cmd>Outline<CR>", { desc = "Toggle Outline" })

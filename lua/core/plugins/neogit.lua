@@ -7,6 +7,14 @@ local M = {
     -- "ibhagwan/fzf-lua", -- optional
   },
   event = "VimEnter",
+  init = function()
+    vim.keymap.set("n", "<leader>gg", function()
+      local ok, neogit = pcall(require, "neogit")
+      if ok then
+        neogit.open()
+      end
+    end, { desc = "Neogit" })
+  end,
   config = function()
     local icons = require("core.configs.icons").ui
     require("neogit").setup({
