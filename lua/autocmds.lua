@@ -13,8 +13,15 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("QuitPre", {
   group = vim.api.nvim_create_augroup("user_quit_before_close_windows", { clear = true }),
   callback = function()
-    -- require("dap").repl.close()
-    -- require("dapui").close()
+    local dap_ok, dap = pcall(require, "dap")
+    if dap_ok then
+      dap.repl.close()
+    end
+
+    local dapui_ok, dapui = pcall(require, "dapui")
+    if dapui_ok then
+      dapui.close()
+    end
 
     vim.cmd.cclose()
     vim.cmd.lclose()

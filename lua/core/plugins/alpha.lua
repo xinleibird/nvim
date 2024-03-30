@@ -140,7 +140,7 @@ local M = {
       local footer_skills =
         "            󰟬  󱏿          󰎙      󰜫  󰨞  "
 
-      local version = " "
+      local version = " ver "
         .. vim.version().major
         .. "."
         .. vim.version().minor
@@ -148,8 +148,7 @@ local M = {
         .. vim.version().patch
 
       local lazy_stats = require("lazy").stats()
-      local stats = lazy_stats.loaded .. " / " .. lazy_stats.count
-      local plugins = stats .. " "
+      local plugins = lazy_stats.count .. " plugins "
 
       local padding_width = vim.fn.strdisplaywidth(footer_pacman)
         - vim.fn.strdisplaywidth(version)
