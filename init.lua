@@ -7,36 +7,40 @@ end
 
 -- within Neovide
 if vim.g.neovide then
-  require("neovide")
+  require("local.neovide")
 end
 
--- mapleader
+-- MUST set mapleader **FEFORE** lazy load
 vim.g.mapleader = " "
 
 -- bootstrap lazy and all plugins
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
-if not vim.loop.fs_stat(lazypath) then
-  local repo = "https://github.com/folke/lazy.nvim.git"
-  vim.fn.system({ "git", "clone", "--filter=blob:none", repo, "--branch=stable", lazypath })
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable",
+    lazypath,
+  })
 end
 
 vim.opt.rtp:prepend(lazypath)
-
-local lazy_config = require("core.configs.lazy")
 
 -- load plugins
 require("lazy").setup({
   {
     import = "core.plugins",
   },
-}, lazy_config)
+}, require("core.configs.lazy"))
 
 -- load options
-require("options")
+require("local.options")
 -- load autocmds
-require("autocmds")
+require("local.autocmds")
 -- schedule next tick to load mappings
 vim.schedule(function()
-  require("mappings")
+  require("local.mappings")
 end)

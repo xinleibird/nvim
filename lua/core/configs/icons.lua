@@ -114,18 +114,18 @@ M.git = {
 }
 
 M.devicons = {
-  ["js"] = {
-    icon = "󰌞",
-    name = "Js",
-  },
-  ["ts"] = {
-    icon = "",
-    name = "Ts",
-  },
-  [".prettierrc"] = {
-    icon = "󰰙",
-    name = "PrettierConfig",
-  },
+  -- ["js"] = {
+  --   icon = "󰌞",
+  --   name = "Js",
+  -- },
+  -- ["ts"] = {
+  --   icon = "",
+  --   name = "Ts",
+  -- },
+  -- [".prettierrc"] = {
+  --   icon = "󰰙",
+  --   name = "PrettierConfig",
+  -- },
 }
 
 return M

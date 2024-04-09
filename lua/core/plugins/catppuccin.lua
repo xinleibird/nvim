@@ -85,8 +85,8 @@ local M = {
           -- ToggleTerm background
           ToggleTermBg = { bg = colors.base },
 
-          DevIconJs = { fg = colors.yellow },
-          DevIconTs = { fg = colors.blue },
+          -- DevIconJs = { fg = colors.yellow },
+          -- DevIconTs = { fg = colors.blue },
         }
       end,
       integrations = {
