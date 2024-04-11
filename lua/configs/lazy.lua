@@ -1,4 +1,4 @@
-local icons = require("core.configs.icons")
+local icons = require("configs.icons")
 
 local M = {
   defaults = { lazy = true },

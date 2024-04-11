@@ -16,6 +16,7 @@ local M = {
       "html-lsp",
       "prettier",
       "typescript-language-server",
+      "vtsls",
 
       -- browser debug
       "firefox-debug-adapter",
@@ -52,7 +53,7 @@ local M = {
   end,
 
   opts = function()
-    local icons = require("core.configs.icons")
+    local icons = require("configs.icons")
 
     return {
       ensure_installed = vim.g.mason_ensure_installed,

@@ -63,7 +63,7 @@ local M = {
   end,
   opts = function()
     local actions = require("telescope.actions")
-    local icons = require("core.configs.icons")
+    local icons = require("configs.icons")
     return {
 
       defaults = {

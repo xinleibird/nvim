@@ -5,7 +5,7 @@ local M = {
     vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle NvimTree" })
   end,
   config = function()
-    local icons = require("core.configs.icons")
+    local icons = require("configs.icons")
 
     require("nvim-tree").setup({
       disable_netrw = true,

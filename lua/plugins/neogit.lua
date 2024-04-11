@@ -16,7 +16,7 @@ local M = {
     end, { desc = "Neogit" })
   end,
   config = function()
-    local icons = require("core.configs.icons").ui
+    local icons = require("configs.icons").ui
     require("neogit").setup({
       signs = {
         -- { CLOSED, OPENED }

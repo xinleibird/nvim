@@ -43,7 +43,7 @@ local M = {
     vim.keymap.set("n", "<leader>bl", "<cmd>BufferLineCloseRight<CR>", { desc = "Close right buffers" })
   end,
   opts = function()
-    local icons = require("core.configs.icons")
+    local icons = require("configs.icons")
 
     -- local function diagnostics_indicator(_, level)
     --   local icon = " "

@@ -23,6 +23,7 @@ local M = {
       enable_progress_notifications = true,
       flags = {
         noEmit = true,
+        ---@diagnostic disable-next-line: assign-type-mismatch
         project = function()
           local tsconfig = utils.find_nearest_tsconfig()
           if tsconfig then

@@ -5,7 +5,7 @@ local M = {
     vim.keymap.set("n", "<leader>o", "<cmd>Outline<CR>", { desc = "Toggle Outline" })
   end,
   config = function()
-    local icons = require("core.configs.icons").lspkind
+    local icons = require("configs.icons").lspkind
     require("outline").setup({
       outline_window = {
         position = "right",

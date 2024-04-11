@@ -36,7 +36,7 @@ local M = {
   },
   config = function()
     local cmp = require("cmp")
-    local icons = require("core.configs.icons")
+    local icons = require("configs.icons")
     local lspkind_icons = icons.lspkind
 
     local function border(hl_name)

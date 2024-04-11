@@ -53,7 +53,7 @@ local M = {
       end
     end
 
-    local icons = require("core.configs.icons")
+    local icons = require("configs.icons")
 
     local components = {
       sep = {

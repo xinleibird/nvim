@@ -7,7 +7,7 @@ local M = {
   },
 
   init = function()
-    local icons = require("core.configs.icons")
+    local icons = require("configs.icons")
     local function lspSymbol(name, icon)
       local hl = "DiagnosticSign" .. name
       vim.fn.sign_define(hl, { text = icon, numhl = hl, texthl = hl })
@@ -27,6 +27,7 @@ local M = {
       update_in_insert = false,
     })
   end,
+
   config = function()
     local on_attach = function() end
 
@@ -91,19 +92,29 @@ local M = {
       capabilities = capabilities,
       settings = {
         rulesCustomizations = {
-          { rule = "*", severity = "info" },
+          { rule = "no-unused-vars", severity = "info" },
+          -- { rule = "*", severity = "info" },
         },
       },
     })
 
-    lspconfig.tsserver.setup({
-      on_init = on_init,
-      on_attach = on_attach,
-      capabilities = capabilities,
-      -- settings = {
-      --   diagnostics = { ignoredCodes = { 6133 } },
-      -- },
-    })
+    -- lspconfig.tsserver.setup({
+    --   on_init = on_init,
+    --   on_attach = on_attach,
+    --   capabilities = capabilities,
+    --   -- settings = {
+    --   --   diagnostics = { ignoredCodes = { 6133 } },
+    --   -- },
+    -- })
+
+    -- lspconfig.vtsls.setup({
+    --   on_init = on_init,
+    --   on_attach = on_attach,
+    --   capabilities = capabilities,
+    --   -- settings = {
+    --   --   diagnostics = { ignoredCodes = { 6133 } },
+    --   -- },
+    -- })
 
     local ss_ok, schemastore = pcall(require, "schemastore")
     local ss_json_settings = {}

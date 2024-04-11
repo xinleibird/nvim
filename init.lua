@@ -7,7 +7,7 @@ end
 
 -- within Neovide
 if vim.g.neovide then
-  require("local.neovide")
+  require("configs.neovide")
 end
 
 -- MUST set mapleader **FEFORE** lazy load
@@ -32,15 +32,15 @@ vim.opt.rtp:prepend(lazypath)
 -- load plugins
 require("lazy").setup({
   {
-    import = "core.plugins",
+    import = "plugins",
   },
-}, require("core.configs.lazy"))
+}, require("configs.lazy"))
 
 -- load options
-require("local.options")
+require("configs.options")
 -- load autocmds
-require("local.autocmds")
+require("configs.autocmds")
 -- schedule next tick to load mappings
 vim.schedule(function()
-  require("local.mappings")
+  require("configs.mappings")
 end)
