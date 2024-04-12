@@ -20,6 +20,7 @@ local M = {
         separator = require("configs.icons").ui.ChevronRight,
       },
       theme = "catppuccin", -- catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha
+      exclude_filetypes = { "netrw", "toggleterm" },
     })
 
     vim.api.nvim_create_autocmd({ "BufWinEnter", "CursorHold", "BufModifiedSet" }, {

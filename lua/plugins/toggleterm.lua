@@ -35,6 +35,11 @@ local M = {
           return term.name
         end,
       },
+      on_open = function(term)
+        vim.defer_fn(function()
+          vim.wo[term.window].winbar = ""
+        end, 0)
+      end,
     })
   end,
 }
