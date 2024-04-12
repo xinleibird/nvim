@@ -64,7 +64,6 @@ vim.g.neovide_padding_left = 0
 -- vim.g.neovide_transparency = 0.9
 -- vim.g.neovide_transparency_point = 0.9
 -- vim.g.neovide_background_color = "#1b1b25" .. alpha()
--- vim.g.neovide_window_blurred = true
 
 vim.g.neovide_theme = ""
 -- --+Auto dark mode just for neovide+--
@@ -77,6 +76,7 @@ vim.g.neovide_theme = ""
 -- auto_dark()
 
 -- Blur
+vim.g.neovide_window_blurred = true
 vim.g.neovide_floating_blur_amount_x = 2.0
 vim.g.neovide_floating_blur_amount_y = 2.0
 
@@ -85,6 +85,9 @@ vim.g.neovide_floating_shadow = false
 vim.g.neovide_floating_z_height = 10
 vim.g.neovide_light_angle_degrees = 45
 vim.g.neovide_light_radius = 5
+
+-- Border
+vim.g.neovide_show_border = true
 
 -- Scroll animation duration
 vim.g.neovide_scroll_animation_length = 0.2

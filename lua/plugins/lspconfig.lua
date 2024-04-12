@@ -92,7 +92,7 @@ local M = {
       capabilities = capabilities,
       settings = {
         rulesCustomizations = {
-          { rule = "no-unused-vars", severity = "info" },
+          -- { rule = "no-unused-vars", severity = "info" },
           -- { rule = "*", severity = "info" },
         },
       },

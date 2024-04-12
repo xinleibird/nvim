@@ -82,12 +82,12 @@ vim.api.nvim_create_autocmd("VimLeave", {
 })
 
 -- Fixed qf repl win position and  height
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "dap-repl", "qf" },
-  group = vim.api.nvim_create_augroup("user_set_qf_repl_window", { clear = true }),
-  -- command = "wincmd K|setlocal winfixheight|setlocal nonumber",
-  command = "setlocal winfixheight|setlocal nonumber",
-})
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = { "dap-repl", "qf" },
+--   group = vim.api.nvim_create_augroup("user_set_qf_repl_window", { clear = true }),
+--   -- command = "wincmd K|setlocal winfixheight|setlocal nonumber",
+--   command = "setlocal winfixheight|setlocal nonumber",
+-- })
 
 -- Set formatoptions
 vim.api.nvim_create_autocmd("FileType", {

@@ -91,6 +91,12 @@ local M = {
       end,
       integrations = {
         alpha = true,
+        barbecue = {
+          dim_dirname = true, -- directory name is dimmed by default
+          bold_basename = true,
+          dim_context = false,
+          alt_background = false,
+        },
         cmp = true,
         dap = true,
         dap_ui = true,
@@ -133,6 +139,7 @@ local M = {
             background = true,
           },
         },
+        neogit = true,
         notify = true,
         nvimtree = true,
         symbols_outline = true,
