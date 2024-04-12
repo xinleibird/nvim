@@ -24,7 +24,10 @@ local M = {
 
     vim.api.nvim_create_autocmd({ "BufWinEnter", "CursorHold", "BufModifiedSet" }, {
       group = vim.api.nvim_create_augroup("barbecue.updater", {}),
-      callback = function()
+      callback = function(opts)
+        if vim.bo[opts.buf].filetype == "toggleterm" then
+          return
+        end
         require("barbecue.ui").update()
       end,
     })
