@@ -63,9 +63,12 @@ local M = {
       "bashls",
       "clangd",
       "cssls",
+      "emmet_language_server",
       "gopls",
       "html",
+      -- "tsserver",
       "vimls",
+      "vtsls",
     }
 
     local lspconfig = require("lspconfig")

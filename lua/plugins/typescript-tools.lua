@@ -9,7 +9,7 @@ local M = {
   dependencies = {
     "OlegGulevskyy/better-ts-errors.nvim",
   },
-  -- enabled = false,
+  enabled = false,
   config = function()
     local baseDefinitionHandler = vim.lsp.handlers["textDocument/definition"]
 

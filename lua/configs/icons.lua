@@ -75,8 +75,11 @@ M.ui = {
   DockTop = "󱔓",
   DockBottom = "󱂩",
   Pending = "",
+  Point = "",
   Checked = "",
   Unchecked = "",
+  Stopped = "",
+  Rejected = "",
   Ghost = "󰊠",
   GhostOutline = "󱙝",
   Jellyfish = "󰼁",
@@ -104,6 +107,7 @@ M.ui = {
   Incoming = "",
   Outgoing = "",
   Ellipsis = "…",
+  Emmet = "",
 }
 
 M.git = {

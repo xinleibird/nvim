@@ -13,6 +13,7 @@ local M = {
       "css-lsp",
       "deno",
       "eslint-lsp",
+      "emmet-language-server",
       "html-lsp",
       "prettier",
       "typescript-language-server",

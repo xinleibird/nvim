@@ -85,9 +85,19 @@ local M = {
           icon = " " .. icon .. " "
           item.menu = "   (" .. item.kind .. ")"
           item.kind = icon
+
           if entry.source.name == "nvim_lsp_signature_help" then
             item.kind = " " .. icons.ui.Ghost .. " "
           end
+
+          if entry.source.name == "nvim_lsp" then
+            local debug_name = entry.source:get_debug_name()
+
+            if debug_name == "nvim_lsp:emmet_language_server" then
+              item.kind = " " .. icons.ui.Emmet .. " "
+            end
+          end
+
           return item
         end,
       },
@@ -130,9 +140,9 @@ local M = {
       },
       sources = {
         { name = "nvim_lsp_signature_help", priority = 1000 },
-        { name = "luasnip", priority = 900 },
-        { name = "nvim_lsp", priority = 800 },
-        { name = "nvim_lua", priority = 700 },
+        { name = "nvim_lsp", priority = 900 },
+        { name = "nvim_lua", priority = 800 },
+        { name = "luasnip", priority = 700 },
         { name = "buffer", priority = 600 },
         { name = "path", priority = 500 },
       },

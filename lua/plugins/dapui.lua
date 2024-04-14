@@ -123,21 +123,36 @@ local M = {
 
     local setup_icons = function()
       local sign = vim.fn.sign_define
-      sign("DapBreakpoint", { text = "", numhl = "DapBreakpoint", texthl = "DapBreakpoint" })
+      local icons = require("configs.icons").ui
+      sign("DapBreakpoint", {
+        text = icons.Point,
+        numhl = "DapBreakpoint",
+        texthl = "DapBreakpoint",
+      })
 
-      sign(
-        "DapBreakpointCondition",
-        { text = "●", numhl = "DapBreakpointCondition", texthl = "DapBreakpointCondition" }
-      )
+      sign("DapBreakpointCondition", {
+        text = icons.Point,
+        numhl = "DapBreakpointCondition",
+        texthl = "DapBreakpointCondition",
+      })
 
-      sign("DagLogPoint", { text = "", numhl = "DapLogPoint", texthl = "DapLogPoint" })
+      sign("DagLogPoint", {
+        text = icons.Unchecked,
+        numhl = "DapLogPoint",
+        texthl = "DapLogPoint",
+      })
 
-      sign("DapStopped", { text = "", numhl = "DapStopped", texthl = "DapStopped" })
+      sign("DapStopped", {
+        text = icons.Stopped,
+        numhl = "DapStopped",
+        texthl = "DapStopped",
+      })
 
-      sign(
-        "DapBreakpointRejected",
-        { text = "", numhl = "DapBreakpointRejected", texthl = "DapBreakpointRejected" }
-      )
+      sign("DapBreakpointRejected", {
+        text = icons.Rejected,
+        numhl = "DapBreakpointRejected",
+        texthl = "DapBreakpointRejected",
+      })
     end
 
     local function init_adapters()

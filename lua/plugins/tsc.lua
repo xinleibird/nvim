@@ -1,6 +1,7 @@
 local M = {
   "dmmulroy/tsc.nvim",
   event = "BufRead",
+  enabled = false,
   config = function()
     local utils = require("tsc.utils")
     local function find_nearest_jsconfig()
