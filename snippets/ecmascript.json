@@ -154,19 +154,19 @@
     "description": "For-Await-Of Loop"
   },
   "Log to the console": {
-    "prefix": "log",
+    "prefix": "clog",
     "body": ["console.log($TM_SELECTED_TEXT$1);", "$0"],
     "description": "Log to the console"
   },
   "Log warning to console": {
-    "prefix": "warn",
+    "prefix": "cwarn",
     "body": ["console.warn($TM_SELECTED_TEXT$1);", "$0"],
-    "description": "Log warning to the console"
+    "description": "Warning to the console"
   },
   "Log error to console": {
-    "prefix": "error",
+    "prefix": "cerror",
     "body": ["console.error($TM_SELECTED_TEXT$1);", "$0"],
-    "description": "Log error to the console"
+    "description": "Error to the console"
   },
   "Import Statement": {
     "prefix": "import",

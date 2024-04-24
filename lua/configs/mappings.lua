@@ -101,6 +101,8 @@ map("n", "gs", vim.lsp.buf.signature_help, { desc = "Lsp Go to Signature help" }
 
 map("n", "gR", vim.lsp.buf.rename, { desc = "Lsp Rename" })
 
+map("n", "gl", vim.diagnostic.open_float, { desc = "Lsp Floating diagnostics" })
+
 map("n", "<F2>", vim.lsp.buf.rename, { desc = "Lsp Rename" })
 
 -- map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, { desc = "Lsp Add workspace folder" })

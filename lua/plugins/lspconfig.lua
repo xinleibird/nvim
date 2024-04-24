@@ -60,7 +60,7 @@ local M = {
     }
 
     local servers = {
-      "bashls",
+      -- "bashls",
       "clangd",
       "cssls",
       "emmet_language_server",
@@ -81,6 +81,13 @@ local M = {
         capabilities = capabilities,
       })
     end
+
+    lspconfig.bashls.setup({
+      on_init = on_init,
+      on_attach = on_attach,
+      capabilities = capabilities,
+      filetypes = { "sh", "zsh" },
+    })
 
     lspconfig.denols.setup({
       on_init = on_init,
@@ -165,7 +172,6 @@ local M = {
       capabilities = capabilities,
       settings = {
         Lua = {
-          telemetry = { enable = false },
           runtime = {
             version = "LuaJIT",
             -- path = { "?.lua", "?/init.lua" },
@@ -174,10 +180,15 @@ local M = {
           diagnostics = {
             globals = { "use", "vim" },
           },
+          hint = {
+            enable = true,
+            setType = true,
+          },
+          telemetry = { enable = false },
           workspace = {
             library = {
-              vim.fn.expand("$VIMRUNTIME/lua"),
-              vim.fn.expand("$VIMRUNTIME/lua/vim/lsp"),
+              [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+              [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
               [vim.fn.stdpath("data") .. "/lazy/lazy.nvim/lua/lazy"] = true,
             },
 
