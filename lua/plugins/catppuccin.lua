@@ -89,6 +89,7 @@ local M = {
           -- DevIconTs = { fg = colors.blue },
         }
       end,
+      default_integrations = true,
       integrations = {
         alpha = true,
         barbecue = {
