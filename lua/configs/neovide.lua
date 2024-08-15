@@ -16,10 +16,6 @@ end
 
 -- Fullscreen toggle for neovide
 local function toggle_fullscreen()
-  if vim.g.neovide_fullscreen then
-    vim.opt.lines = 36
-    vim.opt.columns = 122
-  end
   vim.g.neovide_fullscreen = not vim.g.neovide_fullscreen
 end
 
@@ -43,7 +39,7 @@ vim.fn.setenv("LANG", "en_US.UTF-8")
 vim.opt.guifont = "JetBrains_Mono,JetBrainsMono_Nerd_Font_Mono:h14.2:#e-antialias:#h-none"
 
 -- Linespace
-vim.opt.linespace = -1
+-- vim.opt.linespace = -1
 
 -- Scaling font without font size vim.g.neovide_scale_factor = 1.0
 vim.g.neovide_scale_factor = 1.0
@@ -105,13 +101,13 @@ vim.g.neovide_underline_stroke_scale = 1.0
 vim.g.neovide_unlink_border_highlights = true
 
 -- Refresh rate when vide Foreground or Background
-vim.g.neovide_refresh_rate = 60
-vim.g.neovide_refresh_rate_idle = 5
+-- vim.g.neovide_refresh_rate = 60
+-- vim.g.neovide_refresh_rate_idle = 5
 
 -- Force stop idle: always 60 fps
-vim.g.neovide_no_idle = false
+-- vim.g.neovide_no_idle = false
 
--- Quite confirm, but no effect now
+-- Quit confirm, but no effect now
 vim.g.neovide_confirm_quit = true
 
 -- Fullscreen
@@ -125,7 +121,7 @@ vim.g.neovide_profiler = false
 
 --+<INPUT>+--
 -- Keyboard Super Command Option key, macOs default true
-vim.g.neovide_input_macos_alt_is_meta = true
+vim.g.neovide_input_macos_option_key_is_meta = "only_left"
 
 -- Touchpad
 vim.g.neovide_touch_deadzone = 6.0

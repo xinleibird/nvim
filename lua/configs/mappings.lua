@@ -22,15 +22,15 @@ map("c", "<C-a>", "<C-b>", { desc = "Move Beginning of line", remap = true })
 -- esc clear highlights
 map("n", "<Esc>", "<cmd>noh<CR>", { desc = "Clear highlights" })
 
--- quite window
--- map("n", "<leader>q", "<cmd>confirm q<CR>", { desc = "Quite" })
+-- quit window
+-- map("n", "<leader>q", "<cmd>confirm q<CR>", { desc = "Quit" })
 map("n", "<leader>q", function()
   if vim.bo.ft == "TelescopePrompt" then
     vim.cmd("q!")
   else
     vim.cmd("confirm q")
   end
-end, { desc = "Quite" })
+end, { desc = "Quit" })
 
 -- easy paste
 local paste_map = os == "macos" and "<M-v>" or "<C-v>"
@@ -58,7 +58,7 @@ local open_uri_cmd = open_uri_cmds[os]
 map("n", "gx", open_uri_cmd, { desc = "Opening URI with system settings" })
 
 -- save
-map("n", "<leader>w", "<cmd>w!<CR>", { desc = "Save" })
+map("n", "<leader>w", "<cmd>w!<CR>", { desc = "Save WITH formatting" })
 map("n", "<leader>W", "<cmd>noautocmd w<CR>", { desc = "Save WITHOUT formatting" })
 
 -- indent when visual block

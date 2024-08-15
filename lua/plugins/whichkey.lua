@@ -2,17 +2,51 @@ local M = {
   "folke/which-key.nvim",
   keys = { "<leader>", "<c-r>", '"', "'", "g" },
   cmd = "WhichKey",
-  init = function()
-    require("which-key").register({
-      b = { name = "+Buffers" },
-      s = { name = "+Search" },
-      l = { name = "+LSP" },
-      g = { name = "+Git" },
-      t = { name = "+Terminal" },
-      d = { name = "+Debug" },
-    }, { prefix = "<leader>" })
-  end,
+  -- init = function()
+  --   require("which-key").register({
+  --     b = { name = "Buffers" },
+  --     s = { name = "Search" },
+  --     l = { name = "LSP" },
+  --     g = { name = "Git" },
+  --     t = { name = "Terminal" },
+  --     d = { name = "Debug" },
+  --   }, { prefix = "<leader>" })
+  -- end,
   config = function()
+    local wk = require("which-key")
+    local icons = require("configs.icons")
+    wk.add({
+      {
+        "<leader>b",
+        group = "Buffs",
+        icon = "",
+      },
+      {
+        "<leader>s",
+        group = "Search",
+        icon = "",
+      },
+      {
+        "<leader>l",
+        group = "LSP",
+        icon = "󰿘",
+      },
+      {
+        "<leader>g",
+        group = "Git",
+        icon = "",
+      },
+      {
+        "<leader>t",
+        group = "Terminal",
+        icon = "",
+      },
+      {
+        "<leader>d",
+        group = "Debug",
+        icon = "󰨰",
+      },
+    })
     require("which-key").setup({
       plugins = {
         marks = true, -- shows a list of your marks on ' and `

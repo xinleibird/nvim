@@ -5,11 +5,25 @@ local M = {
     vim.keymap.set("n", "<leader>go", "<cmd>Telescope git_status<CR>", { desc = "Search changed files" })
 
     vim.keymap.set("n", "<leader>gj", function()
-      require("gitsigns").next_hunk()
+      vim.schedule(function()
+        require("gitsigns").next_hunk()
+      end)
     end, { desc = "Jump to next hunk", expr = true })
 
     vim.keymap.set("n", "<leader>gk", function()
-      require("gitsigns").prev_hunk()
+      vim.schedule(function()
+        require("gitsigns").prev_hunk()
+      end)
+    end, { desc = "Jump to prev hunk", expr = true })
+
+    vim.keymap.set("n", "[c", function()
+      if vim.wo.diff then
+        return "[c"
+      end
+      vim.schedule(function()
+        require("gitsigns").prev_hunk()
+      end)
+      return "<Ignore>"
     end, { desc = "Jump to prev hunk", expr = true })
 
     vim.keymap.set("n", "]c", function()
@@ -22,16 +36,6 @@ local M = {
       return "<Ignore>"
     end, { desc = "Jump to next hunk", expr = true })
 
-    vim.keymap.set("n", "[c", function()
-      if vim.wo.diff then
-        return "[c"
-      end
-      vim.schedule(function()
-        require("gitsigns").prev_hunk()
-      end)
-      return "<Ignore>"
-    end, { desc = "Jump to prev hunk", expr = true })
-
     vim.keymap.set("n", "<leader>gb", function()
       package.loaded.gitsigns.blame_line()
     end, { desc = "Blame line", expr = true })
@@ -40,6 +44,7 @@ local M = {
       require("gitsigns").diffthis("", { split = "belowright" })
     end, { desc = "Diff this file", expr = true })
   end,
+
   config = function()
     require("gitsigns").setup({
       signs = {

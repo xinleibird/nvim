@@ -31,9 +31,9 @@ local M = {
   config = function()
     local on_attach = function() end
 
-    local on_init = function(client, buf)
+    local on_init = function(client)
       -- semanticTokens 'vim.g.semantic_tokens'
-      if not vim.g["semantic_tokens"] or not vim.b[buf]["semantic_tokens"] then
+      if not vim.g["semantic_tokens"] then
         if client.supports_method("textDocument/semanticTokens") then
           client.server_capabilities.semanticTokensProvider = nil
         end

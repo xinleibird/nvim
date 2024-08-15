@@ -2,25 +2,6 @@ local M = {
   "goolord/alpha-nvim",
   event = "VimEnter",
   init = function()
-    local function rest_colors()
-      local green = vim.g.terminal_color_2
-      local blue = vim.g.terminal_color_4
-      local gray = vim.g.terminal_color_8
-      local black = vim.g.terminal_color_15
-      vim.api.nvim_set_hl(0, "AlphaDashLogoFBlue", { fg = blue })
-      vim.api.nvim_set_hl(0, "AlphaDashLogoFGreenBBlue", { fg = green, bg = blue })
-      vim.api.nvim_set_hl(0, "AlphaDashLogoFGreen", { fg = green })
-      vim.api.nvim_set_hl(0, "AlphaDashLogoFGray", { fg = gray })
-      vim.api.nvim_set_hl(0, "AlphaDashLogoFBlackBold", { fg = black, bold = true })
-    end
-
-    vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
-      group = vim.api.nvim_create_augroup("user_alpha_dashboard_color_init", { clear = true }),
-      callback = function()
-        rest_colors()
-      end,
-    })
-
     vim.api.nvim_create_autocmd("User", {
       pattern = "AlphaReady",
       group = vim.api.nvim_create_augroup("user_enter_alpha_close_bufferline", { clear = true }),
@@ -46,7 +27,7 @@ local M = {
         cursor = 3,
         width = 50,
         align_shortcut = "right",
-        hl_shortcut = "Keyword",
+        hl_shortcut = "AlphaShortcut",
       }
       if keybind then
         keybind_opts = vim.F.if_nil(keybind_opts, { noremap = true, silent = true, nowait = true })
@@ -69,49 +50,8 @@ local M = {
     local function headers()
       return {
         type = "text",
-        val = {
-          [[                 ]],
-          [[                 ]],
-          [[                 ]],
-          [[                 ]],
-          [[                 ]],
-          [[                 ]],
-          [[     █  █     ]],
-          [[     ██ ██     ]],
-          [[     █████     ]],
-          [[     ██ ███     ]],
-          [[     █  █     ]],
-          [[                 ]],
-          [[                 ]],
-          [[N  E  O   V  I  M]],
-          [[                 ]],
-          [[                 ]],
-          [[                 ]],
-        },
-        opts = {
-          position = "center",
-          hl = {
-            { { "", 0, 0 } },
-            { { "", 0, 0 } },
-            { { "", 0, 0 } },
-            { { "", 0, 0 } },
-            { { "", 0, 0 } },
-            { { "", 0, 0 } },
-            { { "AlphaDashLogoFBlue", 6, 8 }, { "AlphaDashLogoFGreen", 9, 22 } },
-            {
-              { "AlphaDashLogoFBlue", 6, 8 },
-              { "AlphaDashLogoFGreenBBlue", 9, 11 },
-              { "AlphaDashLogoFGreen", 12, 24 },
-            },
-            { { "AlphaDashLogoFBlue", 6, 11 }, { "AlphaDashLogoFGreen", 12, 26 } },
-            { { "AlphaDashLogoFBlue", 6, 11 }, { "AlphaDashLogoFGreen", 12, 24 } },
-            { { "AlphaDashLogoFBlue", 6, 11 }, { "AlphaDashLogoFGreen", 12, 22 } },
-            { { "", 0, 0 } },
-            { { "", 0, 0 } },
-            { { "AlphaDashLogoFGray", 0, 8 }, { "AlphaDashLogoFBlackBold", 9, 17 } },
-          },
-          -- wrap = "overflow";
-        },
+        val = require("utils.banner").generate(),
+        opts = { position = "center", hl = "AlphaHeader" },
       }
     end
 
@@ -129,6 +69,7 @@ local M = {
         },
         opts = {
           spacing = 1,
+          hl = "AlphaButtons",
         },
       }
     end
@@ -164,7 +105,7 @@ local M = {
         val = { footer_pacman, footer_skills, footer_summary },
         opts = {
           position = "center",
-          hl = "Number",
+          hl = "AlphaFooter",
         },
       }
     end
