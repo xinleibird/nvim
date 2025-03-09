@@ -52,6 +52,14 @@
         "path": "./php.json"
       },
       {
+        "language": "rust",
+        "path": "./rust.json"
+      },
+      {
+        "language": "rustdoc",
+        "path": "./rustdoc.json"
+      },
+      {
         "language": "swift",
         "path": "./swift.json"
       },

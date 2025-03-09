@@ -75,7 +75,7 @@ vim.api.nvim_create_autocmd("QuitPre", {
   end,
 })
 
--- Leave lvim restore cursor style
+-- Leave nvim restore cursor style
 vim.api.nvim_create_autocmd("VimLeave", {
   pattern = "*",
   command = 'set guicursor= | call chansend(v:stderr, "\x1b[ q")',
@@ -99,6 +99,12 @@ vim.api.nvim_create_autocmd("FileType", {
 -- Close lazy buffer use <esc> and q
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "lazy", "NvimTree" },
+  group = vim.api.nvim_create_augroup("user_add_buf_quit_hotkey", { clear = true }),
+  command = "nnoremap <buffer><silent> <Esc> <CMD>close!<CR>",
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "lazy" },
   group = vim.api.nvim_create_augroup("user_add_buf_quit_hotkey", { clear = true }),
   command = "nnoremap <buffer><silent> <Esc> <CMD>close!<CR>",
 })

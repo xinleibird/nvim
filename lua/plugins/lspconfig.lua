@@ -67,6 +67,7 @@ local M = {
       "gopls",
       "html",
       -- "tsserver",
+      "rust_analyzer",
       "vimls",
       "vtsls",
     }
@@ -74,13 +75,13 @@ local M = {
     local lspconfig = require("lspconfig")
     local util = require("lspconfig.util")
 
-    for _, lsp in ipairs(servers) do
-      lspconfig[lsp].setup({
-        on_init = on_init,
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
-    end
+    -- for _, lsp in ipairs(servers) do
+    --   lspconfig[lsp].setup({
+    --     on_init = on_init,
+    --     on_attach = on_attach,
+    --     capabilities = capabilities,
+    --   })
+    -- end
 
     lspconfig.bashls.setup({
       on_init = on_init,
@@ -106,6 +107,57 @@ local M = {
           -- { rule = "*", severity = "info" },
         },
       },
+    })
+
+    lspconfig.rust_analyzer.setup({
+      on_attach = function(client, bufnr)
+        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+      end,
+      settings = {
+        ["rust-analyzer"] = {
+          checkOnSave = true,
+          check = { command = "clippy", features = "all" },
+          imports = {
+            granularity = {
+              group = "module",
+            },
+            prefix = "self",
+          },
+          cargo = {
+            allFeatures = true,
+            buildScripts = {
+              enable = true,
+            },
+          },
+          procMacro = {
+            enable = true,
+          },
+          -- assist = {
+          --   importGranularity = "module",
+          --   importPrefix = "self",
+          -- },
+          -- diagnostics = {
+          --   enable = true,
+          --   enableExperimental = true,
+          -- },
+          -- cargo = {
+          --   loadOutDirsFromCheck = true,
+          --   features = "all", -- avoid error: file not included in crate hierarchy
+          -- },
+          -- procMacro = {
+          --   enable = true,
+          -- },
+          -- inlayHints = {
+          --   chainingHints = true,
+          --   parameterHints = true,
+          --   typeHints = true,
+          -- },
+        },
+        -- ["rust-analyzer.server.extraEnv"] = { ["RUSTUP_TOOLCHAIN"] = "stable" },
+      },
+      -- on_init = on_init,
+      -- on_attach = on_attach,
+      -- capabilities = capabilities,
     })
 
     -- lspconfig.tsserver.setup({

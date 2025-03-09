@@ -24,21 +24,21 @@ local M = {
       local dapui = require("dapui")
       local dap_virtual_text = require("nvim-dap-virtual-text")
 
-      dap.listeners.before.event_initialized["dapui_config"] = function()
-        local api = require("nvim-tree.api")
-        local view = require("nvim-tree.view")
-        if view.is_visible() then
-          api.tree.close()
-        end
-
-        for _, winnr in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
-          local bufnr = vim.api.nvim_win_get_buf(winnr)
-          if vim.api.nvim_get_option_value("ft", { buf = bufnr }) == "dap-repl" then
-            return
-          end
-        end
-        -- dapui:open()
-      end
+      -- dap.listeners.before.event_initialized["dapui_config"] = function()
+      --   local api = require("nvim-tree.api")
+      --   local view = require("nvim-tree.view")
+      --   if view.is_visible() then
+      --     api.tree.close()
+      --   end
+      --
+      --   for _, winnr in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+      --     local bufnr = vim.api.nvim_win_get_buf(winnr)
+      --     if vim.api.nvim_get_option_value("ft", { buf = bufnr }) == "dap-repl" then
+      --       return
+      --     end
+      --   end
+      --   -- dapui:open()
+      -- end
 
       dap.listeners.after.event_initialized["dapui_config"] = function()
         dapui.open()
@@ -118,7 +118,7 @@ local M = {
 
       vim.keymap.set("n", "<leader>dU", function()
         require("dapui").toggle({ reset = true })
-      end)
+      end, { desc = "Toggle UI" })
     end
 
     local setup_icons = function()
@@ -182,6 +182,12 @@ local M = {
         command = "firefox-debug-adapter",
         type = "executable",
       }
+
+      dap.adapters.lldb = {
+        command = "codelldb",
+        type = "executable",
+        name = "lldb",
+      }
     end
 
     local function init_languages()
@@ -238,6 +244,34 @@ local M = {
           },
         }
       end
+
+      dap.configurations.cpp = {
+        {
+          name = "Launch file",
+          type = "lldb",
+          request = "launch",
+          program = function()
+            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+          end,
+          cwd = "${workspaceFolder}",
+          stopOnEntry = false,
+          args = {},
+        },
+      }
+
+      dap.configurations.rust = {
+        {
+          name = "Launch file",
+          type = "lldb",
+          request = "launch",
+          program = function()
+            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+          end,
+          cwd = "${workspaceFolder}",
+          stopOnEntry = false,
+          args = {},
+        },
+      }
     end
 
     init_dap()

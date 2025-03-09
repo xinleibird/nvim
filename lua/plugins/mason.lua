@@ -36,6 +36,10 @@ local M = {
       "gopls",
       "goimports",
 
+      -- rust stuff
+      "rust-analyzer",
+      "codelldb",
+
       -- vim stuff
       "vim-language-server",
 

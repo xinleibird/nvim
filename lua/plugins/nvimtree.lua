@@ -1,5 +1,6 @@
 local M = {
   "nvim-tree/nvim-tree.lua",
+  enabled = false,
   cmd = { "NvimTreeToggle", "NvimTreeFocus" },
   init = function()
     vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle NvimTree" })

@@ -36,7 +36,7 @@ vim.fn.setenv("LANG", "en_US.UTF-8")
 
 --+<FONT>+--
 -- Font family
-vim.opt.guifont = "JetBrains_Mono,JetBrainsMono_Nerd_Font_Mono:h14.2:#e-antialias:#h-none"
+vim.opt.guifont = "JetBrains_Mono,JetBrainsMono_Nerd_Font_Mono:h13.5:#e-antialias:#h-slight"
 
 -- Linespace
 -- vim.opt.linespace = -1
@@ -62,7 +62,7 @@ vim.g.neovide_padding_left = 0
 -- vim.g.neovide_background_color = "#1b1b25" .. alpha()
 
 vim.g.neovide_theme = ""
--- --+Auto dark mode just for neovide+--
+-- Auto dark mode just for neovide+--
 -- local auto_dark = function()
 --   vim.g.neovide_theme = "auto"
 --   local cmd = "defaults read -g AppleInterfaceStyle 2>/dev/null || echo Light"

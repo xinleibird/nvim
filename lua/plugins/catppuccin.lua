@@ -1,7 +1,7 @@
 local M = {
   "catppuccin/nvim",
   name = "catppuccin",
-  priority = 1000,
+  priority = 10000,
   lazy = false,
   config = function()
     ---@diagnostic disable-next-line: missing-fields
@@ -21,7 +21,7 @@ local M = {
       compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
       transparent_background = false,
       show_end_of_buffer = false, -- show the '~' characters after the end of buffers
-      term_colors = true,
+      term_colors = false,
       dim_inactive = {
         enabled = false,
         shade = "dark",
@@ -79,7 +79,7 @@ local M = {
           -- NvimTree under cursor highlight
           CursorLine = { bg = colors.crust },
 
-          -- NvimTree under cursor highlight
+          -- Telescope under cursor highlight
           TelescopeSelection = { bg = colors.crust },
 
           -- ToggleTerm background
@@ -142,6 +142,7 @@ local M = {
         },
         neogit = true,
         notify = true,
+        neotree = true,
         nvimtree = true,
         symbols_outline = true,
         semantic_tokens = true,

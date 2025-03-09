@@ -46,6 +46,16 @@ local M = {
         group = "Debug",
         icon = "󰨰",
       },
+      {
+        "<leader>w",
+        group = "Save WITH formatting",
+        icon = "",
+      },
+      {
+        "<leader>W",
+        group = "Save WITHOUT formatting",
+        icon = "",
+      },
     })
     require("which-key").setup({
       plugins = {
