@@ -21,10 +21,6 @@
         "path": "./groovy.json"
       },
       {
-        "language": "html",
-        "path": "./html.json"
-      },
-      {
         "language": [
           "javascript",
           "javascriptreact",
