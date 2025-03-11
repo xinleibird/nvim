@@ -1,8 +1,6 @@
 local M = {
   "vimpostor/vim-lumen",
   lazy = false,
-  -- enabled = false,
-
   config = function()
     vim.api.nvim_create_autocmd("User", {
       group = vim.api.nvim_create_augroup("user_lumen_dark_group", { clear = true }),

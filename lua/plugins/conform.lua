@@ -60,9 +60,11 @@ local M = {
         json = { "prettier" },
         jsonc = { "prettier" },
 
-        yaml = { "prettier" },
+        rust = { "rustfmt" },
 
         sh = { "shfmt" },
+
+        yaml = { "prettier" },
         zsh = { "shfmt" },
       },
 

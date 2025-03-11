@@ -1,6 +1,9 @@
 local M = {
   "folke/todo-comments.nvim",
-  dependencies = { "nvim-lua/plenary.nvim" },
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "ibhagwan/fzf-lua",
+  },
   event = "BufRead",
   init = function()
     vim.keymap.set("n", "]t", function()

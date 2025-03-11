@@ -55,6 +55,12 @@ end
 M.quickfix_toggle = function()
   local no_qf = vim.fn.empty(vim.fn.filter(vim.fn.getwininfo(), "v:val.quickfix"))
   if no_qf == 1 then
+    if next(vim.fn.getqflist(0)) == nil then
+      vim.notify("[Quickfix List] empty!", vim.log.levels.INFO, { title = "quickfix" })
+      -- print("[Quickfix List] empty!")
+      return
+    end
+
     -- vim.cmd("rightbelow copen")
     vim.cmd("copen")
   else
@@ -109,6 +115,7 @@ M.buf_kill = function(kill_command, bufnr, force)
   end
 
   local bufname = api.nvim_buf_get_name(bufnr)
+  ---@diagnostic disable-next-line: deprecated
   local buftype = api.nvim_buf_get_option(bufnr, "buftype")
 
   if not force then

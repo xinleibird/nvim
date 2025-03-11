@@ -1,17 +1,9 @@
 local M = {
   "catppuccin/nvim",
   name = "catppuccin",
-  priority = 10000,
+  priority = 1000,
   lazy = false,
   config = function()
-    ---@diagnostic disable-next-line: missing-fields
-    require("nvim-treesitter.configs").setup({
-      highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = false,
-      },
-    })
-
     require("catppuccin").setup({
       -- flavour = "mocha", -- latte, frappe, macchiato, mocha
       background = {
@@ -105,7 +97,6 @@ local M = {
         fidget = true,
         gitsigns = true,
         hop = true,
-        ---@diagnostic disable-next-line: assign-type-mismatch
         illuminate = {
           enabled = true,
           lsp = true,

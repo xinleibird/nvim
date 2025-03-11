@@ -1,9 +1,0 @@
-{
-  "diagnostics.disable": [
-    "missing-fields",
-    "deprecated",
-    "unused-local",
-    "miss-name"
-  ],
-  "diagnostics.globals": ["vim"]
-}

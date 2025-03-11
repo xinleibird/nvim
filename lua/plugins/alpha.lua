@@ -17,7 +17,7 @@ local M = {
     vim.keymap.set("n", "<leader>;", "<cmd>Alpha<CR>", { desc = "Toggle Alpha" })
   end,
 
-  config = function(_, opts)
+  config = function()
     local dashboard = require("alpha.themes.dashboard")
 
     -- helper function for utf8 chars
@@ -53,14 +53,13 @@ local M = {
           end
         end
 
-        ---@diagnostic disable-next-line: param-type-mismatch
         table.insert(dashboard.section.header.opts.hl, highlights)
       end
 
       local function gen_button(sc, txt, keybind, keybind_opts)
         local sc_ = sc:gsub("%s", ""):gsub("Spc", "<leader>")
 
-        local options = {
+        local opts = {
           position = "center",
           shortcut = sc,
           cursor = 3,
@@ -70,7 +69,7 @@ local M = {
         }
         if keybind then
           keybind_opts = vim.F.if_nil(keybind_opts, { noremap = true, silent = true, nowait = true })
-          options.keymap = { "n", sc_, keybind, keybind_opts }
+          opts.keymap = { "n", sc_, keybind, keybind_opts }
         end
 
         local function on_press()
@@ -82,7 +81,7 @@ local M = {
           type = "button",
           val = txt,
           on_press = on_press,
-          opts = options,
+          opts = opts,
         }
       end
 

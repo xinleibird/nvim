@@ -1,20 +1,10 @@
 local M = {
   "folke/which-key.nvim",
   keys = { "<leader>", "<c-r>", '"', "'", "g" },
+  lazy = false,
   cmd = "WhichKey",
-  -- init = function()
-  --   require("which-key").register({
-  --     b = { name = "Buffers" },
-  --     s = { name = "Search" },
-  --     l = { name = "LSP" },
-  --     g = { name = "Git" },
-  --     t = { name = "Terminal" },
-  --     d = { name = "Debug" },
-  --   }, { prefix = "<leader>" })
-  -- end,
   config = function()
     local wk = require("which-key")
-    local icons = require("configs.icons")
     wk.add({
       {
         "<leader>b",

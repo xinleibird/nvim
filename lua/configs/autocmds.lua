@@ -30,6 +30,7 @@ vim.api.nvim_create_autocmd("QuitPre", {
     local floating_wins = {}
     local wins = vim.api.nvim_list_wins()
 
+    ---@diagnostic disable-next-line: deprecated
     local ft = vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(0), "filetype")
     local fts_not_close = {
       "NvimTree",
@@ -56,6 +57,7 @@ vim.api.nvim_create_autocmd("QuitPre", {
         table.insert(tree_wins, w)
       end
 
+      ---@diagnostic disable-next-line: deprecated
       local lft = vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(w), "filetype")
       if lft == "help" then
         table.insert(tree_wins, w)
@@ -97,12 +99,6 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- Close lazy buffer use <esc> and q
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "lazy", "NvimTree" },
-  group = vim.api.nvim_create_augroup("user_add_buf_quit_hotkey", { clear = true }),
-  command = "nnoremap <buffer><silent> <Esc> <CMD>close!<CR>",
-})
-
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "lazy" },
   group = vim.api.nvim_create_augroup("user_add_buf_quit_hotkey", { clear = true }),

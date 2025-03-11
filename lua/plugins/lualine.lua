@@ -167,6 +167,7 @@ local M = {
           end
 
           local client_batch = ""
+          ---@diagnostic disable-next-line: deprecated
           local clients = vim.lsp.get_active_clients({ bufnr = 0 })
 
           for _, client in ipairs(clients) do

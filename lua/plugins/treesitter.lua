@@ -1,6 +1,6 @@
 local M = {
   "nvim-treesitter/nvim-treesitter",
-  event = { "BufReadPost", "BufNewFile" },
+  -- event = { "BufReadPost", "BufNewFile" },
   cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
   build = ":TSUpdate",
   config = function()
@@ -8,6 +8,7 @@ local M = {
       highlight = {
         enable = true,
         use_languagetree = true,
+        -- additional_vim_regex_highlighting = false,
       },
 
       ensure_installed = {

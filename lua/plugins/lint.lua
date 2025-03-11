@@ -12,13 +12,8 @@ local M = {
   end,
   config = function()
     require("lint").linters_by_ft = {
-      -- markdown = {'vale',}
-      -- javascript = { "eslint" },
-      -- javascriptreact = { "eslint" },
-      -- typescript = { "eslint" },
-      -- typescriptreact = { "eslint" },
-
       bash = { "shellcheck" },
+      html = { "htmlhint" },
       zsh = { "shellcheck" },
     }
   end,

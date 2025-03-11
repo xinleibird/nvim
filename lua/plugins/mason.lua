@@ -11,10 +11,10 @@ local M = {
 
       -- web dev stuff
       "css-lsp",
-      "deno",
       "eslint-lsp",
       "emmet-language-server",
       "html-lsp",
+      "htmlhint",
       "prettier",
       "typescript-language-server",
       "vtsls",
@@ -23,18 +23,10 @@ local M = {
       "firefox-debug-adapter",
       "js-debug-adapter",
 
-      -- c/cpp stuff
-      "clangd",
-      "clang-format",
-
       -- shell stuff
       "bash-language-server",
       "shfmt",
       "shellcheck",
-
-      -- go stuff
-      "gopls",
-      "goimports",
 
       -- rust stuff
       "rust-analyzer",

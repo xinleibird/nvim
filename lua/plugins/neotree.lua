@@ -7,7 +7,7 @@ local M = {
     "nvim-lua/plenary.nvim",
     "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
     "MunifTanjim/nui.nvim",
-    -- {"3rd/image.nvim", opts = {}}, -- Optional image support in preview window: See `# Preview Mode` for more information
+    -- { "3rd/image.nvim", opts = {} }, -- Optional image support in preview window: See `# Preview Mode` for more information
   },
 
   config = function()
@@ -71,7 +71,7 @@ local M = {
           folder_closed = icons.ui.Folder,
           folder_open = icons.ui.FolderOpen,
           folder_empty = icons.ui.FolderEmpty,
-          provider = function(icon, node, state) -- default icon provider utilizes nvim-web-devicons if available
+          provider = function(icon, node, _) -- default icon provider utilizes nvim-web-devicons if available
             if node.type == "file" or node.type == "terminal" then
               local success, web_devicons = pcall(require, "nvim-web-devicons")
               local name = node.type == "terminal" and "terminal" or node.name
@@ -155,7 +155,7 @@ local M = {
           ["<2-LeftMouse>"] = "open",
           ["<cr>"] = "open",
           ["<esc>"] = "cancel", -- close preview or floating neo-tree window
-          ["P"] = { "toggle_preview", config = { use_float = true, use_image_nvim = true } },
+          ["P"] = { "toggle_preview", config = { use_float = true, use_image_nvim = false } },
           -- Read `# Preview Mode` for more information
           ["l"] = "focus_preview",
           ["S"] = "open_split",

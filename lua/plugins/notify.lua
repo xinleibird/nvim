@@ -3,7 +3,6 @@ local M = {
   priority = 1000,
   event = "VimEnter",
   config = function()
-    ---@diagnostic disable-next-line: missing-fields
     require("notify").setup({
       render = "default",
       timeout = 2000,

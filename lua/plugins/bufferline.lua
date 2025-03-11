@@ -175,7 +175,6 @@ local M = {
         --- some limitations that will *NOT* be fixed.
         name_formatter = function(buf) -- buf contains a "name", "path" and "bufnr"
           -- remove extension from markdown files for example
-          ---@diagnostic disable: undefined-field
           if buf.name:match("%.md") then
             return vim.fn.fnamemodify(buf.name, ":t:r")
           end

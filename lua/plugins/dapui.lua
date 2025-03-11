@@ -212,20 +212,6 @@ local M = {
             webRoot = "${workspaceFolder}",
           },
           {
-            attachSimplePort = 9229,
-            cwd = "${workspaceFolder}",
-            name = "Launch with Deno",
-            program = "${file}",
-            request = "launch",
-            type = "pwa-node",
-            runtimeArgs = {
-              "run",
-              "--inspect-wait",
-              "--allow-all",
-            },
-            runtimeExecutable = "deno",
-          },
-          {
             cwd = "${workspaceFolder}",
             name = "Launch with Node",
             program = "${file}",
