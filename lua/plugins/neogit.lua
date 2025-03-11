@@ -25,9 +25,6 @@ local M = {
         section = { icons.ArrowClosed, icons.ArrowOpen },
       },
     })
-
-    local events = require("neo-tree.events")
-    events.fire_event(events.GIT_EVENT)
   end,
 }
 
