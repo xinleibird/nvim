@@ -45,56 +45,6 @@ local M = {
   opts = function()
     local icons = require("configs.icons")
 
-    -- local function diagnostics_indicator(_, level)
-    --   local icon = " "
-    --
-    --   if level:match("error") then
-    --     icon = icons.diagnostics.Error
-    --   end
-    --   if level:match("warn") then
-    --     icon = icons.diagnostics.Warning
-    --   end
-    --   if level:match("info") then
-    --     icon = icons.diagnostics.Info
-    --   end
-    --   if level:match("hint") then
-    --     icon = icons.diagnostics.Hint
-    --   end
-    --
-    --   return " " .. icon
-    -- end
-
-    -- local function diagnostics_indicator(_, _, diagnostics, _)
-    --   local symbols = {
-    --     error = icons.diagnostics.Error,
-    --     warning = icons.diagnostics.Warning,
-    --     info = icons.diagnostics.Info,
-    --     hint = icons.diagnostics.Hint,
-    --   }
-    --
-    --   local errors = ""
-    --   local warnings = ""
-    --   local infos = ""
-    --   local hints = ""
-    --
-    --   for name, count in pairs(diagnostics) do
-    --     if name == "error" then
-    --       errors = symbols[name] .. " " .. count .. " "
-    --     end
-    --     if name == "warning" then
-    --       warnings = symbols[name] .. " " .. count .. " "
-    --     end
-    --     if name == "info" then
-    --       infos = symbols[name] .. " " .. count .. " "
-    --     end
-    --     if name == "hint" then
-    --       hints = symbols[name] .. " " .. count .. " "
-    --     end
-    --   end
-    --
-    --   return errors .. warnings .. infos .. hints
-    -- end
-
     local function is_ft(b, ft)
       return vim.bo[b].filetype == ft
     end
@@ -199,11 +149,20 @@ local M = {
               text = " " .. icons.ui.Clock .. " " .. vim.fn.strftime("%H:%M") .. " ",
               link = "@text.warning",
             }
-            table.insert(result, clock)
 
-            local tree_ok, api = pcall(require, "nvim-tree.api")
+            local alpha_ok, _ = pcall(require, "alpha")
+            if alpha_ok then
+              table.insert(result, clock)
+            end
+
+            local tree_ok, _ = pcall(require, "neo-tree")
             if tree_ok then
-              if api.tree.is_visible() then
+              local manager = require("neo-tree.sources.manager")
+              local renderer = require("neo-tree.ui.renderer")
+              local state = manager.get_state("filesystem")
+              local window_exists = renderer.window_exists(state)
+
+              if window_exists then
                 table.insert(result, { text = " " .. icons.ui.DockLeft .. " ", link = "@text" })
               else
                 table.insert(result, { text = " " .. icons.ui.DockLeft .. " ", link = "@comment" })
@@ -278,6 +237,12 @@ local M = {
           {
             filetype = "mason",
             text = "Mason",
+            highlight = "PanelHeading",
+            padding = 0,
+          },
+          {
+            filetype = "Outline",
+            text = "Outline",
             highlight = "PanelHeading",
             padding = 0,
           },
