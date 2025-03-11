@@ -1,8 +1,7 @@
 local M = {
   "nvim-neo-tree/neo-tree.nvim",
   branch = "v3.x",
-  event = "VimEnter",
-  -- lazy = false,
+  lazy = false,
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
@@ -348,17 +347,6 @@ local M = {
     })
 
     vim.keymap.set("n", "<leader>e", "<Cmd>Neotree toggle<CR>")
-
-    vim.api.nvim_create_autocmd("User", {
-      group = vim.api.nvim_create_augroup("user_neogit_refresh_neotree", { clear = true }),
-      pattern = "NeogitStatusRefreshed",
-      desc = "Handle git events for neo-tree",
-      callback = function()
-        require("neo-tree.sources.filesystem.commands").refresh(
-          require("neo-tree.sources.manager").get_state("filesystem")
-        )
-      end,
-    })
   end,
 }
 
