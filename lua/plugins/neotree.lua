@@ -354,11 +354,9 @@ local M = {
       pattern = "NeogitStatusRefreshed",
       desc = "Handle git events for neo-tree",
       callback = function()
-        -- require("neo-tree.sources.filesystem.commands").refresh(
-        --   require("neo-tree.sources.manager").get_state("filesystem")
-        -- )
-        local events = require("neo-tree.events")
-        events.fire_event(events.GIT_EVENT)
+        require("neo-tree.sources.filesystem.commands").refresh(
+          require("neo-tree.sources.manager").get_state("filesystem")
+        )
       end,
     })
   end,
