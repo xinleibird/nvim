@@ -350,9 +350,13 @@ local M = {
     vim.keymap.set("n", "<leader>e", "<Cmd>Neotree toggle<CR>")
 
     vim.api.nvim_create_autocmd("User", {
-      pattern = "NeogitStatusRefreshed",
       group = vim.api.nvim_create_augroup("user_neogit_refresh_neotree", { clear = true }),
+      pattern = "NeogitStatusRefreshed",
+      desc = "Handle git events for neo-tree",
       callback = function()
+        -- require("neo-tree.sources.filesystem.commands").refresh(
+        --   require("neo-tree.sources.manager").get_state("filesystem")
+        -- )
         local events = require("neo-tree.events")
         events.fire_event(events.GIT_EVENT)
       end,
