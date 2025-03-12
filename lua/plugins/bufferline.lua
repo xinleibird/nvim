@@ -75,9 +75,25 @@ local M = {
     end
 
     local ok, catppuccin_integrations = pcall(require, "catppuccin.groups.integrations.bufferline")
-
+    local mocha = require("catppuccin.palettes").get_palette("mocha")
+    local latte = require("catppuccin.palettes").get_palette("latte")
     return {
-      highlights = ok and catppuccin_integrations.get() or {},
+      highlights = ok
+          and catppuccin_integrations.get({
+            styles = { "italic", "bold" },
+            custom = {
+              -- all = {
+              --   fill = { bg = "#000000" },
+              -- },
+              mocha = {
+                background = { fg = mocha.text },
+              },
+              latte = {
+                background = { fg = latte.text },
+              },
+            },
+          })
+        or {},
       options = {
         mode = "buffers", -- set to "tabs" to only show tabpages instead
         numbers = "none", -- can be "none" | "ordinal" | "buffer_id" | "both" | function

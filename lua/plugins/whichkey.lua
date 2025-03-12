@@ -46,7 +46,91 @@ local M = {
         group = "Save WITHOUT formatting",
         icon = "",
       },
+      {
+        "<leader>e",
+        group = "NeoTree toggle",
+        icon = "󱂪",
+      },
+      {
+        "<leader>o",
+        group = "Outline toggle",
+        icon = "󱂫",
+      },
+      {
+        "<leader>",
+        group = "Leader",
+        icon = "",
+      },
+      {
+        "<C-w>",
+        group = "Diagnostics",
+        icon = "",
+      },
+      {
+        "[",
+        group = "Jump previous",
+        icon = "󱞧",
+      },
+      {
+        "]",
+        group = "Jump next",
+        icon = "󱞫",
+      },
+      {
+        "g",
+        group = "General action",
+        icon = "󰆾",
+      },
+      {
+        "<F2>",
+        group = "Rename",
+        icon = "",
+      },
+      {
+        "<ESC>",
+        group = "Clear highlight",
+        icon = "󱜟",
+      },
+      {
+        "c",
+        group = "Clear insert",
+        icon = "󱂨",
+      },
+      {
+        "d",
+        group = "Delete normal",
+        icon = "󱂨",
+      },
+      {
+        "y",
+        group = "Yank",
+        icon = "",
+      },
+      {
+        "<M-p>",
+        group = "Move to Previous reference",
+        icon = "",
+      },
+      {
+        "<M-n>",
+        group = "Move to Next reference",
+        icon = "",
+      },
+      {
+        "s",
+        group = "Flash",
+        icon = "󰻹",
+      },
+      {
+        "Y",
+        icon = "",
+      },
+      {
+        "&",
+        icon = "󰮚",
+      },
     })
+
     require("which-key").setup({
       plugins = {
         marks = true, -- shows a list of your marks on ' and `

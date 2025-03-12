@@ -124,19 +124,4 @@ M.git = {
   LineRemoved = "",
 }
 
-M.devicons = {
-  -- ["js"] = {
-  --   icon = "󰌞",
-  --   name = "Js",
-  -- },
-  -- ["ts"] = {
-  --   icon = "",
-  --   name = "Ts",
-  -- },
-  -- [".prettierrc"] = {
-  --   icon = "󰰙",
-  --   name = "PrettierConfig",
-  -- },
-}
-
 return M
