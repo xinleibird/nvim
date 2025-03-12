@@ -28,8 +28,8 @@ local M = {
       },
       {
         "<leader>t",
-        group = "Terminal",
-        icon = "",
+        group = "Translate",
+        icon = "󰗊",
       },
       {
         "<leader>d",
