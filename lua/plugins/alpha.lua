@@ -108,7 +108,7 @@ local M = {
     dashboard.opts.layout[4] = buttons()
     dashboard.opts.layout[5] = footers()
 
-    require("utils.banner").generate(dashboard)
+    require("utils.header").generate(dashboard)
 
     require("alpha").setup(dashboard.opts)
   end,

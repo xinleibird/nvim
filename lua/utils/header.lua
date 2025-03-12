@@ -145,6 +145,7 @@ M.generate_grey = function(dashboard)
     },
   }
   dashboard.section.header.val = banners[math.random(1, #banners)]
+  dashboard.section.header.opts = { position = "center", hl = "AlphaHeader" }
 end
 
 local generate_color_avater = function(dashboard)

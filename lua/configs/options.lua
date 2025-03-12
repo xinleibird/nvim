@@ -6,6 +6,7 @@ vim.cmd.colorscheme("catppuccin")
 vim.o.laststatus = 3
 vim.o.showmode = false
 
+-- clipboard
 vim.o.clipboard = ""
 
 -- indenting
