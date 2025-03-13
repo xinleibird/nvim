@@ -25,6 +25,8 @@ vim.keymap.set("n", "<Esc>", "<cmd>noh<CR>", { desc = "Clear highlights" })
 vim.keymap.set("n", "<leader>q", function()
   if vim.bo.ft == "TelescopePrompt" then
     vim.cmd("q!")
+  elseif vim.bo.ft == "checkhealth" then
+    vim.cmd("bd")
   else
     vim.cmd("confirm q")
   end

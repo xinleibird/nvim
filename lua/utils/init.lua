@@ -55,12 +55,6 @@ end
 M.quickfix_toggle = function()
   local no_qf = vim.fn.empty(vim.fn.filter(vim.fn.getwininfo(), "v:val.quickfix"))
   if no_qf == 1 then
-    if next(vim.fn.getqflist(0)) == nil then
-      vim.notify("[Quickfix List] empty!", vim.log.levels.INFO, { title = "quickfix" })
-      -- print("[Quickfix List] empty!")
-      return
-    end
-
     -- vim.cmd("rightbelow copen")
     vim.cmd("copen")
   else
@@ -72,11 +66,10 @@ M.loclist_toggle = function()
   local no_ll = vim.fn.empty(vim.fn.filter(vim.fn.getwininfo(), "v:val.loclist"))
   if no_ll == 1 then
     if next(vim.fn.getloclist(0)) == nil then
-      vim.notify("[Location List] empty!", vim.log.levels.INFO, { title = "loclist" })
-      -- print("[Location List] empty!")
+      vim.notify("loclist empty!", vim.log.levels.INFO, { title = "loclist" })
+      -- print("loclist empty!")
       return
     end
-
     -- vim.cmd("rightbelow lopen")
     vim.cmd("lopen")
   else
