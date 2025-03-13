@@ -1,7 +1,8 @@
 local M = {
-  "utilyre/barbecue.nvim",
+  "BrunoKrugel/bbq.nvim",
   name = "barbecue",
   version = "*",
+  -- enabled = false,
   dependencies = {
     "SmiteshP/nvim-navic",
     "nvim-tree/nvim-web-devicons", -- optional dependency
@@ -20,11 +21,21 @@ local M = {
         separator = require("configs.icons").ui.ChevronRight,
       },
       theme = "catppuccin", -- catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha
-      exclude_filetypes = { "netrw", "toggleterm" },
+      exclude_filetypes = {
+        "netrw",
+        "toggleterm",
+        "NeogitStatus",
+      },
     })
 
-    vim.api.nvim_create_autocmd({ "BufWinEnter", "CursorHold", "BufModifiedSet" }, {
-      group = vim.api.nvim_create_augroup("barbecue.updater", {}),
+    vim.api.nvim_create_autocmd({
+      "WinScrolled",
+      "BufWinEnter",
+      "CursorHold",
+      "InsertLeave",
+      "BufModifiedSet",
+    }, {
+      group = vim.api.nvim_create_augroup("barbecue.updater", { clear = true }),
       callback = function(opts)
         if vim.bo[opts.buf].filetype == "toggleterm" then
           return
