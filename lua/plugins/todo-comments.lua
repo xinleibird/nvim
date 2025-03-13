@@ -12,7 +12,7 @@ local M = {
 
     vim.keymap.set("n", "[t", function()
       require("todo-comments").jump_prev()
-    end, { desc = "Previous todo comment" })
+    end, { desc = "Prev todo comment" })
   end,
   opts = {
     signs = true, -- show icons in the signs column

@@ -68,7 +68,7 @@ local M = {
       },
       {
         "[",
-        group = "Jump previous",
+        group = "Jump prev",
         icon = "󱞧",
       },
       {
@@ -108,12 +108,12 @@ local M = {
       },
       {
         "<M-p>",
-        group = "Move to Previous reference",
+        group = "Move to prev reference",
         icon = "",
       },
       {
         "<M-n>",
-        group = "Move to Next reference",
+        group = "Move to next reference",
         icon = "",
       },
       {
@@ -128,6 +128,10 @@ local M = {
       {
         "&",
         icon = "󰮚",
+      },
+      {
+        "<leader>sz",
+        icon = "󰊄",
       },
     })
 

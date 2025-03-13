@@ -12,54 +12,39 @@ local M = {
   },
   cmd = "Telescope",
   init = function()
-    vim.keymap.set("n", "<leader>sP", "<cmd>Telescope projects<CR>", { desc = "Search projects" })
+    vim.keymap.set("n", "<leader>sP", "<cmd>Telescope projects<CR>", { desc = "Recent projects" })
 
-    vim.keymap.set("n", "<leader>sp", "<cmd>Telescope find_files<cr>", { desc = "Search files" })
+    vim.keymap.set("n", "<leader>sp", "<cmd>Telescope find_files<cr>", { desc = "Files" })
 
     vim.keymap.set(
       "n",
       "<leader>sa",
       "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>",
-      { desc = "Search files contains ignored and hidden" }
+      { desc = "Files include ignored and hidden" }
     )
 
-    vim.keymap.set("n", "<leader>st", "<cmd>Telescope live_grep<CR>", { desc = "Search text" })
+    vim.keymap.set("n", "<leader>st", "<cmd>Telescope live_grep<CR>", { desc = "Live grep" })
 
-    vim.keymap.set("n", "<leader>sc", "<cmd>Telescope grep_string<CR>", { desc = "Search text under cursor" })
+    vim.keymap.set("n", "<leader>sc", "<cmd>Telescope grep_string<CR>", { desc = "Text under cursor" })
 
-    vim.keymap.set(
-      "v",
-      "<leader>sc",
-      "<cmd>Telescope grep_string<CR>",
-      { desc = "Search text visual selected" }
-    )
+    vim.keymap.set("v", "<leader>sc", "<cmd>Telescope grep_string<CR>", { desc = "Text visual selected" })
 
-    vim.keymap.set("n", "<leader>sb", "<cmd>Telescope buffers<CR>", { desc = "Search buffers" })
+    vim.keymap.set("n", "<leader>sb", "<cmd>Telescope buffers<CR>", { desc = "Buffers" })
 
-    vim.keymap.set("n", "<leader>sh", "<cmd>Telescope help_tags<CR>", { desc = "Search Help page" })
+    vim.keymap.set("n", "<leader>sh", "<cmd>Telescope help_tags<CR>", { desc = "Help pages" })
 
-    vim.keymap.set("n", "<leader>sr", "<cmd>Telescope oldfiles<CR>", { desc = "Search recnet oldfiles" })
+    vim.keymap.set("n", "<leader>sr", "<cmd>Telescope oldfiles<CR>", { desc = "Recent files" })
 
     vim.keymap.set(
       "n",
       "<leader>sz",
       "<cmd>Telescope current_buffer_fuzzy_find<CR>",
-      { desc = "Search current buffer fuzzy" }
+      { desc = "Current buffer" }
     )
 
-    vim.keymap.set(
-      "n",
-      "<leader>ld",
-      "<cmd>Telescope diagnostics bufnr=0 <CR>",
-      { desc = "Lsp buf diagnostic Telescope" }
-    )
+    vim.keymap.set("n", "<leader>ld", "<cmd>Telescope diagnostics bufnr=0 <CR>", { desc = "Buf diagnostic" })
 
-    vim.keymap.set(
-      "n",
-      "<leader>lw",
-      "<cmd>Telescope diagnostics<CR>",
-      { desc = "Lsp workspace diagnostic Telescope" }
-    )
+    vim.keymap.set("n", "<leader>lw", "<cmd>Telescope diagnostics<CR>", { desc = "Workspace diagnostic" })
   end,
   opts = function()
     local actions = require("telescope.actions")

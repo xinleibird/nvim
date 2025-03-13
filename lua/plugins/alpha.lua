@@ -14,7 +14,7 @@ local M = {
       command = "set showtabline=2|set laststatus=3",
     })
 
-    vim.keymap.set("n", "<leader>;", "<cmd>Alpha<CR>", { desc = "Toggle Alpha" })
+    vim.keymap.set("n", "<leader>;", "<cmd>Alpha<CR>", { desc = "Toggle dashboard" })
   end,
 
   config = function()

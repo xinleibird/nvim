@@ -3,7 +3,7 @@ local M = {
   event = "VimEnter",
   opts = {
     indent = { char = "▏", highlight = "IblIndent" },
-    scope = { char = "▏", highlight = "IblScope" },
+    scope = { char = "▏", highlight = "IblScope", show_start = false, show_end = false },
     whitespace = { highlight = "IblWhitespace" },
   },
   config = function(_, opts)

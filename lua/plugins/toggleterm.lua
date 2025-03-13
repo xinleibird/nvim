@@ -8,9 +8,9 @@ local M = {
       maps = "<D-j>"
     end
 
-    vim.keymap.set({ "n", "t" }, maps, "<cmd>ToggleTerm<CR>", { desc = "Terminal New horizontal term" })
+    vim.keymap.set({ "n", "t" }, maps, "<cmd>ToggleTerm<CR>", { desc = "New horizontal term" })
 
-    vim.keymap.set("t", "<C-x>", "<C-\\><C-N>", { desc = "Terminal Escape terminal mode" })
+    vim.keymap.set("t", "<C-x>", "<C-\\><C-N>", { desc = "Escape terminal mode" })
   end,
   config = function()
     require("toggleterm").setup({

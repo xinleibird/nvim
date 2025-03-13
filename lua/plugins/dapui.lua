@@ -24,22 +24,6 @@ local M = {
       local dapui = require("dapui")
       local dap_virtual_text = require("nvim-dap-virtual-text")
 
-      -- dap.listeners.before.event_initialized["dapui_config"] = function()
-      --   local api = require("nvim-tree.api")
-      --   local view = require("nvim-tree.view")
-      --   if view.is_visible() then
-      --     api.tree.close()
-      --   end
-      --
-      --   for _, winnr in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
-      --     local bufnr = vim.api.nvim_win_get_buf(winnr)
-      --     if vim.api.nvim_get_option_value("ft", { buf = bufnr }) == "dap-repl" then
-      --       return
-      --     end
-      --   end
-      --   -- dapui:open()
-      -- end
-
       dap.listeners.after.event_initialized["dapui_config"] = function()
         dapui.open()
         dap_virtual_text.refresh()
@@ -82,7 +66,7 @@ local M = {
 
       vim.keymap.set("n", "<leader>dC", function()
         dap.run_to_cursor()
-      end, { desc = "Run to Cursor" })
+      end, { desc = "Run to cursor" })
 
       vim.keymap.set("n", "<leader>dd", function()
         dap.disconnect()
@@ -94,23 +78,23 @@ local M = {
 
       vim.keymap.set("n", "<leader>di", function()
         dap.step_into()
-      end, { desc = "Step Into" })
+      end, { desc = "Step into" })
 
       vim.keymap.set("n", "<leader>do", function()
         dap.step_over()
-      end, { desc = "Step Over" })
+      end, { desc = "Step over" })
 
       vim.keymap.set("n", "<leader>du", function()
         dap.step_out()
-      end, { desc = "Step oUt" })
+      end, { desc = "Step out" })
 
       vim.keymap.set("n", "<leader>dp", function()
         dap.pause()
-      end, { desc = "Step Pause" })
+      end, { desc = "Step pause" })
 
       vim.keymap.set("n", "<leader>dr", function()
         dap.repl.toggle({ height = 7 }, "lefta split")
-      end, { desc = "Step Repl toggle" })
+      end, { desc = "Step repl toggle" })
 
       vim.keymap.set("n", "<leader>dq", function()
         dap.close()

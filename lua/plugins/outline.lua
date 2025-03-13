@@ -2,7 +2,7 @@ local M = {
   "hedyhli/outline.nvim",
   event = "VimEnter",
   init = function()
-    vim.keymap.set("n", "<leader>o", "<cmd>Outline<CR>", { desc = "Toggle Outline" })
+    vim.keymap.set("n", "<leader>o", "<cmd>Outline<CR>", { desc = "Toggle outline" })
   end,
   config = function()
     local icons = require("configs.icons").lspkind

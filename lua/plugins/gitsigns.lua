@@ -2,39 +2,39 @@ local M = {
   "lewis6991/gitsigns.nvim",
   event = "BufRead",
   init = function()
-    vim.keymap.set("n", "<leader>go", "<cmd>Telescope git_status<CR>", { desc = "Search changed files" })
+    vim.keymap.set("n", "<leader>go", "<cmd>Telescope git_status<CR>", { desc = "Git status" })
 
     vim.keymap.set("n", "<leader>gj", function()
       vim.schedule(function()
-        require("gitsigns").next_hunk()
+        require("gitsigns").nav_hunk("next")
       end)
-    end, { desc = "Jump to next hunk", expr = true })
+    end, { desc = "Next hunk", expr = true })
 
     vim.keymap.set("n", "<leader>gk", function()
       vim.schedule(function()
-        require("gitsigns").prev_hunk()
+        require("gitsigns").nav_hunk("prev")
       end)
-    end, { desc = "Jump to prev hunk", expr = true })
+    end, { desc = "Prev hunk", expr = true })
 
-    vim.keymap.set("n", "[c", function()
+    vim.keymap.set("n", "[g", function()
       if vim.wo.diff then
-        return "[c"
+        return "[g"
       end
       vim.schedule(function()
-        require("gitsigns").prev_hunk()
+        require("gitsigns").nav_hunk("prev")
       end)
       return "<Ignore>"
-    end, { desc = "Jump to prev hunk", expr = true })
+    end, { desc = "Prev hunk", expr = true })
 
-    vim.keymap.set("n", "]c", function()
+    vim.keymap.set("n", "]g", function()
       if vim.wo.diff then
-        return "]c"
+        return "]g"
       end
       vim.schedule(function()
-        require("gitsigns").next_hunk()
+        require("gitsigns").nav_hunk("next")
       end)
       return "<Ignore>"
-    end, { desc = "Jump to next hunk", expr = true })
+    end, { desc = "Next hunk", expr = true })
 
     vim.keymap.set("n", "<leader>gb", function()
       package.loaded.gitsigns.blame_line()
@@ -42,7 +42,7 @@ local M = {
 
     vim.keymap.set("n", "<leader>gd", function()
       require("gitsigns").diffthis("", { split = "belowright" })
-    end, { desc = "Diff this file", expr = true })
+    end, { desc = "Diff this", expr = true })
   end,
 
   config = function()

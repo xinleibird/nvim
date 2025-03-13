@@ -1,14 +1,9 @@
 local M = {
   "saghen/blink.cmp",
-  build = "cargo build --release",
-  dependencies = {
-    {
-      "hrsh7th/nvim-cmp",
-      config = function()
-        require("cmp").setup({})
-      end,
-    },
-  },
+  -- use a release tag to download pre-built binaries
+  version = "*",
+  -- or build it yourself
+  -- build = "cargo build --release",
   opts = {
     keymap = {
       preset = "default",
@@ -46,7 +41,14 @@ local M = {
       nerd_font_variant = "mono",
     },
     sources = {
+      default = { "lazydev", "lsp", "path", "snippets", "buffer" },
       providers = {
+        lazydev = {
+          name = "LazyDev",
+          module = "lazydev.integrations.blink",
+          -- make lazydev completions top priority (see `:h blink.cmp`)
+          score_offset = 100,
+        },
         snippets = {
           should_show_items = function(ctx)
             return ctx.trigger.initial_kind ~= "trigger_character"
@@ -61,6 +63,7 @@ local M = {
           --   return before_cursor:match(">$") == nil and after_cursor:match("^<") == nil
           -- end,
           transform_items = function(_, items)
+            -- NOTE: Filter html-ls completion
             return vim.tbl_filter(function(item)
               return item.client_name ~= "html"
             end, items)

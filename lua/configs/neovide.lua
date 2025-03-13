@@ -19,16 +19,16 @@ local function toggle_fullscreen()
   vim.g.neovide_fullscreen = not vim.g.neovide_fullscreen
 end
 
-local OS = vim.loop.os_uname().sysname
+local OS = vim.uv.os_uname().sysname
 
 if OS == "Darwin" then
   vim.keymap.set("n", "<D-C-f>", function()
     toggle_fullscreen()
-  end, { noremap = true, desc = "Neovide Toggle Fullscreen" })
+  end, { noremap = true, desc = "Neovide toggle fullscreen" })
 else
   vim.keymap.set("n", "<M-C-f>", function()
     toggle_fullscreen()
-  end, { noremap = true, desc = "Neovide Toggle Fullscreen" })
+  end, { noremap = true, desc = "Neovide toggle fullscreen" })
 end
 
 -- Set $LANG variable for no login environment

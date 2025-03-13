@@ -5,8 +5,8 @@ local M = {
     vim.api.nvim_create_autocmd({ "VimEnter", "DirChanged" }, {
       group = vim.api.nvim_create_augroup("user_detect_git_when_dir_changed", { clear = true }),
       callback = function()
-        local git_path = vim.loop.cwd() .. "/.git"
-        local _, err = vim.loop.fs_stat(git_path)
+        local git_path = vim.uv.cwd() .. "/.git"
+        local _, err = vim.uv.fs_stat(git_path)
         vim.g.cwd_is_git = true
 
         if err then
