@@ -68,7 +68,7 @@ local M = {
           CmpPmenu = { bg = colors.mantle },
           CmpSel = { link = "PmenuSel", bold = true },
 
-          -- NvimTree under cursor highlight
+          -- NeoTree under cursor highlight
           CursorLine = { bg = colors.crust },
 
           -- Telescope under cursor highlight
@@ -139,7 +139,6 @@ local M = {
         neotree = true,
         notify = true,
         nvim_surround = true,
-        nvimtree = true,
         symbols_outline = true,
         semantic_tokens = true,
         telescope = {

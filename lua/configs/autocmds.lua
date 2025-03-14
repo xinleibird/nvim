@@ -33,7 +33,7 @@ vim.api.nvim_create_autocmd("QuitPre", {
     ---@diagnostic disable-next-line: deprecated
     local ft = vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(0), "filetype")
     local fts_not_close = {
-      "NvimTree",
+      "neo-tree",
       "Outline",
       "TelescopePrompt",
       "alpha",
@@ -49,11 +49,7 @@ vim.api.nvim_create_autocmd("QuitPre", {
 
     for _, w in ipairs(wins) do
       local bufname = vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(w))
-      if
-        bufname:match("NvimTree_") ~= nil
-        or bufname:match("OUTLINE_") ~= nil
-        or bufname:match("Trouble") ~= nil
-      then
+      if bufname:find("neo-tree") ~= nil or bufname:match("") ~= nil or bufname:match("Trouble") ~= nil then
         table.insert(tree_wins, w)
       end
 

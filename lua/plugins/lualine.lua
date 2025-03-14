@@ -69,10 +69,10 @@ local M = {
         "mode",
         fmt = function(mode)
           if mode == "NORMAL" then
-            return icons.ui.Ghost .. " " .. string.format("%-7s", mode)
+            return icons.ui.Ghost .. "  " .. string.format("%-8s", mode)
           end
 
-          return icons.ui.GhostOutline .. " " .. string.format("%-7s", mode)
+          return icons.ui.GhostOutline .. "  " .. string.format("%-8s", mode)
         end,
         separator = { left = " ", right = "" },
         padding = { left = 0, right = 0 },
@@ -102,8 +102,8 @@ local M = {
       filename = {
         "filename",
         fmt = function(filename)
-          if filename:match("NvimTree_") then
-            filename = "NvimTree"
+          if filename:find("filesystem") then
+            filename = "NeoTree"
           end
 
           if filename:match("OUTLINE_") then

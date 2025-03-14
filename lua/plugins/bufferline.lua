@@ -218,14 +218,6 @@ local M = {
             padding = 0,
           },
           {
-            filetype = "NvimTree",
-            text = "Explorer",
-            -- text_align = "left",
-            highlight = "PanelHeading",
-            padding = 0,
-            -- separator = true, -- use a "true" to enable the default, or set your own character
-          },
-          {
             filetype = "neo-tree",
             text = "Explorer",
             -- text_align = "left",

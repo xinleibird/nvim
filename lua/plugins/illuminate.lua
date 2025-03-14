@@ -18,7 +18,6 @@ local M = {
       -- filetypes_denylist: filetypes to not illuminate, this overrides filetypes_allowlist
       filetypes_denylist = {
         "DressingSelect",
-        "NvimTree",
         "Outline",
         "TelescopePrompt",
         "Trouble",
@@ -27,8 +26,11 @@ local M = {
         "fugitive",
         "help",
         "lazy",
+        "mason",
         "lir",
         "neogitstatus",
+        "gitcommit",
+        "neo-tree",
         "spectre_panel",
         "toggleterm",
         "",
