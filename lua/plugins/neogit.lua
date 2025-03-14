@@ -30,9 +30,10 @@ local M = {
       group = vim.api.nvim_create_augroup("user_neogit_refresh_neotree", { clear = true }),
       pattern = "NeogitStatusRefreshed",
       desc = "Handle git events for neo-tree",
-      once = false,
-      callback = function(state)
-        require("neo-tree.sources.manager").refresh(state.name)
+      callback = function()
+        require("neo-tree.sources.filesystem.commands").refresh(
+          require("neo-tree.sources.manager").get_state("filesystem")
+        )
       end,
     })
   end,
