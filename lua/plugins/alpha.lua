@@ -74,6 +74,8 @@ local M = {
       local footer_skills =
         "            󰟬  󱏿          󰎙      󰜫  󰨞  "
 
+      dashboard.section.footer.opts.hl = "AlphaFooter"
+
       local version = " ver "
         .. vim.version().major
         .. "."
@@ -108,7 +110,15 @@ local M = {
     dashboard.opts.layout[4] = buttons()
     dashboard.opts.layout[5] = footers()
 
-    require("utils.header").generate(dashboard)
+    math.randomseed(os.time())
+    local num = math.random(1, 3)
+    if num == 1 then
+      require("utils.header").generate_small_logo(dashboard)
+    elseif num == 2 then
+      require("utils.header").generate_big_logo(dashboard)
+    else
+      require("utils.header").generate_grey_logo(dashboard)
+    end
 
     require("alpha").setup(dashboard.opts)
   end,

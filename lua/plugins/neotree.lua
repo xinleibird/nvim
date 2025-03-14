@@ -1,14 +1,24 @@
 local M = {
   "nvim-neo-tree/neo-tree.nvim",
   branch = "v3.x",
-  lazy = false,
+  event = "VimEnter",
   dependencies = {
     "nvim-lua/plenary.nvim",
     { "nvim-tree/nvim-web-devicons", commit = "92833cd" }, -- not strictly required, but recommended
     "MunifTanjim/nui.nvim",
     -- { "3rd/image.nvim", opts = {} }, -- Optional image support in preview window: See `# Preview Mode` for more information
   },
-
+  init = function()
+    vim.api.nvim_create_autocmd("User", {
+      pattern = "AlphaReady",
+      once = true,
+      group = vim.api.nvim_create_augroup(
+        "user_enter_alpha_init_neotree_bufferline_custom_areas",
+        { clear = true }
+      ),
+      command = "Neotree close",
+    })
+  end,
   config = function()
     local icons = require("configs.icons")
 

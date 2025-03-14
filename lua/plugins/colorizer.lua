@@ -3,6 +3,7 @@ local M = {
   event = "BufRead",
   config = function()
     require("colorizer").setup({
+      "lua",
       "css",
       "scss",
       "sass",

@@ -1,6 +1,6 @@
 local M = {
   "akinsho/bufferline.nvim",
-  branch = "main",
+  version = "*",
   dependencies = {
     {
       "tiagovla/scope.nvim",
