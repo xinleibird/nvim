@@ -27,24 +27,12 @@ local M = {
     })
 
     vim.api.nvim_create_autocmd("User", {
-      group = vim.api.nvim_create_augroup("user_neogit_open_neotree", { clear = true }),
-      pattern = "NeogitStatusRefreshed",
-      desc = "Handle git events for neo-tree",
-      once = true,
-      callback = function()
-        vim.cmd("Neotree toggle")
-      end,
-    })
-
-    vim.api.nvim_create_autocmd("User", {
       group = vim.api.nvim_create_augroup("user_neogit_refresh_neotree", { clear = true }),
       pattern = "NeogitStatusRefreshed",
       desc = "Handle git events for neo-tree",
       once = false,
-      callback = function()
-        require("neo-tree.sources.filesystem.commands").refresh(
-          require("neo-tree.sources.manager").get_state("filesystem")
-        )
+      callback = function(state)
+        require("neo-tree.sources.manager").refresh(state.name)
       end,
     })
   end,
