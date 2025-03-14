@@ -28,6 +28,24 @@ local M = {
     vim.fn.sign_define("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticSignInfo" })
     vim.fn.sign_define("DiagnosticSignHint", { text = "󰌵", texthl = "DiagnosticSignHint" })
 
+    local inputs = require("neo-tree.ui.inputs")
+    -- Trash the target
+    local function trash(state)
+      local node = state.tree:get_node()
+      if node.type == "message" then
+        return
+      end
+      local _, name = require("neo-tree.utils").split_path(node.path)
+      local msg = string.format("Are you sure you want to trash '%s'?", name)
+      inputs.confirm(msg, function(confirmed)
+        if not confirmed then
+          return
+        end
+        vim.api.nvim_command("silent !trash -F " .. node.path)
+        require("neo-tree.sources.manager").refresh(state)
+      end)
+    end
+
     require("neo-tree").setup({
       close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
       popup_border_style = "single",
@@ -268,10 +286,10 @@ local M = {
             ["."] = "set_root",
             ["H"] = "toggle_hidden",
             ["/"] = "fuzzy_finder",
-            ["D"] = "fuzzy_finder_directory",
+            -- ["D"] = "fuzzy_finder_directory",
+            ["D"] = "trash",
             ["#"] = "fuzzy_sorter", -- fuzzy sorting using the fzy algorithm
-            -- ["D"] = "fuzzy_sorter_directory",
-            ["f"] = "filter_on_submit",
+            ["f"] = "",
             ["<c-x>"] = "clear_filter",
             ["[g"] = "prev_git_modified",
             ["]g"] = "next_git_modified",
@@ -299,7 +317,9 @@ local M = {
           },
         },
 
-        commands = {}, -- Add a custom command or override a global one using the same function name
+        commands = {
+          trash = trash,
+        }, -- Add a custom command or override a global one using the same function name
       },
       buffers = {
         follow_current_file = {
