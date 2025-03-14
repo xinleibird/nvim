@@ -112,6 +112,7 @@ local M = {
 
     math.randomseed(os.time())
     local num = math.random(1, 3)
+
     if num == 1 then
       require("utils.header").generate_small_logo(dashboard)
     elseif num == 2 then
