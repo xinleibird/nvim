@@ -72,22 +72,6 @@ local M = {
   end,
 
   opts = function()
-    local json_settings = {
-      json = {
-        schemas = require("schemastore").json.schemas(),
-        validate = { enable = true },
-      },
-    }
-    local yaml_settings = {
-      yaml = {
-        schemaStore = {
-          enable = false,
-          url = "",
-        },
-        schemas = require("schemastore").yaml.schemas(),
-      },
-    }
-
     return {
       servers = {
         bashls = {
@@ -105,7 +89,12 @@ local M = {
         },
         html = {},
         jsonls = {
-          settings = json_settings,
+          settings = {
+            json = {
+              schemas = require("schemastore").json.schemas(),
+              validate = { enable = true },
+            },
+          },
         },
         -- use lazydev configurations
         lua_ls = {},
@@ -152,7 +141,16 @@ local M = {
           -- },
         },
         yamlls = {
-          settings = yaml_settings,
+          settings = {
+
+            yaml = {
+              schemaStore = {
+                enable = false,
+                url = "",
+              },
+              schemas = require("schemastore").yaml.schemas(),
+            },
+          },
         },
       },
     }

@@ -87,13 +87,13 @@ local M = {
           horizontal = {
             prompt_position = "top",
             preview_width = 0.55,
-            results_width = 0.8,
+            results_width = 0.9,
           },
           vertical = {
             mirror = false,
           },
-          width = 0.80,
-          height = 0.80,
+          width = 0.90,
+          height = 0.90,
           preview_cutoff = 120,
         },
         file_sorter = require("telescope.sorters").get_fuzzy_file,
@@ -159,7 +159,7 @@ local M = {
         buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
         mappings = {
           i = {
-            ["<D-v>"] = { "<C-r>+", type = "command" },
+            ["<D-v>"] = { "<C-r>+", type = "command" }, -- yank (paste) text
             ["<C-u>"] = false,
 
             ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,

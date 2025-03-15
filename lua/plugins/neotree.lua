@@ -26,7 +26,7 @@ local M = {
     vim.fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticSignError" })
     vim.fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticSignWarn" })
     vim.fn.sign_define("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticSignInfo" })
-    vim.fn.sign_define("DiagnosticSignHint", { text = "󰌵", texthl = "DiagnosticSignHint" })
+    vim.fn.sign_define("DiagnosticSignHint", { text = "󰌵 ", texthl = "DiagnosticSignHint" })
 
     local inputs = require("neo-tree.ui.inputs")
     -- Trash the target
@@ -150,16 +150,19 @@ local M = {
           width = 10, -- width of the column
           required_width = 122, -- min width of window required to show this column
         },
+        ---@diagnostic disable-next-line: missing-fields
         last_modified = {
           enabled = true,
           width = 20, -- width of the column
           required_width = 88, -- min width of window required to show this column
         },
+        ---@diagnostic disable-next-line: missing-fields
         created = {
           enabled = true,
           width = 20, -- width of the column
           required_width = 110, -- min width of window required to show this column
         },
+        ---@diagnostic disable-next-line: missing-fields
         symlink_target = {
           enabled = false,
         },
@@ -279,7 +282,7 @@ local M = {
         -- "open_current",  -- netrw disabled, opening a directory opens within the
         -- window like netrw would, regardless of window.position
         -- "disabled",    -- netrw left alone, neo-tree does not handle opening dirs
-        use_libuv_file_watcher = false, -- This will use the OS level file watchers to detect changes
+        use_libuv_file_watcher = true, -- This will use the OS level file watchers to detect changes
         -- instead of relying on nvim autocmd events.
         window = {
           mappings = {

@@ -133,6 +133,29 @@ local M = {
         "<leader>sz",
         icon = "󰊄",
       },
+      {
+        "z",
+        icon = "",
+        group = "Fold",
+      },
+      {
+        "s",
+        icon = "󱖲",
+      },
+      {
+        "S",
+        icon = "󱖳",
+      },
+      {
+        "<D-j>",
+        icon = "",
+        group = "Toggle term",
+      },
+      {
+        "<M-j>",
+        icon = "",
+        group = "Toggle term",
+      },
     })
 
     require("which-key").setup({

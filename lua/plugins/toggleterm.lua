@@ -3,12 +3,15 @@ local M = {
   event = "VimEnter",
   version = "*",
   init = function()
-    local maps = "<M-j>"
-    if vim.g.neovide then
-      maps = "<D-j>"
+    local function get_map()
+      if vim.g.neovide then
+        return "<D-j>"
+      else
+        return "<M-j>"
+      end
     end
 
-    vim.keymap.set({ "n", "t" }, maps, "<cmd>ToggleTerm<CR>", { desc = "New horizontal term" })
+    vim.keymap.set({ "n", "t" }, get_map(), "<cmd>ToggleTerm<CR>", { desc = "Horizontal term" })
 
     vim.keymap.set("t", "<C-x>", "<C-\\><C-N>", { desc = "Escape terminal mode" })
   end,

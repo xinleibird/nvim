@@ -9,10 +9,10 @@ vim.keymap.set("i", "<C-l>", "<Right>", { desc = "Move right" })
 vim.keymap.set("i", "<C-j>", "<Down>", { desc = "Move down" })
 vim.keymap.set("i", "<C-k>", "<Up>", { desc = "Move up" })
 
-vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Window left" })
-vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Window right" })
-vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Window down" })
-vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Window up" })
+vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Jump left Window" })
+vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Jump right Window" })
+vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Jump down Window" })
+vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Jump up Window" })
 
 -- remap start of line
 vim.keymap.set("c", "<C-a>", "<C-b>", { desc = "Move beginning of line", remap = true })
