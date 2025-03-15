@@ -20,19 +20,19 @@ Inside Neovim, use the cmd command to install.
 
 - Install all plugins use [lazy.nvim](https://github.com/folke/lazy.nvim):
 
-```
+```vim
 :Lazy sync
 ```
 
 - Install all Lsp, Formatter, Linter and debug adapter:
 
-```
+```vim
 :MasonInstallAll
 ```
 
 - To update plugins:
 
-```
+```vim
 :Lazy sync
 
 ```

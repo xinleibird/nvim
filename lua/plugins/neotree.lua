@@ -41,7 +41,7 @@ local M = {
         if not confirmed then
           return
         end
-        vim.api.nvim_command("silent !trash -F " .. node.path)
+        vim.api.nvim_command("silent !trash " .. node.path)
         require("neo-tree.sources.manager").refresh(state)
       end)
     end
@@ -98,6 +98,7 @@ local M = {
           folder_closed = icons.ui.Folder,
           folder_open = icons.ui.FolderOpen,
           folder_empty = icons.ui.FolderEmpty,
+          folder_empty_open = icons.ui.FolderEmptyOpen,
           provider = function(icon, node, _) -- default icon provider utilizes nvim-web-devicons if available
             if node.type == "file" or node.type == "terminal" then
               local success, web_devicons = pcall(require, "nvim-web-devicons")
