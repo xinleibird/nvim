@@ -1,7 +1,7 @@
 -- enable vim-plugin just for VSCode-Neovim
 if vim.g.vscode then
   vim.cmd.runtime("./vim/plug.vim")
-  vim.cmd.runtime("./vscode.vim")
+  vim.cmd.runtime("./vim/vscode.vim")
   return -- in vscode stop load
 end
 

@@ -27,6 +27,8 @@ vim.keymap.set("n", "<leader>q", function()
     vim.cmd("q!")
   elseif vim.bo.ft == "checkhealth" then
     vim.cmd("bd")
+  elseif vim.bo.ft == "qf" then
+    vim.cmd("cclose")
   else
     vim.cmd("confirm q")
   end

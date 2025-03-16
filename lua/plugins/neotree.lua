@@ -150,19 +150,16 @@ local M = {
           width = 10, -- width of the column
           required_width = 122, -- min width of window required to show this column
         },
-        ---@diagnostic disable-next-line: missing-fields
         last_modified = {
           enabled = true,
           width = 20, -- width of the column
           required_width = 88, -- min width of window required to show this column
         },
-        ---@diagnostic disable-next-line: missing-fields
         created = {
           enabled = true,
           width = 20, -- width of the column
           required_width = 110, -- min width of window required to show this column
         },
-        ---@diagnostic disable-next-line: missing-fields
         symlink_target = {
           enabled = false,
         },

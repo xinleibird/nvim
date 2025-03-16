@@ -8,6 +8,7 @@ local M = {
     {
       "nvim-telescope/telescope-fzf-native.nvim",
       build = "make",
+      event = "BufRead",
     },
   },
   cmd = "Telescope",
@@ -50,7 +51,6 @@ local M = {
     local actions = require("telescope.actions")
     local icons = require("configs.icons")
     return {
-
       defaults = {
         preview = {
           filetype_hook = function(_, bufnr, opts)
@@ -187,7 +187,6 @@ local M = {
           },
         },
       },
-
       extensions_list = {
         "fzf",
         "projects",
