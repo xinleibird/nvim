@@ -248,13 +248,6 @@ local M = {
             highlight = "PanelHeading",
             padding = 0,
           },
-          {
-            filetype = "Outline",
-            text = "Outline",
-            highlight = "PanelHeading",
-            padding = 0,
-            separator = true, -- use a "true" to enable the default, or set your own character
-          },
         },
       },
     }

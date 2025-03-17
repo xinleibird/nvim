@@ -12,6 +12,7 @@ local M = {
     end
 
     vim.keymap.set({ "n", "t" }, get_map(), "<cmd>ToggleTerm<CR>", { desc = "Horizontal term" })
+    vim.keymap.set({ "n", "t" }, "<leader>t", "<cmd>ToggleTerm<CR>", { desc = "Horizontal term" })
 
     vim.keymap.set("t", "<C-x>", "<C-\\><C-N>", { desc = "Escape terminal mode" })
   end,
@@ -42,6 +43,18 @@ local M = {
         vim.defer_fn(function()
           vim.wo[term.window].winbar = ""
         end, 0)
+
+        local name = vim.fn.bufname("neo-tree")
+        local winnr = vim.fn.bufwinnr(name)
+
+        if winnr ~= -1 then
+          vim.defer_fn(function()
+            local cmd = string.format("Neotree toggle")
+            vim.cmd(cmd)
+            vim.cmd(cmd)
+            vim.cmd("wincmd p")
+          end, 100)
+        end
       end,
     })
   end,

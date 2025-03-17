@@ -28,8 +28,8 @@ local M = {
       },
       {
         "<leader>t",
-        group = "Translate",
-        icon = "󰗊",
+        group = "Terminal",
+        icon = "",
       },
       {
         "<leader>d",
@@ -60,11 +60,6 @@ local M = {
         "<leader>",
         group = "Leader",
         icon = "",
-      },
-      {
-        "<C-w>",
-        group = "Diagnostics",
-        icon = "",
       },
       {
         "[",
@@ -156,6 +151,29 @@ local M = {
         icon = "",
         group = "Toggle term",
       },
+      {
+        "<C-w>",
+        icon = "",
+        group = "Windows",
+      },
+      {
+        "<C-w>d",
+        group = "Diagnostics under cursor",
+      },
+      {
+        "<C-w><C-d>",
+        group = "Diagnostics under cursor",
+      },
+      {
+        "<leader>wj",
+        icon = "",
+        group = "Windows jump",
+      },
+      {
+        ",",
+        icon = "",
+        group = "Windows jump",
+      },
     })
 
     require("which-key").setup({
@@ -172,7 +190,7 @@ local M = {
           operators = false, -- adds help for operators like d, y, ...
           motions = false, -- adds help for motions
           text_objects = false, -- help for text objects triggered after entering an operator
-          windows = false, -- default bindings on <c-w>
+          windows = true, -- default bindings on <c-w>
           nav = false, -- misc bindings to work with windows
           z = false, -- bindings for folds, spelling and others prefixed with z
           g = false, -- bindings for prefixed with g
