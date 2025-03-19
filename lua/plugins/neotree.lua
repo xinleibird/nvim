@@ -73,61 +73,67 @@ local M = {
       nesting_rules = {},
       -- hide_root_node = true,
       -- retain_hidden_root_indent = true,
-
-      close_if_last_window = true,
+      close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
       popup_border_style = "single",
-      sort_function = nil,
-
+      sort_function = nil, -- use a custom function for sorting files and directories in the tree
       default_component_configs = {
         indent = {
           with_markers = false,
-          with_expanders = true,
+          expander_collapsed = "",
+          expander_expanded = "",
+        },
+        diagnostics = {
+          symbols = {
+            hint = icons.diagnostics.Hint,
+            info = icons.diagnostics.Info,
+            warn = icons.diagnostics.Warning,
+            error = icons.diagnostics.Error,
+          },
         },
         icon = {
           folder_closed = icons.ui.Folder,
           folder_open = icons.ui.FolderOpen,
           folder_empty = icons.ui.FolderEmpty,
           folder_empty_open = icons.ui.FolderEmptyOpen,
+          default = "*",
         },
         modified = {
-          symbol = "", -- (default "[+]")
+          symbol = "", --"[+]",
         },
         git_status = {
           symbols = {
+            -- Change type
+            added = "", -- or "✚", but this is redundant info if you use git_status_colors on the name
+            modified = "", -- or "", but this is redundant info if you use git_status_colors on the name
             deleted = icons.git.Deleted,
             renamed = icons.git.Renamed,
+            -- Status type
             untracked = icons.git.Untracked,
             ignored = icons.git.Ignored,
             unstaged = icons.git.Unstaged,
             staged = icons.git.Staged,
+            conflict = "",
           },
         },
       },
-
+      commands = {},
       window = {
         width = 30,
         mappings = {
-          P = {
-            "toggle_preview",
-            config = { use_float = true, use_image_nvim = false },
-          },
+          ["P"] = { "toggle_preview", config = { use_float = true, use_image_nvim = false } },
         },
       },
-
       filesystem = {
-        use_libuv_file_watcher = true,
+        hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
+        use_libuv_file_watcher = true, -- This will use the OS level file watchers to detect changes
         window = {
           mappings = {
-            D = "trash",
+            ["D"] = "trash",
           },
         },
         commands = {
           trash = trash,
         },
-      },
-
-      buffers = {
-        show_unloaded = true,
       },
     })
   end,
