@@ -24,6 +24,8 @@ vim.keymap.set("n", "<leader>q", function()
     vim.cmd("bd")
   elseif vim.bo.ft == "qf" then
     vim.cmd("cclose")
+  elseif vim.bo.ft == "NeogitStatus" then
+    vim.cmd("close")
   else
     vim.cmd("confirm q")
   end

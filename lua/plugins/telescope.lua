@@ -10,41 +10,57 @@ local M = {
       build = "make",
       event = "BufRead",
     },
+    {
+      "ahmedkhalf/project.nvim",
+      -- install the latest stable version
+      config = function()
+        require("project_nvim").setup({
+          manual_mode = true,
+          patterns = {
+            ".bzr",
+            ".git",
+            ".gitignore",
+            ".hg",
+            ".prettierrc",
+            ".prettierrc.*",
+            ".svn",
+            "Cargo.lock",
+            "Cargo.toml",
+            "Makefile",
+            "_darcs",
+            "build",
+            "go.mod",
+            "package.json",
+            "pom.xml",
+          },
+          datapath = vim.fn.stdpath("state"),
+        })
+      end,
+    },
   },
   cmd = "Telescope",
   init = function()
     vim.keymap.set("n", "<leader>sP", "<cmd>Telescope projects<CR>", { desc = "Recent projects" })
-
     vim.keymap.set("n", "<leader>sp", "<cmd>Telescope find_files<cr>", { desc = "Files" })
-
     vim.keymap.set(
       "n",
       "<leader>sa",
       "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>",
       { desc = "Files include ignored and hidden" }
     )
-
     vim.keymap.set("n", "<leader>st", "<cmd>Telescope live_grep<CR>", { desc = "Live grep" })
-
     vim.keymap.set("n", "<leader>sc", "<cmd>Telescope grep_string<CR>", { desc = "Text under cursor" })
-
     vim.keymap.set("v", "<leader>sc", "<cmd>Telescope grep_string<CR>", { desc = "Text visual selected" })
-
     vim.keymap.set("n", "<leader>sb", "<cmd>Telescope buffers<CR>", { desc = "Buffers" })
-
     vim.keymap.set("n", "<leader>sh", "<cmd>Telescope help_tags<CR>", { desc = "Help pages" })
-
     vim.keymap.set("n", "<leader>sr", "<cmd>Telescope oldfiles<CR>", { desc = "Recent files" })
-
     vim.keymap.set(
       "n",
       "<leader>sz",
       "<cmd>Telescope current_buffer_fuzzy_find<CR>",
       { desc = "Current buffer" }
     )
-
     vim.keymap.set("n", "<leader>ld", "<cmd>Telescope diagnostics bufnr=0 <CR>", { desc = "Buf diagnostic" })
-
     vim.keymap.set("n", "<leader>lw", "<cmd>Telescope diagnostics<CR>", { desc = "Workspace diagnostic" })
   end,
   opts = function()

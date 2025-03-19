@@ -34,5 +34,4 @@ Inside Neovim, use the cmd command to install.
 
 ```vim
 :Lazy sync
-
 ```
