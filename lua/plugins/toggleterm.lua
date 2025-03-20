@@ -28,10 +28,6 @@ local M = {
         SignColumn = {
           link = "ToggleTermBg",
         },
-        -- FloatBorder = {
-        --   guifg = "<VALUE-HERE>",
-        --   guibg = "<VALUE-HERE>",
-        -- },
       },
       winbar = {
         enabled = false,
@@ -39,23 +35,22 @@ local M = {
           return term.name
         end,
       },
-      -- on_open = function(term)
-      --   vim.defer_fn(function()
-      --     vim.wo[term.window].winbar = ""
-      --   end, 0)
-      --
-      --   local name = vim.fn.bufname("neo-tree")
-      --   local winnr = vim.fn.bufwinnr(name)
-      --
-      --   if winnr ~= -1 then
-      --     vim.defer_fn(function()
-      --       local cmd = string.format("Neotree toggle")
-      --       vim.cmd(cmd)
-      --       vim.cmd(cmd)
-      --       vim.cmd("wincmd p")
-      --     end, 100)
-      --   end
-      -- end,
+      on_open = function(term)
+        vim.defer_fn(function()
+          vim.wo[term.window].winbar = ""
+        end, 0)
+
+        local name = vim.fn.bufname("neo-tree")
+        local winnr = vim.fn.bufwinnr(name)
+
+        if winnr ~= -1 then
+          vim.defer_fn(function()
+            vim.cmd("Neotree toggle")
+            vim.cmd("Neotree toggle")
+            vim.cmd("wincmd p")
+          end, 100)
+        end
+      end,
     })
   end,
 }

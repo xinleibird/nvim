@@ -55,6 +55,7 @@ local M = {
 
           IblScope = { fg = colors.surface2 },
 
+          WinSeparator = { fg = colors.mantle },
           VirtColumn = { fg = colors.mantle },
 
           OutlineDetails = { link = "Comment" },

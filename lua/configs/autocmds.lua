@@ -31,11 +31,11 @@ vim.api.nvim_create_autocmd("FileType", {
   command = "setlocal formatoptions-=o",
 })
 
--- Close lazy buffer use <esc> and q
+-- Close lazy buffer q
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "lazy" },
+  pattern = { "toggleterm", "qf" },
   group = vim.api.nvim_create_augroup("user_add_buf_quit_hotkey", { clear = true }),
-  command = "nnoremap <buffer><silent> <Esc> <CMD>close!<CR>",
+  command = "nnoremap <buffer><silent> q <CMD>close!<CR>",
 })
 
 vim.api.nvim_create_autocmd({ "QuitPre" }, {

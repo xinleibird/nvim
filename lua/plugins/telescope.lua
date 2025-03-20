@@ -178,24 +178,25 @@ local M = {
             ["<D-v>"] = { "<C-r>+", type = "command" }, -- yank (paste) text
             ["<C-u>"] = false,
 
-            ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
+            -- ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
+            ["<C-q>"] = actions.send_to_qflist,
 
-            ["<C-S-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+            ["<C-S-q>"] = actions.send_selected_to_qflist,
 
-            ["<C-tab>"] = actions.send_to_loclist + actions.open_loclist,
+            ["<C-tab>"] = actions.send_to_loclist,
 
-            ["<C-S-tab>"] = actions.send_selected_to_loclist + actions.open_loclist,
+            ["<C-S-tab>"] = actions.send_selected_to_loclist,
 
             ["<M-q>"] = false,
           },
           n = {
-            ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
+            ["<C-q>"] = actions.send_to_qflist,
 
-            ["<C-S-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+            ["<C-S-q>"] = actions.send_selected_to_qflist,
 
-            ["<C-tab>"] = actions.send_to_loclist + actions.open_loclist,
+            ["<C-tab>"] = actions.send_to_loclist,
 
-            ["<C-S-tab>"] = actions.send_selected_to_loclist + actions.open_loclist,
+            ["<C-S-tab>"] = actions.send_selected_to_loclist,
 
             ["<M-q>"] = false,
 

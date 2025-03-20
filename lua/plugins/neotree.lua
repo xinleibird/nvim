@@ -29,8 +29,7 @@ local M = {
   },
 
   init = function()
-    -- vim.keymap.set("n", "<leader>e", "<Cmd>Neotree toggle<CR>")
-    vim.keymap.set("n", "<leader>e", "<Cmd>Neotree reveal<CR>")
+    vim.keymap.set("n", "<leader>e", "<Cmd>Neotree toggle reveal<CR>")
 
     vim.api.nvim_create_autocmd("User", {
       pattern = "AlphaReady",
@@ -116,7 +115,6 @@ local M = {
           },
         },
       },
-      commands = {},
       window = {
         width = 30,
         mappings = {
