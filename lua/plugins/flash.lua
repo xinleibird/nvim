@@ -24,7 +24,7 @@ local M = {
   -- stylua: ignore
   keys = {
     { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-    { "<C-s>", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+    { "<C-s>", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash treesitter" },
   },
 }
 

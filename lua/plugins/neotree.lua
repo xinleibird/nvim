@@ -7,25 +7,6 @@ local M = {
     "nvim-tree/nvim-web-devicons",
     "MunifTanjim/nui.nvim",
     -- { "3rd/image.nvim", opts = {} }, -- Optional image support in preview window: See `# Preview Mode` for more information
-    {
-      "s1n7ax/nvim-window-picker", -- for open_with_window_picker keymaps
-      version = "2.*",
-      config = function()
-        require("window-picker").setup({
-          filter_rules = {
-            include_current_win = false,
-            autoselect_one = true,
-            -- filter using buffer options
-            bo = {
-              -- if the file type is one of following, the window will be ignored
-              filetype = { "neo-tree", "neo-tree-popup", "notify" },
-              -- if the buffer type is one of following, the window will be ignored
-              buftype = { "terminal", "quickfix" },
-            },
-          },
-        })
-      end,
-    },
   },
 
   init = function()
@@ -70,8 +51,8 @@ local M = {
 
     require("neo-tree").setup({
       nesting_rules = {},
-      -- hide_root_node = true,
-      -- retain_hidden_root_indent = true,
+      hide_root_node = true,
+      retain_hidden_root_indent = true,
       close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
       popup_border_style = "single",
       sort_function = nil, -- use a custom function for sorting files and directories in the tree

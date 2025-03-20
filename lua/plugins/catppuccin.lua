@@ -46,12 +46,12 @@ local M = {
           EyelinerPrimary = { fg = colors.peach, style = { "bold", "underline" } },
           EyelinerSecondary = { fg = colors.sky, style = { "bold" } },
 
-          IlluminatedWordRead = { bg = colors.crust },
-          IlluminatedWordText = { bg = colors.crust },
-          IlluminatedWordWrite = { bg = colors.crust },
-          -- IlluminatedWordRead = { bg = "none", underdotted = true },
-          -- IlluminatedWordText = { bg = "none", underdotted = true },
-          -- IlluminatedWordWrite = { bg = "none", underdotted = true },
+          -- IlluminatedWordRead = { bg = colors.crust },
+          -- IlluminatedWordText = { bg = colors.crust },
+          -- IlluminatedWordWrite = { bg = colors.crust },
+          IlluminatedWordRead = { fg = colors.mauve, bg = colors.crust, underdotted = true },
+          IlluminatedWordText = { fg = colors.mauve, bg = colors.crust, underdotted = true },
+          IlluminatedWordWrite = { fg = colors.mauve, bg = colors.crust, underdotted = true },
 
           IblScope = { fg = colors.surface2 },
 
@@ -70,13 +70,17 @@ local M = {
           CmpSel = { link = "PmenuSel", bold = true },
 
           -- NeoTree under cursor highlight
-          CursorLine = { bg = colors.crust },
+          CursorLine = { bg = colors.base },
+          NeoTreeHeaderAndTitle = { bg = colors.crust, bold = true },
 
           -- Telescope under cursor highlight
           TelescopeSelection = { bg = colors.crust },
 
           -- ToggleTerm background
           ToggleTermBg = { bg = colors.base },
+
+          WindowPickerStatusLine = { bg = colors.peach },
+          WindowPickerStatusLineNC = { bg = colors.lavender },
 
           -- DevIconJs = { fg = colors.yellow },
           -- DevIconTs = { fg = colors.blue },

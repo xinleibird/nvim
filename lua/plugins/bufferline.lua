@@ -29,17 +29,11 @@ local M = {
     end, { desc = "Close buffer" })
 
     vim.keymap.set("n", "<leader>be", "<cmd>enew<CR>", { desc = "New buffer" })
-
     vim.keymap.set("n", "<leader>bb", "<cmd>BufferLineCyclePrev<CR>", { desc = "Prev buffer" })
-
     vim.keymap.set("n", "<leader>bn", "<cmd>BufferLineCycleNext<CR>", { desc = "Next buffer" })
-
     vim.keymap.set("n", "<leader>bp", "<cmd>BufferLineCyclePrev<CR>", { desc = "Prev buffer" })
-
     vim.keymap.set("n", "<leader>bo", "<cmd>BufferLineCloseOthers<CR>", { desc = "Close others buffers" })
-
     vim.keymap.set("n", "<leader>bh", "<cmd>BufferLineCloseLeft<CR>", { desc = "Close left buffers" })
-
     vim.keymap.set("n", "<leader>bl", "<cmd>BufferLineCloseRight<CR>", { desc = "Close right buffers" })
   end,
   opts = function()
@@ -219,11 +213,11 @@ local M = {
           },
           {
             filetype = "neo-tree",
-            text = "Explorer",
-            -- text_align = "left",
-            highlight = "PanelHeading",
-            padding = 0,
-            -- separator = true, -- use a "true" to enable the default, or set your own character
+            text_align = "left",
+            text = function()
+              return "󰙅 " .. vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+            end,
+            highlight = "NeoTreeHeaderAndTitle",
           },
           {
             filetype = "DiffviewFiles",

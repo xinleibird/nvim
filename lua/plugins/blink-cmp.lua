@@ -4,6 +4,12 @@ local M = {
   version = "*",
   -- or build it yourself
   -- build = "cargo build --release",
+  dependencies = {
+    "saghen/blink.compat",
+    version = "*",
+    lazy = true,
+    opts = {},
+  },
   opts = {
     keymap = {
       preset = "default",
@@ -32,20 +38,19 @@ local M = {
     },
     signature = { enabled = true },
     appearance = {
-      -- Sets the fallback highlight groups to nvim-cmp's highlight groups
-      -- Useful for when your theme doesn't support blink.cmp
-      -- Will be removed in a future release
       use_nvim_cmp_as_default = false,
-      -- Set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-      -- Adjusts spacing to ensure icons are aligned
       nerd_font_variant = "mono",
     },
     sources = {
-      default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+      default = { "lazydev", "path", "snippets", "buffer", "lsp" },
       providers = {
         lazydev = {
-          name = "LazyDev",
-          module = "lazydev.integrations.blink",
+          name = "lazydev",
+          module = "blink.compat.source",
+
+          -- name = "LazyDev",
+          -- module = "lazydev.integrations.blink",
+
           -- make lazydev completions top priority (see `:h blink.cmp`)
           score_offset = 100,
         },
@@ -55,6 +60,7 @@ local M = {
           end,
         },
         lsp = {
+          fallbacks = { "lazydev" },
           -- should_show_items = function()
           --   local col = vim.api.nvim_win_get_cursor(0)[2]
           --   local before_cursor = vim.api.nvim_get_current_line():sub(1, col)
