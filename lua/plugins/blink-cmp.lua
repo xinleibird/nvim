@@ -4,11 +4,10 @@ local M = {
   version = "*",
   -- or build it yourself
   -- build = "cargo build --release",
+  event = "VimEnter",
   dependencies = {
-    "saghen/blink.compat",
-    version = "*",
-    lazy = true,
-    opts = {},
+    "onsails/lspkind.nvim",
+    { "saghen/blink.compat", version = "*", lazy = true, opts = {} },
   },
   opts = {
     keymap = {
@@ -41,18 +40,33 @@ local M = {
       use_nvim_cmp_as_default = false,
       nerd_font_variant = "mono",
     },
+    cmdline = {
+      keymap = {
+        ["<Tab>"] = { "accept" },
+        ["<CR>"] = { "accept_and_enter", "fallback" },
+      },
+      -- (optionally) automatically show the menu
+      completion = { menu = { auto_show = true } },
+    },
     sources = {
       default = { "lazydev", "path", "snippets", "buffer", "lsp" },
       providers = {
         lazydev = {
-          name = "lazydev",
-          module = "blink.compat.source",
+          -- name = "lazydev",
+          -- module = "blink.compat.source",
 
-          -- name = "LazyDev",
-          -- module = "lazydev.integrations.blink",
-
-          -- make lazydev completions top priority (see `:h blink.cmp`)
+          name = "LazyDev",
+          module = "lazydev.integrations.blink",
           score_offset = 100,
+        },
+        cmdline = {
+          min_keyword_length = function(ctx)
+            -- when typing a command, only show when the keyword is 3 characters or longer
+            if ctx.mode == "cmdline" and string.find(ctx.line, " ") == nil then
+              return 2
+            end
+            return 0
+          end,
         },
         snippets = {
           should_show_items = function(ctx)
@@ -60,20 +74,20 @@ local M = {
           end,
         },
         lsp = {
-          fallbacks = { "lazydev" },
-          -- should_show_items = function()
-          --   local col = vim.api.nvim_win_get_cursor(0)[2]
-          --   local before_cursor = vim.api.nvim_get_current_line():sub(1, col)
-          --   local after_cursor = vim.api.nvim_get_current_line():sub(col)
-          --   -- NOTE: Disable tag completion for emmet
-          --   return before_cursor:match(">$") == nil and after_cursor:match("^<") == nil
-          -- end,
-          transform_items = function(_, items)
-            -- NOTE: Filter html-ls completion
-            return vim.tbl_filter(function(item)
-              return item.client_name ~= "html"
-            end, items)
+          should_show_items = function()
+            local col = vim.api.nvim_win_get_cursor(0)[2]
+            local before_cursor = vim.api.nvim_get_current_line():sub(1, col)
+            local after_cursor = vim.api.nvim_get_current_line():sub(col)
+            -- NOTE: Disable tag completion for emmet
+            return before_cursor:match(">$") == nil and after_cursor:match("^<") == nil
           end,
+          -- transform_items = function(ctx, items)
+          --   for _, item in ipairs(items) do
+          --     item.kind_icon = ""
+          --     item.kind_name = "LSP"
+          --   end
+          --   return items
+          -- end,
         },
       },
     },
@@ -93,6 +107,46 @@ local M = {
         -- default sorts
         "score",
         "sort_text",
+      },
+    },
+    completion = {
+      menu = {
+        draw = {
+          columns = { { "kind_icon", "label", "label_description", gap = 1 }, { "kind" } },
+          components = {
+            kind_icon = {
+              text = function(ctx)
+                local icon = ctx.kind_icon
+                if vim.tbl_contains({ "Path" }, ctx.source_name) then
+                  local dev_icon, _ = require("nvim-web-devicons").get_icon(ctx.label)
+                  if dev_icon then
+                    icon = dev_icon
+                  end
+                else
+                  icon = require("lspkind").symbolic(ctx.kind, {
+                    mode = "symbol",
+                  })
+                end
+
+                return icon .. ctx.icon_gap
+              end,
+
+              -- Optionally, use the highlight groups from nvim-web-devicons
+              -- You can also add the same function for `kind.highlight` if you want to
+              -- keep the highlight groups in sync with the icons.
+              highlight = function(ctx)
+                local hl = ctx.kind_hl
+                if vim.tbl_contains({ "Path" }, ctx.source_name) then
+                  local dev_icon, dev_hl = require("nvim-web-devicons").get_icon(ctx.label)
+                  if dev_icon then
+                    hl = dev_hl
+                  end
+                end
+                return hl
+              end,
+            },
+          },
+        },
       },
     },
   },

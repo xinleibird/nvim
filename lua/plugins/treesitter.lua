@@ -22,6 +22,7 @@ local M = {
         "lua",
         "markdown",
         "markdown_inline",
+        "query",
         "tsx",
         "typescript",
         "vim",

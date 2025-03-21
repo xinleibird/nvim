@@ -4,6 +4,16 @@ local M = {
   dependencies = {
     "b0o/schemastore.nvim",
     "saghen/blink.cmp",
+    -- {
+    --   "hrsh7th/nvim-cmp",
+    --   opts = function(_, opts)
+    --     opts.sources = opts.sources or {}
+    --     table.insert(opts.sources, {
+    --       name = "lazydev",
+    --       group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+    --     })
+    --   end,
+    -- },
     {
       "folke/lazydev.nvim",
       ft = "lua", -- only load on lua files
@@ -125,7 +135,7 @@ local M = {
     local lspconfig = require("lspconfig")
 
     for server, config in pairs(opts.servers) do
-      config.on_attach = function() end
+      config.on_attach = function(client) end
 
       config.on_init = function(client)
         -- semanticTokens 'vim.g.semantic_tokens'
@@ -140,21 +150,21 @@ local M = {
       -- `opts[server].capabilities, if you've defined it
       config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
       config.capabilities.textDocument.completion.completionItem = {
-        -- documentationFormat = { "markdown", "plaintext" },
-        -- snippetSupport = true,
-        -- preselectSupport = true,
-        -- insertReplaceSupport = true,
-        -- labelDetailsSupport = true,
-        -- deprecatedSupport = true,
-        -- commitCharactersSupport = true,
-        -- tagSupport = { valueSet = { 1 } },
-        -- resolveSupport = {
-        --   properties = {
-        --     "documentation",
-        --     "detail",
-        --     "additionalTextEdits",
-        --   },
-        -- },
+        documentationFormat = { "markdown", "plaintext" },
+        snippetSupport = true,
+        preselectSupport = true,
+        insertReplaceSupport = true,
+        labelDetailsSupport = true,
+        deprecatedSupport = true,
+        commitCharactersSupport = true,
+        tagSupport = { valueSet = { 1 } },
+        resolveSupport = {
+          properties = {
+            "documentation",
+            "detail",
+            "additionalTextEdits",
+          },
+        },
       }
 
       lspconfig[server].setup(config)

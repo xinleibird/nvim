@@ -135,8 +135,6 @@ local M = {
     local lspconfig = require("lspconfig")
 
     for server, config in pairs(opts.servers) do
-      config.on_attach = function() end
-
       config.on_init = function(client)
         -- semanticTokens 'vim.g.semantic_tokens'
         if not vim.g["semantic_tokens"] then
@@ -146,26 +144,27 @@ local M = {
         end
       end
 
-      -- passing config.capabilities to blink.cmp merges with the capabilities in your
       -- `opts[server].capabilities, if you've defined it
       config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
-      config.capabilities.textDocument.completion.completionItem = {
-        -- documentationFormat = { "markdown", "plaintext" },
-        -- snippetSupport = true,
-        -- preselectSupport = true,
-        -- insertReplaceSupport = true,
-        -- labelDetailsSupport = true,
-        -- deprecatedSupport = true,
-        -- commitCharactersSupport = true,
-        -- tagSupport = { valueSet = { 1 } },
-        -- resolveSupport = {
-        --   properties = {
-        --     "documentation",
-        --     "detail",
-        --     "additionalTextEdits",
-        --   },
-        -- },
-      }
+      -- config.capabilities.textDocument.completion.completionItem = {
+      --   documentationFormat = { "markdown", "plaintext" },
+      --   snippetSupport = true,
+      --   preselectSupport = true,
+      --   insertReplaceSupport = true,
+      --   labelDetailsSupport = true,
+      --   deprecatedSupport = true,
+      --   commitCharactersSupport = true,
+      --   tagSupport = { valueSet = { 1 } },
+      --   resolveSupport = {
+      --     properties = {
+      --       "documentation",
+      --       "detail",
+      --       "additionalTextEdits",
+      --     },
+      --   },
+      -- }
+
+      config.on_attach = function() end
 
       lspconfig[server].setup(config)
     end
