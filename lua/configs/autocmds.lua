@@ -10,20 +10,6 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- Leave nvim restore cursor style
-vim.api.nvim_create_autocmd("VimLeave", {
-  pattern = "*",
-  command = 'set guicursor= | call chansend(v:stderr, "\x1b[ q")',
-})
-
--- Fixed qf repl win position and  height
--- vim.api.nvim_create_autocmd("FileType", {
---   pattern = { "dap-repl", "qf" },
---   group = vim.api.nvim_create_augroup("user_set_qf_repl_window", { clear = true }),
---   -- command = "wincmd K|setlocal winfixheight|setlocal nonumber",
---   command = "setlocal winfixheight|setlocal nonumber",
--- })
-
 -- Set formatoptions
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "*",
@@ -59,8 +45,23 @@ vim.api.nvim_create_autocmd({ "QuitPre" }, {
         vim.cmd("qall!")
       end
     end
+
+    -- Leave nvim restore cursor style
+    vim.api.nvim_create_autocmd("VimLeave", {
+      group = vim.api.nvim_create_augroup("user_quit_restore_cursor_style", { clear = true }),
+      pattern = "*",
+      command = 'set guicursor= | call chansend(v:stderr, "\x1b[ q")',
+    })
   end,
 })
+
+-- Fixed qf repl win position and  height
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = { "dap-repl", "qf" },
+--   group = vim.api.nvim_create_augroup("user_set_qf_repl_window", { clear = true }),
+--   -- command = "wincmd K|setlocal winfixheight|setlocal nonumber",
+--   command = "setlocal winfixheight|setlocal nonumber",
+-- })
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "qf" },

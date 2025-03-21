@@ -20,6 +20,7 @@ local M = {
         "*.{php}",
         "*.{rs}",
         "*.{sh,bash,zsh}",
+        "*.{vim}",
       },
       group = vim.api.nvim_create_augroup("user_virt_column_group", { clear = true }),
       callback = function()
