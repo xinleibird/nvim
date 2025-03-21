@@ -71,6 +71,8 @@ local M = {
 
           -- NeoTree under cursor highlight
           CursorLine = { bg = colors.base },
+
+          -- NeoTree outline style
           NeoTreeHeaderAndTitle = { bg = colors.crust, bold = true },
 
           -- Telescope under cursor highlight
@@ -79,8 +81,8 @@ local M = {
           -- ToggleTerm background
           ToggleTermBg = { bg = colors.base },
 
-          WindowPickerStatusLine = { bg = colors.peach },
-          WindowPickerStatusLineNC = { bg = colors.lavender },
+          WindowPickerStatusLine = { bg = colors.red, fg = colors.base, bold = true },
+          WindowPickerStatusLineNC = { bg = colors.green, fg = colors.base, bold = true },
 
           -- DevIconJs = { fg = colors.yellow },
           -- DevIconTs = { fg = colors.blue },

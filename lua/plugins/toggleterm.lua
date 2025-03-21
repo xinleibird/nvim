@@ -31,24 +31,22 @@ local M = {
       },
       winbar = {
         enabled = false,
-        name_formatter = function(term) --  term: Terminal
+        name_formatter = function(term)
           return term.name
         end,
       },
-      on_open = function(term)
-        vim.defer_fn(function()
-          vim.wo[term.window].winbar = ""
-        end, 0)
-
-        local name = vim.fn.bufname("neo-tree")
-        local winnr = vim.fn.bufwinnr(name)
-
-        if winnr ~= -1 then
-          vim.defer_fn(function()
-            vim.cmd("Neotree toggle")
-            vim.cmd("Neotree toggle")
-            vim.cmd("wincmd p")
-          end, 100)
+      on_open = function()
+        local wins = vim.api.nvim_list_wins()
+        for _, w in ipairs(wins) do
+          local current_buf = vim.api.nvim_win_get_buf(w)
+          ---@diagnostic disable-next-line: deprecated
+          if vim.api.nvim_buf_get_option(current_buf, "filetype") == "neo-tree" then
+            vim.defer_fn(function()
+              vim.cmd("Neotree toggle")
+              vim.cmd("Neotree toggle")
+              vim.cmd("wincmd p")
+            end, 100)
+          end
         end
       end,
     })
