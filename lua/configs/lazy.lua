@@ -2,8 +2,10 @@ local icons = require("configs.icons")
 
 local M = {
   defaults = { lazy = true },
-
-  install = { colorscheme = { "catppuccin" } },
+  install = {
+    colorscheme = { "catppuccin" },
+  },
+  checker = { enabled = true },
 
   ui = {
     size = {
