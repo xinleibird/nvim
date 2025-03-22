@@ -16,7 +16,6 @@ local M = {
         "*.{js,jsx,ts,tsx,ejs,vue}",
         "*.{json,yaml,yml,toml,{.,}prettierrc,{.,}eslintrc,{.,}stylelintrc}",
         "*.{lua}",
-        "*.{md,markdown}",
         "*.{php}",
         "*.{rs}",
         "*.{sh,bash,zsh}",

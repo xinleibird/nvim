@@ -7,6 +7,7 @@ local M = {
       "windwp/nvim-ts-autotag",
       event = "BufRead",
       config = function()
+        ---@diagnostic disable-next-line: missing-fields
         require("nvim-ts-autotag").setup({
           opts = {
             enable_close = false, -- Auto close tags
@@ -18,7 +19,8 @@ local M = {
     },
   },
   config = function()
-    require("nvim-autopairs").setup({
+    local autopairs = require("nvim-autopairs")
+    autopairs.setup({
       fast_wrap = {},
       disable_filetype = { "TelescopePrompt", "vim" },
     })
@@ -26,6 +28,9 @@ local M = {
     -- setup cmp for autopairs
     local cmp_autopairs = require("nvim-autopairs.completion.cmp")
     require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
+
+    local Rule = require("nvim-autopairs.rule")
+    autopairs.add_rule(Rule("```", "```", { "codecompanion" }))
   end,
 }
 

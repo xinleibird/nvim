@@ -6,8 +6,39 @@ local M = {
   -- build = "cargo build --release",
   event = "VimEnter",
   dependencies = {
-    "onsails/lspkind.nvim",
-    { "saghen/blink.compat", version = "*", lazy = true, opts = {} },
+    {
+      "olimorris/codecompanion.nvim",
+      config = function()
+        require("codecompanion").setup({
+          opts = {
+            -- show_defaults = false,
+            log_level = "ERROR", -- TRACE|DEBUG|ERROR|INFO
+            language = "Chinese",
+          },
+          strategies = {
+            chat = {
+              adapter = "gemini",
+            },
+            inline = {
+              adapter = "gemini",
+            },
+          },
+          adapters = {},
+          display = {
+            action_palette = {
+              width = 95,
+              height = 10,
+              prompt = "Prompt ", -- Prompt used for interactive LLM calls
+              provider = "default", -- default|telescope|mini_pick
+              opts = {
+                show_default_actions = true, -- Show the default actions in the action palette?
+                show_default_prompt_library = true, -- Show the default prompt library in the action palette?
+              },
+            },
+          },
+        })
+      end,
+    },
   },
   opts = {
     keymap = {
@@ -49,12 +80,23 @@ local M = {
       completion = { menu = { auto_show = true } },
     },
     sources = {
-      default = { "lazydev", "path", "snippets", "buffer", "lsp" },
+      -- default = { "lazydev", "path", "snippets", "buffer", "lsp" },
+      default = function()
+        local success, node = pcall(vim.treesitter.get_node)
+        if
+          success
+          and node
+          and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type())
+        then
+          return { "buffer" }
+        elseif vim.bo.filetype == "lua" then
+          return { "lazydev", "lsp", "path", "snippets", "buffer" }
+        else
+          return { "lsp", "path", "snippets", "buffer" }
+        end
+      end,
       providers = {
         lazydev = {
-          -- name = "lazydev",
-          -- module = "blink.compat.source",
-
           name = "LazyDev",
           module = "lazydev.integrations.blink",
           score_offset = 100,
@@ -68,41 +110,40 @@ local M = {
             return 0
           end,
         },
+        codecompanion = {
+          transform_items = function(_, items)
+            for _, item in ipairs(items) do
+              item.kind_icon = ""
+              item.kind_name = "Companion"
+            end
+            return items
+          end,
+        },
         snippets = {
           should_show_items = function(ctx)
             return ctx.trigger.initial_kind ~= "trigger_character"
           end,
         },
-        lsp = {
-          should_show_items = function()
-            local col = vim.api.nvim_win_get_cursor(0)[2]
-            local before_cursor = vim.api.nvim_get_current_line():sub(1, col)
-            local after_cursor = vim.api.nvim_get_current_line():sub(col)
-            -- NOTE: Disable tag completion for emmet
-            return before_cursor:match(">$") == nil and after_cursor:match("^<") == nil
+        buffer = {
+          transform_items = function(_, items) -- filter include Chinese characters item
+            return vim.tbl_filter(function(item)
+              return string.find(item.insertText, "[\xE4-\xE9][\x80-\xBF][\x80-\xBF]") == nil
+            end, items)
           end,
-          -- transform_items = function(ctx, items)
-          --   for _, item in ipairs(items) do
-          --     item.kind_icon = ""
-          --     item.kind_name = "LSP"
-          --   end
-          --   return items
-          -- end,
         },
+        lsp = {},
       },
     },
     fuzzy = {
       implementation = "prefer_rust_with_warning",
       sorts = {
+        -- (optionally) always prioritize exact matches
+        -- "exact",
         function(a, b)
-          if
-            (a.client_name == nil or b.client_name == nil)
-            or (a.client_name == "html" or b.client_name == "html")
-            or (a.client_name == b.client_name)
-          then
+          if (a.client_name == nil or b.client_name == nil) or (a.client_name == b.client_name) then
             return
           end
-          return b.client_name == "emmet_language_server"
+          return a.client_name == "html" and b.client_name == "emmet_language_server"
         end,
         -- default sorts
         "score",
@@ -113,39 +154,6 @@ local M = {
       menu = {
         draw = {
           columns = { { "kind_icon", "label", "label_description", gap = 1 }, { "kind" } },
-          components = {
-            kind_icon = {
-              text = function(ctx)
-                local icon = ctx.kind_icon
-                if vim.tbl_contains({ "Path" }, ctx.source_name) then
-                  local dev_icon, _ = require("nvim-web-devicons").get_icon(ctx.label)
-                  if dev_icon then
-                    icon = dev_icon
-                  end
-                else
-                  icon = require("lspkind").symbolic(ctx.kind, {
-                    mode = "symbol",
-                  })
-                end
-
-                return icon .. ctx.icon_gap
-              end,
-
-              -- Optionally, use the highlight groups from nvim-web-devicons
-              -- You can also add the same function for `kind.highlight` if you want to
-              -- keep the highlight groups in sync with the icons.
-              highlight = function(ctx)
-                local hl = ctx.kind_hl
-                if vim.tbl_contains({ "Path" }, ctx.source_name) then
-                  local dev_icon, dev_hl = require("nvim-web-devicons").get_icon(ctx.label)
-                  if dev_icon then
-                    hl = dev_hl
-                  end
-                end
-                return hl
-              end,
-            },
-          },
         },
       },
     },

@@ -103,13 +103,13 @@ local M = {
           horizontal = {
             prompt_position = "top",
             preview_width = 0.55,
-            results_width = 0.9,
+            results_width = 0.8,
           },
           vertical = {
             mirror = false,
           },
-          width = 0.90,
-          height = 0.90,
+          width = 0.80,
+          height = 0.80,
           preview_cutoff = 120,
         },
         file_sorter = require("telescope.sorters").get_fuzzy_file,

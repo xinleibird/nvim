@@ -42,16 +42,9 @@ vim.api.nvim_create_autocmd({ "QuitPre" }, {
       local current_buf = vim.api.nvim_win_get_buf(current_win)
       ---@diagnostic disable-next-line: deprecated
       if vim.api.nvim_buf_get_option(current_buf, "buftype") == "" then
-        vim.cmd("qall!")
+        vim.cmd("confirm qall")
       end
     end
-
-    -- Leave nvim restore cursor style
-    vim.api.nvim_create_autocmd("VimLeave", {
-      group = vim.api.nvim_create_augroup("user_quit_restore_cursor_style", { clear = true }),
-      pattern = "*",
-      command = 'set guicursor= | call chansend(v:stderr, "\x1b[ q")',
-    })
   end,
 })
 
