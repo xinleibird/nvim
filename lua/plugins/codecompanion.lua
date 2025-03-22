@@ -49,6 +49,13 @@ local M = {
             show_default_prompt_library = true, -- Show the default prompt library in the action palette?
           },
         },
+        chat = {
+          window = {
+            opts = {
+              numberwidth = 4,
+            },
+          },
+        },
       },
     })
   end,

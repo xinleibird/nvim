@@ -68,6 +68,13 @@ local M = {
           name = "LazyDev",
           module = "lazydev.integrations.blink",
           score_offset = 100,
+          transform_items = function(_, items)
+            for _, item in ipairs(items) do
+              item.kind_icon = ""
+              item.kind_name = "LazyDev"
+            end
+            return items
+          end,
         },
         cmdline = {
           min_keyword_length = function(ctx)
@@ -76,6 +83,13 @@ local M = {
               return 2
             end
             return 0
+          end,
+          transform_items = function(_, items)
+            for _, item in ipairs(items) do
+              item.kind_icon = ""
+              item.kind_name = "CmdLine"
+            end
+            return items
           end,
         },
         codecompanion = {
