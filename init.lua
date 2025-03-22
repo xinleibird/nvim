@@ -12,6 +12,7 @@ end
 
 -- MUST set mapleader **FEFORE** lazy load
 vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
 
 -- bootstrap lazy and all plugins
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
