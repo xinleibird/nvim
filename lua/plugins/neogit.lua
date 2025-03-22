@@ -11,8 +11,8 @@ local M = {
     vim.keymap.set("n", "<leader>gg", function()
       local ok, neogit = pcall(require, "neogit")
       if ok then
-        neogit.open({ kind = "split" })
-        -- neogit.open({ kind = "tab" })
+        -- neogit.open({ kind = "split" })
+        neogit.open({ kind = "tab" })
       end
     end, { desc = "Neogit" })
   end,

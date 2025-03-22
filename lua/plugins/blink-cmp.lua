@@ -4,41 +4,9 @@ local M = {
   version = "*",
   -- or build it yourself
   -- build = "cargo build --release",
-  event = "VimEnter",
+  lazy = false,
   dependencies = {
-    {
-      "olimorris/codecompanion.nvim",
-      config = function()
-        require("codecompanion").setup({
-          opts = {
-            -- show_defaults = false,
-            log_level = "ERROR", -- TRACE|DEBUG|ERROR|INFO
-            language = "Chinese",
-          },
-          strategies = {
-            chat = {
-              adapter = "gemini",
-            },
-            inline = {
-              adapter = "gemini",
-            },
-          },
-          adapters = {},
-          display = {
-            action_palette = {
-              width = 95,
-              height = 10,
-              prompt = "Prompt ", -- Prompt used for interactive LLM calls
-              provider = "default", -- default|telescope|mini_pick
-              opts = {
-                show_default_actions = true, -- Show the default actions in the action palette?
-                show_default_prompt_library = true, -- Show the default prompt library in the action palette?
-              },
-            },
-          },
-        })
-      end,
-    },
+    "olimorris/codecompanion.nvim",
   },
   opts = {
     keymap = {

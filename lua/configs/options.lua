@@ -67,3 +67,5 @@ vim.g["loaded_ruby_provider"] = 0
 
 -- enable semantic tokens highlight
 vim.g["semantic_tokens"] = true
+
+-- vim.opt.fillchars:append({ diff = "╱" })
