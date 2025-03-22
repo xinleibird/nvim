@@ -1,9 +1,9 @@
 local M = {
   "saghen/blink.cmp",
   -- use a release tag to download pre-built binaries
-  version = "*",
+  -- version = "*",
   -- or build it yourself
-  -- build = "cargo build --release",
+  build = "cargo build --release",
   lazy = false,
   dependencies = {
     "olimorris/codecompanion.nvim",
@@ -81,7 +81,7 @@ local M = {
         codecompanion = {
           transform_items = function(_, items)
             for _, item in ipairs(items) do
-              item.kind_icon = ""
+              item.kind_icon = "󰊠"
               item.kind_name = "Companion"
             end
             return items

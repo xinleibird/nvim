@@ -174,8 +174,14 @@ local M = {
         icon = "",
         group = "Windows jump",
       },
+      {
+        "<leader>a",
+        icon = "󰊠",
+        group = "Codecompanion",
+      },
     })
 
+    ---@diagnostic disable-next-line: missing-fields
     require("which-key").setup({
       plugins = {
         marks = true, -- shows a list of your marks on ' and `
