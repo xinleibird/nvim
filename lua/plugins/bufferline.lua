@@ -44,7 +44,8 @@ local M = {
     end
 
     local function custom_filter(bufnr, buf_nums)
-      local exclude_ft = { "qf", "fugitive", "git", "dirvish", "toggleterm", "" }
+      local exclude_ft =
+        { "qf", "fugitive", "git", "dirvish", "toggleterm", "NeogitStatus", "gitcommit", "DiffviewFiles", "" }
       local cur_ft = vim.bo[bufnr].filetype
       local should_show = not vim.tbl_contains(exclude_ft, cur_ft)
 
@@ -215,6 +216,7 @@ local M = {
             filetype = "neo-tree",
             text_align = "left",
             text = function()
+              -- return " " .. vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
               return "󰙅 " .. vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
             end,
             highlight = "NeoTreeHeaderAndTitle",

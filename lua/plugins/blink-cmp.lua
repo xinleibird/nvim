@@ -4,10 +4,11 @@ local M = {
   -- version = "*",
   -- or build it yourself
   build = "cargo build --release",
-  lazy = false,
   dependencies = {
     "olimorris/codecompanion.nvim",
+    "folke/lazydev.nvim",
   },
+  event = "VimEnter",
   opts = {
     keymap = {
       preset = "default",
@@ -40,22 +41,28 @@ local M = {
       nerd_font_variant = "mono",
     },
     cmdline = {
+      sources = function()
+        local type = vim.fn.getcmdtype()
+        -- Search forward and backward
+        if type == "/" or type == "?" then
+          return { "buffer" }
+        end
+        -- Commands
+        if type == ":" or type == "@" then
+          return { "cmdline" }
+        end
+        return {}
+      end,
       keymap = {
         ["<Tab>"] = { "accept" },
         ["<CR>"] = { "accept_and_enter", "fallback" },
       },
-      -- (optionally) automatically show the menu
-      completion = { menu = { auto_show = true } },
     },
     sources = {
       -- default = { "lazydev", "path", "snippets", "buffer", "lsp" },
       default = function()
         local success, node = pcall(vim.treesitter.get_node)
-        if
-          success
-          and node
-          and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type())
-        then
+        if success and node and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type()) then
           return { "buffer" }
         elseif vim.bo.filetype == "lua" then
           return { "lazydev", "lsp", "path", "snippets", "buffer" }
@@ -70,23 +77,23 @@ local M = {
           score_offset = 100,
           transform_items = function(_, items)
             for _, item in ipairs(items) do
-              item.kind_icon = ""
+              item.kind_icon = "󰢚"
               item.kind_name = "LazyDev"
             end
             return items
           end,
         },
         cmdline = {
-          min_keyword_length = function(ctx)
-            -- when typing a command, only show when the keyword is 3 characters or longer
-            if ctx.mode == "cmdline" and string.find(ctx.line, " ") == nil then
-              return 2
-            end
-            return 0
-          end,
+          -- min_keyword_lencth = function(ctx)
+          --   -- when typing a command, only show when the keyword is 3 characters or longer
+          --   if ctx.mode == "cmdline" and string.find(ctx.line, " ") == nil then
+          --     return 2
+          --   end
+          --   return 0
+          -- end,
           transform_items = function(_, items)
             for _, item in ipairs(items) do
-              item.kind_icon = ""
+              item.kind_icon = ""
               item.kind_name = "CmdLine"
             end
             return items
@@ -109,7 +116,8 @@ local M = {
         buffer = {
           transform_items = function(_, items) -- filter include Chinese characters item
             return vim.tbl_filter(function(item)
-              return string.find(item.insertText, "[\xE4-\xE9][\x80-\xBF][\x80-\xBF]") == nil
+              -- return string.find(item.insertText, "[\xE4-\xE9][\x80-\xBF][\x80-\xBF]") == nil
+              return string.find(item.insertText, "[^a-zA-Z0-9%s%p]") == nil
             end, items)
           end,
         },

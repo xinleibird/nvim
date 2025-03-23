@@ -1,7 +1,7 @@
 local M = {
   "folke/which-key.nvim",
   keys = { "<leader>", "<c-r>", '"', "'", "g" },
-  lazy = false,
+  event = "UIEnter",
   cmd = "WhichKey",
   config = function()
     local wk = require("which-key")

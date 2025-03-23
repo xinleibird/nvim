@@ -23,6 +23,8 @@ local M = {
   config = function()
     require("bqf").setup({
       auto_enable = true,
+
+      ---@diagnostic disable-next-line: missing-fields
       preview = {
         win_height = 12,
         win_vheight = 12,
@@ -35,6 +37,7 @@ local M = {
         stoggleup = "",
       },
       filter = {
+        ---@diagnostic disable-next-line: missing-fields
         fzf = {
           -- action_for = { ["ctrl-s"] = "split" },
           extra_opts = { "--bind", "ctrl-o:toggle-all", "--prompt", "> " },

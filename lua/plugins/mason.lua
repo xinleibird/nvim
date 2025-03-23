@@ -30,6 +30,7 @@ local M = {
 
       -- rust stuff
       "rust-analyzer",
+      "rustfmt",
       "codelldb",
 
       -- vim stuff

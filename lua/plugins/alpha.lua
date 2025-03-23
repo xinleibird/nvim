@@ -76,12 +76,7 @@ local M = {
 
       dashboard.section.footer.opts.hl = "AlphaFooter"
 
-      local version = " ver "
-        .. vim.version().major
-        .. "."
-        .. vim.version().minor
-        .. "."
-        .. vim.version().patch
+      local version = " ver " .. vim.version().major .. "." .. vim.version().minor .. "." .. vim.version().patch
 
       local lazy_stats = require("lazy").stats()
       local plugins = lazy_stats.count .. " plugins "

@@ -1,22 +1,14 @@
 local M = {
   "olimorris/codecompanion.nvim",
+  event = "UIEnter",
   dependencies = {
     "echasnovski/mini.diff",
     version = "*",
   },
+
   init = function()
-    vim.keymap.set(
-      { "n", "v" },
-      "<Leader>ap",
-      "<cmd>CodeCompanionActions<cr>",
-      { noremap = true, silent = true }
-    )
-    vim.keymap.set(
-      { "n", "v" },
-      "<Leader>aa",
-      "<cmd>CodeCompanionChat Toggle<cr>",
-      { noremap = true, silent = true }
-    )
+    vim.keymap.set({ "n" }, "<Leader>ap", "<cmd>CodeCompanionActions<cr>", { noremap = true, silent = true })
+    vim.keymap.set({ "n" }, "<Leader>aa", "<cmd>CodeCompanionChat Toggle<cr>", { noremap = true, silent = true })
     vim.keymap.set("v", "<Leader>av", "<cmd>CodeCompanionChat Add<cr>", { noremap = true, silent = true })
 
     -- Expand 'cc' into 'CodeCompanion' in the command line

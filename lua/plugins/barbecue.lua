@@ -2,6 +2,7 @@ local M = {
   "BrunoKrugel/bbq.nvim",
   name = "barbecue",
   version = "*",
+  enabled = false,
   dependencies = {
     "SmiteshP/nvim-navic",
     "nvim-tree/nvim-web-devicons", -- optional dependency

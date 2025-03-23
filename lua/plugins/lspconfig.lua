@@ -1,6 +1,6 @@
 local M = {
   "neovim/nvim-lspconfig",
-  event = "BufRead",
+  event = "VimEnter",
   dependencies = {
     "b0o/schemastore.nvim",
     "saghen/blink.cmp",

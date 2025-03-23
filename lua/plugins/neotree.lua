@@ -15,10 +15,7 @@ local M = {
     vim.api.nvim_create_autocmd("User", {
       pattern = "AlphaReady",
       once = true,
-      group = vim.api.nvim_create_augroup(
-        "user_enter_alpha_init_neotree_bufferline_custom_areas",
-        { clear = true }
-      ),
+      group = vim.api.nvim_create_augroup("user_enter_alpha_init_neotree_bufferline_custom_areas", { clear = true }),
       command = "Neotree close",
     })
 
@@ -30,24 +27,6 @@ local M = {
   end,
   config = function()
     local icons = require("configs.icons")
-
-    -- Trash the target
-    local inputs = require("neo-tree.ui.inputs")
-    local function trash(state)
-      local node = state.tree:get_node()
-      if node.type == "message" then
-        return
-      end
-      local _, name = require("neo-tree.utils").split_path(node.path)
-      local msg = string.format("Are you sure you want to trash '%s'?", name)
-      inputs.confirm(msg, function(confirmed)
-        if not confirmed then
-          return
-        end
-        vim.api.nvim_command("silent !trash " .. node.path)
-        require("neo-tree.sources.manager").refresh(state)
-      end)
-    end
 
     require("neo-tree").setup({
       nesting_rules = {},
@@ -108,12 +87,34 @@ local M = {
         window = {
           mappings = {
             ["D"] = "trash",
+            ["z"] = "reveal",
           },
         },
         commands = {
-          trash = trash,
+          trash = function(state)
+            local inputs = require("neo-tree.ui.inputs")
+            local node = state.tree:get_node()
+            if node.type == "message" then
+              return
+            end
+            local _, name = require("neo-tree.utils").split_path(node.path)
+            local msg = string.format("Are you sure you want to trash '%s'?", name)
+            inputs.confirm(msg, function(confirmed)
+              if not confirmed then
+                return
+              end
+              vim.api.nvim_command("silent !trash " .. node.path)
+              require("neo-tree.sources.manager").refresh(state)
+            end)
+          end,
+          reveal = function()
+            vim.cmd("normal! zz")
+          end,
         },
       },
+      -- on_attach = function(bufnr)
+      --   vim.keymap.del("n", "<z>", { buffer = bufnr })
+      -- end,
     })
   end,
 }

@@ -72,6 +72,7 @@ local M = {
         return {
           timeout_ms = 500,
           lsp_fallback = true,
+          ---@diagnostic disable-next-line: redundant-return-value
         }, function(err)
           if not err then
             -- winid = open_progress_win()
@@ -86,6 +87,7 @@ local M = {
       format_after_save = function()
         return {
           lsp_fallback = true,
+          ---@diagnostic disable-next-line: redundant-return-value
         }, function()
           -- vim.api.nvim_win_close(winid, true)
         end

@@ -25,6 +25,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd({ "QuitPre" }, {
+  group = vim.api.nvim_create_augroup("user_quit_window_make_sure_other_closed", { clear = true }),
   callback = function()
     local current_win = vim.api.nvim_get_current_win()
     local wins = vim.api.nvim_list_wins()
