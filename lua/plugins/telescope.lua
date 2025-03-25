@@ -55,6 +55,8 @@ local M = {
     vim.keymap.set("n", "<leader>sh", "<cmd>Telescope help_tags<CR>", { desc = "Help pages" })
     vim.keymap.set("n", "<leader>sr", "<cmd>Telescope oldfiles<CR>", { desc = "Recent files" })
     vim.keymap.set("n", "<leader>sz", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "Current buffer" })
+
+    vim.keymap.set("n", "<leader>go", "<cmd>Telescope git_status<CR>", { desc = "Git status" })
   end,
   opts = function()
     local actions = require("telescope.actions")

@@ -5,13 +5,28 @@ local M = {
     vim.api.nvim_create_autocmd("User", {
       pattern = "AlphaReady",
       group = vim.api.nvim_create_augroup("user_enter_alpha_close_bufferline", { clear = true }),
-      command = "set showtabline=0|set laststatus=0",
+      callback = function()
+        vim.o.showtabline = 0
+        vim.o.laststatus = 0
+        vim.api.nvim_create_autocmd("FileType", {
+          pattern = { "neo-tree" },
+          once = true,
+          group = vim.api.nvim_create_augroup("user_enter_neotree_open_bufferline", { clear = true }),
+          callback = function()
+            vim.o.showtabline = 2
+            vim.o.laststatus = 3
+          end,
+        })
+      end,
     })
 
     vim.api.nvim_create_autocmd("User", {
       pattern = "AlphaClosed",
-      group = vim.api.nvim_create_augroup("user_leave_alpha_close_bufferline", { clear = true }),
-      command = "set showtabline=2|set laststatus=3",
+      group = vim.api.nvim_create_augroup("user_leave_alpha_open_bufferline", { clear = true }),
+      callback = function()
+        vim.o.showtabline = 2
+        vim.o.laststatus = 3
+      end,
     })
 
     vim.keymap.set("n", "<leader>;", "<cmd>Alpha<CR>", { desc = "Toggle dashboard" })

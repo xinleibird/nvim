@@ -1,9 +1,6 @@
 local M = {
   "catppuccin/nvim",
   name = "catppuccin",
-  dependencies = {
-    "lewis6991/gitsigns.nvim",
-  },
   priority = 1000,
   lazy = false,
   config = function()
@@ -55,8 +52,6 @@ local M = {
           IlluminatedWordRead = { fg = colors.mauve, bg = colors.crust, underdotted = true },
           IlluminatedWordText = { fg = colors.mauve, bg = colors.crust, underdotted = true },
           IlluminatedWordWrite = { fg = colors.mauve, bg = colors.crust, underdotted = true },
-
-          IblScope = { fg = colors.surface2 },
 
           WinSeparator = { fg = colors.lavender },
           NeoTreeWinSeparator = { fg = colors.lavender },
@@ -122,7 +117,7 @@ local M = {
         },
         indent_blankline = {
           enabled = true,
-          scope_color = "lavender", -- catppuccin color (eg. `lavender`) Default: text
+          scope_color = "surface2", -- catppuccin color (eg. `lavender`) Default: text
           colored_indent_levels = false,
         },
         lsp_trouble = false,
