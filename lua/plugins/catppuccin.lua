@@ -73,8 +73,12 @@ local M = {
           CmpPmenu = { bg = colors.mantle },
           CmpSel = { link = "PmenuSel", bold = true },
 
-          -- NeoTree under cursor highlight
-          CursorLine = { bg = colors.base },
+          -- CursorLine highlight
+          CursorLine = { bg = colors.crust },
+
+          -- Trouble
+          TroubleNormal = { bg = colors.base },
+          TroubleNormalNC = { bg = colors.base },
 
           -- NeoTree outline style
           NeoTreeHeaderAndTitle = { bg = colors.crust, bold = true },

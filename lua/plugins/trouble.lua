@@ -2,6 +2,11 @@ local M = {
   "folke/trouble.nvim",
   cmd = "Trouble",
   opts = {
+    win = {
+      wo = {
+        fillchars = "",
+      },
+    },
     modes = {
       -- qflist = { auto_open = true },
     },
