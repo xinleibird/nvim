@@ -246,9 +246,6 @@ local M = {
 
     return {
       options = {
-        -- disabled_filetypes = { statusline = { "alpha" } },
-        -- section_separators = { left = "", right = "" },
-        -- component_separators = { left = "", right = "" },
         component_separators = "",
         theme = "catppuccin",
         globalstatus = true,

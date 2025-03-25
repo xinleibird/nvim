@@ -35,20 +35,6 @@ local M = {
           return term.name
         end,
       },
-      on_open = function()
-        local wins = vim.api.nvim_list_wins()
-        for _, w in ipairs(wins) do
-          local current_buf = vim.api.nvim_win_get_buf(w)
-          ---@diagnostic disable-next-line: deprecated
-          if vim.api.nvim_buf_get_option(current_buf, "filetype") == "neo-tree" then
-            vim.defer_fn(function()
-              vim.cmd("Neotree toggle")
-              vim.cmd("Neotree toggle")
-              vim.cmd("wincmd p")
-            end, 100)
-          end
-        end
-      end,
     })
   end,
 }

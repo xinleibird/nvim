@@ -107,6 +107,7 @@ local M = {
         -- can also be a table containing 2 custom separators
         -- separator_style = "slant" | "slope" | "padded_slope" | "thick" | "thin" | { 'any', 'any' },
         -- | [focused and unfocused]. eg: { '|', '|' }
+        -- separator_style = "thin",
         separator_style = "thin",
 
         buffer_close_icon = icons.ui.Close,
@@ -216,10 +217,17 @@ local M = {
             filetype = "neo-tree",
             text_align = "left",
             text = function()
-              -- return " " .. vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
               return "󰙅 " .. vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
             end,
             highlight = "NeoTreeHeaderAndTitle",
+            padding = 0,
+          },
+          {
+            filetype = "Outline",
+            text = "Outline 󰺔",
+            highlight = "NeoTreeHeaderAndTitle",
+            padding = 1,
+            text_align = "right",
           },
           {
             filetype = "DiffviewFiles",

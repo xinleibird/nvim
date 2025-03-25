@@ -1,4 +1,5 @@
 local os = require("utils").detect_os()
+local trouble_loaded = pcall(require, "trouble")
 
 -------------------------------------------------------------------------------
 ---[[general]]
@@ -64,15 +65,16 @@ vim.keymap.set("n", "<leader>W", "<cmd>noautocmd w<CR>", { desc = "Save without 
 vim.keymap.set("v", "<", "<gv", { desc = "Indent line backward" })
 vim.keymap.set("v", ">", ">gv", { desc = "Indent line forward" })
 
--- quickfix toggle
-vim.keymap.set("n", "<C-q>", function()
-  require("utils").quickfix_toggle()
-end, { desc = "Toggle quickfix window" })
-
--- loclist toggle
-vim.keymap.set("n", "<C-Tab>", function()
-  require("utils").loclist_toggle()
-end, { desc = "Toggle loclist window" })
+if not trouble_loaded then
+  -- quickfix toggle
+  vim.keymap.set("n", "<C-q>", function()
+    require("utils").quickfix_toggle()
+  end, { desc = "Toggle quickfix window" })
+  -- loclist toggle
+  vim.keymap.set("n", "<C-Tab>", function()
+    require("utils").loclist_toggle()
+  end, { desc = "Toggle loclist window" })
+end
 
 -------------------------------------------------------------------------------
 ---[[Lsp]]
@@ -84,24 +86,20 @@ vim.keymap.set("n", "<leader>lM", function()
   vim.lsp.buf.format({ async = true })
 end, { desc = "Format asynchronous" })
 
-vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "Reference" })
-
-vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Declaration" })
-
-vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Definition" })
-
-vim.keymap.set("n", "gF", vim.lsp.buf.type_definition, { desc = "Type definition" })
+if not trouble_loaded then
+  vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "References" })
+  vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Declaration" })
+  vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Definition" })
+  vim.keymap.set("n", "gF", vim.lsp.buf.type_definition, { desc = "Type definition" })
+  vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Implementation" })
+  vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, { desc = "Signature" })
+  vim.keymap.set("n", "<leader>lq", vim.diagnostic.setqflist, { desc = "Diagnostics to quickfix" })
+  vim.keymap.set("n", "<leader>ll", vim.diagnostic.setloclist, { desc = "Diagnostics to loclist" })
+end
 
 vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover information" })
-
-vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Implementation" })
-
-vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, { desc = "Signature" })
-
-vim.keymap.set("n", "gR", vim.lsp.buf.rename, { desc = "Lsp Rename" })
-
 vim.keymap.set("n", "gl", vim.diagnostic.open_float, { desc = "Floating diagnostics" })
-
+vim.keymap.set("n", "gR", vim.lsp.buf.rename, { desc = "Lsp Rename" })
 vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, { desc = "Lsp Rename" })
 
 -- vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, { desc = "Lsp Add workspace folder" })
@@ -111,25 +109,16 @@ vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, { desc = "Lsp Rename" })
 -- end, { desc = "Lsp List workspace folders" })
 
 vim.keymap.set({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, { desc = "Code action" })
-
 vim.keymap.set("n", "<leader>lf", vim.diagnostic.open_float, { desc = "Floating diagnostics" })
-
 vim.keymap.set("n", "[d", function()
   vim.diagnostic.goto_prev({ float = true })
 end, { desc = "Prev diagnostic" })
-
 vim.keymap.set("n", "]d", function()
   vim.diagnostic.goto_next({ float = true })
 end, { desc = "Next diagnostic" })
-
 vim.keymap.set("n", "<leader>lk", function()
   vim.diagnostic.goto_prev({ float = true })
 end, { desc = "Prev diagnostic" })
-
 vim.keymap.set("n", "<leader>lj", function()
   vim.diagnostic.goto_next({ float = true })
 end, { desc = "Next diagnostic" })
-
-vim.keymap.set("n", "<leader>lq", vim.diagnostic.setqflist, { desc = "Diagnostics to quickfix" })
-
-vim.keymap.set("n", "<leader>ll", vim.diagnostic.setloclist, { desc = "Diagnostics to loclist" })

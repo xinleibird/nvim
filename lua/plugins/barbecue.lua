@@ -2,7 +2,6 @@ local M = {
   "BrunoKrugel/bbq.nvim",
   name = "barbecue",
   version = "*",
-  enabled = false,
   dependencies = {
     "SmiteshP/nvim-navic",
     "nvim-tree/nvim-web-devicons", -- optional dependency
@@ -36,8 +35,8 @@ local M = {
       "BufModifiedSet",
     }, {
       group = vim.api.nvim_create_augroup("barbecue.updater", { clear = true }),
-      callback = function(opts)
-        if vim.bo[opts.buf].filetype == "toggleterm" then
+      callback = function(ev)
+        if vim.bo[ev.buf].filetype == "toggleterm" then
           return
         end
         require("barbecue.ui").update()

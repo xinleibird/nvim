@@ -1,7 +1,7 @@
 -- colorscheme
 vim.cmd.colorscheme("catppuccin")
 
--------------------------------------- options ------------------------------------------
+------------------------------- options ---------------------------------------
 -- statusline
 vim.o.laststatus = 3
 vim.o.showmode = false
@@ -68,4 +68,11 @@ vim.g["loaded_ruby_provider"] = 0
 -- enable semantic tokens highlight
 vim.g["semantic_tokens"] = true
 
--- vim.opt.fillchars:append({ diff = "╱" })
+-- set win border separator
+vim.opt.fillchars:append({ vert = "⡁" })
+vim.opt.fillchars:append({ vertright = "⠂" })
+vim.opt.fillchars:append({ vertleft = "⠂" })
+vim.opt.fillchars:append({ horiz = "⠂" })
+vim.opt.fillchars:append({ horizup = "⠂" })
+vim.opt.fillchars:append({ horizdown = "⠂" })
+vim.opt.fillchars:append({ verthoriz = "⠂" })

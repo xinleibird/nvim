@@ -17,11 +17,18 @@ vim.api.nvim_create_autocmd("FileType", {
   command = "setlocal formatoptions-=o",
 })
 
--- Close lazy buffer q
+-- Close buffer with q
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "toggleterm", "qf" },
-  group = vim.api.nvim_create_augroup("user_add_buf_quit_hotkey", { clear = true }),
+  group = vim.api.nvim_create_augroup("user_add_buf_quit_hotkey_q", { clear = true }),
   command = "nnoremap <buffer><silent> q <CMD>close!<CR>",
+})
+
+-- Close buffer with esc
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "lazy" },
+  group = vim.api.nvim_create_augroup("user_add_buf_quit_hotkey_esc", { clear = true }),
+  command = "nnoremap <buffer><silent> <ESC> <CMD>close!<CR>",
 })
 
 vim.api.nvim_create_autocmd({ "QuitPre" }, {
@@ -56,27 +63,3 @@ vim.api.nvim_create_autocmd({ "QuitPre" }, {
 --   -- command = "wincmd K|setlocal winfixheight|setlocal nonumber",
 --   command = "setlocal winfixheight|setlocal nonumber",
 -- })
-
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "qf" },
-  group = vim.api.nvim_create_augroup("user_resize_window_position", { clear = true }),
-  callback = function()
-    local current_win = vim.api.nvim_get_current_win()
-    vim.defer_fn(function()
-      vim.wo[current_win].winbar = ""
-    end, 0)
-
-    local wins = vim.api.nvim_list_wins()
-    for _, w in ipairs(wins) do
-      local current_buf = vim.api.nvim_win_get_buf(w)
-      ---@diagnostic disable-next-line: deprecated
-      if vim.api.nvim_buf_get_option(current_buf, "filetype") == "neo-tree" then
-        vim.defer_fn(function()
-          vim.cmd("Neotree toggle")
-          vim.cmd("Neotree toggle")
-          vim.cmd("wincmd p")
-        end, 100)
-      end
-    end
-  end,
-})

@@ -37,12 +37,12 @@ local M = {
         )
         vim.defer_fn(function()
           local wins = vim.api.nvim_list_wins()
-
           for _, w in ipairs(wins) do
             local b = vim.api.nvim_win_get_buf(w)
             ---@diagnostic disable-next-line: deprecated
             if vim.api.nvim_buf_get_option(b, "filetype") == "NeogitStatus" then
               vim.api.nvim_set_current_win(w)
+              return
             end
           end
         end, 100)

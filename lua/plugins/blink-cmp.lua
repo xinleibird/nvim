@@ -55,10 +55,15 @@ local M = {
       end,
       keymap = {
         ["<Tab>"] = { "accept" },
+        -- ["<CR>"] = { "select_and_accept", "fallback" },
         ["<CR>"] = { "accept_and_enter", "fallback" },
       },
+      completion = { menu = { auto_show = true } },
     },
     sources = {
+      min_keyword_length = function()
+        return vim.bo.filetype == "markdown" and 2 or 0
+      end,
       -- default = { "lazydev", "path", "snippets", "buffer", "lsp" },
       default = function()
         local success, node = pcall(vim.treesitter.get_node)
@@ -84,13 +89,12 @@ local M = {
           end,
         },
         cmdline = {
-          -- min_keyword_lencth = function(ctx)
-          --   -- when typing a command, only show when the keyword is 3 characters or longer
-          --   if ctx.mode == "cmdline" and string.find(ctx.line, " ") == nil then
-          --     return 2
-          --   end
-          --   return 0
-          -- end,
+          min_keyword_length = function(ctx)
+            if ctx.mode == "cmdline" and string.find(ctx.line, " ") == nil then
+              return 3
+            end
+            return 0
+          end,
           transform_items = function(_, items)
             for _, item in ipairs(items) do
               item.kind_icon = ""

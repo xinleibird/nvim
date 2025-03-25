@@ -54,14 +54,7 @@ local M = {
     vim.keymap.set("n", "<leader>sb", "<cmd>Telescope buffers<CR>", { desc = "Buffers" })
     vim.keymap.set("n", "<leader>sh", "<cmd>Telescope help_tags<CR>", { desc = "Help pages" })
     vim.keymap.set("n", "<leader>sr", "<cmd>Telescope oldfiles<CR>", { desc = "Recent files" })
-    vim.keymap.set(
-      "n",
-      "<leader>sz",
-      "<cmd>Telescope current_buffer_fuzzy_find<CR>",
-      { desc = "Current buffer" }
-    )
-    vim.keymap.set("n", "<leader>ld", "<cmd>Telescope diagnostics bufnr=0 <CR>", { desc = "Buf diagnostic" })
-    vim.keymap.set("n", "<leader>lw", "<cmd>Telescope diagnostics<CR>", { desc = "Workspace diagnostic" })
+    vim.keymap.set("n", "<leader>sz", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "Current buffer" })
   end,
   opts = function()
     local actions = require("telescope.actions")
@@ -72,11 +65,7 @@ local M = {
           filetype_hook = function(_, bufnr, opts)
             -- don't display jank pdf previews
             if opts.ft == "pdf" then
-              require("telescope.previewers.utils").set_preview_message(
-                bufnr,
-                opts.winid,
-                "Not displaying " .. opts.ft
-              )
+              require("telescope.previewers.utils").set_preview_message(bufnr, opts.winid, "Not displaying " .. opts.ft)
               return false
             end
             return true
@@ -178,25 +167,55 @@ local M = {
             ["<D-v>"] = { "<C-r>+", type = "command" }, -- yank (paste) text
             ["<C-u>"] = false,
 
-            -- ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
-            ["<C-q>"] = actions.send_to_qflist,
+            -- ["<C-q>"] = actions.send_to_qflist,
+            ["<C-q>"] = function(prompt_bufnr)
+              actions.send_to_qflist(prompt_bufnr)
+              vim.cmd("Trouble qflist open")
+            end,
 
-            ["<C-S-q>"] = actions.send_selected_to_qflist,
+            -- ["<C-S-q>"] = actions.send_selected_to_qflist,
+            ["<C-S-q>"] = function(prompt_bufnr)
+              actions.send_selected_to_qflist(prompt_bufnr)
+              vim.cmd("Trouble qflist open")
+            end,
 
-            ["<C-tab>"] = actions.send_to_loclist,
+            -- ["<C-tab>"] = actions.send_to_loclist,
+            ["<C-tab>"] = function(prompt_bufnr)
+              actions.send_to_loclist(prompt_bufnr)
+              vim.cmd("Trouble qflist open")
+            end,
 
-            ["<C-S-tab>"] = actions.send_selected_to_loclist,
-
+            -- ["<C-S-tab>"] = actions.send_selected_to_loclist,
+            ["<C-S-tab>"] = function(prompt_bufnr)
+              actions.send_selected_to_loclist(prompt_bufnr)
+              vim.cmd("Trouble qflist open")
+            end,
             ["<M-q>"] = false,
           },
           n = {
-            ["<C-q>"] = actions.send_to_qflist,
+            -- ["<C-q>"] = actions.send_to_qflist,
+            ["<C-q>"] = function(prompt_bufnr)
+              actions.send_to_qflist(prompt_bufnr)
+              vim.cmd("Trouble qflist open")
+            end,
 
-            ["<C-S-q>"] = actions.send_selected_to_qflist,
+            -- ["<C-S-q>"] = actions.send_selected_to_qflist,
+            ["<C-S-q>"] = function(prompt_bufnr)
+              actions.send_selected_to_qflist(prompt_bufnr)
+              vim.cmd("Trouble qflist open")
+            end,
 
-            ["<C-tab>"] = actions.send_to_loclist,
+            -- ["<C-tab>"] = actions.send_to_loclist,
+            ["<C-tab>"] = function(prompt_bufnr)
+              actions.send_to_loclist(prompt_bufnr)
+              vim.cmd("Trouble qflist open")
+            end,
 
-            ["<C-S-tab>"] = actions.send_selected_to_loclist,
+            -- ["<C-S-tab>"] = actions.send_selected_to_loclist,
+            ["<C-S-tab>"] = function(prompt_bufnr)
+              actions.send_selected_to_loclist(prompt_bufnr)
+              vim.cmd("Trouble qflist open")
+            end,
 
             ["<M-q>"] = false,
 

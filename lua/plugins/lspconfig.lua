@@ -125,8 +125,7 @@ local M = {
     local lspconfig = require("lspconfig")
 
     for server, config in pairs(opts.servers) do
-      config.on_attach = function(client) end
-
+      config.on_attach = function() end
       config.on_init = function(client)
         -- semanticTokens 'vim.g.semantic_tokens'
         if not vim.g["semantic_tokens"] then

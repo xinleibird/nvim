@@ -1,6 +1,9 @@
 local M = {
   "catppuccin/nvim",
   name = "catppuccin",
+  dependencies = {
+    "lewis6991/gitsigns.nvim",
+  },
   priority = 1000,
   lazy = false,
   config = function()
@@ -55,7 +58,8 @@ local M = {
 
           IblScope = { fg = colors.surface2 },
 
-          WinSeparator = { fg = colors.mantle },
+          WinSeparator = { fg = colors.lavender },
+          NeoTreeWinSeparator = { fg = colors.lavender },
           VirtColumn = { fg = colors.mantle },
 
           OutlineDetails = { link = "Comment" },

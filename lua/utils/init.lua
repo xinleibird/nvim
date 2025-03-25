@@ -22,10 +22,7 @@ end
 
 M.detect_dark_mode = function()
   local modes = {
-    macos = vim.fn
-      .system("defaults read -g AppleInterfaceStyle 2>/dev/null || echo Light")
-      :gsub("\n", "")
-      :lower(),
+    macos = vim.fn.system("defaults read -g AppleInterfaceStyle 2>/dev/null || echo Light"):gsub("\n", ""):lower(),
     windows = vim.fn
       .system(
         'reg.exe query "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize" /v AppsUseLightTheme'
@@ -56,7 +53,7 @@ M.quickfix_toggle = function()
   local no_qf = vim.fn.empty(vim.fn.filter(vim.fn.getwininfo(), "v:val.quickfix"))
   if no_qf == 1 then
     -- vim.cmd("rightbelow copen")
-    vim.cmd("copen")
+    vim.cmd("copen|wincmd J")
   else
     vim.cmd("cclose")
   end
