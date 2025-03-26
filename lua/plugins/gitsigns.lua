@@ -65,14 +65,16 @@ local M = {
 
         map("n", "<leader>gS", gitsigns.stage_buffer, { desc = "Stage Buff" })
         map("n", "<leader>gR", gitsigns.reset_buffer, { desc = "Reset Buff" })
-        map("n", "<leader>gp", gitsigns.preview_hunk, { desc = "Preview hunk" })
-        map("n", "<leader>gP", gitsigns.preview_hunk_inline, { desc = "Preview hunk inline" })
+        map("n", "<leader>gP", gitsigns.preview_hunk, { desc = "Preview hunk" })
+        map("n", "<leader>gp", gitsigns.preview_hunk_inline, { desc = "Preview hunk inline" })
 
         map("n", "<leader>gb", function()
           gitsigns.blame_line({ full = true })
         end, { desc = "Blame line" })
 
-        map("n", "<leader>gd", gitsigns.diffthis, { desc = "Diff this" })
+        map("n", "<leader>gd", function()
+          gitsigns.diffthis("", { split = "belowright" })
+        end, { desc = "Diff this" })
 
         map("n", "<leader>gD", function()
           gitsigns.diffthis("~")
