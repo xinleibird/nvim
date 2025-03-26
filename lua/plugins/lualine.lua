@@ -1,6 +1,6 @@
 local M = {
   "nvim-lualine/lualine.nvim",
-  event = "VimEnter",
+  event = "ColorScheme",
   init = function()
     vim.api.nvim_create_autocmd({ "VimEnter", "DirChanged" }, {
       group = vim.api.nvim_create_augroup("user_detect_git_when_dir_changed", { clear = true }),

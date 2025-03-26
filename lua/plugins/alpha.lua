@@ -55,12 +55,11 @@ local M = {
 
         type = "group",
         val = {
-          gen_button("Spc  bn", "  New Buffer"),
-          gen_button("Spc  sp", "  Find Files"),
-          gen_button("Spc  sr", "  Old Files"),
-          gen_button("Spc  st", "󰮗  Live Grep"),
-          gen_button("Spc  sP", "  Recent Projects"),
-          gen_button("Spc  q ", "󰗽  Quit"),
+          gen_button("sP", "  Recent Projects", "<cmd>Telescope projects<CR>"),
+          gen_button("sr", "  Old Files", "<cmd>Telescope oldfiles<CR>"),
+          gen_button("sp", "  Find Files", "<cmd>Telescope find_files<CR>"),
+          gen_button("st", "󰮗  Live Grep", "<cmd>Telescope live_grep<CR>"),
+          gen_button("q ", "󰗽  Quit", "<cmd>qa!<CR>"),
         },
         opts = {
           spacing = 1,

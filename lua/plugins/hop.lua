@@ -60,9 +60,7 @@ local M = {
   end,
 
   config = function()
-    require("hop").setup({
-      quit_key = "<SPC>",
-    })
+    require("hop").setup()
   end,
 }
 

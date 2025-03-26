@@ -1,6 +1,5 @@
 local M = {
   "akinsho/bufferline.nvim",
-  version = "*",
   dependencies = {
     {
       "tiagovla/scope.nvim",
@@ -9,7 +8,8 @@ local M = {
       end,
     },
   },
-  event = "VimEnter",
+  version = "*",
+  event = "ColorScheme",
   init = function()
     vim.api.nvim_create_autocmd("VimEnter", {
       group = vim.api.nvim_create_augroup("user_start_clock_timmer", { clear = true }),
@@ -35,6 +35,7 @@ local M = {
     vim.keymap.set("n", "<leader>bo", "<cmd>BufferLineCloseOthers<CR>", { desc = "Close others buffers" })
     vim.keymap.set("n", "<leader>bh", "<cmd>BufferLineCloseLeft<CR>", { desc = "Close left buffers" })
     vim.keymap.set("n", "<leader>bl", "<cmd>BufferLineCloseRight<CR>", { desc = "Close right buffers" })
+    vim.keymap.set("n", "<leader>bs", "<cmd>BufferLinePick<CR>", { desc = "Select buffer" })
   end,
   opts = function()
     local icons = require("configs.icons")

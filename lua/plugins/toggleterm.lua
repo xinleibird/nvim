@@ -1,6 +1,6 @@
 local M = {
   "akinsho/toggleterm.nvim",
-  event = "VimEnter",
+  event = "ColorScheme",
   version = "*",
   init = function()
     local function get_map()

@@ -75,7 +75,7 @@ local M = {
           TroubleNormal = { bg = colors.base },
           TroubleNormalNC = { bg = colors.base },
 
-          -- NeoTree outline style
+          -- NeoTree header style
           NeoTreeHeaderAndTitle = { bg = colors.crust, bold = true },
 
           -- Telescope under cursor highlight
@@ -84,11 +84,17 @@ local M = {
           -- ToggleTerm background
           ToggleTermBg = { bg = colors.base },
 
-          WindowPickerStatusLine = { bg = colors.red, fg = colors.base, bold = true },
-          WindowPickerStatusLineNC = { bg = colors.green, fg = colors.base, bold = true },
+          -- Window Picker
+          WindowPickerStatusLine = { bg = colors.crust, fg = colors.base, bold = true },
+          WindowPickerStatusLineNC = { bg = colors.blue, fg = colors.base, bold = true },
 
           -- DevIconJs = { fg = colors.yellow },
           -- DevIconTs = { fg = colors.blue },
+
+          -- Bufferline Picker
+          BufferLinePickVisible = { bg = colors.base, fg = colors.red, bold = true },
+          BufferLinePick = { bg = colors.base, fg = colors.red, bold = true },
+          BufferLinePickSelected = { fg = colors.overlay0, bg = colors.base, bold = true, italic = true },
         }
       end,
       default_integrations = true,

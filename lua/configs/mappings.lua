@@ -92,11 +92,10 @@ if not trouble_loaded then
   vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Definition" })
   vim.keymap.set("n", "gF", vim.lsp.buf.type_definition, { desc = "Type definition" })
   vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Implementation" })
-  vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, { desc = "Signature" })
-  vim.keymap.set("n", "<leader>lq", vim.diagnostic.setqflist, { desc = "Diagnostics to quickfix" })
-  vim.keymap.set("n", "<leader>ll", vim.diagnostic.setloclist, { desc = "Diagnostics to loclist" })
 end
 
+vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, { desc = "Signature" })
+vim.keymap.set("n", "<leader>ls", vim.lsp.buf.signature_help, { desc = "Signature" })
 vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover information" })
 vim.keymap.set("n", "gl", vim.diagnostic.open_float, { desc = "Floating diagnostics" })
 vim.keymap.set("n", "gR", vim.lsp.buf.rename, { desc = "Lsp Rename" })
