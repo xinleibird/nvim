@@ -115,6 +115,15 @@ local M = {
       -- on_attach = function(bufnr)
       --   vim.keymap.del("n", "<z>", { buffer = bufnr })
       -- end,
+      event_handlers = {
+        {
+          event = "neo_tree_window_before_open",
+          handler = function()
+            vim.o.showtabline = 2
+            vim.o.laststatus = 3
+          end,
+        },
+      },
     })
   end,
 }
