@@ -165,10 +165,6 @@ local M = {
         icon = "󱉸",
       },
       {
-        ",",
-        icon = "",
-      },
-      {
         "<D-j>",
         icon = "",
         group = "Toggle term",
@@ -192,13 +188,8 @@ local M = {
         group = "Diagnostics under cursor",
       },
       {
-        "<leader>wj",
-        icon = "",
-        group = "Windows jump",
-      },
-      {
         ",",
-        icon = "",
+        icon = "",
         group = "Windows jump",
       },
       {
