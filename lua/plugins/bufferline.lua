@@ -8,7 +8,6 @@ local M = {
       end,
     },
   },
-  version = "*",
   event = "ColorScheme",
   init = function()
     vim.api.nvim_create_autocmd("VimEnter", {

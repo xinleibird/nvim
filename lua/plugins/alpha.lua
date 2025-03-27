@@ -101,7 +101,7 @@ local M = {
     end
 
     dashboard.opts.layout[1] = { type = "padding", val = 5 }
-    dashboard.opts.layout[3] = { type = "padding", val = 2 }
+    dashboard.opts.layout[3] = { type = "padding", val = 4 }
     dashboard.opts.layout[4] = buttons()
     dashboard.opts.layout[5] = footers()
 

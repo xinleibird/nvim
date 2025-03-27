@@ -1,7 +1,6 @@
 local M = {
   "akinsho/toggleterm.nvim",
   event = "ColorScheme",
-  version = "*",
   init = function()
     local function get_map()
       if vim.g.neovide then

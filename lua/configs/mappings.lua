@@ -39,12 +39,12 @@ if vim.g.neovide then
 end
 
 vim.keymap.set(
-  { "i", "t" },
+  { "i" },
   paste_map,
   "<esc>:set paste<cr>a<c-r>=getreg('+')<cr><esc>:set nopaste<cr>mi`[=`]`ia",
   { desc = "Paste insert-mode" }
 )
-vim.keymap.set("c", paste_map, "<C-r>+", { desc = "Paste cmd-mode" })
+vim.keymap.set("c", paste_map, '"+p', { desc = "Paste cmd-mode" })
 
 -- open uri
 local open_uri_cmds = {

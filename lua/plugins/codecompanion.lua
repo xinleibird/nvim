@@ -3,7 +3,6 @@ local M = {
   event = "UIEnter",
   dependencies = {
     "echasnovski/mini.diff",
-    version = "*",
   },
 
   init = function()
