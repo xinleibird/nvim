@@ -197,6 +197,11 @@ local M = {
         icon = "󰊠",
         group = "Codecompanion",
       },
+      {
+        "q",
+        icon = "󰗽",
+        group = "Quit all",
+      },
     })
 
     ---@diagnostic disable-next-line: missing-fields
