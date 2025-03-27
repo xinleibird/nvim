@@ -1,7 +1,6 @@
 local M = {
   "goolord/alpha-nvim",
   event = "VimEnter",
-  dependencies = "famiu/bufdelete.nvim",
   init = function()
     vim.api.nvim_create_autocmd("User", {
       pattern = "AlphaReady",
