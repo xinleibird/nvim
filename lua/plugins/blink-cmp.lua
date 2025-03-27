@@ -7,6 +7,7 @@ local M = {
   dependencies = {
     "olimorris/codecompanion.nvim",
     "folke/lazydev.nvim",
+    "rafamadriz/friendly-snippets",
   },
   event = "VimEnter",
   opts = {
