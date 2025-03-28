@@ -10,25 +10,25 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- Set formatoptions
+-- Close buffer with q
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = "*",
-  group = vim.api.nvim_create_augroup("user_set_formatoptions", { clear = true }),
-  command = "setlocal formatoptions-=o",
+  pattern = { "qf" },
+  group = vim.api.nvim_create_augroup("user_buf_quit_hotkey_q", { clear = true }),
+  command = "nnoremap <buffer><silent> q <cmd>close!<CR>",
 })
 
 -- Close buffer with q
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "toggleterm", "qf" },
-  group = vim.api.nvim_create_augroup("user_add_buf_quit_hotkey_q", { clear = true }),
-  command = "nnoremap <buffer><silent> q <CMD>close!<CR>",
+  pattern = { "checkhealth" },
+  group = vim.api.nvim_create_augroup("user_buf_delete_hotkey_q", { clear = true }),
+  command = "nnoremap <buffer><silent> q <cmd>bd<CR>|nnoremap <buffer><silent> <C-w>q <cmd>bd<CR>",
 })
 
 -- Close buffer with esc
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "lazy" },
-  group = vim.api.nvim_create_augroup("user_add_buf_quit_hotkey_esc", { clear = true }),
-  command = "nnoremap <buffer><silent> <ESC> <CMD>close!<CR>",
+  group = vim.api.nvim_create_augroup("user_buf_quit_hotkey_esc", { clear = true }),
+  command = "nnoremap <buffer><silent> <ESC> <cmd>close!<CR>",
 })
 
 vim.api.nvim_create_autocmd({ "QuitPre" }, {
@@ -53,11 +53,3 @@ vim.api.nvim_create_autocmd({ "QuitPre" }, {
     end
   end,
 })
-
--- Fixed qf repl win position and  height
--- vim.api.nvim_create_autocmd("FileType", {
---   pattern = { "dap-repl", "qf" },
---   group = vim.api.nvim_create_augroup("user_set_qf_repl_window", { clear = true }),
---   -- command = "wincmd K|setlocal winfixheight|setlocal nonumber",
---   command = "setlocal winfixheight|setlocal nonumber",
--- })

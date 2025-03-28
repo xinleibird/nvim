@@ -44,8 +44,18 @@ local M = {
     end
 
     local function custom_filter(bufnr, buf_nums)
-      local exclude_ft =
-        { "qf", "fugitive", "git", "dirvish", "toggleterm", "NeogitStatus", "gitcommit", "DiffviewFiles", "" }
+      local exclude_ft = {
+        "qf",
+        "fugitive",
+        "git",
+        "dirvish",
+        "toggleterm",
+        "NeogitStatus",
+        "gitcommit",
+        "DiffviewFiles",
+        "checkhealth",
+        "",
+      }
       local cur_ft = vim.bo[bufnr].filetype
       local should_show = not vim.tbl_contains(exclude_ft, cur_ft)
 
