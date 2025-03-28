@@ -16,6 +16,7 @@ local M = {
   config = function()
     ---@diagnostic disable-next-line: missing-fields
     require("FTerm").setup({
+      border = "rounded",
       dimensions = {
         height = 0.5,
         width = 0.98,

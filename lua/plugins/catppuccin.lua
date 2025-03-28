@@ -95,6 +95,9 @@ local M = {
           BufferLinePickVisible = { bg = colors.base, fg = colors.red, bold = true },
           BufferLinePick = { bg = colors.base, fg = colors.red, bold = true },
           BufferLinePickSelected = { fg = colors.overlay0, bg = colors.base, bold = true, italic = true },
+
+          -- FloatBorder
+          FloatBorder = { fg = colors.rosewater, bg = colors.none },
         }
       end,
       default_integrations = true,

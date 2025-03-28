@@ -168,26 +168,21 @@ local M = {
           i = {
             ["<D-v>"] = { "<C-r>+", type = "command" }, -- yank (paste) text
             ["<C-u>"] = false,
-
-            -- ["<C-q>"] = actions.send_to_qflist,
             ["<C-q>"] = function(prompt_bufnr)
               actions.send_to_qflist(prompt_bufnr)
               vim.cmd("Trouble qflist open")
             end,
 
-            -- ["<C-S-q>"] = actions.send_selected_to_qflist,
             ["<C-S-q>"] = function(prompt_bufnr)
               actions.send_selected_to_qflist(prompt_bufnr)
               vim.cmd("Trouble qflist open")
             end,
 
-            -- ["<C-tab>"] = actions.send_to_loclist,
             ["<C-tab>"] = function(prompt_bufnr)
               actions.send_to_loclist(prompt_bufnr)
               vim.cmd("Trouble qflist open")
             end,
 
-            -- ["<C-S-tab>"] = actions.send_selected_to_loclist,
             ["<C-S-tab>"] = function(prompt_bufnr)
               actions.send_selected_to_loclist(prompt_bufnr)
               vim.cmd("Trouble qflist open")
@@ -195,25 +190,21 @@ local M = {
             ["<M-q>"] = false,
           },
           n = {
-            -- ["<C-q>"] = actions.send_to_qflist,
             ["<C-q>"] = function(prompt_bufnr)
               actions.send_to_qflist(prompt_bufnr)
               vim.cmd("Trouble qflist open")
             end,
 
-            -- ["<C-S-q>"] = actions.send_selected_to_qflist,
             ["<C-S-q>"] = function(prompt_bufnr)
               actions.send_selected_to_qflist(prompt_bufnr)
               vim.cmd("Trouble qflist open")
             end,
 
-            -- ["<C-tab>"] = actions.send_to_loclist,
             ["<C-tab>"] = function(prompt_bufnr)
               actions.send_to_loclist(prompt_bufnr)
               vim.cmd("Trouble qflist open")
             end,
 
-            -- ["<C-S-tab>"] = actions.send_selected_to_loclist,
             ["<C-S-tab>"] = function(prompt_bufnr)
               actions.send_selected_to_loclist(prompt_bufnr)
               vim.cmd("Trouble qflist open")

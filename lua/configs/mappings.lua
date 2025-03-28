@@ -110,14 +110,18 @@ vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, { desc = "Lsp Rename" })
 vim.keymap.set({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, { desc = "Code action" })
 vim.keymap.set("n", "<leader>lf", vim.diagnostic.open_float, { desc = "Floating diagnostics" })
 vim.keymap.set("n", "[d", function()
+  ---@diagnostic disable-next-line: deprecated
   vim.diagnostic.goto_prev({ float = true })
 end, { desc = "Prev diagnostic" })
 vim.keymap.set("n", "]d", function()
+  ---@diagnostic disable-next-line: deprecated
   vim.diagnostic.goto_next({ float = true })
 end, { desc = "Next diagnostic" })
 vim.keymap.set("n", "<leader>lk", function()
+  ---@diagnostic disable-next-line: deprecated
   vim.diagnostic.goto_prev({ float = true })
 end, { desc = "Prev diagnostic" })
 vim.keymap.set("n", "<leader>lj", function()
+  ---@diagnostic disable-next-line: deprecated
   vim.diagnostic.goto_next({ float = true })
 end, { desc = "Next diagnostic" })
