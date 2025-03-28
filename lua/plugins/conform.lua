@@ -74,10 +74,16 @@ local M = {
         }, function(err)
           if not err then
             -- winid = open_progress_win()
-            require("fidget.notification").notify("Formatting", vim.log.levels.INFO, {
-              annote = "Finished!",
-              ttl = 1,
-            })
+            require("fidget.notification").notify(
+              "Formatting",
+              vim.log.levels.INFO,
+
+              ---@diagnostic disable-next-line: missing-fields
+              {
+                annote = "Finished!",
+                ttl = 1,
+              }
+            )
           end
         end
       end,

@@ -39,17 +39,15 @@ vim.api.nvim_create_autocmd({ "QuitPre" }, {
 
     local editable_count = 0
     for _, w in ipairs(wins) do
-      local current_buf = vim.api.nvim_win_get_buf(w)
-      ---@diagnostic disable-next-line: deprecated
-      if vim.api.nvim_buf_get_option(current_buf, "buftype") == "" then
+      local b = vim.api.nvim_win_get_buf(w)
+      if vim.bo[b].buftype == "" then
         editable_count = editable_count + 1
       end
     end
 
     if editable_count <= 1 then
-      local current_buf = vim.api.nvim_win_get_buf(current_win)
-      ---@diagnostic disable-next-line: deprecated
-      if vim.api.nvim_buf_get_option(current_buf, "buftype") == "" then
+      local b = vim.api.nvim_win_get_buf(current_win)
+      if vim.bo[b].buftype == "" then
         vim.cmd("confirm qall")
       end
     end

@@ -105,8 +105,7 @@ M.buf_kill = function(kill_command, bufnr, force)
   end
 
   local bufname = api.nvim_buf_get_name(bufnr)
-  ---@diagnostic disable-next-line: deprecated
-  local buftype = api.nvim_buf_get_option(bufnr, "buftype")
+  local buftype = vim.bo[bufnr].buftype
 
   if not force then
     local choice

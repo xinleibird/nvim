@@ -8,6 +8,7 @@ local M = {
       timeout = 2000,
       stages = "static",
       top_down = true,
+      merge_duplicates = true,
     })
     vim.notify = require("notify")
 
