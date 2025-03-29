@@ -119,7 +119,6 @@ local M = {
         flash = true,
         fzf = true,
         gitsigns = true,
-        hop = true,
         illuminate = {
           enabled = true,
           lsp = true,
