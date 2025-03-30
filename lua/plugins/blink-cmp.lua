@@ -69,9 +69,16 @@ local M = {
               return true
             end, items)
           end,
-          should_show_items = function(ctx)
-            return ctx.trigger.initial_kind ~= "trigger_character"
-          end,
+          override = {
+            get_trigger_characters = function(self)
+              local trigger_characters = self:get_trigger_characters()
+              trigger_characters = vim.tbl_filter(function(trigger)
+                -- disable {, [, ( trigger
+                return trigger ~= "}" and trigger ~= "]" and trigger ~= ")"
+              end, trigger_characters)
+              return trigger_characters
+            end,
+          },
         },
         path = {
           opts = {
@@ -120,6 +127,7 @@ local M = {
             return vim.tbl_filter(function(item)
               -- disable completion for Chinese characters
               -- return string.find(item.insertText, "[\xE4-\xE9][\x80-\xBF][\x80-\xBF]") == nil
+
               -- disable completion for non-ascii characters
               return string.find(item.insertText, "[^a-zA-Z0-9%s%p]") == nil
             end, items)

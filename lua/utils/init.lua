@@ -20,6 +20,10 @@ M.detect_os = function()
   vim.notify("Can not detect your OS")
 end
 
+M.detect_term = function()
+  return vim.api.nvim_get_chan_info(vim.api.nvim_list_uis()[1].chan).client.name
+end
+
 M.detect_dark_mode = function()
   local modes = {
     macos = vim.fn.system("defaults read -g AppleInterfaceStyle 2>/dev/null || echo Light"):gsub("\n", ""):lower(),
