@@ -41,12 +41,10 @@ local M = {
     }
     -- custom cmd to install all mason binaries listed
     vim.api.nvim_create_user_command("MasonInstallAll", function()
-      if vim.g.ensure_installed and #vim.g.ensure_installed > 0 then
-        vim.cmd("MasonInstall " .. table.concat(vim.g.ensure_installed, " "))
+      if vim.g.mason_ensure_installed and #vim.g.mason_ensure_installed > 0 then
+        vim.cmd("MasonInstall " .. table.concat(vim.g.mason_ensure_installed, " "))
       end
     end, {})
-
-    vim.g.mason_binaries_list = vim.g.ensure_installed
   end,
 
   opts = function()
