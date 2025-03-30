@@ -16,7 +16,7 @@ local M = {
       ["<Tab>"] = {
         function(cmp)
           if cmp.snippet_active() then
-            return cmp.accept()
+            return cmp.snippet_forward()
           else
             return cmp.select_and_accept()
           end
@@ -42,6 +42,7 @@ local M = {
       nerd_font_variant = "mono",
     },
     cmdline = {
+      enabled = false,
       sources = function()
         local type = vim.fn.getcmdtype()
         -- Search forward and backward
@@ -63,18 +64,48 @@ local M = {
       min_keyword_length = function()
         return vim.bo.filetype == "markdown" and 2 or 0
       end,
-      -- default = { "lazydev", "path", "snippets", "buffer", "lsp" },
+      -- default = { "lsp", "path", "snippets", "buffer" },
       default = function()
         local success, node = pcall(vim.treesitter.get_node)
         if success and node and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type()) then
           return { "buffer" }
         elseif vim.bo.filetype == "lua" then
           return { "lazydev", "lsp", "path", "snippets", "buffer" }
+        elseif vim.bo.filetype == "html" then
+          return { "lsp", "path", "buffer" }
         else
           return { "lsp", "path", "snippets", "buffer" }
         end
       end,
       providers = {
+        lsp = {
+          transform_items = function(_, items)
+            return vim.tbl_filter(function(item)
+              if item.client_name == "html" then
+                -- disable emmet_language_server tag's auto close "</div> etc."
+                return item.textEdit.newText:find("^%$%d+</%w+>$") == nil
+              end
+              return true
+            end, items)
+          end,
+          override = {
+            get_trigger_characters = function(self)
+              local trigger_characters = self:get_trigger_characters()
+              trigger_characters = vim.tbl_filter(function(char)
+                -- for emmet_language_server disable {, [, ( trigger
+                return char ~= "}" and char ~= "]" and char ~= ")"
+              end, trigger_characters)
+              return trigger_characters
+            end,
+          },
+        },
+        path = {
+          opts = {
+            get_cwd = function(_)
+              return vim.fn.getcwd()
+            end,
+          },
+        },
         lazydev = {
           name = "LazyDev",
           module = "lazydev.integrations.blink",
@@ -111,14 +142,15 @@ local M = {
           end,
         },
         buffer = {
-          transform_items = function(_, items) -- filter include Chinese characters item
+          transform_items = function(_, items)
             return vim.tbl_filter(function(item)
+              -- disable completion for Chinese characters
               -- return string.find(item.insertText, "[\xE4-\xE9][\x80-\xBF][\x80-\xBF]") == nil
+              -- disable completion for non-ascii characters
               return string.find(item.insertText, "[^a-zA-Z0-9%s%p]") == nil
             end, items)
           end,
         },
-        lsp = {},
       },
     },
     fuzzy = {
@@ -140,6 +172,7 @@ local M = {
     completion = {
       menu = {
         draw = {
+          -- show completion kind
           columns = { { "kind_icon", "label", "label_description", gap = 1 }, { "kind" } },
         },
       },
