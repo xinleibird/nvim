@@ -230,7 +230,7 @@ local M = {
               return "󰙅 " .. vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
             end,
             highlight = "NeoTreeHeaderAndTitle",
-            padding = 0,
+            padding = 1,
           },
           {
             filetype = "Outline",

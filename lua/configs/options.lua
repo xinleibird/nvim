@@ -69,10 +69,10 @@ vim.g["loaded_ruby_provider"] = 0
 vim.g["semantic_tokens"] = true
 
 -- set win border separator
-vim.opt.fillchars:append({ vert = "⡁" })
-vim.opt.fillchars:append({ vertright = "⠂" })
-vim.opt.fillchars:append({ vertleft = "⠂" })
-vim.opt.fillchars:append({ horiz = "⠂" })
-vim.opt.fillchars:append({ horizup = "⠂" })
-vim.opt.fillchars:append({ horizdown = "⠂" })
-vim.opt.fillchars:append({ verthoriz = "⠂" })
+vim.opt.fillchars:append({ vert = "╎" })
+vim.opt.fillchars:append({ vertright = "╎" })
+vim.opt.fillchars:append({ vertleft = "╎" })
+vim.opt.fillchars:append({ horiz = "╶" })
+vim.opt.fillchars:append({ horizup = "╶" })
+vim.opt.fillchars:append({ horizdown = "╶" })
+vim.opt.fillchars:append({ verthoriz = " " })
