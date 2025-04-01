@@ -3,7 +3,8 @@ local M = {
   event = "ColorScheme",
   init = function()
     local function get_map()
-      if vim.g.neovide or vim.fn.system("echo &term"):match("xterm-kitty") then
+      ---@diagnostic disable-next-line: deprecated
+      if vim.g.neovide or vim.api.nvim_command_output("echo &term") == "xterm-kitty" then
         return "<D-j>"
       else
         return "<M-j>"

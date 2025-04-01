@@ -1,9 +1,9 @@
 local M = {
   "saghen/blink.cmp",
   -- use a release tag to download pre-built binaries
-  -- version = "*",
+  version = "1.*",
   -- or build it yourself
-  build = "cargo build --release",
+  -- build = "cargo build --release",
   dependencies = {
     "olimorris/codecompanion.nvim",
     "folke/lazydev.nvim",
@@ -71,10 +71,11 @@ local M = {
           end,
           override = {
             get_trigger_characters = function(self)
+              local ignored = { "}", "]", ")", "" }
               local trigger_characters = self:get_trigger_characters()
               trigger_characters = vim.tbl_filter(function(trigger)
                 -- disable {, [, ( trigger
-                return trigger ~= "}" and trigger ~= "]" and trigger ~= ")"
+                return not vim.tbl_contains(ignored, trigger)
               end, trigger_characters)
               return trigger_characters
             end,
@@ -119,7 +120,8 @@ local M = {
         },
         snippets = {
           should_show_items = function(ctx)
-            return ctx.trigger.initial_kind ~= "trigger_character"
+            local keyword = ctx.get_keyword()
+            return ctx.trigger.initial_kind ~= "trigger_character" and keyword ~= ""
           end,
         },
         buffer = {
@@ -131,6 +133,10 @@ local M = {
               -- disable completion for non-ascii characters
               return string.find(item.insertText, "[^a-zA-Z0-9%s%p]") == nil
             end, items)
+          end,
+          should_show_items = function(ctx)
+            local keyword = ctx.get_keyword()
+            return keyword ~= ""
           end,
         },
       },
