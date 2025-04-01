@@ -167,8 +167,7 @@ local M = {
           end
 
           local client_batch = ""
-          ---@diagnostic disable-next-line: deprecated
-          local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+          local clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })
 
           for _, client in ipairs(clients) do
             if client.attached_buffers[stbufnr()] and client.name ~= "null-ls" then

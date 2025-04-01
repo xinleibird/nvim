@@ -169,21 +169,25 @@ local M = {
             ["<D-v>"] = { "<C-r>+", type = "command" }, -- yank (paste) text
             ["<C-u>"] = false,
             ["<C-q>"] = function(prompt_bufnr)
+              vim.cmd("cexpr([])")
               actions.send_to_qflist(prompt_bufnr)
               vim.cmd("Trouble qflist open")
             end,
 
             ["<C-S-q>"] = function(prompt_bufnr)
+              vim.cmd("cexpr([])")
               actions.send_selected_to_qflist(prompt_bufnr)
               vim.cmd("Trouble qflist open")
             end,
 
             ["<C-tab>"] = function(prompt_bufnr)
+              vim.cmd("cexpr([])")
               actions.send_to_loclist(prompt_bufnr)
               vim.cmd("Trouble qflist open")
             end,
 
             ["<C-S-tab>"] = function(prompt_bufnr)
+              vim.cmd("cexpr([])")
               actions.send_selected_to_loclist(prompt_bufnr)
               vim.cmd("Trouble qflist open")
             end,
@@ -191,21 +195,25 @@ local M = {
           },
           n = {
             ["<C-q>"] = function(prompt_bufnr)
+              vim.cmd("cexpr([])")
               actions.send_to_qflist(prompt_bufnr)
               vim.cmd("Trouble qflist open")
             end,
 
             ["<C-S-q>"] = function(prompt_bufnr)
+              vim.cmd("cexpr([])")
               actions.send_selected_to_qflist(prompt_bufnr)
               vim.cmd("Trouble qflist open")
             end,
 
             ["<C-tab>"] = function(prompt_bufnr)
+              vim.cmd("cexpr([])")
               actions.send_to_loclist(prompt_bufnr)
               vim.cmd("Trouble qflist open")
             end,
 
             ["<C-S-tab>"] = function(prompt_bufnr)
+              vim.cmd("cexpr([])")
               actions.send_selected_to_loclist(prompt_bufnr)
               vim.cmd("Trouble qflist open")
             end,
