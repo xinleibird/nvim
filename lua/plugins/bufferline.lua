@@ -26,7 +26,6 @@ local M = {
     vim.keymap.set("n", "<leader>c", function()
       require("utils").buf_kill("bd")
     end, { desc = "Close buffer" })
-
     vim.keymap.set("n", "<leader>be", "<cmd>enew<CR>", { desc = "New buffer" })
     vim.keymap.set("n", "<leader>bb", "<cmd>BufferLineCyclePrev<CR>", { desc = "Prev buffer" })
     vim.keymap.set("n", "<leader>bn", "<cmd>BufferLineCycleNext<CR>", { desc = "Next buffer" })
@@ -111,13 +110,12 @@ local M = {
 
         indicator = {
           icon = "▎", -- ▎default |this should be omitted if indicator style is not 'icon'
-          style = "icon", -- can also be 'underline'|'none'|'icon',
+          style = "none", -- can also be 'underline'|'none'|'icon',
           -- style = "underline", -- can also be 'underline'|'none'|'icon',
         },
         -- can also be a table containing 2 custom separators
         -- separator_style = "slant" | "slope" | "padded_slope" | "thick" | "thin" | { 'any', 'any' },
         -- | [focused and unfocused]. eg: { '|', '|' }
-        -- separator_style = "thin",
         separator_style = "thin",
 
         buffer_close_icon = icons.ui.Close,
@@ -230,14 +228,14 @@ local M = {
               return "󰙅 " .. vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
             end,
             highlight = "NeoTreeHeaderAndTitle",
-            padding = 1,
+            padding = 0,
           },
           {
             filetype = "Outline",
             text = "Outline 󰺔",
             highlight = "NeoTreeHeaderAndTitle",
-            padding = 1,
             text_align = "right",
+            padding = 1,
           },
           {
             filetype = "DiffviewFiles",

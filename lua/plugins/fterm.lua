@@ -1,14 +1,18 @@
 local M = {
   "numToStr/FTerm.nvim",
   event = "ColorScheme",
+
   init = function()
     local function get_map()
-      ---@diagnostic disable-next-line: deprecated
-      if vim.g.neovide or vim.api.nvim_command_output("echo &term") == "xterm-kitty" then
+      if vim.g.neovide then
         return "<D-j>"
-      else
-        return "<M-j>"
       end
+
+      if vim.env.TERM and vim.env.TERM == "xterm-kitty" then
+        return "<D-j>"
+      end
+
+      return "<M-j>"
     end
     vim.keymap.set({ "n", "t" }, get_map(), '<CMD>lua require("FTerm").toggle()<CR>')
     vim.keymap.set("t", "<C-x>", "<C-\\><C-N>", { desc = "Escape terminal mode" })

@@ -3,15 +3,16 @@ local M = {
   event = "BufRead",
   config = function()
     require("colorizer").setup({
-      "lua",
+      "conf",
       "css",
-      "scss",
-      "sass",
       "html",
       "javascript",
       "javascriptreact",
+      "lua",
       "typescript",
       "typescriptreact",
+      "sass",
+      "scss",
       "vue",
     }, {
       RGB = true, -- #RGB hex codes

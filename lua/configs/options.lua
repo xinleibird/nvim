@@ -28,7 +28,7 @@ vim.o.ruler = false
 
 vim.o.termguicolors = true
 vim.o.cursorline = true
-vim.o.cursorlineopt = "number"
+-- vim.o.cursorlineopt = "number"
 vim.o.guicursor = "n-v-sm:block,i-c-ci-ve:ver25,r-cr-o:hor20"
 
 vim.o.showcmd = false
@@ -60,19 +60,19 @@ vim.o.swapfile = false
 vim.o.wrap = false
 
 -- disable some default providers
-vim.g["loaded_node_provider"] = 0
-vim.g["loaded_python3_provider"] = 0
-vim.g["loaded_perl_provider"] = 0
-vim.g["loaded_ruby_provider"] = 0
+-- vim.g["loaded_node_provider"] = 0
+-- vim.g["loaded_python3_provider"] = 0
+-- vim.g["loaded_perl_provider"] = 0
+-- vim.g["loaded_ruby_provider"] = 0
 
 -- enable semantic tokens highlight
 vim.g["semantic_tokens"] = true
 
 -- set win border separator
-vim.opt.fillchars:append({ vert = "" })
-vim.opt.fillchars:append({ vertright = "" })
-vim.opt.fillchars:append({ vertleft = "" })
-vim.opt.fillchars:append({ horiz = "∙" })
-vim.opt.fillchars:append({ horizup = "∙" })
-vim.opt.fillchars:append({ horizdown = "∙" })
-vim.opt.fillchars:append({ verthoriz = "∙" })
+vim.opt.fillchars:append({ vert = "⠅" })
+vim.opt.fillchars:append({ vertright = "⠅" })
+vim.opt.fillchars:append({ vertleft = "⠅" })
+vim.opt.fillchars:append({ horiz = "⠂" })
+vim.opt.fillchars:append({ horizup = "⠂" })
+vim.opt.fillchars:append({ horizdown = "⠂" })
+vim.opt.fillchars:append({ verthoriz = "⠂" })

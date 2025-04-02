@@ -39,6 +39,7 @@ local M = {
       color_overrides = {},
       highlight_overrides = {},
       custom_highlights = function(colors)
+        local util = require("catppuccin.utils.colors")
         return {
           ActionHintsDefinition = { fg = colors.yellow },
           ActionHintsReferences = { fg = colors.blue },
@@ -69,7 +70,19 @@ local M = {
           CmpSel = { link = "PmenuSel", bold = true },
 
           -- CursorLine highlight
-          CursorLine = { bg = colors.crust },
+          -- CursorLine = { bg = colors.crust },
+          CursorLine = {
+            bg = util.vary_color(
+              { latte = util.lighten(colors.mantle, 0.6, colors.base) },
+              util.darken(colors.surface0, 0.5, colors.base)
+            ),
+          },
+          NeoTreeCursorLine = {
+            bg = util.vary_color(
+              { latte = util.lighten(colors.mantle, 0.2, colors.base) },
+              util.darken(colors.surface0, 0.3, colors.base)
+            ),
+          },
 
           -- Trouble
           TroubleNormal = { bg = colors.base },

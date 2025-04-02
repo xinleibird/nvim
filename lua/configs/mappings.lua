@@ -47,15 +47,18 @@ vim.keymap.set(
 vim.keymap.set("c", paste_map, "<C-r>+", { desc = "Paste cmd-mode" })
 
 -- open uri
-local open_uri_cmds = {
-  macos = '<Cmd>call jobstart(["open", expand("<cfile>")], {"detach": v:true})<CR>',
-  windows = '<Cmd>call jobstart(["start", expand("<cfile>")], {"detach": v:true})<CR>',
-  wsl = '<Cmd>call jobstart(["start", expand("<cfile>")], {"detach": v:true})<CR>',
-  linux = '<Cmd>call jobstart(["xdg-open", expand("<cfile>")], {"detach": v:true})<CR>',
-}
+local success, _ = pcall(require, "open")
+if not success then
+  local open_uri_cmds = {
+    macos = '<Cmd>call jobstart(["open", expand("<cfile>")], {"detach": v:true})<CR>',
+    windows = '<Cmd>call jobstart(["start", expand("<cfile>")], {"detach": v:true})<CR>',
+    wsl = '<Cmd>call jobstart(["start", expand("<cfile>")], {"detach": v:true})<CR>',
+    linux = '<Cmd>call jobstart(["xdg-open", expand("<cfile>")], {"detach": v:true})<CR>',
+  }
 
-local open_uri_cmd = open_uri_cmds[os]
-vim.keymap.set("n", "gx", open_uri_cmd, { desc = "Opening URI" })
+  local open_uri_cmd = open_uri_cmds[os]
+  vim.keymap.set("n", "gx", open_uri_cmd, { desc = "Opening URI" })
+end
 
 -- save
 vim.keymap.set("n", "<leader>w", "<cmd>w!<CR>", { desc = "Save with formatting" })

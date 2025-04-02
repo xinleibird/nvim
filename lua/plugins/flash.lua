@@ -18,6 +18,7 @@ local M = {
     modes = {
       char = {
         enabled = true,
+        jump_labels = true,
       },
     },
   },
