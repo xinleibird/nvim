@@ -36,10 +36,10 @@ vim.fn.setenv("LANG", "en_US.UTF-8")
 
 --+<FONT>+--
 -- Font family
-vim.opt.guifont = "JetBrains_Mono,JetBrainsMono_Nerd_Font_Mono:h13.5:#e-antialias:#h-slight"
+vim.opt.guifont = "JetBrains_Mono,SauceCodePro_Nerd_Font_Mono,Maple_Mono_CN:h13.7:w-1:#e-antialias:#h-slight"
 
 -- Linespace
-vim.opt.linespace = -1
+vim.opt.linespace = -2
 
 -- Scaling font without font size vim.g.neovide_scale_factor = 1.0
 vim.g.neovide_scale_factor = 1.0
@@ -61,7 +61,6 @@ vim.g.neovide_padding_left = 0
 -- vim.g.neovide_transparency_point = 0.9
 -- vim.g.neovide_background_color = "#1b1b25" .. alpha()
 
-vim.g.neovide_theme = ""
 -- Auto dark mode just for neovide+--
 -- local auto_dark = function()
 --   vim.g.neovide_theme = "auto"
@@ -140,8 +139,8 @@ vim.g.neovide_cursor_unfocused_outline_width = 0.125
 -- vim.g.neovide_cursor_vfx_mode = "sonicboom"
 vim.g.neovide_cursor_vfx_mode = "railgun"
 vim.g.neovide_cursor_vfx_opacity = 40.0
-vim.g.neovide_cursor_vfx_particle_lifetime = 1.0
+vim.g.neovide_cursor_vfx_particle_lifetime = 0.4
 vim.g.neovide_cursor_vfx_particle_density = 7.0
 vim.g.neovide_cursor_vfx_particle_speed = 10.0
--- vim.g.neovide_cursor_vfx_particle_phase      = 1.5 -- just for railgun
--- vim.g.neovide_cursor_vfx_particle_curl       = 1.0 -- just for railgun
+vim.g.neovide_cursor_vfx_particle_phase = 1.5 -- just for railgun
+vim.g.neovide_cursor_vfx_particle_curl = 1.0 -- just for railgun

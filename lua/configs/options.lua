@@ -29,7 +29,6 @@ vim.o.ruler = false
 vim.o.termguicolors = true
 vim.o.cursorline = true
 -- vim.o.cursorlineopt = "number"
-vim.o.guicursor = "n-v-sm:block,i-c-ci-ve:ver25,r-cr-o:hor20"
 
 vim.o.showcmd = false
 

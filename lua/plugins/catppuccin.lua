@@ -47,12 +47,10 @@ local M = {
           EyelinerPrimary = { fg = colors.peach, style = { "bold", "underline" } },
           EyelinerSecondary = { fg = colors.sky, style = { "bold" } },
 
-          -- IlluminatedWordRead = { bg = colors.crust },
-          -- IlluminatedWordText = { bg = colors.crust },
-          -- IlluminatedWordWrite = { bg = colors.crust },
-          IlluminatedWordRead = { fg = colors.mauve, bg = colors.crust, underdotted = true },
-          IlluminatedWordText = { fg = colors.mauve, bg = colors.crust, underdotted = true },
-          IlluminatedWordWrite = { fg = colors.mauve, bg = colors.crust, underdotted = true },
+          -- Illuminated
+          -- IlluminatedWordRead = { fg = colors.mauve, bg = colors.crust, underdotted = true },
+          -- IlluminatedWordText = { fg = colors.mauve, bg = colors.crust, underdotted = true },
+          -- IlluminatedWordWrite = { fg = colors.mauve, bg = colors.crust, underdotted = true },
 
           WinSeparator = { fg = colors.lavender },
           NeoTreeWinSeparator = { fg = colors.lavender },
@@ -93,9 +91,6 @@ local M = {
 
           -- Telescope under cursor highlight
           TelescopeSelection = { bg = colors.crust },
-
-          -- ToggleTerm background
-          ToggleTermBg = { bg = colors.base },
 
           -- Window Picker
           WindowPickerStatusLine = { bg = colors.crust, fg = colors.base, bold = true },

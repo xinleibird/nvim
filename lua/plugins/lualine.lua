@@ -1,6 +1,16 @@
 local M = {
   "nvim-lualine/lualine.nvim",
   event = "ColorScheme",
+  dependencies = {
+    "lewis6991/gitsigns.nvim",
+    event = "BufRead",
+    config = function()
+      require("gitsigns").setup({
+        signs_staged_enable = false,
+        signcolumn = false,
+      })
+    end,
+  },
   init = function()
     vim.api.nvim_create_autocmd({ "VimEnter", "DirChanged" }, {
       group = vim.api.nvim_create_augroup("user_detect_git_when_dir_changed", { clear = true }),
@@ -74,7 +84,7 @@ local M = {
 
           return icons.ui.GhostOutline .. "  " .. string.format("%-8s", mode)
         end,
-        separator = { left = " ", right = "" },
+        separator = { left = "", right = "" },
         padding = { left = 0, right = 0 },
       },
 
@@ -232,14 +242,14 @@ local M = {
           return "󰼂%4l:%-3c󰼁"
         end,
         -- selectionCount,
-        separator = { left = "", right = " " },
+        separator = { left = "", right = "" },
         padding = { left = 0, right = 0 },
       },
 
       progress = {
         "progress",
-        separator = { left = "", right = " " },
-        padding = { left = 0, right = 0 },
+        separator = { left = "", right = "" },
+        padding = { left = 1, right = 0 },
       },
     }
 

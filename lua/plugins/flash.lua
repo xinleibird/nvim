@@ -18,6 +18,8 @@ local M = {
     modes = {
       char = {
         enabled = true,
+        autohide = true,
+        multi_line = false,
         jump_labels = true,
       },
     },

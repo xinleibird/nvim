@@ -8,7 +8,7 @@ local M = {
         return "<D-j>"
       end
 
-      if vim.env.TERM and vim.env.TERM == "xterm-kitty" then
+      if vim.env.TERM and (vim.env.TERM == "xterm-kitty" or vim.env.TERM == "xterm-ghostty") then
         return "<D-j>"
       end
 
