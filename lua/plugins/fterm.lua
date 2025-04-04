@@ -23,7 +23,7 @@ local M = {
       border = "rounded",
       dimensions = {
         height = 0.5,
-        width = 0.98,
+        width = 1,
         x = 0.5,
         y = 0.88,
       },
