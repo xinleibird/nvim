@@ -1,7 +1,6 @@
 -- colorscheme
 vim.cmd.colorscheme("catppuccin")
 
-------------------------------- options ---------------------------------------
 -- statusline
 vim.o.laststatus = 3
 vim.o.showmode = false
@@ -59,10 +58,8 @@ vim.o.swapfile = false
 vim.o.wrap = false
 
 -- disable some default providers
--- vim.g["loaded_node_provider"] = 0
--- vim.g["loaded_python3_provider"] = 0
--- vim.g["loaded_perl_provider"] = 0
--- vim.g["loaded_ruby_provider"] = 0
+vim.g["loaded_perl_provider"] = 0
+vim.g["loaded_ruby_provider"] = 0
 
 -- enable semantic tokens highlight
 vim.g["semantic_tokens"] = true
