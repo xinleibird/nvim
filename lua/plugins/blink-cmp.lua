@@ -1,13 +1,20 @@
 local M = {
   "saghen/blink.cmp",
   -- use a release tag to download pre-built binaries
-  version = "1.*",
+  version = "v1.0.0",
   -- or build it yourself
   -- build = "cargo build --release",
+  -- enabled = false,
   dependencies = {
     "olimorris/codecompanion.nvim",
     "folke/lazydev.nvim",
     "rafamadriz/friendly-snippets",
+    {
+      "saghen/blink.compat",
+      version = "*",
+      lazy = true,
+      opts = {},
+    },
   },
   event = "VimEnter",
   opts = {

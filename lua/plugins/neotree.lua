@@ -87,6 +87,7 @@ local M = {
         window = {
           mappings = {
             ["D"] = "trash",
+            ["P"] = { "toggle_preview", config = { use_float = true, use_image_nvim = true } },
             ["z"] = "reveal",
           },
         },

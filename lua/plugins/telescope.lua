@@ -2,9 +2,7 @@ local M = {
   "nvim-telescope/telescope.nvim",
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
-    {
-      "nvim-telescope/telescope-ui-select.nvim",
-    },
+    "nvim-telescope/telescope-ui-select.nvim",
     {
       "nvim-telescope/telescope-fzf-native.nvim",
       build = "make",
@@ -152,6 +150,12 @@ local M = {
           "^yarn%.lock$",
           "/doc/.*%.txt$",
           ".*%.norg$",
+          ".*%.png",
+          ".*%.jpg",
+          ".*%.jpeg",
+          ".*%.gif",
+          ".*%.webp",
+          ".*%.avif",
         },
         -- generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
         path_display = { "truncate" },

@@ -106,7 +106,7 @@ local M = {
       branch = {
         "branch",
         icon = icons.ui.Branch,
-        padding = { left = 1, right = 0 },
+        padding = { left = 2, right = 0 },
       },
 
       filename = {

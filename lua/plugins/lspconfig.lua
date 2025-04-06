@@ -29,7 +29,7 @@ local M = {
 
     vim.diagnostic.config({
       virtual_text = {
-        prefix = "",
+        prefix = "",
       },
       signs = true,
       underline = true,
@@ -91,24 +91,18 @@ local M = {
                 enable = true,
               },
             },
-
             -- ["rust-analyzer.server.extraEnv"] = { ["RUSTUP_TOOLCHAIN"] = "stable" },
           },
         },
         -- tsserver = {
-        --   settings = {
-        --     diagnostics = { ignoredCodes = { 6133 } },
-        --   },
+        --   settings = { diagnostics = { ignoredCodes = { 6133 } } },
         -- },
         vimls = {},
         vtsls = {
-          -- settings = {
-          --   diagnostics = { ignoredCodes = { 6133 } },
-          -- },
+          settings = { diagnostics = { ignoredCodes = { 6133 } } },
         },
         yamlls = {
           settings = {
-
             yaml = {
               schemaStore = {
                 enable = false,
@@ -124,6 +118,29 @@ local M = {
 
   config = function(_, opts)
     local lspconfig = require("lspconfig")
+    local standard_capabilities = {
+      -- textDocument = {
+      --   completion = {
+      --     completionItem = {
+      --       documentationFormat = { "markdown", "plaintext" },
+      --       snippetSupport = true,
+      --       preselectSupport = true,
+      --       insertReplaceSupport = true,
+      --       labelDetailsSupport = true,
+      --       deprecatedSupport = true,
+      --       commitCharactersSupport = true,
+      --       tagSupport = { valueSet = { 1 } },
+      --       resolveSupport = {
+      --         properties = {
+      --           "documentation",
+      --           "detail",
+      --           "additionalTextEdits",
+      --         },
+      --       },
+      --     },
+      --   },
+      -- },
+    }
 
     for server, config in pairs(opts.servers) do
       config.on_attach = function() end
@@ -137,25 +154,10 @@ local M = {
       end
 
       -- passing config.capabilities to blink.cmp merges with the capabilities in your
-      -- `opts[server].capabilities, if you've defined it
-      config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
-      config.capabilities.textDocument.completion.completionItem = {
-        documentationFormat = { "markdown", "plaintext" },
-        snippetSupport = true,
-        preselectSupport = true,
-        insertReplaceSupport = true,
-        labelDetailsSupport = true,
-        deprecatedSupport = true,
-        commitCharactersSupport = true,
-        tagSupport = { valueSet = { 1 } },
-        resolveSupport = {
-          properties = {
-            "documentation",
-            "detail",
-            "additionalTextEdits",
-          },
-        },
-      }
+      local config_capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities, true)
+      local capabilities = vim.tbl_deep_extend("force", standard_capabilities, config_capabilities)
+
+      config.capabilities = capabilities
 
       lspconfig[server].setup(config)
     end

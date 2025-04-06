@@ -47,6 +47,10 @@ require("lazy").setup({
   },
   opts = {
     import = "configs.lazy",
+    rocks = {
+      enabled = false,
+      hererocks = false,
+    },
   },
 })
 
@@ -54,7 +58,5 @@ require("lazy").setup({
 require("configs.options")
 -- load autocmds
 require("configs.autocmds")
--- schedule next tick to load mappings
-vim.schedule(function()
-  require("configs.mappings")
-end)
+-- load mappings
+require("configs.mappings")

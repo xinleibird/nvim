@@ -11,9 +11,9 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 local hotkey_group = vim.api.nvim_create_augroup("user_buf_quit_hotkey", { clear = true })
--- Close buffer with q
+-- Close window with q
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "qf" },
+  pattern = { "qf", "help" },
   group = hotkey_group,
   command = "nnoremap <buffer><silent> q <cmd>close!<CR>",
 })
