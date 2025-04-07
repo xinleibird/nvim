@@ -11,7 +11,8 @@ vim.keymap.set({ "n", "t", "i" }, "<C-j>", "<cmd>wincmd j<CR>", { desc = "Jump d
 vim.keymap.set({ "n", "t", "i" }, "<C-k>", "<cmd>wincmd k<CR>", { desc = "Jump up window" })
 
 -- remap start of line
-vim.keymap.set("c", "<C-a>", "<C-b>", { desc = "Move beginning of line", remap = true })
+vim.keymap.set("c", "<C-a>", "<Home>", { desc = "Move beginning of line" })
+vim.keymap.set("c", "<C-b>", "<End>", { desc = "Move beginning of line" })
 
 -- esc clear highlights
 vim.keymap.set("n", "<Esc>", "<cmd>noh<CR>", { desc = "Clear highlights" })
@@ -113,14 +114,14 @@ vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, { desc = "Lsp Rename" })
 vim.keymap.set({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, { desc = "Code action" })
 vim.keymap.set("n", "<leader>lf", vim.diagnostic.open_float, { desc = "Floating diagnostics" })
 vim.keymap.set("n", "[d", function()
-  vim.diagnostic.goto_prev({ float = true })
+  vim.diagnostic.jump({ count = -1, float = true })
 end, { desc = "Prev diagnostic" })
 vim.keymap.set("n", "]d", function()
-  vim.diagnostic.goto_next({ float = true })
+  vim.diagnostic.jump({ count = 1, float = true })
 end, { desc = "Next diagnostic" })
 vim.keymap.set("n", "<leader>lk", function()
-  vim.diagnostic.goto_prev({ float = true })
+  vim.diagnostic.jump({ count = -1, float = true })
 end, { desc = "Prev diagnostic" })
 vim.keymap.set("n", "<leader>lj", function()
-  vim.diagnostic.goto_next({ float = true })
+  vim.diagnostic.jump({ count = 1, float = true })
 end, { desc = "Next diagnostic" })

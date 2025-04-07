@@ -165,8 +165,13 @@ local M = {
         neotree = true,
         notify = true,
         nvim_surround = true,
+
         symbols_outline = true,
         semantic_tokens = true,
+        snacks = {
+          enabled = true,
+          indent_scope_color = "lavender",
+        },
         telescope = {
           enabled = true,
           style = "nvchad",

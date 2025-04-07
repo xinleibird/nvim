@@ -88,7 +88,8 @@ local M = {
           mappings = {
             ["D"] = "trash",
             ["P"] = { "toggle_preview", config = { use_float = true, use_image_nvim = true } },
-            ["z"] = "reveal",
+            ["z"] = "close_node",
+            ["Z"] = "close_all_nodes",
           },
         },
         commands = {
@@ -107,9 +108,6 @@ local M = {
               vim.api.nvim_command("silent !trash " .. node.path)
               require("neo-tree.sources.manager").refresh(state)
             end)
-          end,
-          reveal = function()
-            vim.cmd("normal! zz")
           end,
         },
       },
