@@ -86,7 +86,7 @@ local M = {
               table.concat({
                 [[       ┈▄╶╶▄╶╶▄▄▄╴╶╶▄▄╴╶╴╶▄▄╴╶╶▄▄▄┈╴▄╶▄╴▄┈       ]],
               }, "\n"),
-              hl = "dir",
+              hl = "SnacksDashboardHeaderReflection",
             },
           },
           pane = 2,
