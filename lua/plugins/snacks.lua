@@ -23,7 +23,7 @@ local M = {
       end
     end, { desc = "Open dashboard" })
   end,
-  ---@return snacks.Config
+  ---@type snacks.Config
   opts = {
     bigfile = { enabled = true },
     image = { enabled = true },
@@ -72,25 +72,29 @@ local M = {
         {
           {
             text = {
-              table.concat({
-                [[      ┈╴╴▄▄▄   ▄▄   ▄▄      ▄    ▄   ▄▄▄▄╶┈      ]],
-                [[    ┈╶╴╴▄  █  ▄▄▄  ▄  █  ▄  █   ▄   ▄ █ █╴╶╶┈    ]],
-                [[  ┈╴╶╴╴╶█  █  █    █  █  █  █   █   █ █ █╴╶╶╴╴┈  ]],
-                [[┈╴╶╶╴╴╴󱔐▀╶╶▀╶╶▀▀▀╴╶╶▀▀╴╶╴╶▀▀╴╶╶▀▀▀󱔐╴▀╶▀╴▀╴╶╶╴╶╶╴┈]],
-              }, "\n"),
-              hl = "header",
+              {
+                table.concat({
+                  [[      ┈╴╴▄▄▄   ▄▄   ▄▄      ▄    ▄   ▄▄▄▄╶┈      ]],
+                  [[    ┈╶╴╴▄  █  ▄▄▄  ▄  █  ▄  █   ▄   ▄ █ █╴╶╶┈    ]],
+                  [[  ┈╴╶╴╴╶█  █  █    █  █  █  █   █   █ █ █╴╶╶╴╴┈  ]],
+                  [[┈╴╶╶╴╴╴󱔐▀╶╶▀╶╶▀▀▀╴╶╶▀▀╴╶╴╶▀▀╴╶╶▀▀▀󱔐╴▀╶▀╴▀╴╶╶╴╶╶╴┈]],
+                }, "\n"),
+                hl = "header",
+              },
             },
           },
           {
             text = {
-              table.concat({
-                [[       ┈▄╶╶▄╶╶▄▄▄╴╶╶▄▄╴╶╴╶▄▄╴╶╶▄▄▄┈╴▄╶▄╴▄┈       ]],
-              }, "\n"),
-              hl = "SnacksDashboardHeaderReflection",
+              {
+                table.concat({
+                  [[       ┈▄╶╶▄╶╶▄▄▄╴╶╶▄▄╴╶╴╶▄▄╴╶╶▄▄▄┈╴▄╶▄╴▄┈       ]],
+                }, "\n"),
+                hl = "SnacksDashboardHeaderReflection",
+              },
             },
           },
           pane = 2,
-          padding = 4,
+          padding = 3,
           align = "center",
         },
         {

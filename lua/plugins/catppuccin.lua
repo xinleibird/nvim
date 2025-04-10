@@ -113,7 +113,7 @@ local M = {
           SnacksDashboardHeaderReflection = {
             fg = util.vary_color(
               { latte = util.lighten(colors.text, 0.1, colors.base) },
-              util.darken(colors.text, 0.2, colors.base)
+              util.darken(colors.text, 0.1, colors.base)
             ),
           },
         }
