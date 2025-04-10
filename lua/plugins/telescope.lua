@@ -1,6 +1,6 @@
 local M = {
   "nvim-telescope/telescope.nvim",
-  priority = 2000,
+  priority = 1000,
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
     "nvim-telescope/telescope-ui-select.nvim",

@@ -1,7 +1,7 @@
 local M = {
   "catppuccin/nvim",
   name = "catppuccin",
-  priority = 999,
+  priority = 1000,
   lazy = false,
   config = function()
     require("catppuccin").setup({
@@ -109,7 +109,6 @@ local M = {
 
           -- Snacks
           SnacksDashboardHeader = { fg = colors.red },
-
           SnacksDashboardHeaderReflection = {
             fg = util.vary_color(
               { latte = util.lighten(colors.text, 0.1, colors.base) },

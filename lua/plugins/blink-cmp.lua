@@ -23,7 +23,7 @@ local M = {
         end,
         "fallback",
       },
-      ["<Enter>"] = {
+      ["<CR>"] = {
         function(cmp)
           if cmp.snippet_active() then
             return cmp.accept()
@@ -140,16 +140,25 @@ local M = {
     },
     completion = {
       menu = {
+        -- border = "solid",
         draw = {
-          padding = { 1, 2 },
+          padding = { 1, 1 },
           -- show completion kind
           columns = { { "kind_icon", "label", "label_description", gap = 1 }, { "kind" } },
         },
       },
-      documentation = {},
+      documentation = {
+        window = {
+          -- border = "solid",
+        },
+      },
     },
     signature = {
       enabled = true,
+      window = {
+        -- border = "solid",
+        show_documentation = true,
+      },
     },
     fuzzy = {
       implementation = "prefer_rust_with_warning",
@@ -182,7 +191,16 @@ local M = {
         return {}
       end,
       keymap = {
-        ["<CR>"] = { "accept_and_enter", "fallback" },
+        ["<Tab>"] = {
+          function(cmp)
+            if cmp.is_ghost_text_visible() and not cmp.is_menu_visible() then
+              return cmp.accept()
+            end
+          end,
+          "show_and_insert",
+          "select_next",
+        },
+        ["<CR>"] = { "select_accept_and_enter", "fallback" },
       },
       -- completion = { menu = { auto_show = true } },
     },

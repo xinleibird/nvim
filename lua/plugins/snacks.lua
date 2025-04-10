@@ -1,5 +1,6 @@
 local M = {
   "folke/snacks.nvim",
+  priority = 1000,
   init = function()
     vim.keymap.set("n", ";", function()
       local wins = vim.api.nvim_list_wins()

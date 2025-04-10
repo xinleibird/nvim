@@ -20,16 +20,21 @@ local M = {
         "javascript",
         "json",
         "jsonc",
+        "latex",
         "lua",
         "markdown",
         "markdown_inline",
         "query",
+        "regex",
+        "scss",
+        "svelte",
         "tsx",
         "typescript",
+        "typst",
         "vim",
+        "vue",
         "yaml",
       },
-
       auto_install = true,
 
       indent = {
