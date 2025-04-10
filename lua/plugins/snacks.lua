@@ -59,33 +59,41 @@ local M = {
           },
           { icon = " ", key = "q", desc = "Quit", action = ":qa" },
         },
-
-        header = table.concat({
-          [[                       ◦            ]],
-          [[       ╓╖╓╴╓─╖ ╓─╖╓╴╶╖╶╥╴╓╥╖        ]],
-          [[       ║║║ ║╥  ║╫║║  ║ ║ ║║║        ]],
-          [[       ║║║ ║╨   ║║╙╖╓╜ ║ ║║║        ]],
-          [[┈╴╶╶╴╶╶╜╙╜╶╙─╜╴╙─╜╶╙╜╴╶╨╴╜╜╜╶╴╶╶╴╶╴┈]],
-        }, "\n"),
       },
 
       sections = {
         {
-          { padding = 0 },
-          {
-            section = "terminal",
-            cmd = "chafa ~/.config/nvim/assets/sprites/necroma_idle.gif -p off --speed=0.62 --clear --passthrough=tmux --format symbols --symbols vhalf --size 56x28 --stretch; sleep .1",
-            height = 28,
-            padding = 1,
-          },
+          section = "terminal",
+          cmd = "chafa ~/.config/nvim/assets/sprites/necroma_idle.gif -p off --speed=0.62 --clear --passthrough=tmux --format symbols --symbols vhalf --size 56x28 --stretch; sleep .1",
+          height = 28,
+          padding = 0,
           pane = 1,
         },
         {
-          { padding = 0 },
           {
-            section = "header",
+            text = {
+              table.concat({
+                [[      ┈╴╴▄▄▄   ▄▄   ▄▄      ▄    ▄   ▄▄▄▄╶┈      ]],
+                [[    ┈╶╴╴▄  █  ▄▄▄  ▄  █  ▄  █   ▄   ▄ █ █╴╶╶┈    ]],
+                [[  ┈╴╶╴╴╶█  █  █    █  █  █  █   █   █ █ █╴╶╶╴╴┈  ]],
+                [[┈╴╶╶╴╴╴󱔐▀╶╶▀╶╶▀▀▀╴╶╶▀▀╴╶╴╶▀▀╴╶╶▀▀▀󱔐╴▀╶▀╴▀╴╶╶╴╶╶╴┈]],
+              }, "\n"),
+              hl = "header",
+            },
           },
-          { padding = 1 },
+          {
+            text = {
+              table.concat({
+                [[       ┈▄╶╶▄╶╶▄▄▄╴╶╶▄▄╴╶╴╶▄▄╴╶╶▄▄▄┈╴▄╶▄╴▄┈       ]],
+              }, "\n"),
+              hl = "dir",
+            },
+          },
+          pane = 2,
+          padding = 4,
+          align = "center",
+        },
+        {
           { icon = " ", title = "Recent Files", section = "recent_files", gap = 0, indent = 3, padding = 3 },
           { section = "keys", gap = 1, padding = 1 },
           { section = "startup" },
