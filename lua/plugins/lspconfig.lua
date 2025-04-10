@@ -4,6 +4,7 @@ local M = {
   dependencies = {
     "b0o/schemastore.nvim",
     "saghen/blink.cmp",
+    "hrsh7th/nvim-cmp",
     {
       "folke/lazydev.nvim",
       ft = "lua", -- only load on lua files

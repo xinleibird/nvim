@@ -1,5 +1,6 @@
 local M = {
   "nvim-telescope/telescope.nvim",
+  priority = 2000,
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
     "nvim-telescope/telescope-ui-select.nvim",
@@ -13,7 +14,7 @@ local M = {
       -- install the latest stable version
       config = function()
         require("project_nvim").setup({
-          manual_mode = true,
+          manual_mode = false,
           patterns = {
             ".bzr",
             ".git",

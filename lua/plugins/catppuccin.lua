@@ -1,7 +1,7 @@
 local M = {
   "catppuccin/nvim",
   name = "catppuccin",
-  priority = 1000,
+  priority = 999,
   lazy = false,
   config = function()
     require("catppuccin").setup({
@@ -106,6 +106,9 @@ local M = {
 
           -- FloatBorder
           FloatBorder = { fg = colors.rosewater, bg = colors.none },
+
+          -- Snacks
+          SnacksDashboardHeader = { fg = colors.red },
         }
       end,
       default_integrations = true,

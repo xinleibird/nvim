@@ -72,3 +72,6 @@ vim.opt.fillchars:append({ horiz = "⠂" })
 vim.opt.fillchars:append({ horizup = "⠂" })
 vim.opt.fillchars:append({ horizdown = "⠂" })
 vim.opt.fillchars:append({ verthoriz = "⠂" })
+
+-- add fzf runtimepath
+vim.opt.rtp:append("/opt/homebrew/opt/fzf")

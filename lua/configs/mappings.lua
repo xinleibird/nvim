@@ -22,7 +22,7 @@ vim.keymap.set("n", "<Esc>", "<cmd>noh<CR>", { desc = "Clear highlights" })
 vim.keymap.set("n", "<leader>q", function()
   if vim.bo.ft == "TelescopePrompt" then
     vim.cmd("q!")
-  elseif vim.bo.ft == "checkhealth" then
+  elseif vim.bo.ft == "checkhealth" or vim.bo.ft == "snacks_dashboard" then
     vim.cmd("bd")
   elseif vim.bo.ft == "qf" then
     vim.cmd("cclose")
@@ -102,7 +102,6 @@ vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, { desc = "Signature" })
 vim.keymap.set("n", "<leader>ls", vim.lsp.buf.signature_help, { desc = "Signature" })
 vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover information" })
 vim.keymap.set("n", "gl", vim.diagnostic.open_float, { desc = "Floating diagnostics" })
-vim.keymap.set("n", "gR", vim.lsp.buf.rename, { desc = "Lsp Rename" })
 vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, { desc = "Lsp Rename" })
 
 -- vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, { desc = "Lsp Add workspace folder" })

@@ -52,10 +52,10 @@ local M = {
           },
         },
         mappings = {
-          apply = "gh",
-          reset = "gH",
+          apply = "<leader>ga",
+          reset = "<leader>gr",
           -- Works also in Visual mode if mapping differs from apply and reset
-          textobject = "gh",
+          textobject = "",
         },
       },
     },

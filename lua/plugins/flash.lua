@@ -9,6 +9,7 @@ local M = {
         "noice",
         "flash_prompt",
         "alpha",
+        "snacks_dashboard",
         function(win)
           -- exclude non-focusable windows
           return not vim.api.nvim_win_get_config(win).focusable
@@ -21,6 +22,7 @@ local M = {
         autohide = true,
         multi_line = false,
         jump_labels = true,
+        keys = { "f", "F", "t", "T" },
       },
     },
   },

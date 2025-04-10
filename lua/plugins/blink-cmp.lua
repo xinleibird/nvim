@@ -1,20 +1,13 @@
 local M = {
   "saghen/blink.cmp",
   -- use a release tag to download pre-built binaries
-  version = "v1.0.0",
+  version = "*",
   -- or build it yourself
-  -- build = "cargo build --release",
-  -- enabled = false,
+  build = "cargo build --release",
   dependencies = {
     "olimorris/codecompanion.nvim",
     "folke/lazydev.nvim",
     "rafamadriz/friendly-snippets",
-    {
-      "saghen/blink.compat",
-      version = "*",
-      lazy = true,
-      opts = {},
-    },
   },
   event = "VimEnter",
   opts = {
@@ -28,7 +21,6 @@ local M = {
             return cmp.select_and_accept()
           end
         end,
-        "snippet_forward",
         "fallback",
       },
       ["<Enter>"] = {
@@ -39,11 +31,9 @@ local M = {
             return cmp.select_and_accept()
           end
         end,
-        "snippet_forward",
         "fallback",
       },
     },
-    signature = { enabled = true },
     appearance = {
       use_nvim_cmp_as_default = false,
       nerd_font_variant = "mono",
@@ -52,11 +42,11 @@ local M = {
       -- default = { "lsp", "path", "snippets", "buffer" },
       default = function()
         local success, node = pcall(vim.treesitter.get_node)
-        if success and node and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type()) then
+        if success and node and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type()) then -- in comment just accept buffer
           return { "buffer" }
-        elseif vim.bo.filetype == "lua" then
+        elseif vim.bo.filetype == "lua" then -- enable lazydev for lua
           return { "lazydev", "lsp", "path", "snippets", "buffer" }
-        elseif vim.bo.filetype == "html" then
+        elseif vim.bo.filetype == "html" then -- disable emmet_language_server snippets
           return { "lsp", "path", "buffer" }
         else
           return { "lsp", "path", "snippets", "buffer" }
@@ -149,17 +139,17 @@ local M = {
       },
     },
     completion = {
-      -- trigger = {
-      --   show_on_insert_on_trigger_character = false,
-      --   show_on_accept_on_trigger_character = false,
-      --   show_on_x_blocked_trigger_characters = {},
-      -- },
       menu = {
         draw = {
+          padding = { 1, 2 },
           -- show completion kind
           columns = { { "kind_icon", "label", "label_description", gap = 1 }, { "kind" } },
         },
       },
+      documentation = {},
+    },
+    signature = {
+      enabled = true,
     },
     fuzzy = {
       implementation = "prefer_rust_with_warning",
@@ -187,7 +177,7 @@ local M = {
         end
         -- Commands
         if type == ":" or type == "@" then
-          return { "cmdline" }
+          return { "path", "cmdline" }
         end
         return {}
       end,

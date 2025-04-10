@@ -90,6 +90,9 @@ local M = {
             ["P"] = { "toggle_preview", config = { use_float = true, use_image_nvim = true } },
             ["z"] = "close_node",
             ["Z"] = "close_all_nodes",
+            ["/"] = "",
+            ["e"] = "",
+            ["b"] = "",
           },
         },
         commands = {
@@ -114,15 +117,16 @@ local M = {
       -- on_attach = function(bufnr)
       --   vim.keymap.del("n", "<z>", { buffer = bufnr })
       -- end,
-      event_handlers = {
-        {
-          event = "neo_tree_window_before_open",
-          handler = function()
-            vim.o.showtabline = 2
-            vim.o.laststatus = 3
-          end,
-        },
-      },
+      -- event_handlers = {
+      --   {
+      --     event = "neo_tree_window_before_open",
+      --     handler = function()
+      --       if vim.bo[0].filetype == "snacks_dashboard" then
+      --         vim.cmd([[bd]])
+      --       end
+      --     end,
+      --   },
+      -- },
     })
   end,
 }

@@ -24,12 +24,20 @@ local M = {
     })
 
     vim.keymap.set("n", "<leader>c", function()
+      if vim.bo[0].filetype == "snacks_dashboard" then
+        vim.cmd([[bd]])
+        return
+      end
+      if vim.bo[0].filetype == "Outline" then
+        vim.cmd([[close]])
+        return
+      end
       local snacks_ok, _ = pcall(require, "snacks")
       if snacks_ok then
         Snacks.bufdelete.delete()
-      else
-        require("utils").buf_kill("bd")
+        return
       end
+      require("utils").buf_kill("bd")
     end, { desc = "Close buffer" })
     vim.keymap.set("n", "<leader>be", "<cmd>enew<CR>", { desc = "New buffer" })
     vim.keymap.set("n", "<leader>bb", "<cmd>BufferLineCyclePrev<CR>", { desc = "Prev buffer" })
