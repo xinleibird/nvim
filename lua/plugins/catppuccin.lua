@@ -179,7 +179,7 @@ local M = {
         semantic_tokens = true,
         snacks = {
           enabled = true,
-          indent_scope_color = "lavender",
+          indent_scope_color = "surface2",
         },
         telescope = {
           enabled = true,

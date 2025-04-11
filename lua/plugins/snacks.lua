@@ -1,34 +1,52 @@
 local M = {
   "folke/snacks.nvim",
   priority = 1000,
+  dependencies = {
+    "nvim-telescope/telescope.nvim",
+    "ahmedkhalf/project.nvim",
+    "olimorris/persisted.nvim",
+  },
   init = function()
-    vim.keymap.set("n", ";", function()
-      local wins = vim.api.nvim_list_wins()
-      local dashes = {}
+    vim.api.nvim_create_autocmd("FileType", {
+      group = vim.api.nvim_create_augroup("user_disable_mouse_when_snacks_dashboard", { clear = true }),
+      pattern = "snacks_dashboard",
+      command = "setlocal mouse=",
+    })
 
-      for _, w in ipairs(wins) do
-        local b = vim.api.nvim_win_get_buf(w)
-
-        if vim.bo[b].filetype == "snacks_dashboard" then
-          table.insert(dashes, w)
-        end
-      end
-
-      if #dashes > 0 then
-        for _, winr in ipairs(dashes) do
-          vim.api.nvim_set_current_win(winr)
-          vim.cmd("q")
-        end
-      else
-        Snacks.dashboard()
-      end
-    end, { desc = "Open dashboard" })
+    vim.cmd("command! Checkhealth vertical checkhealth")
   end,
   ---@type snacks.Config
   opts = {
     bigfile = { enabled = true },
     image = { enabled = true },
     input = { enabled = true },
+    indent = {
+      indent = {
+        priority = 1,
+        enabled = true,
+        char = "▏",
+        only_scope = false,
+        only_current = false,
+        hl = "SnacksIndent",
+      },
+      animate = {
+        enabled = vim.fn.has("nvim-0.10") == 1,
+        style = "out",
+        easing = "linear",
+        duration = {
+          step = 10,
+          total = 100,
+        },
+      },
+      scope = {
+        enabled = true,
+        priority = 200,
+        char = "▏",
+        underline = false,
+        only_current = false,
+        hl = "SnacksIndentScope",
+      },
+    },
     dashboard = {
       width = 62,
       preset = {
@@ -53,21 +71,37 @@ local M = {
             action = ":lua require('telescope.builtin').find_files()",
           },
           {
-            icon = " ",
+            icon = "󰙩 ",
             key = "st",
             desc = "Live Grep",
             action = ":lua require('telescope.builtin').live_grep()",
           },
-          { icon = " ", key = "q", desc = "Quit", action = ":qa" },
+          {
+            icon = " ",
+            key = "ss",
+            desc = "Restore Session",
+            action = ":SessionSelect",
+          },
+          {
+            icon = " ",
+            key = "q",
+            desc = "Quit",
+            action = ":qa",
+          },
         },
       },
 
       sections = {
         {
+          enabled = function()
+            return vim.api.nvim_win_get_width(1000) == vim.o.columns
+              and vim.api.nvim_win_get_height(1000) >= vim.o.lines - 3
+          end,
           section = "terminal",
-          cmd = "chafa ~/.config/nvim/assets/sprites/necroma_idle.gif -p off --speed=0.62 --clear --passthrough=tmux --format symbols --symbols vhalf --size 56x28 --stretch; sleep .1",
+          cmd = "chafa ~/.config/nvim/assets/sprites/necroma_idle.gif -p off --speed=0.62 --clear --passthrough=tmux --format symbols --symbols vhalf --size 40x28 --stretch; sleep .1",
           height = 28,
           padding = 0,
+          align = "left",
           pane = 1,
         },
         {
@@ -95,7 +129,7 @@ local M = {
             },
           },
           pane = 2,
-          padding = 3,
+          padding = 1,
           align = "center",
         },
         {

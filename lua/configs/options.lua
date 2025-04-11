@@ -2,6 +2,7 @@
 vim.cmd.colorscheme("catppuccin")
 
 -- statusline
+vim.o.showtabline = 2
 vim.o.laststatus = 3
 vim.o.showmode = false
 

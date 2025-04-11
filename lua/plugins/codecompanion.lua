@@ -65,9 +65,6 @@ local M = {
     vim.keymap.set({ "n" }, "<Leader>ap", "<cmd>CodeCompanionActions<cr>", { noremap = true, silent = true })
     vim.keymap.set({ "n" }, "<Leader>aa", "<cmd>CodeCompanionChat Toggle<cr>", { noremap = true, silent = true })
     vim.keymap.set("v", "<Leader>av", "<cmd>CodeCompanionChat Add<cr>", { noremap = true, silent = true })
-
-    -- Expand 'cc' into 'CodeCompanion' in the command line
-    -- vim.cmd([[cab cc CodeCompanion]])
   end,
   config = function()
     require("codecompanion").setup({

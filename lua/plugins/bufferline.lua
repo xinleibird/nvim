@@ -25,11 +25,11 @@ local M = {
 
     vim.keymap.set("n", "<leader>c", function()
       if vim.bo[0].filetype == "snacks_dashboard" then
-        vim.cmd([[bd]])
+        vim.cmd("bd!")
         return
       end
       if vim.bo[0].filetype == "Outline" then
-        vim.cmd([[close]])
+        vim.cmd("close")
         return
       end
       local snacks_ok, _ = pcall(require, "snacks")

@@ -12,7 +12,7 @@ local M = {
       local ok, neogit = pcall(require, "neogit")
       if ok then
         -- neogit.open({ kind = "split" })
-        neogit.open({ kind = "tab" })
+        neogit.open({ kind = "vsplit" })
       end
     end, { desc = "Neogit" })
   end,
