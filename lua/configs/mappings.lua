@@ -18,7 +18,6 @@ vim.keymap.set("c", "<C-b>", "<End>", { desc = "Move beginning of line" })
 vim.keymap.set("n", "<Esc>", "<cmd>noh<CR>", { desc = "Clear highlights" })
 
 -- quit window
--- vim.keymap.set("n", "<leader>q", "<cmd>confirm q<CR>", { desc = "Quit" })
 vim.keymap.set("n", "<leader>q", function()
   if vim.bo.ft == "TelescopePrompt" then
     vim.cmd("q!")
@@ -30,7 +29,7 @@ vim.keymap.set("n", "<leader>q", function()
     vim.cmd("close")
   else
     vim.cmd("confirm q")
-    vim.cmd("DiffviewClose")
+    vim.cmd("silent! DiffviewClose")
   end
 end, { desc = "Quit" })
 

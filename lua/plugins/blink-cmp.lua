@@ -9,7 +9,6 @@ local M = {
     "folke/lazydev.nvim",
     "rafamadriz/friendly-snippets",
   },
-  event = "VimEnter",
   opts = {
     keymap = {
       preset = "default",

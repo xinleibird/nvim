@@ -1,7 +1,7 @@
 local M = {
   "rcarriga/nvim-notify",
+  event = "UIEnter",
   priority = 1000,
-  event = "VimEnter",
   config = function()
     require("notify").setup({
       render = "default",

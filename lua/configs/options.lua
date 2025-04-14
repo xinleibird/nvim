@@ -1,6 +1,7 @@
 -- colorscheme
 vim.cmd.colorscheme("catppuccin")
 
+---vim options---------------
 -- statusline
 vim.o.showtabline = 2
 vim.o.laststatus = 3
@@ -58,13 +59,6 @@ vim.o.writebackup = false
 vim.o.swapfile = false
 vim.o.wrap = false
 
--- disable some default providers
-vim.g["loaded_perl_provider"] = 0
-vim.g["loaded_ruby_provider"] = 0
-
--- enable semantic tokens highlight
-vim.g["semantic_tokens"] = true
-
 -- set win border separator
 vim.opt.fillchars:append({ vert = "⠅" })
 vim.opt.fillchars:append({ vertright = "⠅" })
@@ -76,3 +70,14 @@ vim.opt.fillchars:append({ verthoriz = "⠂" })
 
 -- add fzf runtimepath
 vim.opt.rtp:append("/opt/homebrew/opt/fzf")
+
+---glable variable---------------
+-- disable some default providers
+vim.g["loaded_perl_provider"] = 0
+vim.g["loaded_ruby_provider"] = 0
+
+-- enable semantic tokens highlight
+vim.g["semantic_tokens"] = true
+
+-- set :checkhealth style
+vim.g.health = { style = "float" }

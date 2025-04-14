@@ -5,7 +5,6 @@ local M = {
     "hrsh7th/nvim-cmp",
     {
       "windwp/nvim-ts-autotag",
-      event = "BufRead",
       config = function()
         ---@diagnostic disable-next-line: missing-fields
         require("nvim-ts-autotag").setup({

@@ -1,5 +1,6 @@
 local M = {
   "akinsho/bufferline.nvim",
+  event = "ColorScheme",
   dependencies = {
     {
       "tiagovla/scope.nvim",
@@ -8,7 +9,6 @@ local M = {
       end,
     },
   },
-  event = "ColorScheme",
   init = function()
     vim.api.nvim_create_autocmd("VimEnter", {
       group = vim.api.nvim_create_augroup("user_start_clock_timmer", { clear = true }),

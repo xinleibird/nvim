@@ -1,11 +1,11 @@
 local M = {
   "BrunoKrugel/bbq.nvim",
   name = "barbecue",
+  event = "LspAttach",
   dependencies = {
     "SmiteshP/nvim-navic",
     "nvim-tree/nvim-web-devicons", -- optional dependency
   },
-  event = "LspAttach",
   config = function()
     require("barbecue").setup({
       create_autocmd = false,

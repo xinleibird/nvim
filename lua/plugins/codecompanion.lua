@@ -1,6 +1,6 @@
 local M = {
   "olimorris/codecompanion.nvim",
-  event = "UIEnter",
+  event = "FileReadPre",
   dependencies = {
     {
       "echasnovski/mini.diff",

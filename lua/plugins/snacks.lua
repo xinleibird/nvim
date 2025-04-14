@@ -1,9 +1,9 @@
 local M = {
   "folke/snacks.nvim",
   priority = 1000,
+  lazy = false,
   dependencies = {
     "nvim-telescope/telescope.nvim",
-    "ahmedkhalf/project.nvim",
     "olimorris/persisted.nvim",
   },
   init = function()
@@ -61,8 +61,9 @@ local M = {
           {
             icon = " ",
             key = "sP",
-            desc = "Projects",
-            action = ":lua require'telescope'.extensions.projects.projects{}",
+            desc = "Workspaces",
+            -- action = ":lua require'telescope'.extensions.projects.projects{}",
+            action = ":Telescope workspaces",
           },
           {
             icon = " ",

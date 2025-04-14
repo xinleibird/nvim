@@ -1,6 +1,6 @@
 local M = {
   "s1n7ax/nvim-window-picker",
-  event = "VimEnter",
+  event = "UIEnter",
   init = function()
     local picker = require("window-picker")
     vim.keymap.set("n", ",", function()

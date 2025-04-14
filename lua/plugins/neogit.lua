@@ -1,17 +1,17 @@
 local M = {
   "NeogitOrg/neogit",
+  event = "FileReadPre",
   dependencies = {
     "nvim-lua/plenary.nvim", -- required
     "sindrets/diffview.nvim", -- optional - Diff integration
     "nvim-telescope/telescope.nvim", -- optional
     "ibhagwan/fzf-lua", -- optional
   },
-  event = "VimEnter",
   init = function()
     vim.keymap.set("n", "<leader>gg", function()
       local ok, neogit = pcall(require, "neogit")
       if ok then
-        neogit.open({ kind = "split" })
+        neogit.open({ kind = "tab" })
       end
     end, { desc = "Neogit" })
   end,

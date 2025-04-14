@@ -1,5 +1,6 @@
 local M = {
   "numToStr/Comment.nvim",
+  event = "FileReadPre",
   keys = {
     { "gcc", mode = "n", desc = "Current line" },
     { "gc", mode = { "n", "o" }, desc = "Comment toggle linewise" },
@@ -22,7 +23,7 @@ local M = {
   end,
   dependencies = {
     "JoosepAlviste/nvim-ts-context-commentstring",
-    event = "BufRead",
+    event = "FileReadPre",
     init = function()
       vim.g.skip_ts_context_commentstring_module = true
     end,

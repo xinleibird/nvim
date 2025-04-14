@@ -1,5 +1,6 @@
 local M = {
   "folke/trouble.nvim",
+  event = "BufRead",
   cmd = "Trouble",
   opts = {
     win = {

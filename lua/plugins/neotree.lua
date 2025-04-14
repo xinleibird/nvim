@@ -93,6 +93,9 @@ local M = {
             ["/"] = "",
             ["e"] = "",
             ["b"] = "",
+            ["s"] = "open_split",
+            ["v"] = "open_vsplit",
+            ["S"] = "",
           },
         },
         commands = {
