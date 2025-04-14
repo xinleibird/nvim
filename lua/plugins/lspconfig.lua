@@ -66,6 +66,7 @@ local M = {
         },
         -- use lazydev configurations
         lua_ls = {},
+        marksman = {},
         rust_analyzer = {
           on_attach = function(_, bufnr)
             vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })

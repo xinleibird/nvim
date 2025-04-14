@@ -39,19 +39,11 @@ local M = {
       nerd_font_variant = "mono",
     },
     sources = {
-      -- default = { "lsp", "path", "snippets", "buffer" },
-      default = function()
-        local success, node = pcall(vim.treesitter.get_node)
-        if success and node and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type()) then -- in comment just accept buffer
-          return { "buffer" }
-        elseif vim.bo.filetype == "lua" then -- enable lazydev for lua
-          return { "lazydev", "lsp", "path", "snippets", "buffer" }
-        elseif vim.bo.filetype == "html" then -- disable emmet_language_server snippets
-          return { "lsp", "path", "buffer" }
-        else
-          return { "lsp", "path", "snippets", "buffer" }
-        end
-      end,
+      default = { "lsp", "path", "snippets", "buffer" },
+      per_filetype = {
+        lua = { "lazydev", "lsp", "path", "snippets", "buffer" }, -- enable lazydev for lua
+        html = { "lsp", "path", "buffer" }, -- disable emmet_language_server snippets
+      },
       min_keyword_length = function()
         return vim.bo.filetype == "markdown" and 2 or 0
       end,
@@ -120,6 +112,13 @@ local M = {
             local keyword = ctx.get_keyword()
             return ctx.trigger.initial_kind ~= "trigger_character" and keyword ~= ""
           end,
+          opts = {
+            friendly_snippets = true,
+            search_paths = { vim.fn.stdpath("config") .. "/snippets" },
+            global_snippets = {},
+            extended_filetypes = {},
+            ignored_filetypes = {},
+          },
         },
         buffer = {
           transform_items = function(_, items)

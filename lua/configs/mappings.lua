@@ -30,6 +30,7 @@ vim.keymap.set("n", "<leader>q", function()
     vim.cmd("close")
   else
     vim.cmd("confirm q")
+    vim.cmd("DiffviewClose")
   end
 end, { desc = "Quit" })
 

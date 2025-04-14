@@ -7,13 +7,21 @@ local M = {
     "olimorris/persisted.nvim",
   },
   init = function()
-    vim.api.nvim_create_autocmd("FileType", {
-      group = vim.api.nvim_create_augroup("user_disable_mouse_when_snacks_dashboard", { clear = true }),
-      pattern = "snacks_dashboard",
-      command = "setlocal mouse=",
+    local group = vim.api.nvim_create_augroup("user_disable_mouse_when_snacks_dashboard", { clear = true })
+    vim.api.nvim_create_autocmd("User", {
+      group = group,
+      pattern = "SnacksDashboardOpened",
+      command = "set mouse=",
+    })
+    vim.api.nvim_create_autocmd("User", {
+      group = group,
+      pattern = "SnacksDashboardClosed",
+      command = "set mouse=a",
     })
 
-    vim.cmd("command! Checkhealth vertical checkhealth")
+    vim.cmd(
+      [[command! -nargs=? -complete=checkhealth Checkhealth vert checkhealth <args> | setlocal bufhidden=wipe nomodifiable nobuflisted noswapfile nocursorline nocursorcolumn norelativenumber noruler nolist noshowmode noshowcmd | file <args>\ health]]
+    )
   end,
   ---@type snacks.Config
   opts = {
@@ -22,8 +30,8 @@ local M = {
     input = { enabled = true },
     indent = {
       indent = {
-        priority = 1,
         enabled = true,
+        priority = 1,
         char = "▏",
         only_scope = false,
         only_current = false,
@@ -48,9 +56,7 @@ local M = {
       },
     },
     dashboard = {
-      width = 62,
       preset = {
-        pick = "telescope",
         keys = {
           {
             icon = " ",
@@ -84,61 +90,72 @@ local M = {
           },
           {
             icon = " ",
-            key = "q",
+            key = "<leader>q",
             desc = "Quit",
             action = ":qa",
           },
         },
       },
+      sections = function()
+        return {
+          {
+            section = "terminal",
+            enabled = function()
+              return vim.api.nvim_win_get_width(1000) == vim.o.columns
+                and vim.api.nvim_win_get_height(1000) >= vim.o.lines - 3
+            end,
+            cmd = "chafa ~/.config/nvim/assets/sprites/necroma_idle.gif -p off --speed=0.62 --clear --passthrough=tmux --format symbols --symbols vhalf --size 40x28 --stretch",
+            height = 28,
+            padding = 0,
+            align = "left",
+            pane = 1,
+          },
+          {
+            {
+              text = {
+                {
+                  table.concat({
+                    table.concat({
+                      [[        ┳┓      ]],
+                      vim.o.background == "dark" and " " or "☀︎ ",
+                      [[         ]],
+                    }, ""),
+                    [[        ┃┃┏┓┏┓┓┏┓┏┳┓        ]],
+                    [[╍╸╺╺╸╸╸╺┛┗┗ ┗┛┗┛┗┛┗┗╺╸╸╺╺╸╺╍]],
+                  }, "\n"),
+                  hl = "SnacksDashboardHeader",
+                },
+              },
+            },
+            {
+              text = {
+                {
+                  table.concat({
+                    [[        ┓┏┏ ┏┓┏┓┏┓┏┏        ]],
+                    [[        ┃┃┗┛┗┛┛┗┛┗┻┛        ]],
 
-      sections = {
-        {
-          enabled = function()
-            return vim.api.nvim_win_get_width(1000) == vim.o.columns
-              and vim.api.nvim_win_get_height(1000) >= vim.o.lines - 3
-          end,
-          section = "terminal",
-          cmd = "chafa ~/.config/nvim/assets/sprites/necroma_idle.gif -p off --speed=0.62 --clear --passthrough=tmux --format symbols --symbols vhalf --size 40x28 --stretch; sleep .1",
-          height = 28,
-          padding = 0,
-          align = "left",
-          pane = 1,
-        },
-        {
-          {
-            text = {
-              {
-                table.concat({
-                  [[      ┈╴╴▄▄▄   ▄▄   ▄▄      ▄    ▄   ▄▄▄▄╶┈      ]],
-                  [[    ┈╶╴╴▄  █  ▄▄▄  ▄  █  ▄  █   ▄   ▄ █ █╴╶╶┈    ]],
-                  [[  ┈╴╶╴╴╶█  █  █    █  █  █  █   █   █ █ █╴╶╶╴╴┈  ]],
-                  [[┈╴╶╶╴╴╴󱔐▀╶╶▀╶╶▀▀▀╴╶╶▀▀╴╶╴╶▀▀╴╶╶▀▀▀󱔐╴▀╶▀╴▀╴╶╶╴╶╶╴┈]],
-                }, "\n"),
-                hl = "header",
+                    table.concat({
+                      [[        ┻┛      ]],
+                      vim.o.background == "dark" and " " or "☀︎ ",
+                      [[         ]],
+                    }, ""),
+                  }, "\n"),
+                  hl = "SnacksDashboardHeaderReflection",
+                },
               },
             },
+            pane = 2,
+            padding = 2,
+            align = "center",
           },
           {
-            text = {
-              {
-                table.concat({
-                  [[       ┈▄╶╶▄╶╶▄▄▄╴╶╶▄▄╴╶╴╶▄▄╴╶╶▄▄▄┈╴▄╶▄╴▄┈       ]],
-                }, "\n"),
-                hl = "SnacksDashboardHeaderReflection",
-              },
-            },
+            { icon = " ", title = "Recent Files", section = "recent_files", gap = 0, indent = 3, padding = 1 },
+            { section = "keys", gap = 1, padding = 1 },
+            { section = "startup" },
+            pane = 2,
           },
-          pane = 2,
-          padding = 1,
-          align = "center",
-        },
-        {
-          { icon = " ", title = "Recent Files", section = "recent_files", gap = 0, indent = 3, padding = 3 },
-          { section = "keys", gap = 1, padding = 1 },
-          { section = "startup" },
-          pane = 2,
-        },
-      },
+        }
+      end,
     },
   },
 }

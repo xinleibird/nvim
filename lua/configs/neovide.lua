@@ -36,10 +36,10 @@ vim.fn.setenv("LANG", "en_US.UTF-8")
 
 --+<FONT>+--
 -- Font family
-vim.opt.guifont = "JetBrains_Mono,SauceCodePro_Nerd_Font_Mono,Maple_Mono_CN:h13.7:w-1:#e-antialias:#h-slight"
+vim.opt.guifont = "JetBrains_Mono,SauceCodePro_Nerd_Font_Mono,Maple_Mono_CN:h13.3:w-1:#e-antialias:#h-slight"
 
 -- Linespace
-vim.opt.linespace = -2
+vim.opt.linespace = -1
 
 -- Scaling font without font size vim.g.neovide_scale_factor = 1.0
 vim.g.neovide_scale_factor = 1.0

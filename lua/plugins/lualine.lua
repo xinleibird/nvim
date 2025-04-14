@@ -8,6 +8,8 @@ local M = {
       require("gitsigns").setup({
         signs_staged_enable = false,
         signcolumn = false,
+        numhl = false,
+        linehl = false,
       })
     end,
   },
