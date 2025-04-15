@@ -184,7 +184,7 @@ local M = {
         end
         -- Commands
         if type == ":" or type == "@" then
-          return { "path", "cmdline" }
+          return { "cmdline" }
         end
         return {}
       end,

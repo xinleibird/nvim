@@ -82,12 +82,22 @@ local M = {
         },
       },
       filesystem = {
+        filtered_items = {
+          hide_by_name = {
+            --"node_modules"
+          },
+          hide_by_pattern = { -- uses glob style patterns
+            --"*.meta",
+            --"*/src/*/tsconfig.json",
+            "Icon*",
+          },
+        },
         hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
         use_libuv_file_watcher = true, -- This will use the OS level file watchers to detect changes
         window = {
           mappings = {
             ["D"] = "trash",
-            ["P"] = { "toggle_preview", config = { use_float = true, use_image_nvim = true } },
+            ["P"] = { "toggle_preview", config = { use_float = true, use_image_nvim = false } },
             ["z"] = "close_node",
             ["Z"] = "close_all_nodes",
             ["/"] = "",

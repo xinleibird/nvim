@@ -84,18 +84,18 @@ local M = {
 
         require("workspaces").setup({
           hooks = {
-            open = {
-              -- do not run hooks if file already in active workspace
-              function()
-                if current_file_in_ws() then
-                  return false
-                end
-              end,
-
-              function()
-                require("telescope.builtin").find_files()
-              end,
-            },
+            -- open = {
+            --   -- do not run hooks if file already in active workspace
+            --   function()
+            --     if current_file_in_ws() then
+            --       return false
+            --     end
+            --   end,
+            --
+            --   function()
+            --     require("telescope.builtin").find_files()
+            --   end,
+            -- },
           },
         })
       end,
@@ -188,17 +188,18 @@ local M = {
           "^%.vscode/",
           "^%.zcompdump",
           "^%.zsh_sessions/",
-          "^%Pictures/",
           "^./.git/",
           "^.git/",
+          "Icon",
+          "^Pictures/",
           "^Applications/",
           "^Documents/",
           "^Downloads/",
-          "^Icon$",
           "^Library/",
           "^Movies/",
           "^Music/",
           "^Public/",
+          "^Local/Games/",
           "^build/",
           "^dist/",
           "^lazy%-lock%.json$",
@@ -215,8 +216,16 @@ local M = {
           "/doc/.*%.txt$",
           "/nvim/.*%.txt$",
           "^assets/.*",
-          "^packages/.*%.[vim$|lua$]",
-          ".*%.[norg$|png$|jpg$|jpeg$|gif$|webp$|avif$]",
+          "^packages/.*%.vim$",
+          "^packages/.*%.lua$",
+          ".*%.norg$",
+          ".*%.png$",
+          ".*%.jpg$",
+          ".*%.jpeg$",
+          ".*%.gif$",
+          ".*%.webp$",
+          ".*%.avif$",
+          ".*%.pdf$",
         },
         -- generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
         path_display = { "truncate" },

@@ -47,9 +47,9 @@ local M = {
           EyelinerSecondary = { fg = colors.sky, style = { "bold" } },
 
           -- Illuminated
-          -- IlluminatedWordRead = { fg = colors.mauve, bg = colors.crust, underdotted = true },
-          -- IlluminatedWordText = { fg = colors.mauve, bg = colors.crust, underdotted = true },
-          -- IlluminatedWordWrite = { fg = colors.mauve, bg = colors.crust, underdotted = true },
+          -- IlluminatedWordText = { underdotted = true },
+          -- IlluminatedWordRead = { underdotted = true },
+          -- IlluminatedWordWrite = { underdotted = true },
 
           WinSeparator = { fg = colors.lavender },
           NeoTreeWinSeparator = { fg = colors.lavender },
@@ -71,13 +71,13 @@ local M = {
           CursorLine = {
             bg = util.vary_color(
               { latte = util.lighten(colors.mantle, 0.6, colors.base) },
-              util.darken(colors.surface0, 0.5, colors.base)
+              util.darken(colors.surface0, 0.6, colors.base)
             ),
           },
           NeoTreeCursorLine = {
             bg = util.vary_color(
               { latte = util.lighten(colors.mantle, 0.2, colors.base) },
-              util.darken(colors.surface0, 0.3, colors.base)
+              util.darken(colors.surface0, 0.2, colors.base)
             ),
           },
 
@@ -104,7 +104,7 @@ local M = {
           BufferLinePickSelected = { fg = colors.overlay0, bg = colors.base, bold = true, italic = true },
 
           -- FloatBorder
-          FloatBorder = { fg = colors.rosewater, bg = colors.none },
+          -- FloatBorder = { fg = colors.rosewater, bg = colors.none },
 
           -- Snacks
           SnacksDashboardHeader = { fg = util.darken(colors.red, 0.8) },
