@@ -47,9 +47,9 @@ local M = {
           EyelinerSecondary = { fg = colors.sky, style = { "bold" } },
 
           -- Illuminated
-          -- IlluminatedWordText = { underdotted = true },
-          -- IlluminatedWordRead = { underdotted = true },
-          -- IlluminatedWordWrite = { underdotted = true },
+          -- IlluminatedWordText = { underdashed = true },
+          -- IlluminatedWordRead = { underdashed = true },
+          -- IlluminatedWordWrite = { underdashed = true },
 
           WinSeparator = { fg = colors.lavender },
           NeoTreeWinSeparator = { fg = colors.lavender },
@@ -95,9 +95,6 @@ local M = {
           WindowPickerStatusLine = { bg = colors.crust, fg = colors.base, bold = true },
           WindowPickerStatusLineNC = { bg = colors.blue, fg = colors.base, bold = true },
 
-          -- DevIconJs = { fg = colors.yellow },
-          -- DevIconTs = { fg = colors.blue },
-
           -- Bufferline Picker
           BufferLinePickVisible = { bg = colors.base, fg = colors.red, bold = true },
           BufferLinePick = { bg = colors.base, fg = colors.red, bold = true },
@@ -118,7 +115,6 @@ local M = {
       end,
       default_integrations = true,
       integrations = {
-        alpha = true,
         barbecue = {
           dim_dirname = true, -- directory name is dimmed by default
           bold_basename = true,
@@ -185,6 +181,8 @@ local M = {
           style = "nvchad",
         },
         treesitter = true,
+        treesitter_context = true,
+        render_markdown = true,
         which_key = true,
       },
     })

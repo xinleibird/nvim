@@ -36,8 +36,9 @@ local M = {
         end
 
         -- set workspace when changing buffers
-        local my_ws_grp = vim.api.nvim_create_augroup("my_ws_grp", { clear = true })
+        local group = vim.api.nvim_create_augroup("user_workspace_group", { clear = true })
         vim.api.nvim_create_autocmd({ "BufEnter", "VimEnter" }, {
+          group = group,
           callback = function()
             -- do nothing if not file type
             local buf_type = vim.api.nvim_get_option_value("buftype", { buf = 0 })
@@ -74,8 +75,6 @@ local M = {
               workspaces.open(selected_workspace.name)
             end
           end,
-
-          group = my_ws_grp,
         })
 
         -- use below example if using any `open` hooks, such as telescope, otherwise
@@ -84,18 +83,28 @@ local M = {
 
         require("workspaces").setup({
           hooks = {
-            -- open = {
-            --   -- do not run hooks if file already in active workspace
-            --   function()
-            --     if current_file_in_ws() then
-            --       return false
-            --     end
-            --   end,
-            --
-            --   function()
-            --     require("telescope.builtin").find_files()
-            --   end,
-            -- },
+            open = {
+              -- -- do not run hooks if file already in active workspace
+              -- function()
+              --   if current_file_in_ws() then
+              --     return false
+              --   end
+              -- end,
+              --
+              -- function()
+              --   require("telescope.builtin").find_files()
+              -- end,
+
+              function()
+                local git_path = vim.uv.cwd() .. "/.git"
+                local _, err = vim.uv.fs_stat(git_path)
+                vim.g.cwd_is_git = true
+
+                if err then
+                  vim.g.cwd_is_git = false
+                end
+              end,
+            },
           },
         })
       end,
@@ -246,25 +255,25 @@ local M = {
             ["<C-q>"] = function(prompt_bufnr)
               vim.cmd("cexpr([])")
               actions.send_to_qflist(prompt_bufnr)
-              vim.cmd("Trouble qflist open")
+              vim.cmd("Trouble qflist open focus=true")
             end,
 
             ["<C-S-q>"] = function(prompt_bufnr)
               vim.cmd("cexpr([])")
               actions.send_selected_to_qflist(prompt_bufnr)
-              vim.cmd("Trouble qflist open")
+              vim.cmd("Trouble qflist open focus=true")
             end,
 
             ["<C-tab>"] = function(prompt_bufnr)
               vim.cmd("cexpr([])")
               actions.send_to_loclist(prompt_bufnr)
-              vim.cmd("Trouble qflist open")
+              vim.cmd("Trouble loclist open focus=true")
             end,
 
             ["<C-S-tab>"] = function(prompt_bufnr)
               vim.cmd("cexpr([])")
               actions.send_selected_to_loclist(prompt_bufnr)
-              vim.cmd("Trouble qflist open")
+              vim.cmd("Trouble loclist open focus=true")
             end,
             ["<M-q>"] = false,
           },
@@ -272,25 +281,25 @@ local M = {
             ["<C-q>"] = function(prompt_bufnr)
               vim.cmd("cexpr([])")
               actions.send_to_qflist(prompt_bufnr)
-              vim.cmd("Trouble qflist open")
+              vim.cmd("Trouble qflist open focus=true")
             end,
 
             ["<C-S-q>"] = function(prompt_bufnr)
               vim.cmd("cexpr([])")
               actions.send_selected_to_qflist(prompt_bufnr)
-              vim.cmd("Trouble qflist open")
+              vim.cmd("Trouble qflist open focus=true")
             end,
 
             ["<C-tab>"] = function(prompt_bufnr)
               vim.cmd("cexpr([])")
               actions.send_to_loclist(prompt_bufnr)
-              vim.cmd("Trouble qflist open")
+              vim.cmd("Trouble loclist open focus=true")
             end,
 
             ["<C-S-tab>"] = function(prompt_bufnr)
               vim.cmd("cexpr([])")
               actions.send_selected_to_loclist(prompt_bufnr)
-              vim.cmd("Trouble qflist open")
+              vim.cmd("Trouble loclist open focus=true")
             end,
 
             ["<M-q>"] = false,

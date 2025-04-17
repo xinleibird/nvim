@@ -78,6 +78,3 @@ vim.g["loaded_ruby_provider"] = 0
 
 -- enable semantic tokens highlight
 vim.g["semantic_tokens"] = true
-
--- set :checkhealth style
-vim.g.health = { style = "float" }

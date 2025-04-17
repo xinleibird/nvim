@@ -15,6 +15,7 @@ local M = {
   },
   init = function()
     vim.api.nvim_create_autocmd({ "VimEnter", "DirChanged" }, {
+      pattern = "*",
       group = vim.api.nvim_create_augroup("user_detect_git_when_dir_changed", { clear = true }),
       callback = function()
         local git_path = vim.uv.cwd() .. "/.git"

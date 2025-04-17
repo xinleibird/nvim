@@ -6,9 +6,8 @@ local M = {
       providers = {
         "lsp",
         "treesitter",
-        "regex",
+        -- "regex",
       },
-      -- delay: delay in milliseconds
       delay = 100,
       filetypes_denylist = {
         "DressingSelect",
@@ -22,11 +21,12 @@ local M = {
         "lazy",
         "mason",
         "lir",
-        "neogitstatus",
         "gitcommit",
         "neo-tree",
         "spectre_panel",
         "toggleterm",
+        "NeogitStatus",
+        "checkhealth",
         "",
       },
       under_cursor = true,

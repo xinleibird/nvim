@@ -1,13 +1,14 @@
 local M = {
   "saghen/blink.cmp",
   -- use a release tag to download pre-built binaries
-  -- version = "*",
+  version = "*",
   -- or build it yourself
-  build = "cargo build --release",
+  -- build = "cargo build --release",
   dependencies = {
     "olimorris/codecompanion.nvim",
     "folke/lazydev.nvim",
     "rafamadriz/friendly-snippets",
+    "brenoprata10/nvim-highlight-colors",
   },
   opts = {
     keymap = {
@@ -143,6 +144,37 @@ local M = {
           padding = { 1, 1 },
           -- show completion kind
           columns = { { "kind_icon", "label", "label_description", gap = 1 }, { "kind" } },
+          components = {
+            -- customize the drawing of kind icons
+            kind_icon = {
+              text = function(ctx)
+                -- default kind icon
+                local icon = ctx.kind_icon
+                -- if LSP source, check for color derived from documentation
+                if ctx.item.source_name == "LSP" then
+                  local color_item =
+                    require("nvim-highlight-colors").format(ctx.item.documentation, { kind = ctx.kind })
+                  if color_item and color_item.abbr ~= "" then
+                    icon = color_item.abbr
+                  end
+                end
+                return icon .. ctx.icon_gap
+              end,
+              highlight = function(ctx)
+                -- default highlight group
+                local highlight = "BlinkCmpKind" .. ctx.kind
+                -- if LSP source, check for color derived from documentation
+                if ctx.item.source_name == "LSP" then
+                  local color_item =
+                    require("nvim-highlight-colors").format(ctx.item.documentation, { kind = ctx.kind })
+                  if color_item and color_item.abbr_hl_group then
+                    highlight = color_item.abbr_hl_group
+                  end
+                end
+                return highlight
+              end,
+            },
+          },
         },
       },
       documentation = {
@@ -160,6 +192,7 @@ local M = {
     },
     fuzzy = {
       implementation = "prefer_rust_with_warning",
+      prebuilt_binaries = { force_version = "v1.0.0" },
       sorts = {
         -- (optionally) always prioritize exact matches
         -- "exact",
@@ -167,7 +200,7 @@ local M = {
           if (a.client_name == nil or b.client_name == nil) or (a.client_name == b.client_name) then
             return
           end
-          return a.client_name == "html" and b.client_name == "emmet_language_server"
+          return b.client_name == "emmet_language_server"
         end,
         -- default sorts
         "score",
@@ -175,7 +208,7 @@ local M = {
       },
     },
     cmdline = {
-      -- enabled = false,
+      enabled = false,
       sources = function()
         local type = vim.fn.getcmdtype()
         -- Search forward and backward

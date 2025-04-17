@@ -19,15 +19,16 @@ local M = {
       command = "set mouse=a",
     })
 
-    vim.cmd(
-      [[command! -nargs=? -complete=checkhealth Checkhealth vert checkhealth <args> | setlocal bufhidden=wipe nomodifiable nobuflisted noswapfile nocursorline nocursorcolumn norelativenumber noruler nolist noshowmode noshowcmd | file <args>\ health]]
-    )
+    -- vim.cmd(
+    --   [[command! -nargs=? -complete=checkhealth Checkhealth vert checkhealth <args> | setlocal bufhidden=wipe nomodifiable nobuflisted noswapfile nocursorline nocursorcolumn norelativenumber noruler nolist noshowmode noshowcmd | file <args>\ health]]
+    -- )
   end,
   ---@type snacks.Config
   opts = {
     bigfile = { enabled = true },
     image = { enabled = true },
     input = { enabled = true },
+    scope = { enabled = true },
     indent = {
       indent = {
         enabled = true,
