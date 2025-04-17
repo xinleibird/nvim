@@ -1,3 +1,5 @@
+![showcase](./assets/showcase/2025-04-17.png)
+
 ## Introduction
 
 Personal use [Neovim](https://neovim.io) config files.
@@ -12,7 +14,8 @@ Personal use [Neovim](https://neovim.io) config files.
 ### Optional
 
 - The best font for me is [**JetBrains Mono**](https://www.jetbrains.com/lp/mono/), use modified third-part version [JetBrainsMono Nerd Font Mono](https://www.nerdfonts.com/font-downloads).
-- If you need a gui, try [Neovide](https://neovide.dev).
+- If you need a terminal emulator, [ghostty](https://ghostty.org/) is recommended.
+- If you need a GUI lake GVim or Mvim, try [Neovide](https://neovide.dev).
 
 ### Install
 
