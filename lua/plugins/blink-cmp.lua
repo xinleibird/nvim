@@ -8,7 +8,6 @@ local M = {
     "olimorris/codecompanion.nvim",
     "folke/lazydev.nvim",
     "rafamadriz/friendly-snippets",
-    "brenoprata10/nvim-highlight-colors",
   },
   opts = {
     keymap = {
@@ -84,7 +83,7 @@ local M = {
           transform_items = function(_, items)
             for _, item in ipairs(items) do
               item.kind_icon = "󰢚"
-              item.kind_name = "LazyDev"
+              -- item.kind_name = "LazyDev"
             end
             return items
           end,
@@ -102,7 +101,7 @@ local M = {
           transform_items = function(_, items)
             for _, item in ipairs(items) do
               item.kind_icon = "󰊠"
-              item.kind_name = "Companion"
+              -- item.kind_name = "Companion"
             end
             return items
           end,
@@ -144,37 +143,6 @@ local M = {
           padding = { 1, 1 },
           -- show completion kind
           columns = { { "kind_icon", "label", "label_description", gap = 1 }, { "kind" } },
-          components = {
-            -- customize the drawing of kind icons
-            kind_icon = {
-              text = function(ctx)
-                -- default kind icon
-                local icon = ctx.kind_icon
-                -- if LSP source, check for color derived from documentation
-                if ctx.item.source_name == "LSP" then
-                  local color_item =
-                    require("nvim-highlight-colors").format(ctx.item.documentation, { kind = ctx.kind })
-                  if color_item and color_item.abbr ~= "" then
-                    icon = color_item.abbr
-                  end
-                end
-                return icon .. ctx.icon_gap
-              end,
-              highlight = function(ctx)
-                -- default highlight group
-                local highlight = "BlinkCmpKind" .. ctx.kind
-                -- if LSP source, check for color derived from documentation
-                if ctx.item.source_name == "LSP" then
-                  local color_item =
-                    require("nvim-highlight-colors").format(ctx.item.documentation, { kind = ctx.kind })
-                  if color_item and color_item.abbr_hl_group then
-                    highlight = color_item.abbr_hl_group
-                  end
-                end
-                return highlight
-              end,
-            },
-          },
         },
       },
       documentation = {

@@ -4,7 +4,7 @@ local M = {
   priority = 1000,
   config = function()
     require("catppuccin").setup({
-      -- flavour = "mocha", -- latte, frappe, macchiato, mocha
+      flavour = "auto", -- latte, frappe, macchiato, mocha, auto
       background = {
         light = "latte",
         dark = "mocha",
