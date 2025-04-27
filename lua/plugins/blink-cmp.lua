@@ -1,7 +1,7 @@
 local M = {
   "saghen/blink.cmp",
   -- use a release tag to download pre-built binaries
-  version = "*",
+  -- version = "*",
   -- or build it yourself
   -- build = "cargo build --release",
   dependencies = {
