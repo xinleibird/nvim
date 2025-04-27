@@ -32,6 +32,7 @@ local M = {
         "typescript",
         "typst",
         "vim",
+        "vimdoc",
         "vue",
         "yaml",
       },
