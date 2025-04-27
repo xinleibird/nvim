@@ -51,7 +51,35 @@ local M = {
 
     vim.cmd([[command! Notifications lua Snacks.notifier.show_history()]])
     vim.cmd([[command! Pickers lua Snacks.picker()]])
+
+    local term_group = vim.api.nvim_create_augroup("user_toggle_wincmd_keymap_for_lazygit_term_buf", { clear = true })
+    vim.api.nvim_create_autocmd("TermOpen", {
+      pattern = "*",
+      group = term_group,
+      callback = function()
+        local term_title = vim.b.term_title
+        if term_title and term_title:match("lazygit") then
+          vim.keymap.del({ "n", "t", "i" }, "<C-h>")
+          vim.keymap.del({ "n", "t", "i" }, "<C-l>")
+          vim.keymap.del({ "n", "t", "i" }, "<C-j>")
+          vim.keymap.del({ "n", "t", "i" }, "<C-k>")
+        end
+      end,
+    })
+    vim.api.nvim_create_autocmd("TermClose", {
+      pattern = "*",
+      callback = function()
+        local term_title = vim.b.term_title
+        if term_title and term_title:match("lazygit") then
+          vim.keymap.set({ "n", "t", "i" }, "<C-h>", "<cmd>wincmd h<CR>", { desc = "Jump left window" })
+          vim.keymap.set({ "n", "t", "i" }, "<C-l>", "<cmd>wincmd l<CR>", { desc = "Jump right window" })
+          vim.keymap.set({ "n", "t", "i" }, "<C-j>", "<cmd>wincmd j<CR>", { desc = "Jump down window" })
+          vim.keymap.set({ "n", "t", "i" }, "<C-k>", "<cmd>wincmd k<CR>", { desc = "Jump up window" })
+        end
+      end,
+    })
   end,
+
   ---@type snacks.Config
   opts = {
     styles = {
