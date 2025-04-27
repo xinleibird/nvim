@@ -67,7 +67,13 @@ local M = {
     input = { enabled = true },
     scope = { enabled = true },
     words = { enabled = true },
-    lazygit = { enabled = true },
+    lazygit = {
+      config = {
+        os = {
+          edit = '[ -z ""$NVIM"" ] && (nvim -- {{filename}}) || (nvim --server ""$NVIM"" --remote-send ""q"" && nvim --server ""$NVIM"" --remote {{filename}})',
+        },
+      },
+    },
     notifier = { timeout = 2000 },
     picker = {
       ---@diagnostic disable-next-line: missing-fields
