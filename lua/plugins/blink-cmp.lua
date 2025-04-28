@@ -3,7 +3,7 @@ local M = {
   -- use a release tag to download pre-built binaries
   -- version = "*",
   -- or build it yourself
-  -- build = "cargo build --release",
+  build = "cargo build --release",
   dependencies = {
     "olimorris/codecompanion.nvim",
     "rafamadriz/friendly-snippets",
@@ -240,7 +240,7 @@ local M = {
     },
     fuzzy = {
       implementation = "prefer_rust_with_warning",
-      prebuilt_binaries = { force_version = "v1.0.0" },
+      -- prebuilt_binaries = { force_version = "v1.0.0" },
       sorts = {
         -- (optionally) always prioritize exact matches
         -- "exact",
@@ -277,10 +277,11 @@ local M = {
             end
           end,
           "show_and_insert",
-          "select_and_accept",
+          "select_next",
           "fallback",
         },
-        ["<CR>"] = { "select_accept_and_enter", "fallback" },
+        -- ["<CR>"] = { "select_accept_and_enter", "fallback" },
+        ["<CR>"] = { "select_and_accept", "fallback" },
       },
       -- completion = { menu = { auto_show = true } },
     },
