@@ -1,18 +1,7 @@
 local M = {
   "nvim-lualine/lualine.nvim",
   event = "ColorScheme",
-  dependencies = {
-    "lewis6991/gitsigns.nvim",
-    event = "BufRead",
-    config = function()
-      require("gitsigns").setup({
-        signs_staged_enable = false,
-        signcolumn = false,
-        numhl = false,
-        linehl = false,
-      })
-    end,
-  },
+  dependencies = "echasnovski/mini.diff",
   init = function()
     vim.api.nvim_create_autocmd({ "VimEnter", "DirChanged" }, {
       pattern = "*",
@@ -48,15 +37,12 @@ local M = {
     end
 
     local function diff_source()
-      if not vim.b[stbufnr()].gitsigns_head or vim.b[stbufnr()].gitsigns_git_status then
-        return ""
-      end
-      local git_status = vim.b[stbufnr()].gitsigns_status_dict
+      local minidiff_summary = vim.b[stbufnr()].minidiff_summary
 
-      if git_status then
-        local added = (git_status.added and git_status.added ~= 0) and git_status.added or 0
-        local changed = (git_status.changed and git_status.changed ~= 0) and git_status.changed or 0
-        local removed = (git_status.removed and git_status.removed ~= 0) and git_status.removed or 0
+      if minidiff_summary then
+        local added = (minidiff_summary.add and minidiff_summary.add ~= 0) and minidiff_summary.add or 0
+        local changed = (minidiff_summary.change and minidiff_summary.change ~= 0) and minidiff_summary.change or 0
+        local removed = (minidiff_summary.delete and minidiff_summary.delete ~= 0) and minidiff_summary.delete or 0
 
         return {
           added = added,

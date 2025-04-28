@@ -112,11 +112,13 @@ M.ui = {
 M.git = {
   Unstaged = "󰎂",
   Staged = "✓",
-  Unmerged = "=",
+  Unmerged = "",
   Renamed = "󰁔",
-  Untracked = "󰐕",
+  Added = "󰐕",
   Deleted = "✗",
-  Ignored = "󰛐",
+  Ignored = "",
+  Commit = "󰜘",
+  Untracked = "",
 
   LineAdded = "",
   LineModified = "",
