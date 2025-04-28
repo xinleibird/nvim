@@ -54,7 +54,8 @@ local M = {
     return {
       ensure_installed = vim.g.mason_ensure_installed,
 
-      PATH = "skip",
+      ---@type '"prepend"' | '"append"' | '"skip"'
+      PATH = "prepend",
 
       ui = {
         width = 0.8,
