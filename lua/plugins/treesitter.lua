@@ -28,6 +28,7 @@ local M = {
         "regex",
         "scss",
         "svelte",
+        "toml",
         "tsx",
         "typescript",
         "typst",
