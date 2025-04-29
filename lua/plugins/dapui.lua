@@ -10,8 +10,6 @@ local M = {
   },
   event = "LspAttach",
   init = function()
-    vim.cmd([[command! DapUIClose lua require("dapui").close()]])
-
     local dap = require("dap")
     local dapui = require("dapui")
     dap.listeners.after.attach.dapui_config = function()
@@ -77,133 +75,22 @@ local M = {
       require("dapui").toggle({ reset = true })
     end, { desc = "Toggle UI" })
 
-    local sign = vim.fn.sign_define
     local icons = require("configs.icons")
-    sign("DapBreakpoint", {
-      text = icons.ui.Point,
-      numhl = "DapBreakpoint",
-      texthl = "DapBreakpoint",
-    })
+    vim.fn.sign_define("DapBreakpoint", { text = icons.ui.Point, numhl = "DapBreakpoint", texthl = "DapBreakpoint" })
+    vim.fn.sign_define(
+      "DapBreakpointCondition",
+      { text = icons.ui.Point, numhl = "DapBreakpointCondition", texthl = "DapBreakpointCondition" }
+    )
+    vim.fn.sign_define("DagLogPoint", { text = icons.ui.Unchecked, numhl = "DapLogPoint", texthl = "DapLogPoint" })
+    vim.fn.sign_define("DapStopped", { text = icons.ui.Stopped, numhl = "DapStopped", texthl = "DapStopped" })
+    vim.fn.sign_define(
+      "DapBreakpointRejected",
+      { text = icons.ui.Rejected, numhl = "DapBreakpointRejected", texthl = "DapBreakpointRejected" }
+    )
 
-    sign("DapBreakpointCondition", {
-      text = icons.ui.Point,
-      numhl = "DapBreakpointCondition",
-      texthl = "DapBreakpointCondition",
-    })
-
-    sign("DagLogPoint", {
-      text = icons.ui.Unchecked,
-      numhl = "DapLogPoint",
-      texthl = "DapLogPoint",
-    })
-
-    sign("DapStopped", {
-      text = icons.ui.Stopped,
-      numhl = "DapStopped",
-      texthl = "DapStopped",
-    })
-
-    sign("DapBreakpointRejected", {
-      text = icons.ui.Rejected,
-      numhl = "DapBreakpointRejected",
-      texthl = "DapBreakpointRejected",
-    })
-
-    for _, adapter in ipairs({
-      "pwa-extensionHost",
-      "node-terminal",
-      "pwa-node",
-      "pwa-chrome",
-      "pwa-msedge",
-    }) do
-      dap.adapters[adapter] = {
-        executable = {
-          -- command = "node",
-          -- -- 💀 Make sure to update this path to point to your installation
-          -- args = { "/path/to/js-debug/src/dapDebugServer.js", "${port}" },
-          command = "js-debug-adapter",
-          args = { "${port}" },
-        },
-        host = "localhost",
-        port = "${port}",
-        type = "server",
-      }
-    end
-    dap.adapters.firefox = {
-      command = "firefox-debug-adapter",
-      type = "executable",
-    }
-    dap.adapters.lldb = {
-      command = "codelldb",
-      type = "executable",
-      name = "lldb",
-    }
-
-    for _, lang in ipairs({ "typescript", "javascript", "typescriptreact", "javascriptreact" }) do
-      dap.configurations[lang] = {
-        {
-          name = "Launch Chrome",
-          reAttach = true,
-          request = "launch",
-          type = "pwa-chrome",
-          url = "http://localhost:8080",
-          webRoot = "${workspaceFolder}",
-        },
-        {
-          firefoxExecutable = "/opt/homebrew/bin/firefox",
-          name = "Lanuch Firefox",
-          reAttach = true,
-          request = "launch",
-          type = "firefox",
-          url = "http://localhost:8080",
-          webRoot = "${workspaceFolder}",
-        },
-        {
-          cwd = "${workspaceFolder}",
-          name = "Launch with Node",
-          program = "${file}",
-          request = "launch",
-          type = "pwa-node",
-          runtimeArgs = {
-            "--inspect-brk",
-          },
-        },
-        {
-          cwd = "${workspaceFolder}",
-          name = "Attach into Node",
-          processId = require("dap.utils").pick_process,
-          request = "attach",
-          type = "pwa-node",
-        },
-      }
-    end
-    dap.configurations.cpp = {
-      {
-        name = "Launch file",
-        type = "lldb",
-        request = "launch",
-        program = function()
-          return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-        end,
-        cwd = "${workspaceFolder}",
-        stopOnEntry = false,
-        args = {},
-      },
-    }
-    dap.configurations.rust = {
-      {
-        name = "Launch file",
-        type = "lldb",
-        request = "launch",
-        program = function()
-          return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-        end,
-        cwd = "${workspaceFolder}",
-        stopOnEntry = false,
-        args = {},
-      },
-    }
+    vim.cmd([[command! DapUIClose lua require("dapui").close()]])
   end,
+
   opts = function()
     return {
       icons = { expanded = "▾", collapsed = "▸" },
@@ -252,6 +139,108 @@ local M = {
   end,
 
   config = function(_, opts)
+    local dap = require("dap")
+    for _, adapter in ipairs({
+      "pwa-extensionHost",
+      "node-terminal",
+      "pwa-node",
+      "pwa-chrome",
+      "pwa-msedge",
+    }) do
+      dap.adapters[adapter] = {
+        executable = {
+          -- command = "node",
+          -- -- 💀 Make sure to update this path to point to your installation
+          -- args = { "/path/to/js-debug/src/dapDebugServer.js", "${port}" },
+          command = "js-debug-adapter",
+          args = { "${port}" },
+        },
+        host = "localhost",
+        port = "${port}",
+        type = "server",
+      }
+    end
+    dap.adapters.firefox = {
+      command = "firefox-debug-adapter",
+      type = "executable",
+    }
+
+    local cargo_inspector = require("utils").cargo_inspector
+    dap.adapters.lldb = { -- use .vscode/launch.json
+      command = "codelldb",
+      type = "executable",
+      name = "lldb",
+      enrich_config = function(config, on_config)
+        -- If the configuration(s) in `launch.json` contains a `cargo` section
+        -- send the configuration off to the cargo_inspector.
+        if config["cargo"] ~= nil then
+          on_config(cargo_inspector(config))
+        end
+      end,
+    }
+    dap.adapters.codelldb = { -- use .vscode/launch.json
+      command = "codelldb",
+      type = "executable",
+      name = "codelldb",
+    }
+
+    for _, lang in ipairs({
+      "typescript",
+      "javascript",
+      "typescriptreact",
+      "javascriptreact",
+    }) do
+      dap.configurations[lang] = {
+        {
+          name = "Launch Chrome",
+          reAttach = true,
+          request = "launch",
+          type = "pwa-chrome",
+          url = "http://localhost:8080",
+          webRoot = "${workspaceFolder}",
+        },
+        {
+          firefoxExecutable = "/opt/homebrew/bin/firefox",
+          name = "Lanuch Firefox",
+          reAttach = true,
+          request = "launch",
+          type = "firefox",
+          url = "http://localhost:8080",
+          webRoot = "${workspaceFolder}",
+        },
+        {
+          cwd = "${workspaceFolder}",
+          name = "Launch with Node",
+          program = "${file}",
+          request = "launch",
+          type = "pwa-node",
+          runtimeArgs = {
+            "--inspect-brk",
+          },
+        },
+        {
+          cwd = "${workspaceFolder}",
+          name = "Attach into Node",
+          processId = require("dap.utils").pick_process,
+          request = "attach",
+          type = "pwa-node",
+        },
+      }
+    end
+    dap.configurations.rust = {
+      {
+        name = "Launch (build first)",
+        type = "codelldb",
+        request = "launch",
+        program = function()
+          return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+        end,
+        cwd = "${workspaceFolder}",
+        stopOnEntry = false,
+        args = {},
+      },
+    }
+
     require("dapui").setup(opts)
   end,
 }

@@ -52,3 +52,13 @@ vim.api.nvim_create_autocmd({ "QuitPre" }, {
     end
   end,
 })
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = "launch.json",
+  callback = function(e)
+    local pattern = string.match(e.match, "%.vscode/launch.json$")
+    if pattern then
+      vim.opt.filetype = "jsonc"
+    end
+  end,
+})

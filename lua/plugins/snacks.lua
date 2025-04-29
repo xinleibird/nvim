@@ -97,6 +97,7 @@ local M = {
       input = { enabled = true },
       scope = { enabled = true },
       words = { enabled = true },
+      statuscolumn = { enabled = true },
       lazygit = {
         config = {
           os = {
