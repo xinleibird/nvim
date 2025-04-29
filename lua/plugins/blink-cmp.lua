@@ -234,7 +234,7 @@ local M = {
     signature = {
       enabled = true,
       window = {
-        -- border = "solid",
+        border = "solid",
         show_documentation = true,
       },
     },
@@ -277,11 +277,11 @@ local M = {
             end
           end,
           "show_and_insert",
-          "select_next",
-          "fallback",
+          -- "select_next",
+          -- "fallback",
         },
-        -- ["<CR>"] = { "select_accept_and_enter", "fallback" },
-        ["<CR>"] = { "select_and_accept", "fallback" },
+        ["<CR>"] = { "select_accept_and_enter", "fallback" },
+        -- ["<CR>"] = { "select_and_accept", "fallback" },
       },
       -- completion = { menu = { auto_show = true } },
     },

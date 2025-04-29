@@ -113,8 +113,6 @@ local M = {
           SnacksPickerBoxTitle = { bg = colors.blue, fg = colors.base, bold = true },
           SnacksPickerInput = { bg = colors.mantle, fg = colors.text },
           SnacksPickerInputBorder = {
-            -- bg = colors.sapphire,
-            -- fg = colors.sapphire,
             bg = util.vary_color(
               { latte = util.lighten(colors.sapphire, 0.6, colors.base) },
               util.darken(colors.sapphire, 0.2, colors.base)
@@ -146,22 +144,13 @@ local M = {
         cmp = true,
         dap = true,
         dap_ui = true,
-        dashboard = true,
-        diffview = true,
         fidget = true,
         flash = true,
         fzf = true,
-        gitsigns = true,
         illuminate = {
           enabled = true,
           lsp = true,
         },
-        indent_blankline = {
-          enabled = true,
-          scope_color = "surface2", -- catppuccin color (eg. `lavender`) Default: text
-          colored_indent_levels = false,
-        },
-        lsp_trouble = false,
         markdown = true,
         mason = true,
         mini = {
@@ -186,11 +175,7 @@ local M = {
             background = true,
           },
         },
-        neogit = true,
-        neotree = true,
-        notify = true,
         nvim_surround = true,
-        nvimtree = true,
         symbols_outline = true,
         semantic_tokens = true,
         snacks = {
