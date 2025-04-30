@@ -257,7 +257,7 @@ local M = {
       },
     },
     cmdline = {
-      -- enabled = false,
+      enabled = false,
       sources = function()
         local type = vim.fn.getcmdtype()
         -- Search forward and backward
