@@ -106,6 +106,11 @@ if not trouble_loaded then
 end
 
 vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, { desc = "Signature" })
+-- any config in https://github.com/MysticalDevil/inlay-hints.nvim
+vim.keymap.set("n", "gi", function()
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ 0 }), { 0 })
+end, { desc = "Inlay hints" })
+
 vim.keymap.set("n", "<leader>ls", vim.lsp.buf.signature_help, { desc = "Signature" })
 vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover information" })
 vim.keymap.set("n", "gl", vim.diagnostic.open_float, { desc = "Floating diagnostics" })

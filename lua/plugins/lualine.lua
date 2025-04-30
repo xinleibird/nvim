@@ -2,21 +2,6 @@ local M = {
   "nvim-lualine/lualine.nvim",
   event = "ColorScheme",
   dependencies = "echasnovski/mini.diff",
-  init = function()
-    vim.api.nvim_create_autocmd({ "VimEnter", "DirChanged" }, {
-      pattern = "*",
-      group = vim.api.nvim_create_augroup("user_detect_git_when_dir_changed", { clear = true }),
-      callback = function()
-        local git_path = vim.uv.cwd() .. "/.git"
-        local _, err = vim.uv.fs_stat(git_path)
-        vim.g.cwd_is_git = true
-
-        if err then
-          vim.g.cwd_is_git = false
-        end
-      end,
-    })
-  end,
   opts = function()
     local function selected()
       local mode = vim.fn.mode()
@@ -80,13 +65,9 @@ local M = {
       cwd = {
         "mode",
         fmt = function()
-          local cwd = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+          local cwd_tail = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
 
-          if vim.g.cwd_is_git then
-            return icons.ui.GitFolderSign .. " " .. cwd
-          end
-
-          return icons.ui.Path .. " " .. cwd
+          return icons.ui.Path .. " " .. cwd_tail
         end,
         separator = { left = "" },
         padding = { left = 0, right = 1 },
