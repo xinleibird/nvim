@@ -124,9 +124,10 @@ local M = {
         },
         path = {
           opts = {
-            get_cwd = function(_)
-              return vim.fn.getcwd()
-            end,
+            -- -- from cwd instead of current buffer's directory
+            -- get_cwd = function(_)
+            --   return vim.fn.getcwd()
+            -- end,
           },
         },
         lazydev = {

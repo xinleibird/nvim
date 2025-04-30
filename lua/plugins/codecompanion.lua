@@ -12,7 +12,7 @@ local M = {
       opts = {
         -- show_defaults = false,
         log_level = "ERROR", -- TRACE|DEBUG|ERROR|INFO
-        language = "zh-CN",
+        language = "Chinese",
       },
       strategies = {
         chat = {
