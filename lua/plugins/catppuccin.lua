@@ -134,12 +134,6 @@ local M = {
       end,
       default_integrations = true,
       integrations = {
-        barbecue = {
-          dim_dirname = true, -- directory name is dimmed by default
-          bold_basename = true,
-          dim_context = false,
-          alt_background = false,
-        },
         blink_cmp = true,
         cmp = true,
         dap = true,
@@ -151,6 +145,7 @@ local M = {
           enabled = true,
           lsp = true,
         },
+        lsp_saga = true,
         markdown = true,
         mason = true,
         mini = {

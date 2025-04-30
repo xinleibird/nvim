@@ -73,35 +73,6 @@ local M = {
       providers = {
         lsp = {
           transform_items = function(_, items)
-            for _, item in ipairs(items) do
-              if item.client_name == "bashls" then
-                item.kind_icon = "󱆃"
-              elseif item.client_name == "cssls" then
-                item.kind_icon = ""
-              elseif item.client_name == "emmet_language_server" then
-                item.kind_icon = "󰝠"
-              elseif item.client_name == "eslint" then
-                item.kind_icon = ""
-              elseif item.client_name == "html" then
-                item.kind_icon = ""
-              elseif item.client_name == "jsonls" then
-                item.kind_icon = ""
-              elseif item.client_name == "lua_ls" then
-                item.kind_icon = ""
-              elseif item.client_name == "marksman" then
-                item.kind_icon = ""
-              elseif item.client_name == "rust_analyzer" then
-                item.kind_icon = ""
-              elseif item.client_name == "ts_ls" then
-                item.kind_icon = ""
-              elseif item.client_name == "vimls" then
-                item.kind_icon = ""
-              elseif item.client_name == "vtsls" then
-                item.kind_icon = ""
-              elseif item.client_name == "yamlls" then
-                item.kind_icon = ""
-              end
-            end
             return vim.tbl_filter(function(item)
               if item.client_name == "html" then
                 -- disable emmet_language_server tag's auto close "</div> etc."
@@ -174,10 +145,10 @@ local M = {
           transform_items = function(_, items)
             return vim.tbl_filter(function(item)
               -- disable completion for Chinese characters
-              -- return string.find(item.insertText, "[\xE4-\xE9][\x80-\xBF][\x80-\xBF]") == nil
+              return string.find(item.insertText, "[\xE4-\xE9][\x80-\xBF][\x80-\xBF]") == nil
 
               -- disable completion for non-ascii characters
-              return string.find(item.insertText, "[^a-zA-Z0-9%s%p]") == nil
+              -- return string.find(item.insertText, "[^a-zA-Z0-9%s%p]") == nil
             end, items)
           end,
           should_show_items = function(ctx)
@@ -192,6 +163,10 @@ local M = {
         -- border = "solid",
         draw = {
           padding = { 1, 1 },
+
+          -- completion menu style
+          columns = { { "kind_icon", "label", "label_description", gap = 1 }, { "kind" } },
+
           -- show completion kind
           components = {
             -- customize the drawing of kind icons

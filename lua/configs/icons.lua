@@ -38,6 +38,11 @@ M.lspkind = {
   Unit = "",
   Value = "",
   Variable = "󰀫",
+  Component = "󰡀",
+  Control = "",
+  Collapsed = "",
+  Copilot = "",
+  Unknown = "",
 }
 
 M.diagnostics = {
