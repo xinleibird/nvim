@@ -9,6 +9,12 @@ local M = {
         light = "latte",
         dark = "mocha",
       },
+      barbecue = {
+        dim_dirname = true, -- directory name is dimmed by default
+        bold_basename = true,
+        dim_context = false,
+        alt_background = false,
+      },
       compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
       transparent_background = false,
       show_end_of_buffer = false, -- show the '~' characters after the end of buffers
@@ -145,7 +151,7 @@ local M = {
           enabled = true,
           lsp = true,
         },
-        lsp_saga = true,
+        lsp_saga = true, --  RECORD: used by some lspkind theme, do not disable this
         markdown = true,
         mason = true,
         mini = {

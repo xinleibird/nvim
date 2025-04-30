@@ -155,6 +155,14 @@ local M = {
             local keyword = ctx.get_keyword()
             return keyword ~= ""
           end,
+          opts = {
+            -- or (recommended) filter to only "normal" buffers
+            get_bufnrs = function()
+              return vim.tbl_filter(function(bufnr)
+                return vim.bo[bufnr].buftype == ""
+              end, vim.api.nvim_list_bufs())
+            end,
+          },
         },
       },
     },
