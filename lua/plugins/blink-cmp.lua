@@ -107,6 +107,7 @@ local M = {
           score_offset = 100,
           transform_items = function(_, items)
             for _, item in ipairs(items) do
+              item.insertText = item.label
               item.kind_icon = "󰢚"
             end
             return items
