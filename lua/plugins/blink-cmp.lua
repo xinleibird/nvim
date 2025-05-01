@@ -62,7 +62,15 @@ local M = {
       nerd_font_variant = "mono",
     },
     sources = {
-      default = { "lsp", "path", "snippets", "buffer" },
+      -- default = { "lsp", "path", "snippets", "buffer" },
+      default = function()
+        local success, node = pcall(vim.treesitter.get_node)
+        if success and node and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type()) then
+          return { "buffer" }
+        else
+          return { "lsp", "path", "snippets", "buffer" }
+        end
+      end,
       per_filetype = {
         lua = { "lazydev", "lsp", "path", "snippets", "buffer" }, -- enable lazydev for lua
         html = { "lsp", "path", "buffer" }, -- disable emmet_language_server snippets
@@ -82,6 +90,7 @@ local M = {
             end, items)
           end,
           override = {
+            -- trigger character add {} [] ()
             get_trigger_characters = function(self)
               local ignored = { "}", "]", ")", "" }
               local trigger_characters = self:get_trigger_characters()
@@ -105,6 +114,7 @@ local M = {
           name = "LazyDev",
           module = "lazydev.integrations.blink",
           score_offset = 100,
+          ---@param items blink.cmp.CompletionItem[]
           transform_items = function(_, items)
             for _, item in ipairs(items) do
               item.insertText = item.label
@@ -130,16 +140,16 @@ local M = {
           end,
         },
         snippets = {
+          ---@param ctx blink.cmp.Context
           should_show_items = function(ctx)
             local keyword = ctx.get_keyword()
+            -- hide snippets after trigger character
             return ctx.trigger.initial_kind ~= "trigger_character" and keyword ~= ""
           end,
           opts = {
             friendly_snippets = true,
             search_paths = { vim.fn.stdpath("config") .. "/snippets" },
             global_snippets = {},
-            extended_filetypes = {},
-            ignored_filetypes = {},
           },
         },
         buffer = {
@@ -147,17 +157,12 @@ local M = {
             return vim.tbl_filter(function(item)
               -- disable completion for Chinese characters
               return string.find(item.insertText, "[\xE4-\xE9][\x80-\xBF][\x80-\xBF]") == nil
-
               -- disable completion for non-ascii characters
               -- return string.find(item.insertText, "[^a-zA-Z0-9%s%p]") == nil
             end, items)
           end,
-          should_show_items = function(ctx)
-            local keyword = ctx.get_keyword()
-            return keyword ~= ""
-          end,
           opts = {
-            -- or (recommended) filter to only "normal" buffers
+            -- filter to only "normal" buffers
             get_bufnrs = function()
               return vim.tbl_filter(function(bufnr)
                 return vim.bo[bufnr].buftype == ""
