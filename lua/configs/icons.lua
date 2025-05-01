@@ -46,10 +46,10 @@ M.lspkind = {
 }
 
 M.diagnostics = {
-  Hint = "",
-  Info = "",
-  Warn = "",
-  Error = "",
+  Hint = "",
+  Info = "",
+  Warn = "",
+  Error = "",
 }
 
 M.ui = {
@@ -123,7 +123,7 @@ M.git = {
   Deleted = "✗",
   Ignored = "",
   Commit = "󰜘",
-  Untracked = "",
+  Untracked = "?",
 
   LineAdded = "",
   LineModified = "",

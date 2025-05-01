@@ -73,6 +73,8 @@ local M = {
         separator = require("configs.icons").ui.ChevronRight,
       },
       kinds = require("configs.icons").lspkind,
+
+      exclude_filetypes = { "netrw", "FTerm", "snacks_layout_box" },
     })
   end,
 }

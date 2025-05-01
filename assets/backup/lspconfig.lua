@@ -19,21 +19,19 @@ local M = {
   },
   init = function()
     local icons = require("configs.icons")
-    local function lspSymbol(name, icon)
-      local hl = "DiagnosticSign" .. name
-      vim.fn.sign_define(hl, { text = icon, numhl = hl, texthl = hl })
-    end
-
-    lspSymbol("Error", icons.diagnostics.Error)
-    lspSymbol("Info", icons.diagnostics.Info)
-    lspSymbol("Hint", icons.diagnostics.Hint)
-    lspSymbol("Warn", icons.diagnostics.Warn)
-
     vim.diagnostic.config({
       virtual_text = {
         prefix = "",
       },
-      signs = true,
+      severity_sort = true,
+      signs = {
+        text = {
+          [vim.diagnostic.severity.HINT] = icons.diagnostics.Hint,
+          [vim.diagnostic.severity.INFO] = icons.diagnostics.Info,
+          [vim.diagnostic.severity.WARN] = icons.diagnostics.Warn,
+          [vim.diagnostic.severity.ERROR] = icons.diagnostics.Error,
+        },
+      },
       underline = true,
       update_in_insert = false,
     })

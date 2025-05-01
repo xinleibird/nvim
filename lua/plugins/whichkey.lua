@@ -182,6 +182,10 @@ local M = {
         icon = "󰗽",
         group = "Quit all",
       },
+      {
+        "<leader>sP",
+        icon = "",
+      },
     })
 
     ---@diagnostic disable-next-line: missing-fields

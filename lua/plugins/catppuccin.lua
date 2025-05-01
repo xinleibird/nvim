@@ -131,7 +131,7 @@ local M = {
           SnacksPickerInputTitle = { bg = colors.blue, fg = colors.base, bold = true },
           SnacksPickerList = { bg = colors.crust },
           SnacksPickerListBorder = { bg = colors.crust, fg = colors.crust },
-          SnacksPickerListCursorLine = { bg = colors.base },
+          SnacksPickerListCursorLine = { bg = colors.surface0 },
           SnacksPickerPreviewBorder = { bg = colors.mantle, fg = colors.mantle },
           SnacksPickerPrompt = { bg = colors.mantle, fg = colors.text },
 
@@ -151,7 +151,6 @@ local M = {
           enabled = true,
           lsp = true,
         },
-        lsp_saga = true, --  RECORD: used by some lspkind theme, do not disable this
         markdown = true,
         mason = true,
         mini = {

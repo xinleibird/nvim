@@ -2,18 +2,6 @@ local M = {
   "folke/snacks.nvim",
   priority = 1000,
   lazy = false,
-  dependencies = {
-    "olimorris/persisted.nvim",
-    {
-      "wsdjeg/rooter.nvim",
-      config = function()
-        require("rooter").setup({
-          root_pattern = { ".git/", "package.json" },
-          command = "cd",
-        })
-      end,
-    },
-  },
   init = function()
     local group = vim.api.nvim_create_augroup("user_disable_mouse_when_snacks_dashboard", { clear = true })
     vim.api.nvim_create_autocmd("User", {
@@ -27,10 +15,10 @@ local M = {
       command = "set mouse=a",
     })
 
-    vim.keymap.set("n", "<leader>sP", "<cmd>lua Snacks.picker.projects()<CR>", { desc = "Recent projects" })
+    -- vim.keymap.set("n", "<leader>sP", "<cmd>lua Snacks.picker.projects()<CR>", { desc = "Recent projects" })
     vim.keymap.set("n", "<leader>sp", "<cmd>lua Snacks.picker.pick('files')<cr>", { desc = "Files" })
     vim.keymap.set("n", "<leader>st", "<cmd>lua Snacks.picker.pick('live_grep')<CR>", { desc = "Live grep" })
-    vim.keymap.set("n", "<leader>sc", "<cmd>lua Snacks.picker.smart()<CR>", { desc = "Text under cursor" })
+    vim.keymap.set("n", "<leader>sc", "<cmd>lua Snacks.picker.grep_word()<CR>", { desc = "Text under cursor" })
     vim.keymap.set("n", "<leader>sh", "<cmd>lua Snacks.picker.help()<CR>", { desc = "Help pages" })
     vim.keymap.set("n", "<leader>sr", "<cmd>lua Snacks.picker.pick('oldfiles')<CR>", { desc = "Recent files" })
     vim.keymap.set("n", "<leader>sb", "<cmd>lua Snacks.picker.lines()<CR>", { desc = "Buffer lines" })
@@ -68,6 +56,7 @@ local M = {
     })
     vim.api.nvim_create_autocmd("TermClose", {
       pattern = "*",
+      group = term_group,
       callback = function()
         local term_title = vim.b.term_title
         if term_title and term_title:match("lazygit") then
@@ -79,7 +68,6 @@ local M = {
       end,
     })
   end,
-
   ---@return snacks.Config
   opts = function()
     local icons = require("configs.icons")
@@ -177,7 +165,6 @@ local M = {
             },
           },
           explorer_layout = {
-            preset = "sidebar",
             preview = "main",
             layout = {
               backdrop = false,
@@ -204,6 +191,13 @@ local M = {
                 height = 0.5,
                 border = "top",
               },
+            },
+          },
+          vscode = {
+            layout = {
+              width = 0.5,
+              height = 0.5,
+              row = 2,
             },
           },
         },
@@ -238,11 +232,11 @@ local M = {
       dashboard = {
         preset = {
           keys = {
-            { icon = " ", key = "sP", desc = "Projects", action = ":lua Snacks.picker.projects()" },
-            { icon = " ", key = "sr", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
+            { icon = " ", key = "sP", desc = "Recent Workspaces", action = ":WorkspacesPicker" },
+            { icon = " ", key = "sr", desc = "Old Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
             { icon = " ", key = "sp", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
             { icon = "󰙩 ", key = "st", desc = "Live Grep", action = ":lua Snacks.dashboard.pick('live_grep')" },
-            { icon = " ", key = "ss", desc = "Restore Session", action = ":SessionSelect" },
+            { icon = " ", key = "sS", desc = "Restore Sessions", action = ":SessionPicker" },
             { icon = " ", key = "q", desc = "Quit", action = ":qa" },
           },
         },
@@ -309,6 +303,153 @@ local M = {
       },
     }
   end,
+  dependencies = {
+    {
+      "wsdjeg/rooter.nvim",
+      config = function()
+        require("rooter").setup({
+          root_pattern = { ".git/", "package.json" },
+          command = "cd",
+        })
+      end,
+    },
+    {
+      "olimorris/persisted.nvim",
+      init = function()
+        vim.api.nvim_create_autocmd("User", {
+          pattern = "PersistedSavePre",
+          group = vim.api.nvim_create_augroup("user_before_save_session_close_misc_win", { clear = true }),
+          callback = function()
+            vim.cmd("silent! OutlineClose")
+            vim.cmd("silent! DapUIClose")
+
+            for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+              if vim.bo[buf].filetype == "snacks_layout_box" then
+                require("snacks").explorer()
+                vim.api.nvim_buf_delete(buf, { force = true })
+              end
+            end
+          end,
+        })
+
+        vim.api.nvim_create_user_command("SessionPicker", function()
+          local items = {}
+          local longest_name = 0
+          local sep = require("persisted.utils").dir_pattern()
+
+          local function escape_pattern(str, pattern, replace, n)
+            pattern = string.gsub(pattern, "[%(%)%.%+%-%*%?%[%]%^%$%%]", "%%%1") -- escape pattern
+            replace = string.gsub(replace, "[%%]", "%%%%") -- escape replacement
+
+            return string.gsub(str, pattern, replace, n)
+          end
+
+          for i, session in ipairs(require("persisted").list()) do
+            local session_path = escape_pattern(session, require("persisted.config").config.save_dir, "")
+              :gsub("%%", sep)
+              -- :gsub(vim.fn.expand("~"), sep)
+              -- :gsub(vim.fn.expand("~"), "~")
+              :gsub(
+                "//",
+                ""
+              )
+              :sub(1, -5)
+
+            if vim.fn.has("win32") == 1 then
+              session_path = escape_pattern(session_path, sep, ":", 1)
+              session_path = escape_pattern(session_path, sep, "\\")
+            end
+
+            local root_dir = string.match(session_path, "[^/]%w+$")
+
+            table.insert(items, {
+              idx = i,
+              score = i,
+              text = session_path,
+              name = root_dir,
+              session = session,
+            })
+            longest_name = math.max(longest_name, #root_dir)
+          end
+          longest_name = longest_name + 2
+          return Snacks.picker({
+            title = "Sessions",
+            items = items,
+            layout = "vscode",
+            format = function(item)
+              local ret = {}
+              ret[#ret + 1] = { ("%-" .. longest_name .. "s"):format(item.name), "SnacksPickerLabel" }
+              ret[#ret + 1] = { item.text, "SnacksPickerComment" }
+              return ret
+            end,
+            confirm = function(picker, item)
+              picker:close()
+              require("persisted").load({ session = item.session })
+            end,
+          })
+        end, {
+          desc = "Sessions picker",
+        })
+
+        vim.keymap.set("n", "<leader>sS", "<cmd>SessionPicker<CR>", { desc = "Recent sessions" })
+        vim.keymap.set("n", "<leader>ss", function()
+          vim.cmd("SessionSave")
+        end, { desc = "Save session" })
+      end,
+
+      config = function()
+        require("persisted").setup({
+          should_save = function()
+            Snacks.notify("Session saved!", { title = "persisted.nvim" })
+            return true
+          end,
+        })
+      end,
+    },
+    {
+      "natecraddock/workspaces.nvim",
+      init = function()
+        vim.api.nvim_create_user_command("WorkspacesPicker", function()
+          local items = {}
+          local longest_name = 0
+          for i, workspace in ipairs(require("workspaces").get()) do
+            table.insert(items, {
+              idx = i,
+              score = i,
+              text = workspace.path,
+              name = workspace.name,
+              file = workspace.path,
+            })
+            longest_name = math.max(longest_name, #workspace.name)
+          end
+          longest_name = longest_name + 2
+          return Snacks.picker({
+            title = "Workspaces",
+            items = items,
+            layout = "vscode",
+            format = function(item)
+              local ret = {}
+              ret[#ret + 1] = { ("%-" .. longest_name .. "s"):format(item.name), "SnacksPickerLabel" }
+              ret[#ret + 1] = { item.text, "SnacksPickerComment" }
+              return ret
+            end,
+            confirm = function(picker, item)
+              picker:close()
+              vim.cmd(("WorkspacesOpen %s"):format(item.name))
+              vim.cmd("SessionLoad")
+            end,
+          })
+        end, {
+          desc = "Workspaces picker",
+        })
+
+        vim.keymap.set("n", "<Leader>sP", "<cmd>WorkspacesPicker<cr>", { desc = "Recent workspaces" })
+      end,
+      config = function()
+        require("workspaces").setup()
+      end,
+    },
+  },
 }
 
 return M
