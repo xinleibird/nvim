@@ -10,6 +10,7 @@ return {
   },
   settings = {
     ["rust-analyzer"] = {
+      checkOnSave = false,
       inlayHints = {
         bindingModeHints = {
           enable = false,

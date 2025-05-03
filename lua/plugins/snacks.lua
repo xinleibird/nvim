@@ -94,6 +94,9 @@ local M = {
         },
       },
       notifier = { timeout = 2000 },
+      win = {
+        backdrop = 38,
+      },
       picker = {
         ---@diagnostic disable-next-line: missing-fields
         icons = {
@@ -193,11 +196,18 @@ local M = {
               },
             },
           },
-          vscode = {
+          vscode_layout = {
+            preview = false,
             layout = {
-              width = 0.5,
-              height = 0.5,
               row = 2,
+              width = 0.55,
+              min_width = 80,
+              height = 0.55,
+              border = "none",
+              box = "vertical",
+              { win = "input", height = 1, border = "rounded", title = "{title} {live} {flags}", title_pos = "center" },
+              { win = "list", border = "hpad" },
+              { win = "preview", title = "{preview}", border = "rounded" },
             },
           },
         },
@@ -305,17 +315,95 @@ local M = {
   end,
   dependencies = {
     {
-      "wsdjeg/rooter.nvim",
-      config = function()
-        require("rooter").setup({
-          root_pattern = { ".git/", "package.json" },
-          command = "cd",
-        })
+      "airblade/vim-rooter",
+      init = function()
+        vim.g.rooter_patterns = {
+          -- directories
+          "client",
+          "server",
+
+          -- version control systems
+          "_darcs",
+          ".hg",
+          ".bzr",
+          ".svn",
+          ".git",
+
+          -- build tools
+          "*.sln",
+          "Makefile",
+          "CMakeLists.txt",
+          "build.gradle",
+          "build.gradle.kts",
+          "pom.xml",
+          "build.xml",
+
+          -- node.js and javascript
+          "package.json",
+          "package-lock.json",
+          "yarn.lock",
+          ".nvmrc",
+          "gulpfile.js",
+          "Gruntfile.js",
+
+          -- python
+          "requirements.txt",
+          "Pipfile",
+          "pyproject.toml",
+          "setup.py",
+          "tox.ini",
+
+          -- rust
+          "Cargo.toml",
+
+          -- go
+          "go.mod",
+
+          -- elixir
+          "mix.exs",
+
+          -- configuration files
+          ".prettierrc",
+          ".prettierrc.json",
+          ".prettierrc.yaml",
+          ".prettierrc.yml",
+          ".eslintrc",
+          ".eslintrc.json",
+          ".eslintrc.js",
+          ".eslintrc.cjs",
+          ".eslintignore",
+          ".stylelintrc",
+          ".stylelintrc.json",
+          ".stylelintrc.yaml",
+          ".stylelintrc.yml",
+          ".editorconfig",
+          ".gitignore",
+
+          -- html projects
+          "index.html",
+
+          -- miscellaneous
+          "README.md",
+          "README.rst",
+          "LICENSE",
+          "Vagrantfile",
+          "Procfile",
+          ".env",
+          ".env.example",
+          "config.yaml",
+          "config.yml",
+          ".terraform",
+          "terraform.tfstate",
+          ".kitchen.yml",
+          "Berksfile",
+        }
       end,
     },
     {
       "olimorris/persisted.nvim",
       init = function()
+        vim.o.sessionoptions = "buffers,curdir,folds,globals,tabpages,winpos,winsize"
+
         vim.api.nvim_create_autocmd("User", {
           pattern = "PersistedSavePre",
           group = vim.api.nvim_create_augroup("user_before_save_session_close_misc_win", { clear = true }),
@@ -375,7 +463,7 @@ local M = {
           return Snacks.picker({
             title = "Sessions",
             items = items,
-            layout = "vscode",
+            layout = "vscode_layout",
             format = function(item)
               local ret = {}
               ret[#ret + 1] = { ("%-" .. longest_name .. "s"):format(item.name), "SnacksPickerLabel" }
@@ -391,8 +479,8 @@ local M = {
           desc = "Sessions picker",
         })
 
-        vim.keymap.set("n", "<leader>sS", "<cmd>SessionPicker<CR>", { desc = "Recent sessions" })
-        vim.keymap.set("n", "<leader>ss", function()
+        vim.keymap.set("n", "<leader>ss", "<cmd>SessionPicker<CR>", { desc = "Recent sessions" })
+        vim.keymap.set("n", "<leader>sS", function()
           vim.cmd("SessionSave")
         end, { desc = "Save session" })
       end,
@@ -426,7 +514,7 @@ local M = {
           return Snacks.picker({
             title = "Workspaces",
             items = items,
-            layout = "vscode",
+            layout = "vscode_layout",
             format = function(item)
               local ret = {}
               ret[#ret + 1] = { ("%-" .. longest_name .. "s"):format(item.name), "SnacksPickerLabel" }
