@@ -1,6 +1,9 @@
 local M = {
   "stevearc/conform.nvim",
   event = "BufWritePre",
+  init = function()
+    vim.cmd([[autocmd FileType yaml setlocal noexpandtab]])
+  end,
   config = function()
     -- local function open_progress_win()
     --   local bufnr = vim.api.nvim_create_buf(false, true)
@@ -53,7 +56,7 @@ local M = {
 
         -- Use the "_" filetype to run formatters on filetypes that don't
         -- have other formatters configured.
-        ["_"] = { "trim_whitespace" },
+        -- ["_"] = { "trim_whitespace" },
       },
 
       format_on_save = function()

@@ -227,19 +227,19 @@ local M = {
         },
       }
     end
-    dap.configurations.rust = {
-      {
-        name = "Launch (build first)",
-        type = "codelldb",
-        request = "launch",
-        program = function()
-          return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-        end,
-        cwd = "${workspaceFolder}",
-        stopOnEntry = false,
-        args = {},
-      },
-    }
+    -- dap.configurations.rust = {
+    --   {
+    --     name = "Launch ('cargo build' first)",
+    --     type = "codelldb",
+    --     request = "launch",
+    --     program = function()
+    --       return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+    --     end,
+    --     cwd = "${workspaceFolder}",
+    --     stopOnEntry = false,
+    --     args = {},
+    --   },
+    -- }
 
     require("dapui").setup(opts)
   end,

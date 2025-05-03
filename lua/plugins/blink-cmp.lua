@@ -46,12 +46,12 @@ local M = {
         if success and node and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type()) then
           return { "buffer" }
         else
-          return { "lsp", "path", "snippets", "buffer" }
+          return { "lsp", "path", "snippets", "buffer", "nerdfont" }
         end
       end,
       per_filetype = {
-        lua = { "lazydev", "lsp", "path", "snippets", "buffer" }, -- enable lazydev for lua
-        html = { "lsp", "path", "buffer" }, -- disable emmet_language_server snippets
+        lua = { "lazydev", "lsp", "path", "snippets", "buffer", "nerdfont" }, -- enable lazydev for lua
+        html = { "lsp", "path", "buffer", "nerdfont" }, -- disable emmet_language_server snippets
       },
       min_keyword_length = function()
         return vim.bo.filetype == "markdown" and 2 or 0
@@ -80,14 +80,6 @@ local M = {
             end,
           },
         },
-        path = {
-          opts = {
-            -- -- from cwd instead of current buffer's directory
-            -- get_cwd = function(_)
-            --   return vim.fn.getcwd()
-            -- end,
-          },
-        },
         lazydev = {
           name = "LazyDev",
           module = "lazydev.integrations.blink",
@@ -100,6 +92,12 @@ local M = {
             end
             return items
           end,
+        },
+        nerdfont = {
+          module = "blink-nerdfont",
+          name = "Nerd Fonts",
+          score_offset = 15, -- Tune by preference
+          opts = { insert = true }, -- Insert nerdfont icon (default) or complete its name
         },
         cmdline = {
           transform_items = function(_, items)
@@ -322,6 +320,7 @@ local M = {
         require("nvim-highlight-colors").setup({})
       end,
     },
+    { "MahanRahmati/blink-nerdfont.nvim" },
   },
 }
 
