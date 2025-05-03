@@ -1,7 +1,23 @@
 local icons = require("configs.icons")
 vim.diagnostic.config({
   virtual_text = {
-    prefix = "",
+    -- prefix = "",
+    prefix = function(diagnostic)
+      if diagnostic.severity == vim.diagnostic.severity.HINT then
+        return icons.diagnostics.Hint
+      end
+      if diagnostic.severity == vim.diagnostic.severity.INFO then
+        return icons.diagnostics.Info
+      end
+      if diagnostic.severity == vim.diagnostic.severity.WARN then
+        return icons.diagnostics.Warn
+      end
+      if diagnostic.severity == vim.diagnostic.severity.ERROR then
+        return icons.diagnostics.Error
+      end
+
+      return icons.diagnostics.Hint
+    end,
   },
   severity_sort = true,
   signs = {
