@@ -1,20 +1,6 @@
 local M = {
   "stevearc/conform.nvim",
   event = "BufWritePre",
-  dependencies = {
-    "j-hui/fidget.nvim",
-    event = "LspAttach",
-    opts = {
-      progress = {
-        display = {
-          render_limit = 16, -- How many LSP messages to show at once
-          done_ttl = 1, -- How long a message should persist after completion
-          done_icon = require("configs.icons").ui.CheckBold, -- Icon shown when all LSP progress tasks are complete
-          progress_icon = { pattern = "circle_halves", period = 1 },
-        },
-      },
-    },
-  },
   config = function()
     -- local function open_progress_win()
     --   local bufnr = vim.api.nvim_create_buf(false, true)
@@ -64,6 +50,10 @@ local M = {
 
         yaml = { "prettier" },
         zsh = { "shfmt" },
+
+        -- Use the "_" filetype to run formatters on filetypes that don't
+        -- have other formatters configured.
+        ["_"] = { "trim_whitespace" },
       },
 
       format_on_save = function()
@@ -74,16 +64,10 @@ local M = {
         }, function(err)
           if not err then
             -- winid = open_progress_win()
-            require("fidget.notification").notify(
-              "Formatting",
-              vim.log.levels.INFO,
-
-              ---@diagnostic disable-next-line: missing-fields
-              {
-                annote = "Finished!",
-                ttl = 1,
-              }
-            )
+            require("fidget.notification").notify("Formatting", vim.log.levels.INFO, {
+              annote = "Finished!",
+              ttl = 1,
+            })
           end
         end
       end,
@@ -91,13 +75,26 @@ local M = {
       format_after_save = function()
         return {
           lsp_fallback = true,
-          ---@diagnostic disable-next-line: redundant-return-value
         }, function()
           -- vim.api.nvim_win_close(winid, true)
         end
       end,
     })
   end,
+  dependencies = {
+    "j-hui/fidget.nvim",
+    event = "LspAttach",
+    opts = {
+      progress = {
+        display = {
+          render_limit = 16, -- How many LSP messages to show at once
+          done_ttl = 1, -- How long a message should persist after completion
+          done_icon = require("configs.icons").ui.CheckBold, -- Icon shown when all LSP progress tasks are complete
+          progress_icon = { pattern = "circle_halves", period = 1 },
+        },
+      },
+    },
+  },
 }
 
 return M

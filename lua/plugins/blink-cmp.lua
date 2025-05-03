@@ -3,7 +3,7 @@ local M = {
   -- use a release tag to download pre-built binaries
   version = "*",
   -- or build it yourself
-  -- build = "cargo build --release",
+  build = "cargo build --release",
   init = function()
     if vim.fn.has("nvim-0.11") == 1 and vim.lsp.config then
       vim.lsp.config("*", {
