@@ -12,6 +12,28 @@ return {
     ["rust-analyzer"] = {
       checkOnSave = true,
 
+      check = {
+        command = "clippy",
+        features = "all",
+      },
+      imports = {
+        granularity = {
+          group = "module",
+        },
+        prefix = "self",
+      },
+      cargo = {
+        allFeatures = true,
+        buildScripts = {
+          enable = true,
+        },
+      },
+      procMacro = {
+        enable = true,
+      },
+
+      ["rust-analyzer.server.extraEnv"] = { ["RUSTUP_TOOLCHAIN"] = "stable" },
+
       inlayHints = {
         bindingModeHints = {
           enable = false,

@@ -71,6 +71,19 @@ local M = {
   ---@return snacks.Config
   opts = function()
     local icons = require("configs.icons")
+    local function filter_rtp(rtp)
+      local patterns = {
+        "^/Users/xinlei/.rustup",
+        "^/Users/xinlei/.local/share/nvim",
+        "^/opt/homebrew",
+      }
+      for _, pattern in ipairs(patterns) do
+        if rtp:match(pattern) then
+          return false
+        end
+      end
+      return true
+    end
     return {
       styles = {
         minimal = {
@@ -122,8 +135,16 @@ local M = {
         layout = "default_layout",
         sources = {
           buffers = { layout = { preset = "vertical_layout" } },
-          recent = { layout = { preset = "vertical_layout" }, title = "Most Recently Used Files" },
           explorer = { layout = { preset = "explorer_layout" } },
+          recent = {
+            layout = { preset = "vertical_layout" },
+            title = "Most Recently Used Files",
+            filter = {
+              filter = function(item)
+                return filter_rtp(item.file)
+              end,
+            },
+          },
         },
         layouts = {
           default_layout = {
@@ -303,7 +324,17 @@ local M = {
               align = "center",
             },
             {
-              { icon = " ", title = "Recent Files", section = "recent_files", gap = 0, indent = 3, padding = 1 },
+              {
+                icon = " ",
+                title = "Recent Files",
+                section = "recent_files",
+                gap = 0,
+                indent = 3,
+                padding = 1,
+                filter = function(item)
+                  return filter_rtp(item)
+                end,
+              },
               { section = "keys", gap = 1, padding = 1 },
               { section = "startup" },
               pane = 2,
