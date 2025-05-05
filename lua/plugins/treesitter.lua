@@ -16,6 +16,7 @@ local M = {
         "bash",
         "c",
         "css",
+        "gitignore",
         "html",
         "javascript",
         "json",

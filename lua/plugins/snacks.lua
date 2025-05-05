@@ -76,6 +76,7 @@ local M = {
         "^/Users/xinlei/.rustup",
         "^/Users/xinlei/.local/share/nvim",
         "^/opt/homebrew",
+        "node_modules",
       }
       for _, pattern in ipairs(patterns) do
         if rtp:match(pattern) then
@@ -345,95 +346,6 @@ local M = {
     }
   end,
   dependencies = {
-    {
-      "airblade/vim-rooter",
-      init = function()
-        vim.g.rooter_patterns = {
-          -- directories
-          "client",
-          "server",
-
-          -- version control systems
-          "_darcs",
-          ".hg",
-          ".bzr",
-          ".svn",
-          ".git",
-
-          -- build tools
-          "*.sln",
-          "Makefile",
-          "CMakeLists.txt",
-          "build.gradle",
-          "build.gradle.kts",
-          "pom.xml",
-          "build.xml",
-
-          -- node.js and javascript
-          "package.json",
-          "package-lock.json",
-          "yarn.lock",
-          ".nvmrc",
-          "gulpfile.js",
-          "Gruntfile.js",
-
-          -- python
-          "requirements.txt",
-          "Pipfile",
-          "pyproject.toml",
-          "setup.py",
-          "tox.ini",
-
-          -- rust
-          "Cargo.toml",
-
-          -- go
-          "go.mod",
-
-          -- elixir
-          "mix.exs",
-
-          -- configuration files
-          ".prettierrc",
-          ".prettierrc.json",
-          ".prettierrc.yaml",
-          ".prettierrc.yml",
-          ".eslintrc",
-          ".eslintrc.json",
-          ".eslintrc.js",
-          ".eslintrc.cjs",
-          ".eslintignore",
-          ".stylelintrc",
-          ".stylelintrc.json",
-          ".stylelintrc.yaml",
-          ".stylelintrc.yml",
-          ".editorconfig",
-          ".gitignore",
-
-          -- html projects
-          "index.html",
-
-          -- miscellaneous
-          "README.md",
-          "README.rst",
-          "LICENSE",
-          "Vagrantfile",
-          "Procfile",
-          ".env",
-          ".env.example",
-          "config.yaml",
-          "config.yml",
-          ".terraform",
-          "terraform.tfstate",
-          ".kitchen.yml",
-          "Berksfile",
-
-          -- rime library location
-          "squirrel.yaml",
-          "weasel.yaml",
-        }
-      end,
-    },
     {
       "olimorris/persisted.nvim",
       init = function()
