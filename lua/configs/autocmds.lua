@@ -17,16 +17,23 @@ vim.api.nvim_create_autocmd("FileType", {
   group = hotkey_group,
   command = "nnoremap <buffer><silent> q <cmd>close!<CR>",
 })
--- Close buffer with q
+-- Close checkhealth buffer with q
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "checkhealth" },
   group = hotkey_group,
   command = "nnoremap <buffer><silent> q <cmd>bd<CR>|nnoremap <buffer><silent> <C-w>q <cmd>bd<CR>",
 })
+-- Close checkhealth buffer with q
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "lazy" },
+  group = hotkey_group,
+  command = "nnoremap <buffer><silent> <Esc> <cmd>close!<CR>",
+})
 
-vim.api.nvim_create_autocmd("BufWinEnter", {
+vim.api.nvim_create_autocmd({ "BufWinEnter", "BufNewFile" }, {
   pattern = "*",
-  command = "set formatoptions-=o",
+  group = vim.api.nvim_create_augroup("user_formatoptions_minus_o", { clear = true }),
+  command = "setlocal formatoptions-=o",
 })
 
 vim.api.nvim_create_autocmd({ "QuitPre" }, {
@@ -61,6 +68,7 @@ vim.api.nvim_create_autocmd({ "QuitPre" }, {
 
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = "launch.json",
+  group = vim.api.nvim_create_augroup("user_load_launch_json", { clear = true }),
   callback = function(e)
     local pattern = string.match(e.match, "%.vscode/launch.json$")
     if pattern then

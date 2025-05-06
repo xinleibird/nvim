@@ -55,6 +55,7 @@ local M = {
 
     vim.keymap.set("n", "<leader>gg", "<cmd>lua Snacks.lazygit()<CR>", { desc = "Lazygit" })
     vim.keymap.set("n", "<leader>go", "<cmd>lua Snacks.picker.git_status()<CR>", { desc = "Git status" })
+    vim.keymap.set("n", "<leader>gO", "<cmd>lua Snacks.picker.git_diff()<CR>", { desc = "Git diff (Hunks)" })
 
     vim.keymap.set("n", "<leader>e", "<cmd>lua Snacks.picker.explorer()<CR>", { desc = "Explorer" })
 
@@ -361,6 +362,9 @@ local M = {
             for _, buf in ipairs(vim.api.nvim_list_bufs()) do
               if vim.bo[buf].filetype == "snacks_layout_box" then
                 require("snacks").explorer()
+                vim.api.nvim_buf_delete(buf, { force = true })
+              end
+              if vim.bo[buf].filetype == "codecompanion" then
                 vim.api.nvim_buf_delete(buf, { force = true })
               end
             end
