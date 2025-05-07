@@ -120,6 +120,13 @@ local M = {
             middle = "├ ",
             last = "└ ",
           },
+          ui = {
+            hidden = icons.ui.Hidden,
+            ignored = icons.ui.Ignored,
+            follow = icons.ui.Follow,
+            selected = icons.ui.Ghost .. " ",
+            unselected = icons.ui.GhostOutline .. " ",
+          },
           git = {
             enabled = true, -- show git icons
             commit = icons.git.Commit .. " ", -- used by git log

@@ -112,6 +112,9 @@ M.ui = {
   Outgoing = "",
   Ellipsis = "…",
   Emmet = "",
+  Hidden = "",
+  Ignored = "",
+  Follow = "",
 }
 
 M.git = {
