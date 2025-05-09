@@ -101,6 +101,7 @@ local M = {
       scope = { enabled = true },
       words = { enabled = true },
       statuscolumn = { enabled = true },
+      explorer = { enabled = true },
       lazygit = {
         config = {
           os = {

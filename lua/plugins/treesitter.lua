@@ -25,6 +25,7 @@ local M = {
         "lua",
         "markdown",
         "markdown_inline",
+        "norg",
         "query",
         "regex",
         "scss",

@@ -31,8 +31,11 @@ return {
       procMacro = {
         enable = true,
       },
-
-      ["rust-analyzer.server.extraEnv"] = { ["RUSTUP_TOOLCHAIN"] = "stable" },
+      server = {
+        extraEnv = {
+          RUSTUP_TOOLCHAIN = "stable",
+        },
+      },
 
       inlayHints = {
         bindingModeHints = {

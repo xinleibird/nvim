@@ -203,13 +203,13 @@ local M = {
             local ends = vim.fn.line(".")
             local lines = starts <= ends and ends - starts + 1 or starts - ends + 1
             return "󰩭"
-              .. string.format("%4d", tostring(vim.fn.wordcount().visual_chars))
+              .. string.format("%5d", tostring(vim.fn.wordcount().visual_chars))
               .. ":"
-              .. string.format("%-3d", tostring(lines))
+              .. string.format("%-4d", tostring(lines))
               .. "󱃨"
           end
 
-          return "󰼂%4l:%-3c󰼁"
+          return "󰼂%5l:%-4c󰼁"
         end,
         -- selectionCount,
         separator = { left = "", right = "" },
@@ -226,6 +226,7 @@ local M = {
     return {
       options = {
         component_separators = "",
+        -- for catppuccin colorscheme
         theme = "catppuccin",
         globalstatus = true,
       },
