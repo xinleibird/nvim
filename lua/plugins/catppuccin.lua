@@ -46,11 +46,9 @@ local M = {
       custom_highlights = function(colors)
         local util = require("catppuccin.utils.colors")
         return {
+          -- Hints
           ActionHintsDefinition = { fg = colors.yellow },
           ActionHintsReferences = { fg = colors.blue },
-
-          EyelinerPrimary = { fg = colors.peach, style = { "bold", "underline" } },
-          EyelinerSecondary = { fg = colors.sky, style = { "bold" } },
 
           -- Illuminated
           -- IlluminatedWordText = { underdashed = true },
@@ -60,19 +58,9 @@ local M = {
           -- All separator
           WinSeparator = { fg = colors.mauve },
 
-          NeoTreeWinSeparator = { fg = colors.lavender },
-          VirtColumn = { fg = colors.mantle },
-
+          -- Outline
           OutlineDetails = { link = "Comment" },
           OutlineGuides = { fg = colors.mantle },
-
-          CmpItemAbbr = { fg = colors.text },
-          CmpItemAbbrMatch = { fg = colors.blue, bold = true },
-          CmpItemMenu = { fg = colors.base, italic = true },
-          CmpDoc = { bg = colors.crust },
-          CmpDocBorder = { fg = colors.crust, bg = colors.crust },
-          CmpPmenu = { bg = colors.mantle },
-          CmpSel = { link = "PmenuSel", bold = true },
 
           -- CursorLine highlight
           CursorLine = {

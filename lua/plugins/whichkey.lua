@@ -48,7 +48,7 @@ local M = {
       },
       {
         "<leader>e",
-        group = "NeoTree toggle",
+        group = "Explorer toggle",
         icon = "󱂪",
       },
       {
@@ -87,9 +87,29 @@ local M = {
         icon = "󱜟",
       },
       {
+        "t",
+        group = "To motion",
+        icon = "",
+      },
+      {
+        "T",
+        group = "To (backward) motion",
+        icon = "",
+      },
+      {
+        "f",
+        group = "Find motion",
+        icon = "󰮺",
+      },
+      {
+        "F",
+        group = "Find (backward) motion",
+        icon = "󰮹",
+      },
+      {
         "c",
-        group = "Clear insert",
-        icon = "󱂨",
+        group = "Clear motion",
+        icon = "",
       },
       {
         "d",
@@ -142,6 +162,7 @@ local M = {
       },
       {
         "%",
+        group = "Match",
         icon = "󱉸",
       },
       {
