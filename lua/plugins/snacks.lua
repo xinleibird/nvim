@@ -53,7 +53,14 @@ local M = {
     vim.keymap.set("n", "<leader>sB", "<cmd>lua Snacks.picker.grep_buffers()<CR>", { desc = "Open buffers" })
     vim.keymap.set({ "n", "x" }, "<leader>sw", "<cmd>lua Snacks.picker.grep_word()<CR>", { desc = "Selected word" })
 
-    vim.keymap.set("n", "<leader>gg", "<cmd>lua Snacks.lazygit()<CR>", { desc = "Lazygit" })
+    vim.keymap.set("n", "<leader>gg", function()
+      local root = Snacks.git.get_root()
+      if root ~= nil then
+        Snacks.lazygit()
+      else
+        vim.notify("Not in a git repository!", vim.log.levels.WARN, { title = "Lazygit" })
+      end
+    end, { desc = "Lazygit" })
     vim.keymap.set("n", "<leader>go", "<cmd>lua Snacks.picker.git_status()<CR>", { desc = "Git status" })
     vim.keymap.set("n", "<leader>gO", "<cmd>lua Snacks.picker.git_diff()<CR>", { desc = "Git diff (Hunks)" })
 
@@ -139,6 +146,18 @@ local M = {
             renamed = icons.git.Unstaged,
             unmerged = icons.git.Unmerged .. " ",
             untracked = icons.git.Untracked,
+          },
+        },
+        win = {
+          input = {
+            keys = {
+              ["<c-`>"] = { "loclist", mode = { "i", "n" } },
+            },
+          },
+          list = {
+            keys = {
+              ["<c-`>"] = "loclist",
+            },
           },
         },
         prompt = "   ",

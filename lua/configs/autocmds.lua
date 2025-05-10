@@ -23,9 +23,9 @@ vim.api.nvim_create_autocmd("FileType", {
   group = hotkey_group,
   command = "nnoremap <buffer><silent> q <cmd>bd<CR>|nnoremap <buffer><silent> <C-w>q <cmd>bd<CR>",
 })
--- Close checkhealth buffer with q
+-- Close checkhealth buffer with Esc
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "lazy" },
+  pattern = { "lazy", "qf" },
   group = hotkey_group,
   command = "nnoremap <buffer><silent> <Esc> <cmd>close!<CR>",
 })

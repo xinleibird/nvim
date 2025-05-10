@@ -50,7 +50,7 @@ if vim.env.TERM and (vim.env.TERM == "xterm-kitty" or vim.env.TERM == "xterm-gho
   paste_map = "<D-v>"
 end
 vim.keymap.set(
-  { "i" },
+  { "i", "n" },
   paste_map,
   "<esc>:set paste<cr>a<c-r>=getreg('+')<cr><esc>:set nopaste<cr>mi`[=`]`ia",
   { desc = "Paste insert-mode" }
@@ -70,7 +70,7 @@ vim.keymap.set("n", "<C-q>", function()
   require("utils").quickfix_toggle()
 end, { desc = "Toggle quickfix window" })
 -- loclist toggle
-vim.keymap.set("n", "<C-Tab>", function()
+vim.keymap.set("n", "<C-`>", function()
   require("utils").loclist_toggle()
 end, { desc = "Toggle loclist window" })
 

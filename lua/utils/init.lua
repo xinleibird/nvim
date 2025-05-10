@@ -73,7 +73,7 @@ M.loclist_toggle = function()
       return
     end
     -- vim.cmd("rightbelow lopen")
-    vim.cmd("lopen")
+    vim.cmd("lopen|wincmd J")
   else
     vim.cmd("lclose")
   end

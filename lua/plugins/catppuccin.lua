@@ -55,6 +55,9 @@ local M = {
           -- IlluminatedWordRead = { underdashed = true },
           -- IlluminatedWordWrite = { underdashed = true },
 
+          Visual = { bg = colors.overlay2, fg = colors.text, bold = true },
+          VisualNOS = { bg = colors.overlay2, fg = colors.text, bold = true },
+
           -- All separator
           WinSeparator = { fg = colors.mauve },
 
