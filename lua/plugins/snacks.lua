@@ -43,7 +43,6 @@ local M = {
       end,
     })
 
-    -- vim.keymap.set("n", "<leader>sP", "<cmd>lua Snacks.picker.projects()<CR>", { desc = "Recent projects" })
     vim.keymap.set("n", "<leader>sp", "<cmd>lua Snacks.picker.pick('files')<cr>", { desc = "Files" })
     vim.keymap.set("n", "<leader>st", "<cmd>lua Snacks.picker.pick('live_grep')<CR>", { desc = "Live grep" })
     vim.keymap.set("n", "<leader>sc", "<cmd>lua Snacks.picker.grep_word()<CR>", { desc = "Text under cursor" })
@@ -164,7 +163,57 @@ local M = {
         layout = "default_layout",
         sources = {
           buffers = { layout = { preset = "vertical_layout" } },
-          explorer = { layout = { preset = "explorer_layout" } },
+          explorer = {
+            layout = { preset = "explorer_layout" },
+            on_show = function(picker)
+              local show = false
+              local gap = 1
+              local min_width, max_width = 20, 100
+              --
+              local rel = picker.layout.root
+              local update = function(win) ---@param win snacks.win
+                win.opts.row = vim.api.nvim_win_get_position(rel.win)[1]
+                win.opts.col = vim.api.nvim_win_get_width(rel.win) + gap
+                win.opts.height = 0.8
+                local border = win:border_size().left + win:border_size().right
+                win.opts.width = math.max(min_width, math.min(max_width, vim.o.columns - border - win.opts.col))
+                win:update()
+              end
+              local preview_win = Snacks.win.new({
+                relative = "editor",
+                external = false,
+                focusable = false,
+                border = "rounded",
+                backdrop = false,
+                show = show,
+                bo = {
+                  filetype = "snacks_float_preview",
+                  buftype = "nofile",
+                  buflisted = false,
+                  swapfile = false,
+                  undofile = false,
+                },
+                on_win = function(win)
+                  update(win)
+                  picker:show_preview()
+                end,
+              })
+              rel:on("WinResized", function()
+                update(preview_win)
+              end)
+              picker.preview.win = preview_win
+              picker.main = preview_win.win
+            end,
+            on_close = function(picker)
+              picker.preview.win:close()
+            end,
+            actions = {
+              -- `<A-p>`
+              toggle_preview = function(picker) --[[Override]]
+                picker.preview.win:toggle()
+              end,
+            },
+          },
           recent = {
             layout = { preset = "vertical_layout" },
             title = "Most Recently Used Files",
@@ -218,7 +267,7 @@ local M = {
             },
           },
           explorer_layout = {
-            preview = "main",
+            -- preview = "main",
             layout = {
               backdrop = false,
               width = 27,
@@ -238,12 +287,12 @@ local M = {
                 title = "{title} {live} {flags}",
                 title_pos = "center",
               },
-              {
-                win = "preview",
-                title = "{preview}",
-                height = 0.5,
-                border = "top",
-              },
+              -- {
+              --   win = "preview",
+              --   title = "{preview}",
+              --   height = 0.5,
+              --   border = "top",
+              -- },
             },
           },
           vscode_layout = {
