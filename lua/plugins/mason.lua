@@ -14,8 +14,10 @@ local M = {
       "html-lsp",
       "htmlhint",
       "prettier",
+      "svelte-language-server",
       "typescript-language-server",
       "vtsls",
+      "vue-language-server",
 
       -- browser debug
       "firefox-debug-adapter",

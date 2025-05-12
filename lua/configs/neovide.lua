@@ -19,9 +19,9 @@ local function toggle_fullscreen()
   vim.g.neovide_fullscreen = not vim.g.neovide_fullscreen
 end
 
-local OS = vim.uv.os_uname().sysname
+local os = require("utils").detect_os()
 
-if OS == "Darwin" then
+if os == "macos" then
   vim.keymap.set("n", "<D-C-f>", function()
     toggle_fullscreen()
   end, { noremap = true, desc = "Neovide toggle fullscreen" })
@@ -119,7 +119,7 @@ vim.g.neovide_remember_window_size = true
 vim.g.neovide_profiler = false
 
 --+<INPUT>+--
--- Keyboard Super Command Option key, macOs default true
+-- Keyboard Super Command Option key, macOS default true
 vim.g.neovide_input_macos_option_key_is_meta = "only_left"
 
 -- Touchpad
