@@ -1,4 +1,4 @@
-![showcase](./assets/showcase/2025-04-26.png)
+![showcase](./assets/showcase/May-13-2025.gif)
 
 ## Introduction
 
