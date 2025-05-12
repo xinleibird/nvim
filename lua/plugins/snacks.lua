@@ -77,11 +77,12 @@ local M = {
   end,
   ---@return snacks.Config
   opts = function()
-    local icons = require("configs.icons")
+    local home_dir = vim.fn.expand("$HOME")
+    local data_dir = vim.fn.stdpath("data")
     local function filter_rtp(rtp)
       local patterns = {
-        "^" .. vim.fn.expand("$HOME") .. "/.rustup",
-        "^" .. vim.fn.stdpath("data"),
+        "^" .. home_dir .. "/.rustup",
+        "^" .. data_dir,
         "^/opt/homebrew",
         "node_modules",
       }
@@ -92,6 +93,8 @@ local M = {
       end
       return true
     end
+
+    local icons = require("configs.icons")
     return {
       styles = {
         minimal = {
@@ -431,25 +434,6 @@ local M = {
       init = function()
         vim.o.sessionoptions = "buffers,curdir,folds,globals,tabpages,winpos,winsize"
 
-        vim.api.nvim_create_autocmd("User", {
-          pattern = "PersistedSavePre",
-          group = vim.api.nvim_create_augroup("user_before_save_session_close_misc_win", { clear = true }),
-          callback = function()
-            vim.cmd("silent! OutlineClose")
-            vim.cmd("silent! DapUIClose")
-
-            for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-              if vim.bo[buf].filetype == "snacks_layout_box" then
-                require("snacks").explorer()
-                vim.api.nvim_buf_delete(buf, { force = true })
-              end
-              if vim.bo[buf].filetype == "codecompanion" then
-                vim.api.nvim_buf_delete(buf, { force = true })
-              end
-            end
-          end,
-        })
-
         vim.api.nvim_create_user_command("SessionPicker", function()
           local items = {}
           local longest_name = 0
@@ -516,8 +500,25 @@ local M = {
       end,
 
       config = function()
+        local deny_list = {
+          "snacks_dashboard",
+          "snacks_layout_box", -- snacks explorer
+          "dapui_scopes",
+          "dapui_breakpoints",
+          "dapui_stacks",
+          "dapui_watches",
+          "dapui_console",
+          "dap-repl",
+          "Outline",
+          "codecompanion",
+        }
         require("persisted").setup({
           should_save = function()
+            for _, ft in ipairs(deny_list) do
+              if vim.bo.filetype == ft then
+                return false
+              end
+            end
             Snacks.notify("Session saved!", { title = "persisted.nvim" })
             return true
           end,

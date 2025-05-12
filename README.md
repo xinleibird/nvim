@@ -43,3 +43,7 @@ Inside Neovim, use the cmd command to install.
 
 - Image support is provided by [snacks.image](https://github.com/folke/snacks.nvim/blob/main/docs/image.md) and requires an additional installation of [ImageMagick](https://imagemagick.org/).
 - Dashboard supported by [snacks.dashboard](https://github.com/folke/snacks.nvim/blob/main/docs/dashboard.md) and requires an additional installation of [chafa](https://github.com/hpjansson/chafa) support for `.gif` file display in the terminal environment.
+
+## Special thanks
+
+- Special thanks the dashboard gif from 👍[OcO](https://oco.itch.io/), his [medieval-fantasy-character-pack-6](https://oco.itch.io/medieval-fantasy-character-pack-6) pixel-art is so fantasy!!!
