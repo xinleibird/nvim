@@ -80,8 +80,8 @@ local M = {
     local icons = require("configs.icons")
     local function filter_rtp(rtp)
       local patterns = {
-        "^/Users/xinlei/.rustup",
-        "^/Users/xinlei/.local/share/nvim",
+        "^" .. vim.fn.expand("$HOME") .. "/.rustup",
+        "^" .. vim.fn.stdpath("data"),
         "^/opt/homebrew",
         "node_modules",
       }
@@ -357,7 +357,10 @@ local M = {
                 return vim.api.nvim_win_get_width(1000) == vim.o.columns
                   and vim.api.nvim_win_get_height(1000) >= vim.o.lines - 3
               end,
-              cmd = "chafa ~/.config/nvim/assets/sprites/necroma_idle.gif -p off --speed=0.62 --clear --passthrough=tmux --format symbols --symbols vhalf --size 40x28 --stretch",
+              cmd = "chafa "
+                .. vim.fn.stdpath("config")
+                .. "/assets/sprites/necroma_idle.gif"
+                .. " -p off --speed=0.62 --clear --passthrough=tmux --format symbols --symbols vhalf --size 40x28 --stretch",
               height = 28,
               padding = 0,
               align = "left",
