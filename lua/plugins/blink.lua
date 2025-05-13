@@ -84,14 +84,6 @@ local M = {
           name = "LazyDev",
           module = "lazydev.integrations.blink",
           score_offset = 100,
-          ---@param items blink.cmp.CompletionItem[]
-          transform_items = function(_, items)
-            for _, item in ipairs(items) do
-              item.insertText = item.label
-              item.kind_icon = "󰢚"
-            end
-            return items
-          end,
         },
         cmdline = {
           transform_items = function(_, items)
