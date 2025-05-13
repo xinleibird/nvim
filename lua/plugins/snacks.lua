@@ -15,6 +15,20 @@ local M = {
       command = "set mouse=a",
     })
 
+    local function toggle_terminal_map()
+      if vim.g.neovide then
+        return "<D-j>"
+      end
+      if vim.env.TERM and (vim.env.TERM == "xterm-kitty" or vim.env.TERM == "xterm-ghostty") then
+        return "<D-j>"
+      end
+      return "<M-j>"
+    end
+    vim.keymap.set({ "n", "t" }, toggle_terminal_map(), function()
+      Snacks.terminal.toggle()
+    end)
+    vim.keymap.set("t", "<C-x>", "<C-\\><C-N>", { desc = "Escape terminal mode" })
+
     local term_group = vim.api.nvim_create_augroup("user_toggle_wincmd_keymap_for_lazygit_term_buf", { clear = true })
     vim.api.nvim_create_autocmd("TermOpen", {
       pattern = "*",
@@ -111,6 +125,7 @@ local M = {
       words = { enabled = true },
       statuscolumn = { enabled = true },
       explorer = { enabled = true },
+      terminal = { enabled = true },
       lazygit = {
         config = {
           os = {
@@ -119,9 +134,7 @@ local M = {
         },
       },
       notifier = { timeout = 2000 },
-      win = {
-        backdrop = 38,
-      },
+      win = { backdrop = 38 },
       picker = {
         ---@diagnostic disable-next-line: missing-fields
         icons = {
@@ -429,6 +442,27 @@ local M = {
     }
   end,
   dependencies = {
+    {
+      "folke/edgy.nvim",
+      ---@module 'edgy'
+      ---@param opts Edgy.Config
+      opts = function(_, opts)
+        for _, pos in ipairs({ "top", "bottom", "left", "right" }) do
+          opts[pos] = opts[pos] or {}
+          table.insert(opts[pos], {
+            ft = "snacks_terminal",
+            size = { height = 0.4 },
+            title = "%{b:snacks_terminal.id}: %{b:term_title}",
+            filter = function(_, win)
+              return vim.w[win].snacks_win
+                and vim.w[win].snacks_win.position == pos
+                and vim.w[win].snacks_win.relative == "editor"
+                and not vim.w[win].trouble_preview
+            end,
+          })
+        end
+      end,
+    },
     {
       "olimorris/persisted.nvim",
       init = function()
