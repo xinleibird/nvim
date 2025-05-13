@@ -36,23 +36,10 @@ local M = {
       callback = function()
         local term_title = vim.b.term_title
         if term_title and term_title:match("lazygit") then
-          vim.keymap.del({ "n", "t", "i" }, "<C-h>")
-          vim.keymap.del({ "n", "t", "i" }, "<C-l>")
-          vim.keymap.del({ "n", "t", "i" }, "<C-j>")
-          vim.keymap.del({ "n", "t", "i" }, "<C-k>")
-        end
-      end,
-    })
-    vim.api.nvim_create_autocmd({ "TermLeave", "TermClose" }, {
-      pattern = "*",
-      group = term_group,
-      callback = function()
-        local term_title = vim.b.term_title
-        if term_title and term_title:match("lazygit") then
-          vim.keymap.set({ "n", "t", "i" }, "<C-h>", "<cmd>wincmd h<CR>", { desc = "Jump left window" })
-          vim.keymap.set({ "n", "t", "i" }, "<C-l>", "<cmd>wincmd l<CR>", { desc = "Jump right window" })
-          vim.keymap.set({ "n", "t", "i" }, "<C-j>", "<cmd>wincmd j<CR>", { desc = "Jump down window" })
-          vim.keymap.set({ "n", "t", "i" }, "<C-k>", "<cmd>wincmd k<CR>", { desc = "Jump up window" })
+          vim.keymap.set({ "n", "t", "i" }, "<C-h>", "", { silent = true, buffer = true })
+          vim.keymap.set({ "n", "t", "i" }, "<C-l>", "", { silent = true, buffer = true })
+          vim.keymap.set({ "n", "t", "i" }, "<C-j>", "", { silent = true, buffer = true })
+          vim.keymap.set({ "n", "t", "i" }, "<C-k>", "", { silent = true, buffer = true })
         end
       end,
     })
@@ -214,9 +201,9 @@ local M = {
                   picker:show_preview()
                 end,
               })
-              rel:on("WinResized", function()
-                update(preview_win)
-              end)
+              -- rel:on("WinResized", function()
+              --   update(preview_win)
+              -- end)
               picker.preview.win = preview_win
               picker.main = preview_win.win
             end,
