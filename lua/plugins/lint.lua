@@ -6,7 +6,9 @@ local M = {
       group = vim.api.nvim_create_augroup("nvim-lint-group", { clear = true }),
       pattern = "*",
       callback = function()
-        require("lint").try_lint()
+        if not vim.b.disable_autolint then -- for bigfile disable autolint
+          require("lint").try_lint()
+        end
       end,
     })
   end,

@@ -60,6 +60,9 @@ local M = {
       },
 
       format_on_save = function()
+        if vim.b.disable_autoformat then -- for bigfile disable autoformat
+          return
+        end
         return {
           timeout_ms = 500,
           lsp_fallback = true,
