@@ -46,9 +46,9 @@ M.lspkind = {
 }
 
 M.diagnostics = {
-  Hint = "",
+  Hint = "󰓏",
   Info = "",
-  Warn = "",
+  Warn = "",
   Error = "",
 }
 

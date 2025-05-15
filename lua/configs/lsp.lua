@@ -16,8 +16,12 @@ vim.diagnostic.config({
         return icons.diagnostics.Error
       end
 
-      return icons.diagnostics.Hint
+      return ""
     end,
+    source = true,
+  },
+  float = {
+    source = true,
   },
   severity_sort = true,
   signs = {
