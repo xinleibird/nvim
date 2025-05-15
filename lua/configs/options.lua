@@ -24,7 +24,7 @@ vim.o.mouse = "a"
 
 -- numbers
 vim.o.number = true
-vim.o.numberwidth = 4
+vim.o.numberwidth = 6
 vim.o.ruler = false
 
 vim.o.termguicolors = true

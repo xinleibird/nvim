@@ -348,8 +348,8 @@ local M = {
             { icon = " ", key = "sr", desc = "Old Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
             { icon = " ", key = "sp", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
             { icon = "󰙩 ", key = "st", desc = "Live Grep", action = ":lua Snacks.dashboard.pick('live_grep')" },
-            { icon = " ", key = "sS", desc = "Restore Sessions", action = ":SessionPicker" },
-            { icon = " ", key = "q", desc = "Quit", action = ":qa" },
+            { icon = " ", key = "ss", desc = "Restore Sessions", action = ":SessionPicker" },
+            { icon = " ", key = "q", desc = "Quit", action = ":qa!" },
           },
         },
         sections = function()
