@@ -157,7 +157,7 @@ local M = {
         icon = "󱄲",
       },
       {
-        "<C-tab>",
+        "<C-`>",
         icon = "󱄲",
       },
       {
@@ -206,6 +206,24 @@ local M = {
       {
         "<leader>sP",
         icon = "",
+      },
+      {
+        "<C-,>",
+        icon = ";",
+        group = "Toggle Semi",
+      },
+      {
+        "<C-;>",
+        icon = ",",
+        group = "Toggle Comma",
+      },
+      {
+        "<D-v>",
+        icon = "",
+      },
+      {
+        "K",
+        icon = "󰟶",
       },
     })
 

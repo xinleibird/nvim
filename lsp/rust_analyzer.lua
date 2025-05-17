@@ -16,6 +16,12 @@ return {
         features = "all",
       },
 
+      completion = {
+        callable = {
+          snippets = "add_parentheses",
+        },
+      },
+
       imports = {
         granularity = {
           group = "module",
