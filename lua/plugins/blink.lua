@@ -4,10 +4,52 @@ local M = {
   version = "*",
   -- or build it yourself
   build = "cargo build --release",
+  dependencies = {
+    "olimorris/codecompanion.nvim",
+    {
+      "folke/lazydev.nvim",
+      ft = "lua", -- only load on lua files
+      opts = {
+        library = {
+          "lazy.nvim",
+          "nvim-dap-ui",
+          { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+          { path = "snacks.nvim", words = { "Snacks", "snacks" } },
+        },
+      },
+    },
+    {
+      "brenoprata10/nvim-highlight-colors",
+      config = function()
+        require("nvim-highlight-colors").setup({})
+      end,
+    },
+    {
+      "saifulapm/commasemi.nvim",
+      init = function()
+        vim.keymap.set({ "n", "i", "v" }, "<C-,>", vim.cmd.CommaToggle, { desc = "Buff diagnostics" })
+        vim.keymap.set({ "n", "i", "v" }, "<C-;>", vim.cmd.SemiToggle, { desc = "Buff diagnostics" })
+      end,
+      opts = {
+        keymaps = false,
+        commands = true,
+      },
+    },
+  },
   init = function()
     if vim.fn.has("nvim-0.11") == 1 and vim.lsp.config then
+      local capabilities = {
+        textDocument = {
+          foldingrange = {
+            dynamicRegistration = false,
+            lineFoldingOnly = true,
+          },
+        },
+      }
+      capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
+
       vim.lsp.config("*", {
-        capabilities = require("blink.cmp").get_lsp_capabilities(),
+        capabilities = capabilities,
       })
     end
   end,
@@ -34,6 +76,8 @@ local M = {
         end,
         "fallback",
       },
+      ["<C-,>"] = { "snippet_forward", "fallback" },
+      ["<C-;>"] = { "snippet_forward", "fallback" },
     },
     appearance = {
       use_nvim_cmp_as_default = false,
@@ -43,16 +87,20 @@ local M = {
       -- default = { "lsp", "path", "snippets", "buffer" },
       default = function()
         local success, node = pcall(vim.treesitter.get_node)
-        if success and node and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type()) then
+        if
+          success
+          and node
+          and vim.tbl_contains({ "comment", "line_comment", "block_comment", "string_literal" }, node:type())
+        then
           return { "buffer" }
+        elseif vim.bo.filetype == "lua" then
+          return { "lazydev", "lsp", "path", "snippets", "buffer" }
+        elseif vim.bo.filetype == "html" then
+          return { "lsp", "path", "buffer" }
         else
           return { "lsp", "path", "snippets", "buffer" }
         end
       end,
-      per_filetype = {
-        lua = { "lazydev", "lsp", "path", "snippets", "buffer" }, -- enable lazydev for lua
-        html = { "lsp", "path", "buffer" }, -- disable emmet_language_server snippets
-      },
       min_keyword_length = function()
         return vim.bo.filetype == "markdown" and 2 or 0
       end,
@@ -187,7 +235,7 @@ local M = {
       enabled = true,
       window = {
         border = "solid",
-        show_documentation = true,
+        show_documentation = false,
       },
     },
     fuzzy = {
@@ -239,27 +287,6 @@ local M = {
     },
   },
   opts_extend = { "sources.default" },
-  dependencies = {
-    "olimorris/codecompanion.nvim",
-    {
-      "folke/lazydev.nvim",
-      ft = "lua", -- only load on lua files
-      opts = {
-        library = {
-          "lazy.nvim",
-          "nvim-dap-ui",
-          { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-          { path = "snacks.nvim", words = { "Snacks", "snacks" } },
-        },
-      },
-    },
-    {
-      "brenoprata10/nvim-highlight-colors",
-      config = function()
-        require("nvim-highlight-colors").setup({})
-      end,
-    },
-  },
 }
 
 return M

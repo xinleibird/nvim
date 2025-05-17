@@ -125,6 +125,3 @@ end, { desc = "Next diagnostic" })
 
 vim.keymap.set("n", "<leader>ld", Snacks.picker.diagnostics_buffer, { desc = "Buff diagnostics" })
 vim.keymap.set("n", "<leader>lD", Snacks.picker.diagnostics, { desc = "Diagnostics" })
-
--- { "<leader>sd", function() Snacks.picker.diagnostics() end, desc = "Diagnostics" },
--- { "<leader>sD", function() Snacks.picker.diagnostics_buffer() end, desc = "Buffer Diagnostics" },
