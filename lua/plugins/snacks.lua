@@ -192,6 +192,9 @@ local M = {
               --
               local rel = picker.layout.root
               local update = function(win) ---@param win snacks.win
+                if rel.win == nil then
+                  return
+                end
                 win.opts.row = vim.api.nvim_win_get_position(rel.win)[1]
                 win.opts.col = vim.api.nvim_win_get_width(rel.win) + gap
                 win.opts.height = 0.8
@@ -218,9 +221,9 @@ local M = {
                   picker:show_preview()
                 end,
               })
-              -- rel:on("WinResized", function()
-              --   update(preview_win)
-              -- end)
+              rel:on("WinResized", function()
+                update(preview_win)
+              end)
               picker.preview.win = preview_win
               picker.main = preview_win.win
             end,
