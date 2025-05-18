@@ -11,10 +11,10 @@ return {
   settings = {
     ["rust-analyzer"] = {
       checkOnSave = true,
-      check = {
-        command = "clippy",
-        features = "all",
-      },
+      -- check = {
+      --   command = "clippy",
+      --   features = "all",
+      -- },
 
       completion = {
         callable = {
