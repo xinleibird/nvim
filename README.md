@@ -43,6 +43,10 @@ Inside Neovim, use the cmd command to install.
 
 - Image support is provided by [snacks.image](https://github.com/folke/snacks.nvim/blob/main/docs/image.md) and requires an additional installation of [ImageMagick](https://imagemagick.org/).
 - Dashboard supported by [snacks.dashboard](https://github.com/folke/snacks.nvim/blob/main/docs/dashboard.md) and requires an additional installation of [chafa](https://github.com/hpjansson/chafa) support for `.gif` file display in the terminal environment.
+- Others
+  - fzf
+  - ripgrep
+  - fd
 
 ## Special thanks
 
