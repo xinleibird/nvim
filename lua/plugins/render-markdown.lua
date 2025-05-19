@@ -5,6 +5,12 @@ local M = {
     file_types = { "markdown", "Avante", "codecompanion" },
   },
   ft = { "markdown", "Avante", "codecompanion" },
+  config = function()
+    require("render-markdown").setup({
+      latex = { enabled = false },
+      completions = { blink = { enabled = true } },
+    })
+  end,
 }
 
 return M
