@@ -75,6 +75,7 @@ vim.opt.rtp:append("/opt/homebrew/opt/fzf")
 -- disable some default providers
 vim.g["loaded_perl_provider"] = 0
 vim.g["loaded_ruby_provider"] = 0
+vim.g["loaded_python3_provider"] = 0
 
 -- enable semantic tokens highlight
 vim.g["semantic_tokens"] = true
