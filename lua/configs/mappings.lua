@@ -125,3 +125,13 @@ end, { desc = "Next diagnostic" })
 
 vim.keymap.set("n", "<leader>ld", Snacks.picker.diagnostics_buffer, { desc = "Buff diagnostics" })
 vim.keymap.set("n", "<leader>lD", Snacks.picker.diagnostics, { desc = "Diagnostics" })
+
+vim.keymap.set({ "i", "s" }, "<Esc>", function()
+  vim.snippet.stop()
+  return "<Esc>"
+end, { expr = true })
+
+vim.keymap.set({ "i", "s" }, "<C-c>", function()
+  vim.snippet.stop()
+  return "<C-c>"
+end, { expr = true })

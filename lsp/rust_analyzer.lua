@@ -16,11 +16,11 @@ return {
       --   features = "all",
       -- },
 
-      completion = {
-        callable = {
-          snippets = "add_parentheses",
-        },
-      },
+      -- completion = {
+      --   callable = {
+      --     snippets = "add_parentheses",
+      --   },
+      -- },
 
       imports = {
         granularity = {

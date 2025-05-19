@@ -76,8 +76,6 @@ local M = {
         end,
         "fallback",
       },
-      ["<C-,>"] = { "snippet_forward", "fallback" },
-      ["<C-;>"] = { "snippet_forward", "fallback" },
     },
     appearance = {
       use_nvim_cmp_as_default = false,
