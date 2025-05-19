@@ -24,17 +24,6 @@ local M = {
         require("nvim-highlight-colors").setup({})
       end,
     },
-    {
-      "saifulapm/commasemi.nvim",
-      init = function()
-        vim.keymap.set({ "n", "i", "v" }, "<C-,>", vim.cmd.CommaToggle, { desc = "Buff diagnostics" })
-        vim.keymap.set({ "n", "i", "v" }, "<C-;>", vim.cmd.SemiToggle, { desc = "Buff diagnostics" })
-      end,
-      opts = {
-        keymaps = false,
-        commands = true,
-      },
-    },
   },
   init = function()
     if vim.fn.has("nvim-0.11") == 1 and vim.lsp.config then
