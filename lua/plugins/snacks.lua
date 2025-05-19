@@ -383,7 +383,7 @@ local M = {
               cmd = "chafa "
                 .. vim.fn.stdpath("config")
                 .. "/assets/sprites/necroma_idle.gif"
-                .. " -p off --speed=0.62 --clear --passthrough=tmux --format symbols --symbols vhalf --size 40x28 --stretch",
+                .. " -p off --speed=0.62 --clear --passthrough=tmux --format symbols --symbols vhalf --size 40x28 --stretch --probe=off",
               height = 28,
               padding = 0,
               align = "left",
