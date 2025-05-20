@@ -91,26 +91,8 @@ local M = {
       return (tab_num == last_tab and is_log) or (tab_num ~= last_tab and not is_log)
     end
 
-    local ok, catppuccin_integrations = pcall(require, "catppuccin.groups.integrations.bufferline")
-    local mocha = require("catppuccin.palettes").get_palette("mocha")
-    local latte = require("catppuccin.palettes").get_palette("latte")
     return {
-      highlights = ok
-          and catppuccin_integrations.get({
-            styles = { "italic", "bold" },
-            custom = {
-              -- all = {
-              --   fill = { bg = "#000000" },
-              -- },
-              mocha = {
-                background = { fg = mocha.text },
-              },
-              latte = {
-                background = { fg = latte.text },
-              },
-            },
-          })
-        or {},
+      highlights = require("catppuccin.groups.integrations.bufferline").get(),
       options = {
         mode = "buffers", -- set to "tabs" to only show tabpages instead
         numbers = "none", -- can be "none" | "ordinal" | "buffer_id" | "both" | function

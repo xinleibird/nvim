@@ -3,18 +3,19 @@ local M = {
   event = "ColorScheme",
   dependencies = "echasnovski/mini.diff",
   opts = function()
-    local function selected()
-      local mode = vim.fn.mode()
+    local function visualed()
+      local mode = vim.api.nvim_get_mode().mode
       return mode == "V"
         or mode == "Vs"
         or mode == "v"
         or mode == "vs"
         or mode == "CTRL-V"
+        or mode == "\16"
+        or mode == "\19"
         or mode == "\22"
         or mode == "\22s"
         or mode == "s"
         or mode == "S"
-        or mode == "\19"
     end
 
     local function stbufnr()
@@ -197,8 +198,7 @@ local M = {
       location = {
         "location",
         fmt = function()
-          local isVisual = selected()
-          if isVisual then
+          if visualed() then
             local starts = vim.fn.line("v")
             local ends = vim.fn.line(".")
             local lines = starts <= ends and ends - starts + 1 or starts - ends + 1

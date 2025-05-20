@@ -36,7 +36,7 @@ vim.fn.setenv("LANG", "en_US.UTF-8")
 
 --+<FONT>+--
 -- Font family
-vim.opt.guifont = "JetBrains_Mono,JetBrainsMono_Nerd_Font_Mono,Maple_Mono_CN:h13.3:w-1:#e-antialias:#h-slight"
+vim.opt.guifont = "JetBrains_Mono,JetBrainsMono_Nerd_Font_Mono,Maple_Mono_CN:h13.3:#e-antialias:#h-slight"
 
 -- Linespace
 vim.opt.linespace = -1

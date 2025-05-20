@@ -143,9 +143,9 @@ local M = {
         ---@diagnostic disable-next-line: missing-fields
         icons = {
           tree = {
-            vertical = "│ ",
-            middle = "├ ",
-            last = "└ ",
+            vertical = "  ",
+            middle = "  ",
+            last = "  ",
           },
           ui = {
             hidden = icons.ui.Hidden,

@@ -9,12 +9,6 @@ local M = {
         light = "latte",
         dark = "mocha",
       },
-      barbecue = {
-        dim_dirname = true, -- directory name is dimmed by default
-        bold_basename = true,
-        dim_context = false,
-        alt_background = false,
-      },
       compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
       transparent_background = false,
       show_end_of_buffer = false, -- show the '~' characters after the end of buffers
@@ -72,22 +66,6 @@ local M = {
               util.darken(colors.surface0, 0.6, colors.base)
             ),
           },
-          NeoTreeCursorLine = {
-            bg = util.vary_color(
-              { latte = util.lighten(colors.mantle, 0.2, colors.base) },
-              util.darken(colors.surface0, 0.2, colors.base)
-            ),
-          },
-
-          -- Trouble
-          TroubleNormal = { bg = colors.base },
-          TroubleNormalNC = { bg = colors.base },
-
-          -- NeoTree header style
-          NeoTreeHeaderAndTitle = { bg = colors.crust, bold = true },
-
-          -- Telescope under cursor highlight
-          TelescopeSelection = { bg = colors.crust },
 
           -- Window Picker
           WindowPickerStatusLine = { bg = colors.crust, fg = colors.base, bold = true },
@@ -125,12 +103,16 @@ local M = {
           SnacksPickerListCursorLine = { bg = colors.surface0 },
           SnacksPickerPreviewBorder = { bg = colors.mantle, fg = colors.mantle },
           SnacksPickerPrompt = { bg = colors.mantle, fg = colors.text },
-
-          SnacksPickerTree = { fg = colors.mantle },
         }
       end,
       default_integrations = true,
       integrations = {
+        barbecue = {
+          dim_dirname = true, -- directory name is dimmed by default
+          bold_basename = true,
+          dim_context = false,
+          alt_background = false,
+        },
         blink_cmp = true,
         cmp = true,
         dap = true,
