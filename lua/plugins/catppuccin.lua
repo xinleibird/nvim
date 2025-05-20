@@ -35,74 +35,135 @@ local M = {
         types = {},
         operators = {},
       },
-      color_overrides = {},
-      highlight_overrides = {},
-      custom_highlights = function(colors)
-        local util = require("catppuccin.utils.colors")
+      color_overrides = {
+        latte = {
+          rosewater = "#c14a4a",
+          flamingo = "#c14a4a",
+          red = "#c14a4a",
+          maroon = "#c14a4a",
+          pink = "#945e80",
+          mauve = "#945e80",
+          peach = "#c35e0a",
+          yellow = "#b47109",
+          green = "#6c782e",
+          teal = "#4c7a5d",
+          sky = "#4c7a5d",
+          sapphire = "#4c7a5d",
+          blue = "#45707a",
+          lavender = "#45707a",
+          mantle = "#f0ebce",
+          crust = "#e8e3c8",
+          subtext1 = "#73503c",
+          subtext0 = "#805942",
+          overlay2 = "#8c6249",
+          overlay1 = "#8c856d",
+          overlay0 = "#a69d81",
+          surface2 = "#bfb695",
+          surface1 = "#d1c7a3",
+          surface0 = "#e3dec3",
+          text = "#654735",
+          base = "#f9f5d7",
+        },
+        mocha = {
+          rosewater = "#ea6962",
+          flamingo = "#ea6962",
+          red = "#ea6962",
+          maroon = "#ea6962",
+          pink = "#d3869b",
+          mauve = "#d3869b",
+          peach = "#e78a4e",
+          yellow = "#d8a657",
+          green = "#a9b665",
+          teal = "#89b482",
+          sky = "#89b482",
+          sapphire = "#89b482",
+          blue = "#7daea3",
+          lavender = "#7daea3",
+          mantle = "#191b1c",
+          crust = "#141617",
+          subtext1 = "#d5c4a1",
+          subtext0 = "#bdae93",
+          overlay2 = "#a89984",
+          overlay1 = "#928374",
+          overlay0 = "#595959",
+          surface2 = "#4d4d4d",
+          surface1 = "#404040",
+          surface0 = "#292929",
+          text = "#ebdbb2",
+          base = "#1d2021",
+        },
+      },
+      highlight_overrides = {
+        all = function(C)
+          local colors = require("catppuccin.utils.colors")
+          return {
+            -- Hints
+            ActionHintsDefinition = { fg = C.yellow },
+            ActionHintsReferences = { fg = C.blue },
+
+            -- Illuminated
+            -- IlluminatedWordText = { underdashed = true },
+            -- IlluminatedWordRead = { underdashed = true },
+            -- IlluminatedWordWrite = { underdashed = true },
+
+            Visual = { bg = C.overlay2, fg = C.text, bold = true },
+            VisualNOS = { bg = C.overlay2, fg = C.text, bold = true },
+
+            -- All separator
+            WinSeparator = { fg = C.mauve },
+
+            -- Outline
+            OutlineDetails = { link = "Comment" },
+            OutlineGuides = { fg = C.mantle },
+
+            -- CursorLine highlight
+            CursorLine = {
+              bg = colors.vary_color(
+                { latte = colors.lighten(C.mantle, 0.6, C.base) },
+                colors.darken(C.surface0, 0.6, C.base)
+              ),
+            },
+
+            -- Window Picker
+            WindowPickerStatusLine = { bg = C.crust, fg = C.base, bold = true },
+            WindowPickerStatusLineNC = { bg = C.blue, fg = C.base, bold = true },
+
+            -- Bufferline Picker
+            BufferLinePickVisible = { bg = C.base, fg = C.red, bold = true },
+            BufferLinePick = { bg = C.base, fg = C.red, bold = true },
+            BufferLinePickSelected = { fg = C.overlay0, bg = C.base, bold = true, italic = true },
+
+            -- Snacks
+            SnacksPickerBoxTitle = { bg = C.blue, fg = C.base, bold = true },
+            SnacksPickerInput = { bg = C.mantle, fg = C.text },
+            SnacksPickerInputBorder = {
+              bg = colors.vary_color(
+                { latte = colors.lighten(C.sapphire, 0.6, C.base) },
+                colors.darken(C.sapphire, 0.2, C.base)
+              ),
+              fg = colors.vary_color(
+                { latte = colors.lighten(C.sapphire, 0.6, C.base) },
+                colors.darken(C.sapphire, 0.2, C.base)
+              ),
+            },
+            SnacksPickerInputTitle = { bg = C.blue, fg = C.base, bold = true },
+            SnacksPickerList = { bg = C.crust },
+            SnacksPickerListBorder = { bg = C.crust, fg = C.crust },
+            SnacksPickerListCursorLine = { bg = C.surface0 },
+            SnacksPickerPreviewBorder = { bg = C.mantle, fg = C.mantle },
+            SnacksPickerPrompt = { bg = C.mantle, fg = C.text },
+          }
+        end,
+      },
+      custom_highlights = function(C)
+        local colors = require("catppuccin.utils.colors")
         return {
-          -- Hints
-          ActionHintsDefinition = { fg = colors.yellow },
-          ActionHintsReferences = { fg = colors.blue },
 
-          -- Illuminated
-          -- IlluminatedWordText = { underdashed = true },
-          -- IlluminatedWordRead = { underdashed = true },
-          -- IlluminatedWordWrite = { underdashed = true },
-
-          Visual = { bg = colors.overlay2, fg = colors.text, bold = true },
-          VisualNOS = { bg = colors.overlay2, fg = colors.text, bold = true },
-
-          -- All separator
-          WinSeparator = { fg = colors.mauve },
-
-          -- Outline
-          OutlineDetails = { link = "Comment" },
-          OutlineGuides = { fg = colors.mantle },
-
-          -- CursorLine highlight
-          CursorLine = {
-            bg = util.vary_color(
-              { latte = util.lighten(colors.mantle, 0.6, colors.base) },
-              util.darken(colors.surface0, 0.6, colors.base)
-            ),
-          },
-
-          -- Window Picker
-          WindowPickerStatusLine = { bg = colors.crust, fg = colors.base, bold = true },
-          WindowPickerStatusLineNC = { bg = colors.blue, fg = colors.base, bold = true },
-
-          -- Bufferline Picker
-          BufferLinePickVisible = { bg = colors.base, fg = colors.red, bold = true },
-          BufferLinePick = { bg = colors.base, fg = colors.red, bold = true },
-          BufferLinePickSelected = { fg = colors.overlay0, bg = colors.base, bold = true, italic = true },
-
-          -- Snacks
-          SnacksDashboardHeader = { fg = util.darken(colors.red, 0.8) },
+          -- Snacks Dashboard logo and reflection
+          SnacksDashboardHeader = { fg = colors.darken(C.red, 0.8) },
           SnacksDashboardHeaderReflection = {
-            fg = util.vary_color(
-              { latte = util.lighten(colors.text, 0.1, colors.base) },
-              util.darken(colors.text, 0.1, colors.base)
-            ),
+            fg = colors.vary_color({ latte = colors.lighten(C.text, 0.1, C.base) }, colors.darken(C.text, 0.1, C.base)),
           },
-
-          SnacksPickerBoxTitle = { bg = colors.blue, fg = colors.base, bold = true },
-          SnacksPickerInput = { bg = colors.mantle, fg = colors.text },
-          SnacksPickerInputBorder = {
-            bg = util.vary_color(
-              { latte = util.lighten(colors.sapphire, 0.6, colors.base) },
-              util.darken(colors.sapphire, 0.2, colors.base)
-            ),
-            fg = util.vary_color(
-              { latte = util.lighten(colors.sapphire, 0.6, colors.base) },
-              util.darken(colors.sapphire, 0.2, colors.base)
-            ),
-          },
-          SnacksPickerInputTitle = { bg = colors.blue, fg = colors.base, bold = true },
-          SnacksPickerList = { bg = colors.crust },
-          SnacksPickerListBorder = { bg = colors.crust, fg = colors.crust },
-          SnacksPickerListCursorLine = { bg = colors.surface0 },
-          SnacksPickerPreviewBorder = { bg = colors.mantle, fg = colors.mantle },
-          SnacksPickerPrompt = { bg = colors.mantle, fg = colors.text },
         }
       end,
       default_integrations = true,
