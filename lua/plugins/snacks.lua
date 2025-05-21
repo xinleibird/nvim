@@ -151,8 +151,8 @@ local M = {
             hidden = icons.ui.Hidden,
             ignored = icons.ui.Ignored,
             follow = icons.ui.Follow,
-            selected = icons.ui.Ghost .. " ",
-            unselected = icons.ui.GhostOutline .. " ",
+            selected = icons.ui.Checked .. " ",
+            unselected = icons.ui.Unchecked .. " ",
           },
           git = {
             enabled = true, -- show git icons
@@ -339,7 +339,7 @@ local M = {
               row = -1,
               width = 0,
               height = 0.4,
-              border = "solid",
+              border = "none",
               title = " {title} {live} {flags}",
               title_pos = "left",
               { win = "input", height = 1, border = "solid" },
