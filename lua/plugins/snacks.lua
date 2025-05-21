@@ -180,11 +180,11 @@ local M = {
           },
         },
         prompt = "   ",
-        layout = "default_layout",
+        layout = "default",
         sources = {
-          buffers = { layout = { preset = "vertical_layout" } },
+          buffers = { layout = { preset = "vertical" } },
           explorer = {
-            layout = { preset = "explorer_layout" },
+            layout = { preset = "sidebar" },
             on_show = function(picker)
               local show = false
               local gap = 1
@@ -238,7 +238,7 @@ local M = {
             },
           },
           recent = {
-            layout = { preset = "vertical_layout" },
+            layout = { preset = "vertical" },
             title = "Most Recently Used Files",
             filter = {
               filter = function(item)
@@ -248,7 +248,7 @@ local M = {
           },
         },
         layouts = {
-          default_layout = {
+          default = {
             layout = {
               box = "vertical",
               width = 0.9,
@@ -257,22 +257,22 @@ local M = {
               {
                 win = "input",
                 height = 1,
-                border = "single",
+                border = "solid",
                 title = "Find {title} {live} {flags}",
                 title_pos = "center",
               },
               {
                 box = "horizontal",
-                { win = "list", border = { "🭽", "▔", "🭾", "▕", "🭿", "▁", "🭼", "▏" } },
+                { win = "list", border = "solid" },
                 {
                   win = "preview",
-                  border = { "🭽", "▔", "🭾", "▕", "🭿", "▁", "🭼", "▏" },
+                  border = "solid",
                   width = 0.6,
                 },
               },
             },
           },
-          vertical_layout = {
+          vertical = {
             layout = {
               box = "vertical",
               width = 0.8,
@@ -280,16 +280,16 @@ local M = {
               border = "none",
               {
                 win = "input",
-                border = "single",
+                border = "solid",
                 height = 1,
                 title = "Find {title} {live} {flags}",
                 title_pos = "center",
               },
-              { win = "list", border = { "🭽", "▔", "🭾", "▕", "🭿", "▁", "🭼", "▏" }, height = 8 },
-              { win = "preview", border = { "🭽", "▔", "🭾", "▕", "🭿", "▁", "🭼", "▏" } },
+              { win = "list", border = "solid", height = 8 },
+              { win = "preview", border = "solid" },
             },
           },
-          explorer_layout = {
+          sidebar = {
             -- preview = "main",
             layout = {
               backdrop = false,
@@ -318,7 +318,7 @@ local M = {
               -- },
             },
           },
-          vscode_layout = {
+          vscode = {
             preview = false,
             layout = {
               row = 2,
@@ -327,9 +327,27 @@ local M = {
               height = 0.55,
               border = "none",
               box = "vertical",
-              { win = "input", height = 1, border = "rounded", title = "{title} {live} {flags}", title_pos = "center" },
-              { win = "list", border = "hpad" },
-              { win = "preview", title = "{preview}", border = "rounded" },
+              { win = "input", height = 1, border = "solid", title = "{title} {live} {flags}", title_pos = "center" },
+              { win = "list", border = "solid" },
+              { win = "preview", title = "{preview}", border = "solid" },
+            },
+          },
+          ivy = {
+            layout = {
+              box = "vertical",
+              backdrop = false,
+              row = -1,
+              width = 0,
+              height = 0.4,
+              border = "solid",
+              title = " {title} {live} {flags}",
+              title_pos = "left",
+              { win = "input", height = 1, border = "solid" },
+              {
+                box = "horizontal",
+                { win = "list", border = "solid" },
+                { win = "preview", title = "{preview}", width = 0.6, border = "solid" },
+              },
             },
           },
         },
@@ -518,7 +536,7 @@ local M = {
           return Snacks.picker({
             title = "Sessions",
             items = items,
-            layout = "vscode_layout",
+            layout = "vscode",
             format = function(item)
               local ret = {}
               ret[#ret + 1] = { ("%-" .. longest_name .. "s"):format(item.name), "SnacksPickerLabel" }
@@ -586,7 +604,7 @@ local M = {
           return Snacks.picker({
             title = "Workspaces",
             items = items,
-            layout = "vscode_layout",
+            layout = "vscode",
             format = function(item)
               local ret = {}
               ret[#ret + 1] = { ("%-" .. longest_name .. "s"):format(item.name), "SnacksPickerLabel" }
