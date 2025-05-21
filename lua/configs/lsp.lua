@@ -1,7 +1,6 @@
 local icons = require("configs.icons")
 vim.diagnostic.config({
   virtual_text = {
-    -- prefix = "",
     prefix = function(diagnostic)
       if diagnostic.severity == vim.diagnostic.severity.HINT then
         return icons.diagnostics.Hint

@@ -159,6 +159,9 @@ local M = {
           SnacksDashboardHeaderReflection = {
             fg = colors.vary_color({ latte = colors.lighten(C.text, 0.1, C.base) }, colors.darken(C.text, 0.1, C.base)),
           },
+
+          -- Comment
+          Comment = { fg = C.overlay0 },
         }
       end,
       default_integrations = true,
@@ -193,12 +196,14 @@ local M = {
             warnings = { "italic" },
             information = { "italic" },
             hints = { "italic" },
+            ok = { "italic" },
           },
           underlines = {
             errors = { "undercurl" },
             warnings = { "undercurl" },
             information = { "undercurl" },
             hints = { "undercurl" },
+            ok = { "undercurl" },
           },
           inlay_hints = {
             background = true,
@@ -210,10 +215,6 @@ local M = {
         snacks = {
           enabled = true,
           indent_scope_color = "surface2",
-        },
-        telescope = {
-          enabled = true,
-          style = "nvchad",
         },
         treesitter = true,
         treesitter_context = true,
