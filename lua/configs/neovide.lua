@@ -62,13 +62,12 @@ vim.g.neovide_padding_left = 0
 -- vim.g.neovide_background_color = "#1b1b25" .. alpha()
 
 -- Auto dark mode just for neovide+--
--- local auto_dark = function()
---   vim.g.neovide_theme = "auto"
---   local cmd = "defaults read -g AppleInterfaceStyle 2>/dev/null || echo Light"
---   local mode = vim.fn.system(cmd):gsub("\n", ""):lower()
---   vim.opt.background = mode
--- end
--- auto_dark()
+local auto_dark = function()
+  vim.g.neovide_theme = "auto"
+  local mode = require("utils").detect_dark_mode()
+  vim.opt.background = mode
+end
+auto_dark()
 
 -- Blur
 vim.g.neovide_window_blurred = true
