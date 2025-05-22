@@ -14,7 +14,7 @@ local M = {
         autoselect_one = true,
         include_current_win = true,
         bo = {
-          filetype = { "neo-tree-popup", "notify", "quickfix" },
+          filetype = { "snacks_terminal", "notify", "snacks_layout_box", "Outline" },
           buftype = {},
         },
       },
