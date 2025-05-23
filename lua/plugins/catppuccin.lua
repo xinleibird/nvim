@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-field
 local M = {
   "catppuccin/nvim",
   name = "catppuccin",
@@ -34,6 +35,7 @@ local M = {
         properties = { "italic" },
         types = {},
         operators = {},
+        miscs = {},
       },
       color_overrides = {
         latte = {
@@ -153,6 +155,9 @@ local M = {
           SnacksPickerListCursorLine = { bg = C.surface0 },
           SnacksPickerPreviewBorder = { bg = C.mantle, fg = C.mantle },
           SnacksPickerPrompt = { bg = C.mantle, fg = C.text },
+          SnacksIndentScope = {
+            fg = colors.vary_color({ latte = colors.lighten(C.red, 0.6, C.base) }, colors.darken(C.red, 0.3, C.base)),
+          },
 
           -- Snacks Dashboard logo and reflection
           SnacksDashboardHeader = { fg = colors.darken(C.red, 0.8) },

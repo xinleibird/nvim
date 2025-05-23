@@ -1,10 +1,16 @@
 local M = {
   "lukas-reineke/indent-blankline.nvim",
   event = "VimEnter",
+  enabled = false,
+  main = "ibl",
+  ---@module "ibl"
+  ---@type ibl.config
   opts = {
     indent = { char = "▏", highlight = "IblIndent" },
-    scope = { char = "▏", highlight = "IblScope", show_start = false, show_end = false },
+    scope = { char = "▏", highlight = "IblScope", show_start = true, show_end = false },
     whitespace = { highlight = "IblWhitespace" },
+
+    -- highlight = { "Class" },
   },
   config = function(_, opts)
     -- local hooks = require("ibl.hooks")

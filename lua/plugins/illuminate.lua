@@ -1,5 +1,6 @@
 local M = {
   "RRethy/vim-illuminate",
+  enabled = false,
   event = "BufRead",
   config = function()
     require("illuminate").configure({

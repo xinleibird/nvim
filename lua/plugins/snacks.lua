@@ -107,8 +107,7 @@ local M = {
       },
       image = { enabled = true },
       input = { enabled = true },
-      scope = { enabled = true },
-      words = { enabled = true },
+      words = { enabled = true }, -- vim-illuminate alternative
       statuscolumn = { enabled = true },
       explorer = { enabled = true },
       terminal = { enabled = true },
@@ -374,9 +373,34 @@ local M = {
           enabled = true,
           priority = 200,
           char = "▏",
-          underline = false,
+          underline = true,
           only_current = false,
           hl = "SnacksIndentScope",
+        },
+      },
+      scope = {
+        cursor = false,
+        treesitter = {
+          enabled = false,
+          injections = true, -- include language injections when detecting scope (useful for languages like `vue`)
+          ---@type string[]|{enabled?:boolean}
+          blocks = {
+            enabled = true, -- enable to use the following blocks
+            "function_declaration",
+            "function_definition",
+            "method_declaration",
+            "method_definition",
+            "class_declaration",
+            "class_definition",
+            "do_statement",
+            "while_statement",
+            "repeat_statement",
+            "if_statement",
+            "for_statement",
+          },
+          field_blocks = {
+            "local_declaration",
+          },
         },
       },
       dashboard = {
