@@ -89,6 +89,8 @@ local M = {
 
     -- a literal / to match directory buffers, a star * to match file buffers. disable directory buffers for snacks.explorer. default is {"/", "*"}
     vim.g.rooter_targets = { "*" }
+
+    vim.g.rooter_silent_chdir = 1
   end,
 }
 

@@ -3,27 +3,12 @@ local M = {
   event = "BufRead",
   dependencies = "echasnovski/mini.diff",
   opts = function()
-    local function visualed()
-      local mode = vim.api.nvim_get_mode().mode
-      return mode == "V"
-        or mode == "Vs"
-        or mode == "v"
-        or mode == "vs"
-        or mode == "CTRL-V"
-        or mode == "\16"
-        or mode == "\19"
-        or mode == "\22"
-        or mode == "\22s"
-        or mode == "s"
-        or mode == "S"
-    end
-
-    local function stbufnr()
+    local function get_statusline_bufnr()
       return vim.api.nvim_win_get_buf(vim.g.statusline_winid or 0)
     end
 
     local function diff_source()
-      local minidiff_summary = vim.b[stbufnr()].minidiff_summary
+      local minidiff_summary = vim.b[get_statusline_bufnr()].minidiff_summary
 
       if minidiff_summary then
         local added = (minidiff_summary.add and minidiff_summary.add ~= 0) and minidiff_summary.add or 0
@@ -42,7 +27,7 @@ local M = {
 
     local components = {
       sep = {
-        "mode",
+        "",
         fmt = function()
           return " "
         end,
@@ -68,16 +53,11 @@ local M = {
         fmt = function()
           local cwd_tail = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
 
-          return icons.ui.Path .. " " .. cwd_tail
+          return icons.ui.FolderOpen .. " " .. cwd_tail
         end,
         separator = { left = "" },
         padding = { left = 0, right = 1 },
-      },
-
-      branch = {
-        "branch",
-        icon = icons.ui.Branch,
-        padding = { left = 2, right = 0 },
+        color = { gui = "" },
       },
 
       filename = {
@@ -95,8 +75,8 @@ local M = {
             filename = "ToggleTerm"
           end
 
-          local modified = vim.bo[stbufnr()].modified
-          local modifiable = vim.bo[stbufnr()].modifiable
+          local modified = vim.bo[get_statusline_bufnr()].modified
+          local modifiable = vim.bo[get_statusline_bufnr()].modifiable
 
           if not modifiable then
             return icons.ui.Lock .. " " .. filename
@@ -110,7 +90,14 @@ local M = {
         end,
         separator = { left = "", right = "" },
         padding = { left = 0, right = 0 },
+        color = { gui = "italic" },
         file_status = false,
+      },
+
+      branch = {
+        "branch",
+        icon = icons.ui.Branch,
+        padding = { left = 2, right = 0 },
       },
 
       diff = {
@@ -140,7 +127,7 @@ local M = {
         -- cond =
       },
 
-      lsp = {
+      lsp_clients_formatters_linters = {
         "lsp",
         fmt = function()
           if not rawget(vim, "lsp") then
@@ -151,7 +138,7 @@ local M = {
           local clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })
 
           for _, client in ipairs(clients) do
-            if client.attached_buffers[stbufnr()] and client.name ~= "null-ls" then
+            if client.attached_buffers[get_statusline_bufnr()] and client.name ~= "null-ls" then
               client_batch = client_batch .. client.name .. " "
             end
           end
@@ -198,7 +185,8 @@ local M = {
       location = {
         "location",
         fmt = function()
-          if visualed() then
+          local mode = require("lualine.utils.mode").get_mode()
+          if mode == "VISUAL" or mode == "V-LINE" or mode == "V-BLOCK" then
             local starts = vim.fn.line("v")
             local ends = vim.fn.line(".")
             local lines = starts <= ends and ends - starts + 1 or starts - ends + 1
@@ -214,21 +202,25 @@ local M = {
         -- selectionCount,
         separator = { left = "", right = "" },
         padding = { left = 0, right = 0 },
+        color = { gui = "" },
       },
 
       progress = {
         "progress",
         separator = { left = "", right = "" },
         padding = { left = 1, right = 0 },
+        color = { gui = "" },
       },
     }
 
     return {
       options = {
         component_separators = "",
-        -- for catppuccin colorscheme
-        theme = "catppuccin",
+        theme = "catppuccin", -- for catppuccin colorscheme
         globalstatus = true,
+        refresh = { -- sets how often lualine should refresh it's contents (in ms)
+          statusline = 50, -- The refresh option sets minimum time that lualine tries
+        },
       },
       sections = {
         lualine_a = {
@@ -247,7 +239,7 @@ local M = {
           "%=",
         },
         lualine_x = {
-          components.lsp,
+          components.lsp_clients_formatters_linters,
           components.filetype,
         },
         lualine_y = {
@@ -258,14 +250,7 @@ local M = {
           components.sep,
         },
       },
-      inactive_sections = {
-        lualine_a = { "filename" },
-        lualine_b = {},
-        lualine_c = {},
-        lualine_x = {},
-        lualine_y = {},
-        lualine_z = { "location" },
-      },
+      inactive_sections = {},
       tabline = {},
       winbar = {},
       extensions = {},
