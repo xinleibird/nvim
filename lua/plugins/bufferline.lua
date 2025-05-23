@@ -1,6 +1,6 @@
 local M = {
   "akinsho/bufferline.nvim",
-  event = "ColorScheme",
+  event = "BufRead",
   dependencies = {
     {
       "tiagovla/scope.nvim",

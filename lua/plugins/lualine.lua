@@ -1,6 +1,6 @@
 local M = {
   "nvim-lualine/lualine.nvim",
-  event = "ColorScheme",
+  event = "BufRead",
   dependencies = "echasnovski/mini.diff",
   opts = function()
     local function visualed()
