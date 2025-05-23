@@ -30,7 +30,7 @@ local M = {
             and vim.fn.reg_recording() == ""
         end,
         autohide = true,
-        search = { wrap = true },
+        search = { wrap = false },
         multi_line = false,
         jump_labels = true,
         keys = { "f", "F", "t", "T" },

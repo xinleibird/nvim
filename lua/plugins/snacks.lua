@@ -40,6 +40,7 @@ local M = {
           vim.keymap.set({ "n", "t", "i" }, "<C-l>", "", { silent = true, buffer = true })
           vim.keymap.set({ "n", "t", "i" }, "<C-j>", "", { silent = true, buffer = true })
           vim.keymap.set({ "n", "t", "i" }, "<C-k>", "", { silent = true, buffer = true })
+          vim.keymap.set({ "n", "t", "i" }, "<Esc>", "", { silent = true, buffer = true })
         end
       end,
     })
