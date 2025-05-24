@@ -100,8 +100,11 @@ local M = {
         local colors = require("catppuccin.utils.colors")
         return {
           -- Visual
-          -- Visual = { bg = C.overlay0, style = { "bold" } }, -- Visual mode selection
-          -- VisualNOS = { bg = C.overlay0, style = { "bold" } },
+          Visual = { bg = C.overlay0, style = { "bold" } }, -- Visual mode selection
+          VisualNOS = { bg = C.overlay0, style = { "bold" } },
+
+          -- Comment
+          Comment = { fg = C.overlay0 },
 
           -- Hints
           ActionHintsDefinition = { fg = C.yellow },
@@ -122,8 +125,8 @@ local M = {
           -- CursorLine highlight
           CursorLine = {
             bg = colors.vary_color(
-              { latte = colors.lighten(C.mantle, 0.6, C.base) },
-              colors.darken(C.surface0, 0.6, C.base)
+              { latte = colors.lighten(C.surface0, 0.5, C.base) },
+              colors.darken(C.surface0, 0.5, C.base)
             ),
           },
 
@@ -141,18 +144,17 @@ local M = {
           SnacksPickerInput = { bg = C.mantle, fg = C.text },
           SnacksPickerInputBorder = {
             bg = colors.vary_color(
-              { latte = colors.lighten(C.sapphire, 0.6, C.base) },
-              colors.darken(C.sapphire, 0.2, C.base)
-            ),
-            fg = colors.vary_color(
-              { latte = colors.lighten(C.sapphire, 0.6, C.base) },
-              colors.darken(C.sapphire, 0.2, C.base)
+              { latte = colors.lighten(C.overlay0, 0.6, C.base) },
+              colors.darken(C.text, 0.4, C.base)
             ),
           },
           SnacksPickerInputTitle = { bg = C.blue, fg = C.base, bold = true },
           SnacksPickerList = { bg = C.crust },
           SnacksPickerListBorder = { bg = C.crust, fg = C.crust },
-          SnacksPickerListCursorLine = { bg = C.surface0 },
+          -- SnacksPickerListCursorLine = { bg = colors.lighten(C.overlay0, 0.3, C.base) },
+          SnacksPickerListCursorLine = {
+            bg = colors.lighten(C.overlay2, 0.1, C.base),
+          },
           SnacksPickerPreviewBorder = { bg = C.mantle, fg = C.mantle },
           SnacksPickerPrompt = { bg = C.mantle, fg = C.text },
           SnacksIndentScope = {
@@ -164,9 +166,6 @@ local M = {
           SnacksDashboardHeaderReflection = {
             fg = colors.vary_color({ latte = colors.lighten(C.text, 0.1, C.base) }, colors.darken(C.text, 0.1, C.base)),
           },
-
-          -- Comment
-          Comment = { fg = C.overlay0 },
         }
       end,
       default_integrations = false,
