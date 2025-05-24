@@ -416,7 +416,7 @@ local M = {
           },
         },
         sections = function()
-          local gif = require("utils").detect_dark_mode() == "dark" and "necroma_idle.gif" or "paladin_idle.gif"
+          local gif = require("utils").detect_dark_mode() == "dark" and "necroma_idle.gif" or "striker_idle.gif"
           local cmd = "chafa "
             .. vim.fn.stdpath("config")
             .. "/assets/sprites/"

@@ -50,6 +50,6 @@ Inside Neovim, use the cmd command to install.
 
 ## Special thanks
 
-- Special thanks the dashboard gif from 👍[OcO](https://oco.itch.io/), his:
-  - [medieval-fantasy-character-pack-6](https://oco.itch.io/medieval-fantasy-character-pack-6) pixel-art is so fantasy!!!
-  - [medieval-fantasy-character-pack-7](https://oco.itch.io/medieval-fantasy-character-pack-7) pixel-art is so fantasy!!!
+- Special thanks the dashboard gif from 👍[OcO](https://oco.itch.io/), his pixel-art is so fantasy!!!
+  - [Medieval Fantasy Character Pack 6](https://oco.itch.io/medieval-fantasy-character-pack-6)
+  - [Cyberpunk Character Pack](https://oco.itch.io/cyberpunk-character-pack)
