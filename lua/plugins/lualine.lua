@@ -1,6 +1,6 @@
 local M = {
   "nvim-lualine/lualine.nvim",
-  event = "BufRead",
+  event = { "BufRead", "User SnacksDashboardClosed" },
   dependencies = "echasnovski/mini.diff",
   opts = function()
     local function get_statusline_bufnr()

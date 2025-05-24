@@ -416,6 +416,12 @@ local M = {
           },
         },
         sections = function()
+          local gif = require("utils").detect_dark_mode() == "dark" and "necroma_idle.gif" or "paladin_idle.gif"
+          local cmd = "chafa "
+            .. vim.fn.stdpath("config")
+            .. "/assets/sprites/"
+            .. gif
+            .. " -p off --speed=0.62 --clear --passthrough=tmux --format symbols --symbols vhalf --size 56x28 --stretch --probe=off"
           return {
             {
               section = "terminal",
@@ -423,10 +429,7 @@ local M = {
                 return vim.api.nvim_win_get_width(1000) == vim.o.columns
                   and vim.api.nvim_win_get_height(1000) >= vim.o.lines - 3
               end,
-              cmd = "chafa "
-                .. vim.fn.stdpath("config")
-                .. "/assets/sprites/necroma_idle.gif"
-                .. " -p off --speed=0.62 --clear --passthrough=tmux --format symbols --symbols vhalf --size 40x28 --stretch --probe=off",
+              cmd = cmd,
               height = 28,
               padding = 0,
               align = "left",
@@ -439,7 +442,7 @@ local M = {
                     table.concat({
                       table.concat({
                         [[        ┳┓      ]],
-                        vim.o.background == "dark" and " " or "☀︎ ",
+                        require("utils").detect_dark_mode() == "dark" and " " or "☀︎ ",
                         [[         ]],
                       }, ""),
                       [[        ┃┃┏┓┏┓┓┏┓┏┳┓        ]],
@@ -458,7 +461,7 @@ local M = {
 
                       table.concat({
                         [[        ┻┛      ]],
-                        vim.o.background == "dark" and " " or "☀︎ ",
+                        require("utils").detect_dark_mode() == "dark" and " " or "☀︎ ",
                         [[         ]],
                       }, ""),
                     }, "\n"),

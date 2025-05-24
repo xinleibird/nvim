@@ -1,6 +1,6 @@
 local M = {
   "akinsho/bufferline.nvim",
-  event = "BufRead",
+  event = { "BufRead", "User SnacksDashboardClosed" },
   dependencies = {
     {
       "tiagovla/scope.nvim",
