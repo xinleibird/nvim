@@ -27,16 +27,16 @@ Inside Neovim, use the cmd command to install.
 :Lazy sync
 ```
 
-- Install all Lsp, Formatter, Linter and debug adapter:
+- Install all Lsp, Formatter, Linter and debug adapter us [mason.nvim](https://github.com/mason-org/mason.nvim):
 
 ```vim
-:MasonInstallAll
+:MasonInstallEnsured
 ```
 
-- To update plugins:
+- Install all Tree-sitter parsers use [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter/tree/main):
 
 ```vim
-:Lazy sync
+:TSInstallEnsured
 ```
 
 ### Additional install
@@ -55,6 +55,6 @@ Inside Neovim, use the cmd command to install.
 
 ## Special thanks
 
-- Special thanks the dashboard gif from 👍[OcO](https://oco.itch.io/), his pixel-art is so fantasy!!!
+- The dashboard gif from:
   - [Medieval Fantasy Character Pack 6](https://oco.itch.io/medieval-fantasy-character-pack-6)
-  - [Cyberpunk Character Pack](https://oco.itch.io/cyberpunk-character-pack)
+  - [Evil Wizard](https://luizmelo.itch.io/evil-wizard)
