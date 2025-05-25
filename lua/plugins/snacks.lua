@@ -417,12 +417,12 @@ local M = {
           },
         },
         sections = function()
-          local gif = require("utils").detect_dark_mode() == "dark" and "necroma_idle.gif" or "striker_idle.gif"
+          local gif = require("utils").detect_dark_mode() == "dark" and "necroma_idle.gif" or "wizard_idle.gif"
           local cmd = "chafa "
             .. vim.fn.stdpath("config")
             .. "/assets/sprites/"
             .. gif
-            .. " -p off --speed=0.62 --clear --passthrough=tmux --format symbols --symbols vhalf --size 56x28 --stretch --probe=off"
+            .. " -p off --speed=0.62 --clear --passthrough=tmux --format symbols --symbols vhalf --size 64x32 --stretch --probe=off"
           return {
             {
               section = "terminal",
