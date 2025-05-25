@@ -1,9 +1,9 @@
 local M = {
   "williamboman/mason.nvim",
-  cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate" },
+  event = "VimEnter",
   init = function()
     -- custom cmd to install all mason binaries listed
-    vim.api.nvim_create_user_command("MasonInstallAll", function()
+    vim.api.nvim_create_user_command("MasonInstallEnsured", function()
       local mason_ensure_installed = {
         -- lua stuff
         "lua-language-server",
@@ -61,14 +61,12 @@ local M = {
       if #will_install > 0 then
         vim.cmd("MasonInstall " .. table.concat(will_install, " "))
       else
-        vim.notify("All mason packages have been installed.", vim.log.levels.INFO, { title = "Mason" })
+        print("All ensure mason packages have been installed")
       end
     end, {})
   end,
-
   opts = function()
     local icons = require("configs.icons")
-
     return {
       ---@type '"prepend"' | '"append"' | '"skip"'
       PATH = "prepend",
