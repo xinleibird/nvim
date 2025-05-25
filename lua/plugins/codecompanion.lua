@@ -51,7 +51,6 @@ local M = {
           adapter = "gemini",
         },
       },
-      adapters = {},
       display = {
         action_palette = {
           width = 95,
