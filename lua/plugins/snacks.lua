@@ -385,7 +385,7 @@ local M = {
           enabled = true,
           priority = 200,
           char = "▏",
-          underline = true,
+          underline = false, -- https://github.com/folke/snacks.nvim/pull/1635
           only_current = false,
           hl = "SnacksIndentScope",
         },
