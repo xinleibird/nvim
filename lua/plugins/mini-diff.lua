@@ -1,6 +1,23 @@
 local M = {
   "echasnovski/mini.diff",
-  event = "VeryLazy",
+  event = "BufRead",
+  init = function()
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "*",
+      callback = function()
+        local notify = function()
+          vim.notify("Please git init your project directory first!", vim.log.levels.WARN, { title = "mini-diff" })
+        end
+        if Snacks.git.get_root() == nil then
+          vim.keymap.set("n", "<leader>gd", notify, { silent = true, buffer = true })
+          vim.keymap.set("n", "<leader>gj", notify, { silent = true, buffer = true })
+          vim.keymap.set("n", "<leader>gk", notify, { silent = true, buffer = true })
+          vim.keymap.set("n", "[g", notify, { silent = true, buffer = true })
+          vim.keymap.set("n", "]g", notify, { silent = true, buffer = true })
+        end
+      end,
+    })
+  end,
   keys = {
     {
       "<leader>gd",
