@@ -2,6 +2,7 @@
 local M = {
   "kevinhwang91/nvim-bqf",
   event = "BufEnter",
+  enabled = false,
   dependencies = {
     "junegunn/fzf",
   },

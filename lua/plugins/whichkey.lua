@@ -28,8 +28,8 @@ local M = {
       },
       {
         "<leader>t",
-        group = "Terminal",
-        icon = "",
+        group = "TS join/split",
+        icon = "󰤼",
       },
       {
         "<leader>d",
