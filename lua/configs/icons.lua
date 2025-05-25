@@ -115,6 +115,7 @@ M.ui = {
   Hidden = "",
   Ignored = "",
   Follow = "",
+  Track = "󰤔",
 }
 
 M.git = {

@@ -110,6 +110,7 @@ local M = {
       image = { enabled = true },
       input = { enabled = true },
       words = { enabled = true }, -- vim-illuminate alternative
+      quickfile = { enabled = true },
       statuscolumn = { enabled = true },
       explorer = { enabled = true },
       terminal = { enabled = true },
@@ -138,7 +139,16 @@ local M = {
           },
         },
       },
-      notifier = { timeout = 2000 },
+      notifier = {
+        timeout = 2000,
+        icons = {
+          error = require("configs.icons").diagnostics.Error .. " ",
+          warn = require("configs.icons").diagnostics.Warn .. " ",
+          info = require("configs.icons").diagnostics.Info .. " ",
+          debug = require("configs.icons").ui.Bug .. " ",
+          trace = require("configs.icons").ui.Track .. " ",
+        },
+      },
       win = { backdrop = 38 },
       picker = {
         ---@diagnostic disable-next-line: missing-fields
@@ -380,7 +390,7 @@ local M = {
           hl = "SnacksIndentScope",
         },
       },
-      scope = {
+      scope = { -- indent scope and any scope jump
         cursor = false,
         treesitter = {
           enabled = false,
