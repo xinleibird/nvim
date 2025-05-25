@@ -1,11 +1,10 @@
 local M = {
   "nvim-treesitter/nvim-treesitter",
-  event = { "BufReadPost", "BufNewFile" },
-  cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
+  lazy = false,
+  branch = "main",
   build = ":TSUpdate",
   config = function()
-    ---@diagnostic disable-next-line: missing-fields
-    require("nvim-treesitter.configs").setup({
+    require("nvim-treesitter").setup({
       highlight = {
         enable = true,
         use_languagetree = true,

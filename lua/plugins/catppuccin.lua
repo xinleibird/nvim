@@ -100,8 +100,8 @@ local M = {
         local colors = require("catppuccin.utils.colors")
         return {
           -- Visual
-          Visual = { bg = C.overlay0, style = { "bold" } }, -- Visual mode selection
-          VisualNOS = { bg = C.overlay0, style = { "bold" } },
+          -- Visual = { bg = C.overlay0, style = { "bold" } }, -- Visual mode selection
+          -- VisualNOS = { bg = C.overlay0, style = { "bold" } },
 
           -- Comment
           Comment = { fg = C.overlay0 },
@@ -125,7 +125,7 @@ local M = {
           -- CursorLine highlight
           CursorLine = {
             bg = colors.vary_color(
-              { latte = colors.lighten(C.surface0, 0.5, C.base) },
+              { latte = colors.lighten(C.surface0, 0.4, C.base) },
               colors.darken(C.surface0, 0.5, C.base)
             ),
           },
@@ -153,7 +153,7 @@ local M = {
           SnacksPickerListBorder = { bg = C.crust, fg = C.crust },
           -- SnacksPickerListCursorLine = { bg = colors.lighten(C.overlay0, 0.3, C.base) },
           SnacksPickerListCursorLine = {
-            bg = colors.lighten(C.overlay2, 0.1, C.base),
+            bg = colors.lighten(C.overlay2, 0.2, C.base),
           },
           SnacksPickerPreviewBorder = { bg = C.mantle, fg = C.mantle },
           SnacksPickerPrompt = { bg = C.mantle, fg = C.text },
