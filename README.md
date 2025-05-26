@@ -52,9 +52,3 @@ Inside Neovim, use the cmd command to install.
     - tectonic
   - NPM
     - @mermaid-js/mermaid-cli
-
-## Special thanks
-
-- The dashboard gif from:
-  - [Medieval Fantasy Character Pack 6](https://oco.itch.io/medieval-fantasy-character-pack-6)
-  - [Evil Wizard](https://luizmelo.itch.io/evil-wizard)
