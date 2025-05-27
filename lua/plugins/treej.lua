@@ -1,11 +1,11 @@
 local M = {
   "Wansmer/treesj",
   event = "BufRead",
-  -- keys = { "<leader>tt", "<leader>ta", "<leader>tR" },
   dependencies = "nvim-treesitter/nvim-treesitter",
-  -- enabled = false,
   config = function()
-    require("treesj").setup({})
+    require("treesj").setup({
+      use_default_keymaps = false,
+    })
     vim.keymap.set("n", "<leader>ta", require("treesj").toggle, { desc = "TS toggle" })
     vim.keymap.set("n", "<leader>tM", function()
       require("treesj").join({
@@ -17,6 +17,10 @@ local M = {
     vim.keymap.set("n", "<leader>tR", function()
       require("treesj").split({ split = { recursive = true } })
     end, { desc = "TS join recursive" })
+
+    vim.api.nvim_del_user_command("TSJToggle")
+    vim.api.nvim_del_user_command("TSJSplit")
+    vim.api.nvim_del_user_command("TSJJoin")
   end,
 }
 
