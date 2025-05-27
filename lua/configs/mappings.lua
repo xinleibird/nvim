@@ -1,5 +1,3 @@
-local os = require("utils").detect_os()
-
 -------------------------------------------------------------------------------
 ---[[general]]
 
@@ -9,9 +7,13 @@ vim.keymap.set({ "n", "t", "i" }, "<C-l>", "<cmd>wincmd l<CR>", { desc = "Jump r
 vim.keymap.set({ "n", "t", "i" }, "<C-j>", "<cmd>wincmd j<CR>", { desc = "Jump down window" })
 vim.keymap.set({ "n", "t", "i" }, "<C-k>", "<cmd>wincmd k<CR>", { desc = "Jump up window" })
 
+-- alias record macro that "q" to "Q"
+vim.keymap.set({ "n" }, "Q", "q", { noremap = true, silent = true })
+vim.keymap.set({ "n" }, "q", "<Nop>", { noremap = true, silent = true })
+
 -- remap start of line
 vim.keymap.set("c", "<C-a>", "<Home>", { desc = "Move beginning of line" })
-vim.keymap.set("c", "<C-b>", "<End>", { desc = "Move beginning of line" })
+vim.keymap.set("c", "<C-b>", "<End>", { desc = "Move ending of line" })
 
 -- esc clear highlights
 vim.keymap.set("n", "<Esc>", "<cmd>noh<CR>", { desc = "Clear highlights" })
@@ -42,7 +44,8 @@ vim.keymap.set("n", "<leader>q", function()
 end, { desc = "Quit" })
 
 -- easy paste
-local paste_map = os == "macos" and "<M-v>" or "<C-v>"
+local current_os = require("utils").detect_os()
+local paste_map = current_os == "macos" and "<M-v>" or "<C-v>"
 if vim.g.neovide then
   paste_map = "<D-v>"
 end
@@ -89,10 +92,12 @@ vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Definition" })
 vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Declaration" })
 vim.keymap.set("n", "gF", vim.lsp.buf.type_definition, { desc = "Type definition" })
 vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Implementation" })
+vim.keymap.set("n", "gI", vim.lsp.buf.incoming_calls, { desc = "Incoming calls" }) -- who calls me
+vim.keymap.set("n", "gO", vim.lsp.buf.outgoing_calls, { desc = "Outgoing calls" }) -- me calls who
 
 vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, { desc = "Signature" })
 -- any config in https://github.com/MysticalDevil/inlay-hints.nvim
-vim.keymap.set("n", "gI", function()
+vim.keymap.set("n", "gh", function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ 0 }), { 0 })
 end, { desc = "Inlay hints" })
 
