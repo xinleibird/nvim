@@ -1,4 +1,6 @@
-![showcase](./assets/showcase/May-27-2025.gif)
+![showcase white](./assets/showcase/May-27-2025-14-09-08.gif)
+
+![showcase black](./assets/showcase/May-27-2025-08-02-25.gif)
 
 ## Introduction
 
