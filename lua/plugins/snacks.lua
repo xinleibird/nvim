@@ -3,16 +3,15 @@ local M = {
   priority = 1000,
   lazy = false,
   init = function()
-    local group = vim.api.nvim_create_augroup("user_disable_mouse_when_snacks_dashboard", { clear = true })
-    vim.api.nvim_create_autocmd("User", {
-      group = group,
-      pattern = "SnacksDashboardOpened",
-      command = "set mouse=",
-    })
-    vim.api.nvim_create_autocmd("User", {
-      group = group,
-      pattern = "SnacksDashboardClosed",
-      command = "set mouse=a",
+    vim.api.nvim_create_autocmd({ "FileType" }, {
+      group = vim.api.nvim_create_augroup("user_mouse_disable_for_snacks_dashboard", { clear = true }),
+      callback = function(e)
+        if e.match == "snacks_dashboard" then
+          vim.o.mouse = ""
+        else
+          vim.o.mouse = "a"
+        end
+      end,
     })
 
     local function toggle_terminal_map()
