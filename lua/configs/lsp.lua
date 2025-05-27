@@ -57,9 +57,9 @@ vim.lsp.enable({
   "marksman",
   "rust_analyzer",
   "svelte",
-  "ts_ls",
+  -- "ts_ls",
   "vimls",
-  -- "vtsls",
+  "vtsls",
   "volar",
   "yamlls",
 })
