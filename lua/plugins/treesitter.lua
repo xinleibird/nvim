@@ -6,6 +6,7 @@ local M = {
   init = function()
     local ensure_list = {
       "bash",
+      "c",
       "css",
       "gitignore",
       "html",
@@ -13,13 +14,19 @@ local M = {
       "json",
       "jsonc",
       "latex",
+      "lua",
+      "markdown",
+      "query",
       "regex",
+      "rust",
       "scss",
       "svelte",
       "toml",
       "tsx",
       "typescript",
       "typst",
+      "vim",
+      "vimdoc",
       "vue",
       "yaml",
     }
