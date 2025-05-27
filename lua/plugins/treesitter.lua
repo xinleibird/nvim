@@ -78,6 +78,7 @@ local M = {
       pattern = gen_pattern(),
       callback = function()
         vim.treesitter.start() -- enable treesitter highlight
+        vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
       end,
     })
   end,
