@@ -170,11 +170,17 @@ local M = {
           input = {
             keys = {
               ["<c-`>"] = { "loclist", mode = { "i", "n" } },
+              ["<c-h>"] = { "focus_input", mode = { "i", "n" } },
+              ["<c-l>"] = { "focus_input", mode = { "i", "n" } },
+              ["<c-j>"] = { "focus_list", mode = { "i", "n" } },
+              ["<c-k>"] = { "focus_list", mode = { "i", "n" } },
+              ["<Esc>"] = { "focus_list", mode = { "n" } },
             },
           },
           list = {
             keys = {
               ["<c-`>"] = "loclist",
+              ["<c-h>"] = "focus_list",
             },
           },
         },
