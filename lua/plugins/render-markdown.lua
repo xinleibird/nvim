@@ -1,9 +1,9 @@
 local M = {
   {
     "MeanderingProgrammer/render-markdown.nvim",
-    ft = { "markdown", "codecompanion" },
+    ft = { "markdown", "codecompanion", "mdx" },
     opts = {
-      file_types = { "markdown", "codecompanion" },
+      file_types = { "markdown", "codecompanion", "mdx" },
       latex = { enabled = false },
       completions = { blink = { enabled = true } },
     },
