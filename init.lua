@@ -19,3 +19,5 @@ require("configs.autocmds")
 require("configs.mappings")
 -- load vim.lsp
 require("configs.lsp")
+-- load filetypes
+require("configs.filetypes")
