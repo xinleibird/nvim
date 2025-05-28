@@ -225,6 +225,11 @@ local M = {
         "K",
         icon = "󰟶",
       },
+      {
+        "gx",
+        icon = "",
+        group = "Open it",
+      },
     })
 
     ---@diagnostic disable-next-line: missing-fields

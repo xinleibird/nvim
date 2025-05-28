@@ -36,12 +36,21 @@ local M = {
 
     vim.keymap.set("n", "<leader>sp", "<cmd>lua Snacks.picker.pick('files')<cr>", { desc = "Files" })
     vim.keymap.set("n", "<leader>st", "<cmd>lua Snacks.picker.pick('live_grep')<CR>", { desc = "Live grep" })
-    vim.keymap.set("n", "<leader>sc", "<cmd>lua Snacks.picker.grep_word()<CR>", { desc = "Text under cursor" })
+    vim.keymap.set({ "n", "x" }, "<leader>sx", "<cmd>lua Snacks.picker.grep_word()<CR>", { desc = "Word" })
     vim.keymap.set("n", "<leader>sh", "<cmd>lua Snacks.picker.help()<CR>", { desc = "Help pages" })
     vim.keymap.set("n", "<leader>sr", "<cmd>lua Snacks.picker.pick('oldfiles')<CR>", { desc = "Recent files" })
     vim.keymap.set("n", "<leader>sb", "<cmd>lua Snacks.picker.lines()<CR>", { desc = "Buffer lines" })
     vim.keymap.set("n", "<leader>sB", "<cmd>lua Snacks.picker.grep_buffers()<CR>", { desc = "Open buffers" })
-    vim.keymap.set({ "n", "x" }, "<leader>sw", "<cmd>lua Snacks.picker.grep_word()<CR>", { desc = "Selected word" })
+    vim.keymap.set(
+      "n",
+      "<leader>sn",
+      function()
+        local friendly_snippets_dir = vim.fn.stdpath("data") .. "/lazy/friendly-snippets/snippets"
+        Snacks.picker.grep({ dirs = { friendly_snippets_dir } })
+      end,
+      -- "<cmd>lua Snacks.picker.grep({dirs = {'/Users/xinlei/.config/nvim/assets'}})<CR>",
+      { desc = "Snippets" }
+    )
 
     vim.keymap.set("n", "<leader>gg", function()
       local root = Snacks.git.get_root()
@@ -56,8 +65,8 @@ local M = {
 
     vim.keymap.set("n", "<leader>e", "<cmd>lua Snacks.picker.explorer()<CR>", { desc = "Explorer" })
 
-    vim.keymap.set("n", "]]", "<cmd>lua Snacks.words.jump(vim.v.count1)<CR>", { desc = "Next reference" })
-    vim.keymap.set("n", "[[", "<cmd>lua Snacks.words.jump(-vim.v.count1)<CR>", { desc = "Next reference" })
+    -- vim.keymap.set("n", "]]", "<cmd>lua Snacks.words.jump(vim.v.count1)<CR>", { desc = "Next reference" })
+    -- vim.keymap.set("n", "[[", "<cmd>lua Snacks.words.jump(-vim.v.count1)<CR>", { desc = "Prev reference" })
 
     -- vim.cmd(
     --   [[command! -nargs=? -complete=checkhealth Checkhealth vert checkhealth <args> | setlocal bufhidden=wipe nomodifiable nobuflisted noswapfile nocursorline nocursorcolumn norelativenumber noruler nolist noshowmode noshowcmd | file <args>\ health]]
@@ -97,7 +106,6 @@ local M = {
       },
       image = { enabled = true },
       input = { enabled = true },
-      words = { enabled = true }, -- vim-illuminate alternative
       quickfile = { enabled = true },
       statuscolumn = { enabled = true },
       explorer = { enabled = true },
@@ -174,7 +182,6 @@ local M = {
               ["<c-l>"] = { "focus_input", mode = { "i", "n" } },
               ["<c-j>"] = { "focus_list", mode = { "i", "n" } },
               ["<c-k>"] = { "focus_list", mode = { "i", "n" } },
-              ["<Esc>"] = { "focus_list", mode = { "n" } },
             },
           },
           list = {

@@ -2,19 +2,18 @@ local M = {
   "kevinhwang91/nvim-bqf",
   event = "BufEnter",
   ft = "qf",
+  lazy = false,
   dependencies = {
     "junegunn/fzf",
   },
   init = function()
-    local fn = vim.fn
-
     function _G.qftf(info)
       local items
       local ret = {}
       if info.quickfix == 1 then
-        items = fn.getqflist({ id = info.id, items = 0 }).items
+        items = vim.fn.getqflist({ id = info.id, items = 0 }).items
       else
-        items = fn.getloclist(info.winid, { id = info.id, items = 0 }).items
+        items = vim.fn.getloclist(info.winid, { id = info.id, items = 0 }).items
       end
       local limit = 31
       local fnameFmt1, fnameFmt2 = "%-" .. limit .. "s", "…%." .. (limit - 1) .. "s"
@@ -25,7 +24,7 @@ local M = {
         local str
         if e.valid == 1 then
           if e.bufnr > 0 then
-            fname = fn.bufname(e.bufnr)
+            fname = vim.fn.bufname(e.bufnr)
             if fname == "" then
               fname = "[No Name]"
             else
