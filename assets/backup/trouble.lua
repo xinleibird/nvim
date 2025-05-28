@@ -11,18 +11,21 @@ local M = {
     modes = {
       -- qflist = { auto_open = true },
     },
+    keys = {
+      ["<esc>"] = "close",
+    },
   }, -- for default options, refer to the configuration section for custom setup.
   keys = {
-    -- {
-    --   "<C-q>",
-    --   "<cmd>Trouble qflist toggle focus=true<cr>",
-    --   desc = "Quickfix List (Trouble)",
-    -- },
-    -- {
-    --   "<C-Tab>",
-    --   "<cmd>Trouble loclist toggle focus=true<cr>",
-    --   desc = "Location List (Trouble)",
-    -- },
+    {
+      "<C-q>",
+      "<cmd>Trouble qflist toggle focus=true<cr>",
+      desc = "Quickfix List (Trouble)",
+    },
+    {
+      "<C-`>",
+      "<cmd>Trouble loclist toggle focus=true<cr>",
+      desc = "Location List (Trouble)",
+    },
     {
       "gr",
       "<cmd>Trouble lsp_references toggle focus=true<cr>",
@@ -49,7 +52,7 @@ local M = {
       desc = "Implementations (Trouble)",
     },
     {
-      "go",
+      "gI",
       "<cmd>Trouble lsp_incoming_calls toggle focus=true<cr>",
       desc = "Incoming calls (Trouble)",
     },

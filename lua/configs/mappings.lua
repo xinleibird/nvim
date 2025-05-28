@@ -1,6 +1,3 @@
--------------------------------------------------------------------------------
----[[general]]
-
 -- quickly motion
 vim.keymap.set({ "n", "t", "i" }, "<C-h>", "<cmd>wincmd h<CR>", { desc = "Jump left window" })
 vim.keymap.set({ "n", "t", "i" }, "<C-l>", "<cmd>wincmd l<CR>", { desc = "Jump right window" })
@@ -77,16 +74,7 @@ vim.keymap.set("n", "<C-`>", function()
   require("utils").loclist_toggle()
 end, { desc = "Toggle loclist window" })
 
--------------------------------------------------------------------------------
----[[Lsp]]
-vim.keymap.set("n", "<leader>lm", function()
-  vim.lsp.buf.format()
-end, { desc = "Format synchronous" })
-
-vim.keymap.set("n", "<leader>lM", function()
-  vim.lsp.buf.format({ async = true })
-end, { desc = "Format asynchronous" })
-
+-- lsp
 vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "References" })
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Definition" })
 vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Declaration" })
@@ -94,6 +82,16 @@ vim.keymap.set("n", "gF", vim.lsp.buf.type_definition, { desc = "Type definition
 vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Implementation" })
 vim.keymap.set("n", "gI", vim.lsp.buf.incoming_calls, { desc = "Incoming calls" }) -- who calls me
 vim.keymap.set("n", "gO", vim.lsp.buf.outgoing_calls, { desc = "Outgoing calls" }) -- me calls who
+vim.keymap.set("n", "<leader>ld", Snacks.picker.diagnostics_buffer, { desc = "Buff diagnostics" })
+vim.keymap.set("n", "<leader>lD", Snacks.picker.diagnostics, { desc = "Diagnostics" })
+
+vim.keymap.set("n", "<leader>lm", function()
+  vim.lsp.buf.format()
+end, { desc = "Format synchronous" })
+
+vim.keymap.set("n", "<leader>lM", function()
+  vim.lsp.buf.format({ async = true })
+end, { desc = "Format asynchronous" })
 
 vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, { desc = "Signature" })
 -- any config in https://github.com/MysticalDevil/inlay-hints.nvim
@@ -127,9 +125,6 @@ end, { desc = "Prev diagnostic" })
 vim.keymap.set("n", "<leader>lj", function()
   vim.diagnostic.jump({ count = 1, float = true })
 end, { desc = "Next diagnostic" })
-
-vim.keymap.set("n", "<leader>ld", Snacks.picker.diagnostics_buffer, { desc = "Buff diagnostics" })
-vim.keymap.set("n", "<leader>lD", Snacks.picker.diagnostics, { desc = "Diagnostics" })
 
 vim.keymap.set({ "i", "s" }, "<Esc>", function()
   vim.snippet.stop()
