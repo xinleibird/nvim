@@ -199,11 +199,6 @@ local M = {
         group = "Codecompanion",
       },
       {
-        "q",
-        icon = "󰗽",
-        group = "Quit all",
-      },
-      {
         "<leader>sP",
         icon = "",
       },
