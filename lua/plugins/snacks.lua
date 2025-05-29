@@ -182,6 +182,7 @@ local M = {
               ["<c-l>"] = { "focus_input", mode = { "i", "n" } },
               ["<c-j>"] = { "focus_list", mode = { "i", "n" } },
               ["<c-k>"] = { "focus_list", mode = { "i", "n" } },
+              ["<c-u>"] = "",
             },
           },
           list = {
