@@ -244,9 +244,53 @@ local M = {
               picker.preview.win:close()
             end,
             actions = {
-              -- `<A-p>`
-              toggle_preview = function(picker) --[[Override]]
+              toggle_preview = function(picker) --[[Overrides]]
                 picker.preview.win:toggle()
+              end,
+              explorer_del = function(picker) --[[Override]]
+                local actions = require("snacks.explorer.actions")
+                local Tree = require("snacks.explorer.tree")
+                local paths = vim.tbl_map(Snacks.picker.util.path, picker:selected({ fallback = true }))
+                if #paths == 0 then
+                  return
+                end
+                local what = #paths == 1 and vim.fn.fnamemodify(paths[1], ":p:~:.") or #paths .. " files"
+                actions.confirm("Put to the trash " .. what .. "?", function()
+                  local jobs = #paths
+                  local after_job = function()
+                    jobs = jobs - 1
+                    if jobs == 0 then
+                      picker.list:set_selected()
+                      actions.update(picker)
+                    end
+                  end
+                  for _, path in ipairs(paths) do
+                    local err_data = {}
+                    local cmd = "trash " .. path --[[Actual command to run]]
+                    local job_id = vim.fn.jobstart(cmd, {
+                      detach = true,
+                      on_stderr = function(_, data)
+                        err_data[#err_data + 1] = table.concat(data, "\n")
+                      end,
+                      on_exit = function(_, code)
+                        pcall(function()
+                          if code == 0 then
+                            Snacks.bufdelete({ file = path, force = true })
+                          else
+                            local err_msg = vim.trim(table.concat(err_data, ""))
+                            Snacks.notify.error("Failed to delete `" .. path .. "`:\n- " .. err_msg)
+                          end
+                          Tree:refresh(vim.fs.dirname(path))
+                        end)
+                        after_job()
+                      end,
+                    })
+                    if job_id == 0 then
+                      after_job()
+                      Snacks.notify.error("Failed to start the job for: " .. path)
+                    end
+                  end
+                end)
               end,
             },
           },
