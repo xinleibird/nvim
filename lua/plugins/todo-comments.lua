@@ -3,7 +3,6 @@ local M = {
   event = "BufReadPre",
   dependencies = {
     "nvim-lua/plenary.nvim",
-    "ibhagwan/fzf-lua",
   },
   init = function()
     vim.keymap.set("n", "]t", function()
@@ -18,6 +17,11 @@ local M = {
       ---@diagnostic disable-next-line: undefined-field
       Snacks.picker.todo_comments()
     end, { desc = "Todo" })
+
+    vim.api.nvim_create_user_command("TodoSnacksPicker", function()
+      ---@diagnostic disable-next-line: undefined-field
+      Snacks.picker.todo_comments()
+    end, {})
   end,
   opts = {
     signs = true, -- show icons in the signs column
@@ -78,6 +82,12 @@ local M = {
       -- pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
     },
   },
+  config = function(_, opts)
+    require("todo-comments").setup(opts)
+    vim.api.nvim_del_user_command("TodoFzfLua")
+    vim.api.nvim_del_user_command("TodoTelescope")
+    vim.api.nvim_del_user_command("TodoTrouble")
+  end,
 }
 
 return M

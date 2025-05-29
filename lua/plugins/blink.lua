@@ -24,6 +24,18 @@ local M = {
         require("nvim-highlight-colors").setup({})
       end,
     },
+    {
+      "L3MON4D3/LuaSnip",
+      version = "v2.*",
+      build = "make install_jsregexp", -- if you're on windows remove this line
+      dependencies = {
+        "rafamadriz/friendly-snippets",
+        config = function()
+          require("luasnip.loaders.from_vscode").lazy_load()
+          require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "/snippets" } })
+        end,
+      },
+    },
   },
   init = function()
     if vim.fn.has("nvim-0.11") == 1 and vim.lsp.config then
@@ -70,6 +82,7 @@ local M = {
       use_nvim_cmp_as_default = false,
       nerd_font_variant = "mono",
     },
+    snippets = { preset = "luasnip" },
     sources = {
       -- default = { "lsp", "path", "snippets", "buffer" },
       default = function()
