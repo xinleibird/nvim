@@ -4,7 +4,7 @@ local M = {
   init = function()
     vim.keymap.set("n", "]]", require("illuminate").goto_next_reference, { desc = "Next reference" })
     vim.keymap.set("n", "[[", require("illuminate").goto_prev_reference, { desc = "Prev reference" })
-    vim.keymap.set("n", "gt", require("illuminate").textobj_select, { desc = "Prev reference" })
+    vim.keymap.set("n", "gt", require("illuminate").textobj_select, { desc = "Select textobj" })
   end,
   config = function()
     require("illuminate").configure({

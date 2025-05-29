@@ -110,11 +110,6 @@ local M = {
           ActionHintsDefinition = { fg = C.yellow },
           ActionHintsReferences = { fg = C.blue },
 
-          -- Illuminated
-          -- IlluminatedWordText = { underdashed = true },
-          -- IlluminatedWordRead = { underdashed = true },
-          -- IlluminatedWordWrite = { underdashed = true },
-
           -- All separator
           WinSeparator = { fg = C.mauve },
 
@@ -183,10 +178,6 @@ local M = {
         fidget = true,
         flash = true,
         fzf = true,
-        illuminate = {
-          enabled = true,
-          lsp = true,
-        },
         markdown = true,
         mason = true,
         mini = {

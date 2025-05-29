@@ -41,16 +41,11 @@ local M = {
     vim.keymap.set("n", "<leader>sr", "<cmd>lua Snacks.picker.pick('oldfiles')<CR>", { desc = "Recent files" })
     vim.keymap.set("n", "<leader>sb", "<cmd>lua Snacks.picker.lines()<CR>", { desc = "Buffer lines" })
     vim.keymap.set("n", "<leader>sB", "<cmd>lua Snacks.picker.grep_buffers()<CR>", { desc = "Open buffers" })
-    vim.keymap.set(
-      "n",
-      "<leader>sn",
-      function()
-        local friendly_snippets_dir = vim.fn.stdpath("data") .. "/lazy/friendly-snippets/snippets"
-        Snacks.picker.grep({ dirs = { friendly_snippets_dir } })
-      end,
-      -- "<cmd>lua Snacks.picker.grep({dirs = {'/Users/xinlei/.config/nvim/assets'}})<CR>",
-      { desc = "Snippets" }
-    )
+
+    vim.keymap.set("n", "<leader>sn", function()
+      local friendly_snippets_dir = vim.fn.stdpath("data") .. "/lazy/friendly-snippets/snippets"
+      Snacks.picker.grep({ dirs = { friendly_snippets_dir } })
+    end, { desc = "Snippets" })
 
     vim.keymap.set("n", "<leader>gg", function()
       local root = Snacks.git.get_root()
@@ -65,12 +60,8 @@ local M = {
 
     vim.keymap.set("n", "<leader>e", "<cmd>lua Snacks.picker.explorer()<CR>", { desc = "Explorer" })
 
-    -- vim.keymap.set("n", "]]", "<cmd>lua Snacks.words.jump(vim.v.count1)<CR>", { desc = "Next reference" })
-    -- vim.keymap.set("n", "[[", "<cmd>lua Snacks.words.jump(-vim.v.count1)<CR>", { desc = "Prev reference" })
-
-    -- vim.cmd(
-    --   [[command! -nargs=? -complete=checkhealth Checkhealth vert checkhealth <args> | setlocal bufhidden=wipe nomodifiable nobuflisted noswapfile nocursorline nocursorcolumn norelativenumber noruler nolist noshowmode noshowcmd | file <args>\ health]]
-    -- )
+    vim.keymap.set("n", "]]", "<cmd>lua Snacks.words.jump(vim.v.count1)<CR>", { desc = "Next reference" })
+    vim.keymap.set("n", "[[", "<cmd>lua Snacks.words.jump(-vim.v.count1)<CR>", { desc = "Prev reference" })
 
     vim.cmd([[command! Notifications lua Snacks.notifier.show_history()]])
     vim.cmd([[command! Pickers lua Snacks.picker()]])
@@ -104,12 +95,13 @@ local M = {
           },
         },
       },
+      explorer = { enabled = true },
       image = { enabled = true },
       input = { enabled = true },
       quickfile = { enabled = true },
       statuscolumn = { enabled = true },
-      explorer = { enabled = true },
       terminal = { enabled = true },
+      words = { enabled = true },
       bigfile = {
         size = 1.0 * 1024 * 1024, -- 1.0MB
         setup = function(ctx)
@@ -431,13 +423,16 @@ local M = {
           enabled = true,
           priority = 200,
           char = "▏",
-          underline = true, -- https://github.com/folke/snacks.nvim/pull/1635
+          underline = false, -- https://github.com/folke/snacks.nvim/pull/1635
           only_current = false,
           hl = "SnacksIndentScope",
         },
       },
-      scope = { -- indent scope and any scope jump
-        enabled = true,
+      scope = {
+        treesitter = {
+          enabled = false,
+          injections = true, -- include language injections when detecting scope (useful for languages like `vue`)
+        },
       },
       dashboard = {
         preset = {
