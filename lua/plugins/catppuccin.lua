@@ -99,10 +99,6 @@ local M = {
       custom_highlights = function(C)
         local colors = require("catppuccin.utils.colors")
         return {
-          -- Visual
-          -- Visual = { bg = C.overlay0, style = { "bold" } }, -- Visual mode selection
-          -- VisualNOS = { bg = C.overlay0, style = { "bold" } },
-
           -- Comment
           Comment = { fg = C.overlay0 },
 
@@ -137,12 +133,7 @@ local M = {
           -- Snacks
           SnacksPickerBoxTitle = { bg = C.blue, fg = C.base, bold = true },
           SnacksPickerInput = { bg = C.mantle, fg = C.text },
-          SnacksPickerInputBorder = {
-            bg = colors.vary_color(
-              { latte = colors.lighten(C.overlay0, 0.6, C.base) },
-              colors.darken(C.text, 0.4, C.base)
-            ),
-          },
+          SnacksPickerInputBorder = { fg = C.yellow },
           SnacksPickerInputTitle = { bg = C.blue, fg = C.base, bold = true },
           SnacksPickerList = { bg = C.crust },
           SnacksPickerListBorder = { bg = C.crust, fg = C.crust },
