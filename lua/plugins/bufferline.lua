@@ -2,6 +2,7 @@ local M = {
   "akinsho/bufferline.nvim",
   event = { "BufRead", "User SnacksDashboardClosed" },
   dependencies = {
+    "nvim-tree/nvim-web-devicons",
     {
       "tiagovla/scope.nvim",
       config = function()

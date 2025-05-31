@@ -150,14 +150,14 @@ local M = {
           end,
         },
         snippets = {
-          ---@param ctx blink.cmp.Context
+          --- @param ctx blink.cmp.Context
           should_show_items = function(ctx)
             local keyword = ctx.get_keyword()
             -- hide snippets after trigger character
             return ctx.trigger.initial_kind ~= "trigger_character" and keyword ~= ""
           end,
           opts = {
-            friendly_snippets = true,
+            friendly_snippets = false,
             search_paths = { vim.fn.stdpath("config") .. "/snippets" },
             global_snippets = {},
           },

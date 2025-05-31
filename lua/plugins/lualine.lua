@@ -1,7 +1,10 @@
 local M = {
   "nvim-lualine/lualine.nvim",
   event = { "BufRead", "User SnacksDashboardClosed" },
-  dependencies = "echasnovski/mini.diff",
+  dependencies = {
+    "nvim-tree/nvim-web-devicons",
+    "echasnovski/mini.diff",
+  },
   opts = function()
     local function get_statusline_bufnr()
       return vim.api.nvim_win_get_buf(vim.g.statusline_winid or 0)

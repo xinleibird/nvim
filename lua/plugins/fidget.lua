@@ -2,6 +2,11 @@ local M = {
   "j-hui/fidget.nvim",
   event = "LspAttach",
   opts = {
+    notification = {
+      window = {
+        winblend = 0,
+      },
+    },
     progress = {
       display = {
         render_limit = 16, -- How many LSP messages to show at once

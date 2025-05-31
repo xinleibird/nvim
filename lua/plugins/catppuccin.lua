@@ -163,7 +163,6 @@ local M = {
           alt_background = false,
         },
         blink_cmp = true,
-        cmp = true,
         dap = true,
         dap_ui = true,
         fidget = true,

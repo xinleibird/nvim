@@ -1,6 +1,7 @@
 local M = {
   "folke/which-key.nvim",
   event = "ColorScheme",
+  dependencies = "nvim-tree/nvim-web-devicons",
   keys = { "<leader>", "<c-r>", '"', "'", "g" },
   cmd = "WhichKey",
   config = function()
