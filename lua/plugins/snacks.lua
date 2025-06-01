@@ -66,6 +66,7 @@ local M = {
     vim.cmd([[command! Notifications lua Snacks.notifier.show_history()]])
     vim.cmd([[command! Pickers lua Snacks.picker()]])
   end,
+
   ---@return snacks.Config
   opts = function()
     local home_dir = vim.fn.expand("$HOME")

@@ -74,7 +74,7 @@ local M = {
       },
       kinds = require("configs.icons").lspkind,
 
-      exclude_filetypes = { "netrw", "FTerm", "snacks_layout_box" },
+      exclude_filetypes = { "netrw", "FTerm", "snacks_layout_box", "nvim-dap-view" },
     })
   end,
 }

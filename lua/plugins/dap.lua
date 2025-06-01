@@ -1,37 +1,37 @@
 local M = {
-  "rcarriga/nvim-dap-ui",
+  "mfussenegger/nvim-dap",
   dependencies = {
     "nvim-neotest/nvim-nio",
-    "ofirgall/goto-breakpoints.nvim",
     {
-      "mfussenegger/nvim-dap",
-      cmd = { "DapContinue", "DapStepOver", "DapStepInto", "DapStepOut", "DapToggleBreakpoint" },
+      "rcarriga/nvim-dap-ui",
+      init = function()
+        local dap = require("dap")
+        local dapui = require("dapui")
+
+        dap.listeners.before.attach.dapui_config = function()
+          dapui.open()
+        end
+        dap.listeners.before.launch.dapui_config = function()
+          dapui.open()
+        end
+        dap.listeners.before.event_terminated.dapui_config = function()
+          dapui.close()
+        end
+        dap.listeners.before.event_exited.dapui_config = function()
+          dapui.close()
+        end
+
+        vim.keymap.set("n", "<leader>dU", function()
+          dapui.toggle({ reset = true })
+        end, { desc = "Toggle UI" })
+
+        vim.cmd([[command! DapUIClose lua require("dapui").close()]])
+      end,
     },
   },
   event = "LspAttach",
   init = function()
     local dap = require("dap")
-    local dapui = require("dapui")
-    dap.listeners.after.attach.dapui_config = function()
-      dapui.open()
-    end
-    dap.listeners.after.launch.dapui_config = function()
-      dapui.open()
-    end
-    dap.listeners.after.event_initialized.dapui_config = function()
-      dapui.open()
-    end
-
-    dap.listeners.before.disconnect.dapui_config = function()
-      -- dap.repl.clear()
-    end
-    dap.listeners.before.event_terminated.dapui_config = function()
-      -- dap.repl.clear()
-    end
-    dap.listeners.before.event_exited.dapui_config = function()
-      -- dap.repl.clear()
-    end
-
     vim.keymap.set("n", "<leader>dt", function()
       dap.toggle_breakpoint()
     end, { desc = "Toggle breakpoints" })
@@ -42,7 +42,8 @@ local M = {
       dap.continue()
     end, { desc = "Continue" })
     vim.keymap.set("n", "<leader>ds", function()
-      dap.continue()
+      vim.cmd([[tabnew %]])
+      vim.cmd([[DapNew]])
     end, { desc = "Start" })
     vim.keymap.set("n", "<leader>dC", function()
       dap.run_to_cursor()
@@ -50,9 +51,6 @@ local M = {
     vim.keymap.set("n", "<leader>dd", function()
       dap.disconnect()
     end, { desc = "Disconnect" })
-    vim.keymap.set("n", "<leader>dg", function()
-      dap.session()
-    end, { desc = "Get session" })
     vim.keymap.set("n", "<leader>di", function()
       dap.step_into()
     end, { desc = "Step into" })
@@ -66,14 +64,8 @@ local M = {
       dap.pause()
     end, { desc = "Step pause" })
     vim.keymap.set("n", "<leader>dr", function()
-      dap.repl.toggle({ height = 7 }, "lefta split")
-    end, { desc = "Step repl toggle" })
-    vim.keymap.set("n", "<leader>dq", function()
-      dap.close()
-    end, { desc = "Quit" })
-    vim.keymap.set("n", "<leader>dU", function()
-      require("dapui").toggle({ reset = true })
-    end, { desc = "Toggle UI" })
+      dap.restart()
+    end, { desc = "Restart" })
 
     local icons = require("configs.icons")
     vim.fn.sign_define("DapBreakpoint", { text = icons.ui.Point, numhl = "DapBreakpoint", texthl = "DapBreakpoint" })
@@ -87,8 +79,6 @@ local M = {
       "DapBreakpointRejected",
       { text = icons.ui.Rejected, numhl = "DapBreakpointRejected", texthl = "DapBreakpointRejected" }
     )
-
-    vim.cmd([[command! DapUIClose lua require("dapui").close()]])
   end,
 
   opts = function()
@@ -200,7 +190,7 @@ local M = {
           webRoot = "${workspaceFolder}",
         },
         {
-          firefoxExecutable = "/opt/homebrew/bin/firefox",
+          firefoxExecutable = vim.fn.exepath("firefox"),
           name = "Lanuch Firefox",
           reAttach = true,
           request = "launch",
