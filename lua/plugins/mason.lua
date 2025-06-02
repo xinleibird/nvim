@@ -22,6 +22,7 @@ local M = {
       -- browser debug
       "firefox-debug-adapter",
       "js-debug-adapter",
+      "chrome-debug-adapter",
 
       -- shell stuff
       "bash-language-server",

@@ -97,7 +97,7 @@ local M = {
         },
         notification = {
           wo = {
-            winblend = 100,
+            winblend = 0,
           },
         },
       },
