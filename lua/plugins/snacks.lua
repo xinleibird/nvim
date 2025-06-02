@@ -95,6 +95,11 @@ local M = {
             fillchars = "eob: ,lastline:…,horiz:⠂,horizdown:⠂,horizup:⠂,vert: ,verthoriz:⠂,vertleft:⠅,vertright:⠅",
           },
         },
+        notification = {
+          wo = {
+            winblend = 100,
+          },
+        },
       },
       explorer = { enabled = true },
       image = { enabled = true },

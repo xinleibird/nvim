@@ -58,8 +58,8 @@ local M = {
 
       local ft_set = {}
 
-      for _, lsp in ipairs(lsp_config_list) do
-        local filetypes = dofile(lsp).filetypes
+      for _, lsp_config in ipairs(lsp_config_list) do
+        local filetypes = dofile(lsp_config).filetypes
 
         for _, ft in ipairs(filetypes) do
           ft_set[ft] = true

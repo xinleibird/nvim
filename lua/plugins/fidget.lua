@@ -4,7 +4,7 @@ local M = {
   opts = {
     notification = {
       window = {
-        winblend = 0,
+        winblend = 100,
       },
     },
     progress = {
