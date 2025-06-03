@@ -27,13 +27,13 @@ vim.keymap.set("n", "<leader>q", function()
     vim.cmd("close")
   elseif
     vim.bo.ft == "dapui_scopes"
-    or vim.bo.ft == "dapui_breakpoints"
-    or vim.bo.ft == "dapui_stacks"
-    or vim.bo.ft == "dapui_watches"
-    or vim.bo.ft == "dapui_console"
     or vim.bo.ft == "dap-repl"
+    or vim.bo.ft == "dapui_console"
+    or vim.bo.ft == "dapui_watches"
+    or vim.bo.ft == "dapui_stacks"
+    or vim.bo.ft == "dapui_breakpoints"
   then
-    vim.cmd("silent! DapUIClose")
+    require("dapui").close()
   else
     vim.cmd("confirm q")
     vim.cmd("silent! DiffviewClose")

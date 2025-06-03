@@ -17,6 +17,19 @@ vim.api.nvim_create_autocmd("FileType", {
   group = hotkey_group,
   command = "nnoremap <buffer><silent> q <cmd>close!<CR>",
 })
+-- Close window with q
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = {
+    "dapui_scopes",
+    "dap-repl",
+    "dapui_console",
+    "dapui_watches",
+    "dapui_stacks",
+    "dapui_breakpoints",
+  },
+  group = hotkey_group,
+  command = "nnoremap <buffer><silent> q <cmd>lua require('dapui').close()<CR>",
+})
 -- Close checkhealth buffer with q
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "checkhealth" },

@@ -20,7 +20,6 @@ local M = {
       "vue-language-server",
 
       -- browser debug
-      "firefox-debug-adapter",
       "js-debug-adapter",
       "chrome-debug-adapter",
 

@@ -2,84 +2,81 @@ local M = {
   "mfussenegger/nvim-dap",
   lazy = false,
   dependencies = {
-    "nvim-neotest/nvim-nio",
-    {
-      "rcarriga/nvim-dap-ui",
-      init = function()
-        local dap = require("dap")
-        local dapui = require("dapui")
 
-        dap.listeners.before.attach.dapui_config = function()
-          dapui.open()
-        end
-        dap.listeners.before.launch.dapui_config = function()
-          dapui.open()
-        end
-        dap.listeners.before.event_terminated.dapui_config = function()
-          dapui.close()
-        end
-        dap.listeners.before.event_exited.dapui_config = function()
-          dapui.close()
-        end
+    "rcarriga/nvim-dap-ui",
+    dependencies = "nvim-neotest/nvim-nio",
+    init = function()
+      local dap = require("dap")
+      local dapui = require("dapui")
 
-        vim.keymap.set("n", "<leader>dU", function()
-          dapui.toggle({ reset = true })
-        end, { desc = "Toggle UI" })
+      dap.listeners.before.attach.dapui_config = function()
+        dapui.open()
+      end
+      dap.listeners.before.launch.dapui_config = function()
+        dapui.open()
+      end
+      dap.listeners.before.event_terminated.dapui_config = function()
+        dapui.close()
+      end
+      dap.listeners.before.event_exited.dapui_config = function()
+        dapui.close()
+      end
 
-        vim.cmd([[command! DapUIClose lua require("dapui").close()]])
-      end,
+      vim.keymap.set("n", "<leader>dU", function()
+        dapui.toggle({ reset = true })
+      end, { desc = "Toggle UI" })
+    end,
 
-      opts = function()
-        return {
-          icons = { expanded = "▾", collapsed = "▸" },
+    opts = function()
+      return {
+        icons = { expanded = "▾", collapsed = "▸" },
+        mappings = {
+          expand = { "<CR>", "<2-LeftMouse>" },
+          open = "o",
+          remove = "d",
+          edit = "e",
+          repl = "r",
+          toggle = "t",
+        },
+        expand_lines = false,
+        layouts = {
+          {
+            elements = {
+              { id = "scopes", size = 20 },
+              { id = "breakpoints", size = 0.25 },
+              { id = "stacks", size = 0.25 },
+              { id = "watches", size = 0.25 },
+            },
+            size = 40,
+            position = "right",
+          },
+          {
+            elements = {
+              { id = "repl", size = 0.5 },
+              { id = "console", size = 0.5 },
+            },
+            size = 11,
+            position = "bottom",
+          },
+        },
+        floating = {
+          max_height = nil,
+          max_width = nil,
+          border = "rounded", -- Border style. Can be "single", "double" or "rounded"
           mappings = {
-            expand = { "<CR>", "<2-LeftMouse>" },
-            open = "o",
-            remove = "d",
-            edit = "e",
-            repl = "r",
-            toggle = "t",
+            close = { "q", "<Esc>" },
           },
-          expand_lines = false,
-          layouts = {
-            {
-              elements = {
-                { id = "scopes", size = 0.40 },
-                { id = "breakpoints", size = 0.20 },
-                { id = "stacks", size = 0.20 },
-                { id = "watches", size = 0.20 },
-              },
-              size = 0.25,
-              position = "left",
-            },
-            {
-              elements = {
-                { id = "repl", size = 0.5 },
-                { id = "console", size = 0.5 },
-              },
-              size = 0.25,
-              position = "bottom",
-            },
-          },
-          floating = {
-            max_height = nil,
-            max_width = nil,
-            border = "rounded", -- Border style. Can be "single", "double" or "rounded"
-            mappings = {
-              close = { "q", "<Esc>" },
-            },
-          },
-          windows = { indent = 1 },
-          render = {
-            max_type_length = nil,
-          },
-        }
-      end,
+        },
+        windows = { indent = 1 },
+        render = {
+          max_type_length = nil,
+        },
+      }
+    end,
 
-      config = function(_, opts)
-        require("dapui").setup(opts)
-      end,
-    },
+    config = function(_, opts)
+      require("dapui").setup(opts)
+    end,
   },
   event = "LspAttach",
   init = function()
@@ -90,6 +87,9 @@ local M = {
     vim.keymap.set("n", "<leader>db", function()
       dap.step_back()
     end, { desc = "Step back" })
+    vim.keymap.set("n", "<F5>", function()
+      dap.continue()
+    end, { desc = "Continue" })
     vim.keymap.set("n", "<leader>ds", function()
       dap.continue()
     end, { desc = "Continue" })

@@ -1,37 +1,22 @@
 local dap = require("dap")
 
-for _, adapter in ipairs({
-  "pwa-extensionHost",
-  "node-terminal",
-  "pwa-node",
-  "pwa-chrome",
-  "pwa-msedge",
-}) do
-  dap.adapters[adapter] = {
-    executable = {
-      command = "js-debug-adapter",
-      args = { "${port}" },
-    },
-    host = "localhost",
-    port = "${port}",
-    type = "server",
-  }
-end
+dap.adapters["pwa-node"] = {
+  type = "server",
+  host = "localhost",
+  port = "${port}",
+  executable = {
+    command = "node",
+    -- 💀 Make sure to update this path to point to your installation
+    args = { vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js", "${port}" },
+  },
+}
 
--- for _, lang in ipairs({
---   "typescript",
---   "javascript",
---   "typescriptreact",
---   "javascriptreact",
--- }) do
---   dap.configurations[lang] = {
---     {
---       name = "Launch Chrome",
---       reAttach = true,
---       request = "launch",
---       type = "pwa-chrome",
---       url = "http://localhost:8080",
---       webRoot = "${workspaceFolder}",
---     },
---   }
--- end
+require("dap").configurations.javascript = {
+  {
+    type = "pwa-node",
+    request = "launch",
+    name = "Launch with [pwa-node]",
+    program = "${file}",
+    cwd = "${workspaceFolder}",
+  },
+}

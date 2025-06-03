@@ -42,11 +42,6 @@ local M = {
     vim.keymap.set("n", "<leader>sb", "<cmd>lua Snacks.picker.lines()<CR>", { desc = "Buffer lines" })
     vim.keymap.set("n", "<leader>sB", "<cmd>lua Snacks.picker.grep_buffers()<CR>", { desc = "Open buffers" })
 
-    vim.keymap.set("n", "<leader>sn", function()
-      local friendly_snippets_dir = vim.fn.stdpath("data") .. "/lazy/friendly-snippets/snippets"
-      Snacks.picker.grep({ dirs = { friendly_snippets_dir } })
-    end, { desc = "Snippets" })
-
     vim.keymap.set("n", "<leader>gg", function()
       local root = Snacks.git.get_root()
       if root ~= nil then
