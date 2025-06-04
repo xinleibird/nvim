@@ -152,6 +152,9 @@ local M = {
           SnacksDashboardHeaderReflection = {
             fg = colors.vary_color({ latte = colors.lighten(C.text, 0.1, C.base) }, colors.darken(C.text, 0.1, C.base)),
           },
+
+          -- Fold
+          Folded = { bg = C.surface0, fg = C.text },
         }
       end,
       default_integrations = false,
