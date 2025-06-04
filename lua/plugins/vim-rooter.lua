@@ -3,6 +3,9 @@ local M = {
   event = "BufRead",
   init = function()
     vim.g.rooter_patterns = {
+      -- exclude
+      "!=snippets/",
+
       -- directories
       "client",
       "server",
