@@ -77,9 +77,9 @@ local M = {
         if
           success
           and node
-          and vim.tbl_contains({ "comment", "line_comment", "block_comment", "string_literal" }, node:type())
+          and vim.tbl_contains({ "comment", "line_comment", "block_comment", "string_literal", "string" }, node:type())
         then
-          return { "buffer" }
+          return { "path", "buffer" }
         elseif vim.bo.filetype == "lua" then
           return { "lazydev", "lsp", "path", "snippets", "buffer" }
         elseif vim.bo.filetype == "html" then
