@@ -172,6 +172,11 @@ local M = {
       },
     },
     completion = {
+      list = {
+        selection = {
+          auto_insert = false,
+        },
+      },
       menu = {
         -- border = "solid",
         draw = {
