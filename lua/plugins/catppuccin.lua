@@ -165,7 +165,10 @@ local M = {
           dim_context = false,
           alt_background = false,
         },
-        blink_cmp = true,
+        blink_cmp = {
+          enabled = true,
+          style = "bordered",
+        },
         dap = true,
         dap_ui = true,
         fidget = true,
