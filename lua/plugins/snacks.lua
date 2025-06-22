@@ -12,9 +12,25 @@ local M = {
       end
       return "<M-j>"
     end
+
     vim.keymap.set({ "n", "t" }, toggle_terminal_map(), function()
       Snacks.terminal.toggle()
     end)
+
+    local function open_new_terminal_map()
+      if vim.g.neovide then
+        return "<D-S-j>"
+      end
+      if vim.env.TERM and (vim.env.TERM == "xterm-kitty" or vim.env.TERM == "xterm-ghostty") then
+        return "<D-S-j>"
+      end
+      return "<M-S-j>"
+    end
+
+    vim.keymap.set("t", open_new_terminal_map(), function()
+      Snacks.terminal.open()
+    end)
+
     vim.keymap.set("t", "<C-x>", "<C-\\><C-N>", { desc = "Escape terminal mode" })
 
     local term_group = vim.api.nvim_create_augroup("user_toggle_wincmd_keymap_for_lazygit_term_buf", { clear = true })
