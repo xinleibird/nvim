@@ -1,0 +1,25 @@
+{
+  "name": "personal-snippets",
+  "engines": {
+    "vscode": "^1.11.0"
+  },
+  "contributes": {
+    "snippets": [
+      {
+        "language": "javascriptreact",
+        "path": "./sections/javascript/react.json"
+      },
+      {
+        "language": [
+          "javascript",
+          "typescript",
+          "javascriptreact",
+          "typescriptreact",
+          "vue",
+          "svelte"
+        ],
+        "path": "./sections/javascript/javascript.json"
+      }
+    ]
+  }
+}
