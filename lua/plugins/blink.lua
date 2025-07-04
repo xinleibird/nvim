@@ -82,8 +82,6 @@ local M = {
           return { "path", "buffer" }
         elseif vim.bo.filetype == "lua" then
           return { "lazydev", "lsp", "path", "snippets", "buffer" }
-        elseif vim.bo.filetype == "html" then
-          return { "lsp", "path", "buffer" }
         elseif vim.bo.filetype == "dap-repl" then
           return { "lsp" }
         else
@@ -95,15 +93,6 @@ local M = {
       end,
       providers = {
         lsp = {
-          transform_items = function(_, items)
-            return vim.tbl_filter(function(item)
-              if item.client_name == "html" then
-                -- disable emmet_language_server tag's auto close "</div> etc."
-                return item.textEdit.newText:find("^%$%d+</%w+>$") == nil
-              end
-              return true
-            end, items)
-          end,
           override = {
             -- trigger character add {} [] ()
             get_trigger_characters = function(self)
@@ -237,13 +226,7 @@ local M = {
       -- prebuilt_binaries = { force_version = "v1.0.0" },
       sorts = {
         -- (optionally) always prioritize exact matches
-        -- "exact",
-        function(a, b)
-          if (a.client_name == nil or b.client_name == nil) or (a.client_name == b.client_name) then
-            return
-          end
-          return b.client_name == "emmet_language_server"
-        end,
+        "exact",
         -- default sorts
         "score",
         "sort_text",

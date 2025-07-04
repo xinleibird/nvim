@@ -10,7 +10,6 @@ local M = {
       -- web dev stuff
       "css-lsp",
       "eslint-lsp",
-      "emmet-language-server",
       "html-lsp",
       "htmlhint",
       "prettier",

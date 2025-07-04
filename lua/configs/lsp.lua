@@ -49,7 +49,6 @@ vim.lsp.config("*", {
 vim.lsp.enable({
   "bashls",
   "cssls",
-  "emmet_language_server",
   "eslint",
   "html",
   "jsonls",

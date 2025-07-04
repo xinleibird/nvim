@@ -1,19 +1,6 @@
 local M = {
   "windwp/nvim-autopairs",
   event = "BufRead",
-  dependencies = {
-    "windwp/nvim-ts-autotag",
-    config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require("nvim-ts-autotag").setup({
-        opts = {
-          enable_close = false, -- Auto close tags
-          enable_rename = false, -- Auto rename pairs of tags
-          enable_close_on_slash = true, -- Auto close on trailing </
-        },
-      })
-    end,
-  },
   config = function()
     local autopairs = require("nvim-autopairs")
     local cond = require("nvim-autopairs.conds")
