@@ -1,9 +1,9 @@
 local M = {
   "saghen/blink.cmp",
   -- use a release tag to download pre-built binaries
-  version = "*",
+  version = "1.3.1", -- fallback 1.3.1 to fix markdown lost buffer provier --- https://github.com/Saghen/blink.cmp/issues/1943
   -- or build it yourself
-  build = "cargo build --release",
+  -- build = "cargo build --release",
   dependencies = {
     "olimorris/codecompanion.nvim",
     {
@@ -153,7 +153,8 @@ local M = {
             -- filter to only "normal" buffers
             get_bufnrs = function()
               return vim.tbl_filter(function(bufnr)
-                return vim.bo[bufnr].buftype == ""
+                local ft = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
+                return vim.bo[bufnr].buftype == "" or ft == "codecompanion"
               end, vim.api.nvim_list_bufs())
             end,
           },
