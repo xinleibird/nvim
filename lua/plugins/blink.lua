@@ -88,9 +88,10 @@ local M = {
           return { "lsp", "path", "snippets", "buffer" }
         end
       end,
-      min_keyword_length = function()
-        return vim.bo.filetype == "markdown" and 2 or 0
-      end,
+      -- min_keyword_length = function()
+      --   return vim.bo.filetype == "markdown" and 2 or 0
+      -- end,
+      min_keyword_length = 0,
       providers = {
         lsp = {
           override = {
