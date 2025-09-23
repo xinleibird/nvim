@@ -8,11 +8,7 @@ local M = {
     })
     vim.keymap.set("n", "<leader>ta", require("treesj").toggle, { desc = "TreeSitter toggle" })
     vim.keymap.set("n", "<leader>tM", function()
-      require("treesj").join({
-        split = {
-          recursive = true,
-        },
-      })
+      require("treesj").join({ split = { recursive = true } })
     end, { desc = "TreeSitter split recursive" })
     vim.keymap.set("n", "<leader>tR", function()
       require("treesj").split({ split = { recursive = true } })

@@ -1,6 +1,6 @@
 local M = {
   "kylechui/nvim-surround",
-  event = "BufRead",
+  event = "VeryLazy",
   config = function()
     require("nvim-surround").setup()
   end,

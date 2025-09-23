@@ -16,7 +16,6 @@ local M = {
       "latex",
       "lua",
       "markdown",
-      "query",
       "regex",
       "rust",
       "scss",
@@ -26,12 +25,11 @@ local M = {
       "typescript",
       "typst",
       "vim",
-      "vimdoc",
       "vue",
       "yaml",
     }
     vim.api.nvim_create_user_command("TSInstallEnsured", function()
-      require("nvim-treesitter").install(ensure_list)
+      require("nvim-treesitter").install(ensure_list):wait(600000)
     end, {})
 
     local function get_files_in_directory(directory)

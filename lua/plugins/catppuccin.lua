@@ -4,6 +4,7 @@ local M = {
   name = "catppuccin",
   priority = 1000,
   config = function()
+    ---@diagnostic disable-next-line: missing-fields
     require("catppuccin").setup({
       flavour = "auto", -- latte, frappe, macchiato, mocha, auto
       background = {

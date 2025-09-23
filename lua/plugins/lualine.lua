@@ -200,7 +200,7 @@ local M = {
               .. "󱃨"
           end
 
-          return "󰼂%5l:%-4c󰼁"
+          return "󰼂%5l:%-3c󰼁 "
         end,
         -- selectionCount,
         separator = { left = "", right = "" },
