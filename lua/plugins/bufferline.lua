@@ -93,7 +93,7 @@ local M = {
     end
 
     return {
-      highlights = require("catppuccin.groups.integrations.bufferline").get_theme(),
+      highlights = require("catppuccin.special.bufferline").get_theme(),
       options = {
         mode = "buffers", -- set to "tabs" to only show tabpages instead
         numbers = "none", -- can be "none" | "ordinal" | "buffer_id" | "both" | function

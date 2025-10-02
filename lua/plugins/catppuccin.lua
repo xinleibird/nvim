@@ -181,21 +181,20 @@ local M = {
           enabled = true,
           indentscope_color = "surface1", -- catppuccin color (eg. `lavender`) Default: text
         },
-        native_lsp = {
-          enabled = true,
+        lsp_styles = { -- Handles the style of specific lsp hl groups (see `:h lsp-highlight`).
           virtual_text = {
             errors = { "italic" },
+            hints = { "italic" },
             warnings = { "italic" },
             information = { "italic" },
-            hints = { "italic" },
             ok = { "italic" },
           },
           underlines = {
-            errors = { "undercurl" },
-            warnings = { "undercurl" },
-            information = { "undercurl" },
-            hints = { "undercurl" },
-            ok = { "undercurl" },
+            errors = { "underline" },
+            hints = { "underline" },
+            warnings = { "underline" },
+            information = { "underline" },
+            ok = { "underline" },
           },
           inlay_hints = {
             background = true,
