@@ -38,6 +38,7 @@ local M = {
   end,
   config = function()
     require("codecompanion").setup({
+      ignore_warnings = true,
       opts = {
         -- show_defaults = false,
         log_level = "ERROR", -- TRACE|DEBUG|ERROR|INFO
