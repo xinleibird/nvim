@@ -44,7 +44,6 @@ local M = {
         less = { "prettier" },
 
         markdown = { "prettier" },
-        ["markdown.mdx"] = { "prettier" },
 
         json = { "prettier" },
         jsonc = { "prettier" },
