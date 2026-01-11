@@ -1,7 +1,9 @@
 local M = {
   "saghen/blink.cmp",
   -- use a release tag to download pre-built binaries
-  version = "1.3.1", -- fallback 1.3.1 to fix markdown lost buffer provier --- https://github.com/Saghen/blink.cmp/issues/1943
+  -- version = "1.3.1", -- fallback 1.3.1 to fix markdown lost buffer provier --- https://github.com/Saghen/blink.cmp/issues/1943
+  -- use a release tag to download pre-built binaries
+  version = "1.*",
   -- or build it yourself
   -- build = "cargo build --release",
   dependencies = {
@@ -94,6 +96,15 @@ local M = {
       min_keyword_length = 0,
       providers = {
         lsp = {
+          transform_items = function(_, items)
+            return vim.tbl_filter(function(item)
+              if item.client_name == "html" then
+                -- disable emmet_language_server tag's auto close "</div> etc."
+                return item.textEdit.newText:find("^%$%d+</%w+>$") == nil
+              end
+              return true
+            end, items)
+          end,
           override = {
             -- trigger character add {} [] ()
             get_trigger_characters = function(self)

@@ -14,9 +14,11 @@ local M = {
       "htmlhint",
       "prettier",
       "svelte-language-server",
+      "tailwindcss-language-server",
       "typescript-language-server",
       "vtsls",
       "vue-language-server",
+      "emmet-language-server",
 
       -- browser debug
       "js-debug-adapter",

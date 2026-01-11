@@ -12,7 +12,6 @@ local M = {
       "html",
       "javascript",
       "json",
-      "jsonc",
       "latex",
       "lua",
       "markdown",
