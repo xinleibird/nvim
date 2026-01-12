@@ -61,6 +61,6 @@ vim.lsp.enable({
   -- "ts_ls",
   "vimls",
   "vtsls",
-  "volar",
+  "vue_language_server",
   "yamlls",
 })

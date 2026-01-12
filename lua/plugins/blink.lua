@@ -21,6 +21,10 @@ local M = {
       },
     },
     {
+      "neovim/nvim-lspconfig",
+      lazy = false,
+    },
+    {
       "brenoprata10/nvim-highlight-colors",
       config = function()
         require("nvim-highlight-colors").setup({})
