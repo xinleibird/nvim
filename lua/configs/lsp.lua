@@ -43,7 +43,6 @@ vim.lsp.config("*", {
       },
     },
   },
-  root_markers = { ".git" },
 })
 
 vim.lsp.enable({
@@ -61,6 +60,6 @@ vim.lsp.enable({
   -- "ts_ls",
   "vimls",
   "vtsls",
-  "vue_language_server",
+  "vue_ls",
   "yamlls",
 })
