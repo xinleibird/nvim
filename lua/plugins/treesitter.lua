@@ -31,10 +31,20 @@ local M = {
       require("nvim-treesitter").install(ensure_list):wait(600000)
     end, {})
 
-    vim.api.nvim_create_autocmd("BufReadPost", {
+    vim.api.nvim_create_autocmd("FileType", {
       pattern = "*",
-      callback = function()
+      callback = function(ev)
+        local ft = ev.match
+        local ignore_prefixes = { "snacks_", "dap-", "dapui_", "fidget", "Outline" }
+
+        for _, prefix in ipairs(ignore_prefixes) do
+          if ft:find(prefix, 1, true) then
+            return
+          end
+        end
+
         vim.treesitter.start()
+        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
         vim.wo[0][0].foldmethod = "expr"
       end,
