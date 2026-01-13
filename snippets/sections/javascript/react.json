@@ -6,7 +6,7 @@
   },
   "reactFunctionComponentWithEmotion": {
     "prefix": "rfce",
-    "body": "import { css } from '@emotion/react'\n\nexport const ${TM_FILENAME_BASE} = () => {\n\treturn (\n\t\t<div css={css``}>\n\t\t\t$0\n\t\t</div>\n\t)\n}",
+    "body": "import { css } from \"@emotion/react\"\n\nexport const ${TM_FILENAME_BASE} = () => {\n\treturn (\n\t\t<div css={css``}>\n\t\t\t$0\n\t\t</div>\n\t)\n}",
     "description": "Creates a React functional component with emotion"
   }
 }
