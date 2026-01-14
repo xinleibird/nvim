@@ -587,7 +587,7 @@ local M = {
 
         vim.keymap.set("n", "<leader>ss", "<cmd>SessionPicker<CR>", { desc = "Recent sessions" })
         vim.keymap.set("n", "<leader>sS", function()
-          vim.cmd("SessionSave")
+          vim.cmd("Persisted save")
         end, { desc = "Save session" })
       end,
 
@@ -647,7 +647,7 @@ local M = {
             confirm = function(picker, item)
               picker:close()
               vim.cmd(("WorkspacesOpen %s"):format(item.name))
-              vim.cmd("SessionLoad")
+              vim.cmd("Persisted load")
             end,
           })
         end, {
