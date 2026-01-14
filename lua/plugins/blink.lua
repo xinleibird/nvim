@@ -25,6 +25,9 @@ local M = {
       lazy = false,
     },
     {
+      "kola-web/blink-alias-path",
+    },
+    {
       "brenoprata10/nvim-highlight-colors",
       config = function()
         require("nvim-highlight-colors").setup({})
@@ -85,13 +88,13 @@ local M = {
           and node
           and vim.tbl_contains({ "comment", "line_comment", "block_comment", "string_literal", "string" }, node:type())
         then
-          return { "path", "buffer" }
+          return { "lsp", "alias_path", "buffer" }
         elseif vim.bo.filetype == "lua" then
-          return { "lazydev", "lsp", "path", "snippets", "buffer" }
+          return { "lazydev", "lsp", "alias_path", "snippets", "buffer" }
         elseif vim.bo.filetype == "dap-repl" then
           return { "lsp" }
         else
-          return { "lsp", "path", "snippets", "buffer" }
+          return { "lsp", "alias_path", "snippets", "buffer" }
         end
       end,
       -- min_keyword_length = function()
@@ -99,6 +102,16 @@ local M = {
       -- end,
       min_keyword_length = 0,
       providers = {
+        alias_path = {
+          name = "aliasPath",
+          module = "blink-alias-path",
+          opts = {
+            ignore_root_slash = false,
+            path_mappings = {
+              ["/"] = "${folder}/public/",
+            },
+          },
+        },
         lsp = {
           transform_items = function(_, items)
             return vim.tbl_filter(function(item)
