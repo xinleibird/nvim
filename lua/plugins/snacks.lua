@@ -74,6 +74,7 @@ local M = {
         "^" .. data_dir,
         "^/opt/homebrew",
         "node_modules",
+        "^" .. home_dir .. "/.local/share/mind.nvim",
       }
       for _, pattern in ipairs(patterns) do
         if rtp:match(pattern) then
