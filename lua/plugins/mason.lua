@@ -41,6 +41,7 @@ local M = {
 
       -- markdown
       "marksman",
+      "zk",
     }
 
     -- custom cmd to install all mason binaries listed

@@ -3,8 +3,14 @@ local M = {
   lazy = false,
   config = function()
     require("zk").setup({
-      -- See Setup section below
       picker = "snacks_picker",
+      picker_options = {
+        snacks_picker = {
+          layout = {
+            preset = "default",
+          },
+        },
+      },
     })
   end,
 }
