@@ -36,7 +36,16 @@ local M = {
       end,
     })
 
-    vim.keymap.set("n", "<leader>sp", "<cmd>lua Snacks.picker.pick('files')<cr>", { desc = "Files" })
+    -- vim.keymap.set("n", "<leader>sp", "<cmd>lua Snacks.picker.pick('files')<cr>", { desc = "Files" })
+    vim.keymap.set("n", "<leader>sp", function()
+      local zk_ok = pcall(require, "zk")
+      if zk_ok and vim.fn.getcwd() == vim.env.ZK_NOTEBOOK_DIR then
+        vim.cmd("ZkNotes")
+      else
+        Snacks.picker.pick("files")
+      end
+    end, { desc = "Files" })
+
     vim.keymap.set("n", "<leader>st", "<cmd>lua Snacks.picker.pick('live_grep')<CR>", { desc = "Live grep" })
     vim.keymap.set({ "n", "x" }, "<leader>sx", "<cmd>lua Snacks.picker.grep_word()<CR>", { desc = "Word" })
     vim.keymap.set("n", "<leader>sh", "<cmd>lua Snacks.picker.help()<CR>", { desc = "Help pages" })
