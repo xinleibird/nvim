@@ -39,17 +39,38 @@ local M = {
   config = function()
     require("codecompanion").setup({
       ignore_warnings = true,
+      adapters = {
+        acp = {
+          gemini_cli = function()
+            return require("codecompanion.adapters").extend("gemini_cli", {
+              defaults = {
+                auth_method = "oauth-personal", -- "oauth-personal"|"gemini-api-key"|"vertex-ai"
+              },
+            })
+          end,
+        },
+      },
       opts = {
         -- show_defaults = false,
         log_level = "ERROR", -- TRACE|DEBUG|ERROR|INFO
         language = "Chinese",
       },
-      strategies = {
+      interactions = {
         chat = {
-          adapter = "gemini",
+          adapter = "gemini_cli",
+          model = "gemini-2.5-pro",
         },
         inline = {
-          adapter = "gemini",
+          adapter = "gemini_cli",
+          model = "gemini-2.5-pro",
+        },
+        cmd = {
+          adapter = "gemini_cli",
+          model = "gemini-2.5-pro",
+        },
+        background = {
+          adapter = "gemini_cli",
+          model = "gemini-2.5-pro",
         },
       },
       display = {
