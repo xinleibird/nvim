@@ -114,13 +114,36 @@ local M = {
         },
         lsp = {
           transform_items = function(_, items)
-            return vim.tbl_filter(function(item)
-              if item.client_name == "html" then
-                -- disable emmet_language_server tag's auto close "</div> etc."
-                return item.textEdit.newText:find("^%$%d+</%w+>$") == nil
-              end
-              return true
-            end, items)
+            if vim.bo.filetype ~= "javascriptreact" and vim.bo.filetype ~= "typescriptreact" then
+              return vim.tbl_filter(function(item)
+                if item.client_name == "html" then
+                  -- disable emmet_language_server tag's auto close "</div> etc."
+                  return item.textEdit.newText:find("^%$%d+</%w+>$") == nil
+                end
+                return true
+              end, items)
+            else
+              return vim.tbl_filter(function(item)
+                if item.client_name == "emmet_language_server" then
+                  return (function()
+                    local node = vim.treesitter.get_node()
+                    while node do
+                      local type = node:type()
+                      if type == "jsx_expression" then
+                        return false
+                      end
+                      if type == "jsx_element" or type == "jsx_self_closing_element" or type == "jsx_fragment" then
+                        return true
+                      end
+                      node = node:parent()
+                    end
+                    return false
+                  end)()
+                end
+
+                return true
+              end, items)
+            end
           end,
           override = {
             -- trigger character add {} [] ()
