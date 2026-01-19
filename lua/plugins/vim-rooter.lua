@@ -1,6 +1,7 @@
 local M = {
   "airblade/vim-rooter",
   event = "BufRead",
+  -- enabled = false,
   init = function()
     vim.g.rooter_patterns = {
       -- exclude
@@ -97,8 +98,8 @@ local M = {
     vim.g.rooter_targets = { "*" }
     vim.g.rooter_silent_chdir = 1
 
-    vim.api.nvim_create_autocmd("User", {
-      pattern = "RooterChDir",
+    vim.api.nvim_create_autocmd("DirChanged", {
+      pattern = "*",
       group = vim.api.nvim_create_augroup("user_rooter_chdir", { clear = true }),
       callback = function()
         local cwd = vim.fn.getcwd()
