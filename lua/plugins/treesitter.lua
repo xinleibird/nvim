@@ -11,6 +11,7 @@ local M = {
       "gitignore",
       "html",
       "javascript",
+      "jsdoc",
       "json",
       "latex",
       "lua",
