@@ -88,13 +88,11 @@ local M = {
           and node
           and vim.tbl_contains({ "comment", "line_comment", "block_comment", "string_literal", "string" }, node:type())
         then
-          return { "lsp", "alias_path", "buffer" }
-        elseif vim.bo.filetype == "lua" then
-          return { "lazydev", "lsp", "alias_path", "snippets", "buffer" }
+          return { "lazydev", "lsp", "alias_path", "buffer" }
         elseif vim.bo.filetype == "dap-repl" then
           return { "lsp" }
         else
-          return { "lsp", "alias_path", "snippets", "buffer" }
+          return { "lazydev", "lsp", "alias_path", "snippets", "buffer" }
         end
       end,
       -- min_keyword_length = function()
