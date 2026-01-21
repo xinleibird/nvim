@@ -32,6 +32,13 @@ local M = {
       require("nvim-treesitter").install(ensure_list):wait(600000)
     end, {})
 
+    vim.api.nvim_create_user_command("TSStart", function()
+      vim.treesitter.start(0)
+    end, {})
+    vim.api.nvim_create_user_command("TSStop", function()
+      vim.treesitter.stop(0)
+    end, {})
+
     -- vim.api.nvim_create_autocmd("FileType", {
     --   pattern = "*",
     --   callback = function(ev)
