@@ -114,6 +114,10 @@ local M = {
           transform_items = function(_, items)
             if vim.bo.filetype ~= "javascriptreact" and vim.bo.filetype ~= "typescriptreact" then
               return vim.tbl_filter(function(item)
+                if item.client_name == "emmet_language_server" then
+                  item.kind_icon = ""
+                end
+
                 if item.client_name == "html" then
                   -- disable emmet_language_server tag's auto close "</div> etc."
                   return item.textEdit.newText:find("^%$%d+</%w+>$") == nil
@@ -123,6 +127,8 @@ local M = {
             else
               return vim.tbl_filter(function(item)
                 if item.client_name == "emmet_language_server" then
+                  item.kind_icon = ""
+
                   return (function()
                     local node = vim.treesitter.get_node()
                     while node do
@@ -160,11 +166,17 @@ local M = {
           name = "LazyDev",
           module = "lazydev.integrations.blink",
           score_offset = 100,
+          transform_items = function(_, items)
+            for _, item in ipairs(items) do
+              item.kind_icon = "󱙷"
+            end
+            return items
+          end,
         },
         cmdline = {
           transform_items = function(_, items)
             for _, item in ipairs(items) do
-              item.kind_icon = ""
+              item.kind_icon = ""
             end
             return items
           end,
@@ -172,7 +184,7 @@ local M = {
         codecompanion = {
           transform_items = function(_, items)
             for _, item in ipairs(items) do
-              item.kind_icon = "󰊠"
+              item.kind_icon = "󱃋"
             end
             return items
           end,
