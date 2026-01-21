@@ -68,8 +68,18 @@ local M = {
         icon = "󱞧",
       },
       {
+        "[[",
+        desc = "Jump prev",
+        icon = "󱞧",
+      },
+      {
         "]",
         group = "Jump next",
+        icon = "󱞫",
+      },
+      {
+        "]]",
+        desc = "Jump next",
         icon = "󱞫",
       },
       {
@@ -139,11 +149,6 @@ local M = {
       {
         "&",
         icon = "󰮚",
-      },
-      {
-        "z",
-        icon = "",
-        group = "Fold",
       },
       {
         "s",
@@ -229,6 +234,52 @@ local M = {
         "gx",
         icon = "",
         group = "Open it",
+      },
+      {
+        "z",
+        icon = "󰅩",
+        group = "Fold and Screen",
+        desc = "Fold and Screen",
+      },
+      {
+        "za",
+        icon = "󰤼",
+        desc = "Toggle Fold",
+      },
+      {
+        "zc",
+        icon = "󰞓",
+        desc = "Close Fold",
+      },
+      {
+        "zM",
+        icon = "󰞓",
+        desc = "Close All Folds",
+      },
+      {
+        "zc",
+        icon = "󰞘",
+        desc = "Open Fold",
+      },
+      {
+        "zR",
+        icon = "󰞘",
+        desc = "Open All Folds",
+      },
+      {
+        "zz",
+        icon = "󰹑",
+        desc = "Center Screen",
+      },
+      {
+        "zt",
+        icon = "󰹑",
+        desc = "Top of Screen",
+      },
+      {
+        "zb",
+        icon = "󰹑",
+        desc = "Bottom of Screen",
       },
     })
 
