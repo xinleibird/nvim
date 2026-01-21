@@ -99,15 +99,11 @@ local M = {
     vim.g.rooter_silent_chdir = 1
 
     vim.api.nvim_create_autocmd("DirChanged", {
-      pattern = "*",
-      group = vim.api.nvim_create_augroup("user_rooter_chdir", { clear = true }),
+      group = vim.api.nvim_create_augroup("user_dir_osc7", { clear = true }),
       callback = function()
         local cwd = vim.fn.getcwd()
-        local file = io.open(vim.fn.stdpath("cache") .. "/rooter_last_dir", "w")
-        if file then
-          file:write(cwd)
-          file:close()
-        end
+        local osc7 = string.format("\27]7;file://localhost%s\27\\", cwd)
+        io.write(osc7)
       end,
     })
   end,
