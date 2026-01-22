@@ -42,10 +42,10 @@ local M = {
         "mode",
         fmt = function(mode)
           if mode == "NORMAL" then
-            return icons.ui.Ghost .. "  " .. string.format("%-8s", mode)
+            return icons.ui.Ghost
           end
 
-          return icons.ui.GhostOutline .. "  " .. string.format("%-8s", mode)
+          return icons.ui.GhostOutline
         end,
         separator = { left = "", right = "" },
         padding = { left = 0, right = 0 },
@@ -100,7 +100,8 @@ local M = {
       branch = {
         "branch",
         icon = icons.ui.Branch,
-        padding = { left = 2, right = 0 },
+        padding = { left = 0, right = 0 },
+        separator = { left = "", right = "" },
       },
 
       diff = {
@@ -112,13 +113,13 @@ local M = {
           removed = icons.git.LineRemoved .. " ",
         },
         padding = { left = 2, right = 0 },
-        icon = icons.ui.ArrowClosed .. "  " .. icons.ui.GitCompare .. " ",
+        -- icon = icons.ui.GitCompare .. " ",
         cond = nil,
       },
 
       diagnostics = {
         "diagnostics",
-        icon = icons.ui.ArrowClosed .. "  " .. icons.ui.BugOutline .. " ",
+        icon = icons.ui.ArrowClosed .. " ",
         padding = { left = 2, right = 0 },
         sources = { "nvim_diagnostic" },
         symbols = {
@@ -137,15 +138,37 @@ local M = {
             return ""
           end
 
+          local lsp_icon_map = {
+            bashls = "󱆃",
+            cssls = "",
+            emmet_language_server = "󰕣",
+            eslint = "",
+            html = "",
+            jsonls = "",
+            lua_ls = "󰢱",
+            marksman = "",
+            rust_analyzer = "",
+            svelte = "",
+            tailwindcss = "",
+            ts_ls = "",
+            vimls = "",
+            vtsls = "",
+            vue_ls = "",
+            yamlls = "",
+          }
           local client_batch = ""
           local clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })
-
           for _, client in ipairs(clients) do
             if client.attached_buffers[get_statusline_bufnr()] and client.name ~= "null-ls" then
-              client_batch = client_batch .. client.name .. " "
+              client_batch = client_batch .. (lsp_icon_map[client.name] or "") .. " "
             end
           end
 
+          local formatter_icon_map = {
+            prettier = "",
+            shfmt = "",
+            stylua = "",
+          }
           local formatter_batch = ""
           local formatters = {}
           local conform_ok, conform = pcall(require, "conform")
@@ -154,7 +177,7 @@ local M = {
           end
 
           for _, formatter in ipairs(formatters) do
-            formatter_batch = formatter_batch .. formatter .. " "
+            formatter_batch = formatter_batch .. (formatter_icon_map[formatter] or "") .. " "
           end
 
           local linter_batch = ""
@@ -170,18 +193,20 @@ local M = {
 
           return (
             ""
-            .. (client_batch == "" and "" or (icons.ui.Protocol .. " " .. client_batch .. " "))
-            .. (formatter_batch == "" and "" or (icons.ui.Formatter .. " " .. formatter_batch .. " "))
+            .. icons.ui.ChevronLeft
+            .. (client_batch == "" and "" or ("  " .. client_batch .. " "))
+            .. icons.ui.ChevronLeft
+            .. (formatter_batch == "" and "" or ("  " .. formatter_batch .. " "))
             .. (linter_batch == "" and "" or (icons.ui.Linter .. " " .. linter_batch .. " "))
             .. icons.ui.ChevronLeft
           )
         end,
-        padding = { left = 2, right = 2 },
+        padding = { left = 2, right = 0 },
       },
 
       filetype = {
         "filetype",
-        padding = { left = 0, right = 1 },
+        padding = { left = 2, right = 1 },
         icon_only = true,
       },
 
@@ -194,13 +219,13 @@ local M = {
             local ends = vim.fn.line(".")
             local lines = starts <= ends and ends - starts + 1 or starts - ends + 1
             return "󰩭"
-              .. string.format("%5d", tostring(vim.fn.wordcount().visual_chars))
+              .. string.format("%4d", tostring(vim.fn.wordcount().visual_chars))
               .. ":"
-              .. string.format("%-4d", tostring(lines))
+              .. string.format("%-3d", tostring(lines))
               .. "󱃨"
           end
 
-          return "󰼂%5l:%-3c󰼁 "
+          return "󰼂%4l:%-3c󰼁"
         end,
         -- selectionCount,
         separator = { left = "", right = "" },
@@ -233,10 +258,9 @@ local M = {
           components.cwd,
         },
         lualine_b = {
-          components.filename,
+          components.branch,
         },
         lualine_c = {
-          components.branch,
           components.diff,
           components.diagnostics,
           "%=",
