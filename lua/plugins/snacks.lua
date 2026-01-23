@@ -108,6 +108,7 @@ local M = {
           },
         },
       },
+      scroll = { enabled = true },
       explorer = { enabled = true },
       image = { enabled = true },
       input = { enabled = true },
