@@ -13,7 +13,10 @@ vim.keymap.set("c", "<C-a>", "<Home>", { desc = "Move beginning of line" })
 vim.keymap.set("c", "<C-b>", "<End>", { desc = "Move ending of line" })
 
 -- esc clear highlights
-vim.keymap.set("n", "<Esc>", "<cmd>noh<CR>", { desc = "Clear highlights" })
+vim.keymap.set("n", "<Esc>", function()
+  vim.cmd("noh")
+  vim.api.nvim_feedkeys("hl", "nt", true)
+end, { desc = "Clear highlights and Escape popup" })
 
 -- quit window
 vim.keymap.set("n", "<leader>q", function()
