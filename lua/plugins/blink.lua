@@ -88,12 +88,18 @@ local M = {
           and node
           and vim.tbl_contains({ "comment", "line_comment", "block_comment", "string_literal", "string" }, node:type())
         then
-          return { "lazydev", "lsp", "alias_path", "buffer" }
-        elseif vim.bo.filetype == "dap-repl" then
-          return { "lsp" }
-        else
-          return { "lazydev", "lsp", "alias_path", "snippets", "buffer" }
+          if vim.bo.filetype == "lua" then
+            return { "lazydev", "lsp", "alias_path", "buffer" }
+          else
+            return { "lsp", "alias_path", "buffer" }
+          end
         end
+
+        if vim.bo.filetype == "dap-repl" then
+          return { "lsp" }
+        end
+
+        return { "lsp", "alias_path", "snippets", "buffer" }
       end,
       -- min_keyword_length = function()
       --   return vim.bo.filetype == "markdown" and 2 or 0
@@ -288,15 +294,15 @@ local M = {
       implementation = "prefer_rust_with_warning",
       -- prebuilt_binaries = { force_version = "v1.0.0" },
       sorts = {
-        function(a, b)
-          if (a.client_name == nil or b.client_name == nil) or (a.client_name == b.client_name) then
-            return
-          end
-          return b.client_name == "emmet_ls"
-        end,
-        -- (optionally) always prioritize exact matches
-        -- "exact",
-        -- default sorts
+        -- lua sorter slowly
+        -- function(a, b)
+        --   if (a.client_name == nil or b.client_name == nil) or (a.client_name == b.client_name) then
+        --     return
+        --   end
+        --   return a.client_name == "emmet_language_server"
+        -- end,
+        "exact",
+        -- defaults
         "score",
         "sort_text",
       },
