@@ -39,6 +39,11 @@ local M = {
   config = function()
     require("codecompanion").setup({
       ignore_warnings = true,
+      opts = {
+        -- show_defaults = false,
+        log_level = "ERROR", -- TRACE|DEBUG|ERROR|INFO
+        language = "Chinese",
+      },
       adapters = {
         acp = {
           gemini_cli = function()
@@ -50,27 +55,22 @@ local M = {
           end,
         },
       },
-      opts = {
-        -- show_defaults = false,
-        log_level = "ERROR", -- TRACE|DEBUG|ERROR|INFO
-        language = "Chinese",
-      },
       interactions = {
         chat = {
           adapter = "gemini_cli",
-          model = "gemini-2.5-pro",
+          model = "gemini-3-pro",
         },
         inline = {
           adapter = "gemini_cli",
-          model = "gemini-2.5-pro",
+          model = "gemini-3-pro",
         },
         cmd = {
           adapter = "gemini_cli",
-          model = "gemini-2.5-pro",
+          model = "gemini-3-pro",
         },
         background = {
           adapter = "gemini_cli",
-          model = "gemini-2.5-pro",
+          model = "gemini-3-pro",
         },
       },
       display = {
