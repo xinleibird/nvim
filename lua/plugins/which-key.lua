@@ -288,6 +288,9 @@ local M = {
       win = {
         height = { min = 4, max = 25 },
       },
+      triggers = {
+        { "<auto>", mode = "nso" },
+      },
       plugins = {
         marks = true, -- shows a list of your marks on ' and `
         registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
