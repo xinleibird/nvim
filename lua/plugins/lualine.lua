@@ -113,7 +113,6 @@ local M = {
           removed = icons.git.LineRemoved .. " ",
         },
         padding = { left = 2, right = 0 },
-        -- icon = icons.ui.GitCompare .. " ",
         cond = nil,
       },
 
@@ -139,9 +138,9 @@ local M = {
           end
 
           local lsp_icon_map = {
-            bashls = "󱆃",
+            bashls = "",
             cssls = "",
-            emmet_language_server = "󰕣",
+            emmet_language_server = "",
             eslint = "",
             html = "",
             jsonls = "",
@@ -151,6 +150,7 @@ local M = {
             svelte = "",
             tailwindcss = "",
             ts_ls = "",
+            ["typescript-tools"] = "",
             vimls = "",
             vtsls = "",
             vue_ls = "",
@@ -180,11 +180,15 @@ local M = {
             formatter_batch = formatter_batch .. (formatter_icon_map[formatter] or "") .. " "
           end
 
+          local linter_icon_map = {
+            htmlhint = "",
+            shellcheck = "",
+          }
           local linter_batch = ""
           local linters = require("lint")._resolve_linter_by_ft(vim.bo.ft)
 
           for _, linter in ipairs(linters) do
-            linter_batch = linter_batch .. linter .. " "
+            linter_batch = linter_batch .. (linter_icon_map[linter] or "") .. " "
           end
 
           if client_batch == "" and formatter_batch == "" and linter_batch == "" then
@@ -193,12 +197,12 @@ local M = {
 
           return (
             ""
-            .. icons.ui.ChevronLeft
+            .. (#clients > 0 and icons.ui.ChevronLeft or "")
             .. (client_batch == "" and "" or ("  " .. client_batch .. " "))
-            .. icons.ui.ChevronLeft
+            .. (#formatters > 0 and icons.ui.ChevronLeft or "")
             .. (formatter_batch == "" and "" or ("  " .. formatter_batch .. " "))
-            .. (linter_batch == "" and "" or (icons.ui.Linter .. " " .. linter_batch .. " "))
-            .. icons.ui.ChevronLeft
+            .. (#linters > 0 and icons.ui.ChevronLeft or "")
+            .. (linter_batch == "" and "" or ("  " .. linter_batch .. " "))
           )
         end,
         padding = { left = 2, right = 0 },
@@ -206,8 +210,9 @@ local M = {
 
       filetype = {
         "filetype",
-        padding = { left = 2, right = 1 },
+        padding = { left = 1, right = 0 },
         icon_only = true,
+        separator = { left = "", right = "" },
       },
 
       location = {
@@ -230,7 +235,6 @@ local M = {
         -- selectionCount,
         separator = { left = "", right = "" },
         padding = { left = 0, right = 0 },
-        color = { gui = "" },
       },
 
       progress = {
@@ -267,9 +271,10 @@ local M = {
         },
         lualine_x = {
           components.lsp_clients_formatters_linters,
-          components.filetype,
         },
         lualine_y = {
+          components.filetype,
+          components.sep,
           components.location,
         },
         lualine_z = {
