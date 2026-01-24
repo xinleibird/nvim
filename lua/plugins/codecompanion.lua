@@ -5,9 +5,18 @@ local M = {
     "j-hui/fidget.nvim",
   },
   init = function()
-    vim.keymap.set({ "n" }, "<Leader>aa", "<cmd>CodeCompanionChat Toggle<cr>", { noremap = true, silent = true })
-    vim.keymap.set("v", "<Leader>aa", "<cmd>CodeCompanionChat Add<cr>", { noremap = true, silent = true })
-    vim.keymap.set({ "n", "v" }, "<Leader>ap", "<cmd>CodeCompanionActions<cr>", { noremap = true, silent = true })
+    vim.keymap.set(
+      { "n" },
+      "<Leader>aa",
+      "<cmd>CodeCompanionChat Toggle<cr>",
+      { noremap = true, silent = true, desc = "CodeCompanion Toggle Chat" }
+    )
+    vim.keymap.set(
+      { "n", "v" },
+      "<Leader>ap",
+      "<cmd>CodeCompanionActions<cr>",
+      { noremap = true, silent = true, desc = "CodeCompanion Actions" }
+    )
 
     local fidget = require("fidget")
     local handler
@@ -38,6 +47,34 @@ local M = {
   end,
   config = function()
     require("codecompanion").setup({
+      display = {
+        action_palette = {
+          width = 95,
+          height = 10,
+          prompt = "Prompt ", -- Prompt used for interactive LLM calls
+          provider = "default", -- default|telescope|mini_pick
+          opts = {
+            -- show_preset_actions = true, -- Show the preset actions in the action palette?
+            show_preset_prompts = false, -- Show the preset prompts in the action palette?
+            title = "CodeCompanion Actions",
+          },
+        },
+        chat = {
+          window = {
+            opts = {
+              numberwidth = 4,
+            },
+          },
+        },
+      },
+      prompt_library = {
+        markdown = {
+          dirs = {
+            vim.fn.getcwd() .. "/.prompts", -- Can be relative
+            vim.fn.stdpath("config") .. "/prompts",
+          },
+        },
+      },
       ignore_warnings = true,
       opts = {
         -- show_defaults = false,
@@ -51,6 +88,9 @@ local M = {
               defaults = {
                 auth_method = "oauth-personal", -- "oauth-personal"|"gemini-api-key"|"vertex-ai"
               },
+              -- env = {
+              --   GEMINI_API_KEY = "cmd:op read op://personal/Gemini_API/credential --no-newline",
+              -- },
             })
           end,
         },
@@ -58,38 +98,19 @@ local M = {
       interactions = {
         chat = {
           adapter = "gemini_cli",
-          model = "gemini-3-pro",
+          model = "gemini-2.5-flash-lite",
         },
-        inline = {
-          adapter = "gemini_cli",
-          model = "gemini-3-pro",
-        },
+        -- inline = {
+        --   adapter = "gemini_cli",
+        --   model = "gemini-2.5-flash-lite",
+        -- },
         cmd = {
           adapter = "gemini_cli",
-          model = "gemini-3-pro",
+          model = "gemini-2.5-flash-lite",
         },
         background = {
           adapter = "gemini_cli",
-          model = "gemini-3-pro",
-        },
-      },
-      display = {
-        action_palette = {
-          width = 95,
-          height = 10,
-          prompt = "Prompt ", -- Prompt used for interactive LLM calls
-          provider = "default", -- default|telescope|mini_pick
-          opts = {
-            show_default_actions = true, -- Show the default actions in the action palette?
-            show_default_prompt_library = true, -- Show the default prompt library in the action palette?
-          },
-        },
-        chat = {
-          window = {
-            opts = {
-              numberwidth = 4,
-            },
-          },
+          model = "gemini-2.5-flash-lite",
         },
       },
     })

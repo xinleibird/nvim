@@ -6,6 +6,7 @@ local M = {
     vim.g.rooter_patterns = {
       -- exclude
       "!=snippets/",
+      "!=deps/",
 
       -- directories
       "client",

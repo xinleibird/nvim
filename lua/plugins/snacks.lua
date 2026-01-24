@@ -76,14 +76,19 @@ local M = {
   ---@return snacks.Config
   opts = function()
     local home_dir = vim.fn.expand("$HOME")
+    local homebrew_repo = vim.fn.expand("$HOMEBREW_REPOSITORY")
     local data_dir = vim.fn.stdpath("data")
+    local cache_dir = vim.fn.stdpath("cache")
+    local state_dir = vim.fn.stdpath("state")
     local function filter_rtp(rtp)
       local patterns = {
-        "^" .. home_dir .. "/.rustup",
+        "^" .. homebrew_repo,
         "^" .. data_dir,
-        "^/opt/homebrew",
-        "node_modules",
+        "^" .. cache_dir,
+        "^" .. state_dir,
+        "^" .. home_dir .. "/.rustup",
         "^" .. home_dir .. "/.notes",
+        "node_modules",
       }
       for _, pattern in ipairs(patterns) do
         if rtp:match(pattern) then
@@ -108,7 +113,6 @@ local M = {
           },
         },
       },
-      scroll = { enabled = true },
       explorer = { enabled = true },
       image = { enabled = true },
       input = { enabled = true },
@@ -135,6 +139,13 @@ local M = {
         end,
       },
       lazygit = {
+        config = {
+          os = {
+            edit = '[ -z ""$NVIM"" ] && (nvim -- {{filename}}) || (nvim --server ""$NVIM"" --remote-send ""q"" && nvim --server ""$NVIM"" --remote {{filename}})',
+          },
+        },
+      },
+      gemini_cli = {
         config = {
           os = {
             edit = '[ -z ""$NVIM"" ] && (nvim -- {{filename}}) || (nvim --server ""$NVIM"" --remote-send ""q"" && nvim --server ""$NVIM"" --remote {{filename}})',

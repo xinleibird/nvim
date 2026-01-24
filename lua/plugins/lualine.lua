@@ -100,6 +100,12 @@ local M = {
       branch = {
         "branch",
         icon = icons.ui.Branch,
+        fmt = function(branch)
+          if branch == "" then
+            return "⛔︎"
+          end
+          return branch
+        end,
         padding = { left = 0, right = 0 },
         separator = { left = "", right = "" },
       },
@@ -160,7 +166,7 @@ local M = {
           local clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })
           for _, client in ipairs(clients) do
             if client.attached_buffers[get_statusline_bufnr()] and client.name ~= "null-ls" then
-              client_batch = client_batch .. (lsp_icon_map[client.name] or "") .. " "
+              client_batch = client_batch .. (lsp_icon_map[client.name] or "")
             end
           end
 
@@ -177,7 +183,7 @@ local M = {
           end
 
           for _, formatter in ipairs(formatters) do
-            formatter_batch = formatter_batch .. (formatter_icon_map[formatter] or "") .. " "
+            formatter_batch = formatter_batch .. (formatter_icon_map[formatter] or "")
           end
 
           local linter_icon_map = {
@@ -185,34 +191,98 @@ local M = {
             shellcheck = "",
           }
           local linter_batch = ""
-          local linters = require("lint")._resolve_linter_by_ft(vim.bo.ft)
-
-          for _, linter in ipairs(linters) do
-            linter_batch = linter_batch .. (linter_icon_map[linter] or "") .. " "
+          local lint_ok, lint = pcall(require, "lint")
+          local linters = {}
+          if lint_ok then
+            linters = lint._resolve_linter_by_ft(vim.bo.ft)
           end
 
-          if client_batch == "" and formatter_batch == "" and linter_batch == "" then
-            return ""
+          for _, linter in ipairs(linters) do
+            linter_batch = linter_batch .. (linter_icon_map[linter] or "")
           end
 
           return (
             ""
-            .. (#clients > 0 and icons.ui.ChevronLeft or "")
-            .. (client_batch == "" and "" or ("  " .. client_batch .. " "))
-            .. (#formatters > 0 and icons.ui.ChevronLeft or "")
-            .. (formatter_batch == "" and "" or ("  " .. formatter_batch .. " "))
-            .. (#linters > 0 and icons.ui.ChevronLeft or "")
-            .. (linter_batch == "" and "" or ("  " .. linter_batch .. " "))
+            .. (#clients > 0 and "" or "")
+            .. (client_batch == "" and "" or ("" .. client_batch))
+            .. (#formatters > 0 and "  " or "")
+            .. (formatter_batch == "" and "" or ("" .. formatter_batch))
+            .. (#linters > 0 and "  " or "")
+            .. (linter_batch == "" and "" or ("" .. linter_batch))
           )
         end,
-        padding = { left = 2, right = 0 },
+        padding = { left = 0, right = 0 },
+        separator = { left = "", right = "" },
+        on_click = function()
+          local clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })
+          if #clients == 0 then
+            require("snacks").notify.warn("No LSP Clients", {
+              title = "LSP Status",
+              timeout = 5000,
+            })
+            return
+          end
+          local client_names = {}
+          for _, client in ipairs(clients) do
+            table.insert(client_names, "󱐋 " .. client.name) -- 加个小图标更好看
+          end
+          local lsp_message = table.concat(client_names, "\n")
+          require("snacks").notify.info(lsp_message, {
+            title = "Activity LSP Clients",
+            timeout = 5000,
+          })
+
+          local formatters = {}
+          local conform_ok, conform = pcall(require, "conform")
+          if conform_ok then
+            formatters = conform.list_formatters_for_buffer(0)
+          end
+          if #formatters == 0 then
+            require("snacks").notify.warn("No Formatters", {
+              title = "Formatter Status",
+              timeout = 5000,
+            })
+            return
+          end
+          local formatter_names = {}
+          for _, formatter in ipairs(formatters) do
+            table.insert(formatter_names, "󰃢 " .. formatter)
+          end
+          local formatter_message = table.concat(formatter_names, "\n")
+          require("snacks").notify.info(formatter_message, {
+            title = "Activity Formatters",
+            timeout = 5000,
+          })
+
+          local lint_ok, lint = pcall(require, "lint")
+          local linters = {}
+          if lint_ok then
+            linters = lint._resolve_linter_by_ft(vim.bo.ft)
+          end
+          if #linters == 0 then
+            require("snacks").notify.warn("No Linters", {
+              title = "Linter Status",
+              timeout = 5000,
+            })
+            return
+          end
+          local linter_names = {}
+          for _, linter in ipairs(linters) do
+            table.insert(linter_names, "󰦀 " .. linter)
+          end
+          local linter_message = table.concat(linter_names, "\n")
+          require("snacks").notify.info(linter_message, {
+            title = "Activity Linters",
+            timeout = 5000,
+          })
+        end,
       },
 
       filetype = {
         "filetype",
-        padding = { left = 1, right = 0 },
+        padding = { left = 0, right = 0 },
         icon_only = true,
-        separator = { left = "", right = "" },
+        separator = { left = "" },
       },
 
       location = {
@@ -270,10 +340,11 @@ local M = {
           "%=",
         },
         lualine_x = {
-          components.lsp_clients_formatters_linters,
+          components.filetype,
+          components.sep,
         },
         lualine_y = {
-          components.filetype,
+          components.lsp_clients_formatters_linters,
           components.sep,
           components.location,
         },
