@@ -59,7 +59,7 @@ vim.lsp.enable({
   "tailwindcss",
   -- "ts_ls",
   "vimls",
-  "vtsls",
+  -- "vtsls",
   "vue_ls",
   "yamlls",
   -- "zk",
