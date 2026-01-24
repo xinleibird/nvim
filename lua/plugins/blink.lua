@@ -25,6 +25,11 @@ local M = {
       lazy = false,
     },
     {
+      "pmizio/typescript-tools.nvim",
+      lazy = false,
+      opts = {},
+    },
+    {
       "kola-web/blink-alias-path",
     },
     {
@@ -118,42 +123,44 @@ local M = {
         },
         lsp = {
           transform_items = function(_, items)
-            if vim.bo.filetype ~= "javascriptreact" and vim.bo.filetype ~= "typescriptreact" then
-              return vim.tbl_filter(function(item)
-                if item.client_name == "emmet_language_server" then
-                  item.kind_icon = ""
-                end
-
-                if item.client_name == "html" then
-                  -- disable emmet_language_server tag's auto close "</div> etc."
-                  return item.textEdit.newText:find("^%$%d+</%w+>$") == nil
-                end
-                return true
-              end, items)
-            else
-              return vim.tbl_filter(function(item)
-                if item.client_name == "emmet_language_server" then
-                  item.kind_icon = ""
-
-                  return (function()
-                    local node = vim.treesitter.get_node()
-                    while node do
-                      local type = node:type()
-                      if type == "jsx_expression" then
-                        return false
-                      end
-                      if type == "jsx_element" or type == "jsx_self_closing_element" or type == "jsx_fragment" then
-                        return true
-                      end
-                      node = node:parent()
-                    end
+            local filetype = vim.bo.filetype
+            local enable_emmet = true
+            if filetype == "javascriptreact" or filetype == "typescriptreact" then
+              enable_emmet = (function()
+                local node = vim.treesitter.get_node()
+                while node do
+                  local type = node:type()
+                  if type == "jsx_expression" then
                     return false
-                  end)()
+                  end
+                  if type == "jsx_element" or type == "jsx_self_closing_element" or type == "jsx_fragment" then
+                    return true
+                  end
+                  node = node:parent()
                 end
-
-                return true
-              end, items)
+                return false
+              end)()
             end
+
+            return vim.tbl_filter(function(item)
+              if item.client_name == "emmet_language_server" then
+                item.kind_icon = ""
+                return enable_emmet
+              end
+
+              if item.client_name == "typescript-tools" then
+                if item.kind == 9 then
+                  item.kind_icon = ""
+                end
+              end
+
+              if item.client_name == "html" then
+                -- disable emmet_language_server tag's auto close "</div> etc."
+                return item.textEdit.newText:find("^%$%d+</%w+>$") == nil
+              end
+
+              return true
+            end, items)
           end,
           override = {
             -- trigger character add {} [] ()
@@ -174,7 +181,7 @@ local M = {
           score_offset = 100,
           transform_items = function(_, items)
             for _, item in ipairs(items) do
-              item.kind_icon = "󱙷"
+              item.kind_icon = ""
             end
             return items
           end,
@@ -183,14 +190,6 @@ local M = {
           transform_items = function(_, items)
             for _, item in ipairs(items) do
               item.kind_icon = ""
-            end
-            return items
-          end,
-        },
-        codecompanion = {
-          transform_items = function(_, items)
-            for _, item in ipairs(items) do
-              item.kind_icon = "󱃋"
             end
             return items
           end,
