@@ -86,7 +86,7 @@ local M = {
           gemini_cli = function()
             return require("codecompanion.adapters").extend("gemini_cli", {
               defaults = {
-                auth_method = "gemini-api-key", -- "oauth-personal"|"gemini-api-key"|"vertex-ai"
+                auth_method = "oauth-personal", -- "oauth-personal"|"gemini-api-key"|"vertex-ai"
               },
               env = {
                 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY"),
