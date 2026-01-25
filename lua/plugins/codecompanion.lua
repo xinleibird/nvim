@@ -12,11 +12,19 @@ local M = {
       { noremap = true, silent = true, desc = "CodeCompanion Toggle Chat" }
     )
     vim.keymap.set(
+      "v",
+      "<Leader>aa",
+      "<cmd>CodeCompanionChat Add<cr>",
+      { noremap = true, silent = true, desc = "CodeCompanion Add" }
+    )
+    vim.keymap.set(
       { "n", "v" },
       "<Leader>ap",
       "<cmd>CodeCompanionActions<cr>",
       { noremap = true, silent = true, desc = "CodeCompanion Actions" }
     )
+
+    vim.cmd([[cab cc CodeCompanion]])
 
     local fidget = require("fidget")
     local handler
