@@ -85,27 +85,11 @@ local M = {
       nerd_font_variant = "mono",
     },
     sources = {
-      -- default = { "lsp", "path", "snippets", "buffer" },
-      default = function()
-        local success, node = pcall(vim.treesitter.get_node)
-        if
-          success
-          and node
-          and vim.tbl_contains({ "comment", "line_comment", "block_comment", "string_literal", "string" }, node:type())
-        then
-          if vim.bo.filetype == "lua" then
-            return { "lazydev", "lsp", "alias_path", "buffer" }
-          else
-            return { "lsp", "alias_path", "buffer" }
-          end
-        end
-
-        if vim.bo.filetype == "dap-repl" then
-          return { "lsp" }
-        end
-
-        return { "lsp", "alias_path", "snippets", "buffer" }
-      end,
+      default = { "lsp", "alias_path", "snippets", "buffer" },
+      per_filetype = {
+        lua = { "lazydev", "lsp", "alias_path", "snippets", "buffer" },
+        ["dap-repl"] = { "lsp" },
+      },
       -- min_keyword_length = function()
       --   return vim.bo.filetype == "markdown" and 2 or 0
       -- end,
