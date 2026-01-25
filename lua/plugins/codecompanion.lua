@@ -94,23 +94,36 @@ local M = {
             })
           end,
         },
+        http = {
+          ollama = function()
+            return require("codecompanion.adapters").extend("ollama", {
+              env = {
+                url = "http://192.168.2.119:11434",
+                -- api_key = "",
+              },
+              headers = {
+                ["Content-Type"] = "application/json",
+                ["Authorization"] = "Bearer ${api_key}",
+              },
+              parameters = {
+                sync = true,
+              },
+            })
+          end,
+        },
       },
       interactions = {
         chat = {
-          adapter = "gemini_cli",
-          model = "gemini-2.5-flash-lite",
+          adapter = "ollama",
         },
-        -- inline = {
-        --   adapter = "gemini_cli",
-        --   model = "gemini-2.5-flash-lite",
-        -- },
+        inline = {
+          adapter = "ollama",
+        },
         cmd = {
-          adapter = "gemini_cli",
-          model = "gemini-2.5-flash-lite",
+          adapter = "ollama",
         },
         background = {
-          adapter = "gemini_cli",
-          model = "gemini-2.5-flash-lite",
+          adapter = "ollama",
         },
       },
     })
