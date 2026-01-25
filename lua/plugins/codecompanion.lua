@@ -119,8 +119,19 @@ local M = {
             })
           end,
         },
+        tavily = function()
+          return require("codecompanion.adapters").extend("tavily", {
+            env = {
+              api_key = os.getenv("TAVILY_API_KEY"),
+            },
+          })
+        end,
       },
       interactions = {
+        -- chat = {
+        --   adapter = "gemini_cli",
+        --   model = "gemini-2.5-flash-lite",
+        -- },
         chat = {
           adapter = "ollama",
         },
