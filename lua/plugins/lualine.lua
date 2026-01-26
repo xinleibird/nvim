@@ -220,17 +220,17 @@ local M = {
               title = "LSP Status",
               timeout = 5000,
             })
-            return
+          else
+            local client_names = {}
+            for _, client in ipairs(clients) do
+              table.insert(client_names, "󱐋 " .. client.name)
+            end
+            local lsp_message = table.concat(client_names, "\n")
+            require("snacks").notify.info(lsp_message, {
+              title = "Activity LSP Clients",
+              timeout = 5000,
+            })
           end
-          local client_names = {}
-          for _, client in ipairs(clients) do
-            table.insert(client_names, "󱐋 " .. client.name) -- 加个小图标更好看
-          end
-          local lsp_message = table.concat(client_names, "\n")
-          require("snacks").notify.info(lsp_message, {
-            title = "Activity LSP Clients",
-            timeout = 5000,
-          })
 
           local formatters = {}
           local conform_ok, conform = pcall(require, "conform")
@@ -242,17 +242,17 @@ local M = {
               title = "Formatter Status",
               timeout = 5000,
             })
-            return
+          else
+            local formatter_names = {}
+            for _, formatter in ipairs(formatters) do
+              table.insert(formatter_names, "󰃢 " .. formatter)
+            end
+            local formatter_message = table.concat(formatter_names, "\n")
+            require("snacks").notify.info(formatter_message, {
+              title = "Activity Formatters",
+              timeout = 5000,
+            })
           end
-          local formatter_names = {}
-          for _, formatter in ipairs(formatters) do
-            table.insert(formatter_names, "󰃢 " .. formatter)
-          end
-          local formatter_message = table.concat(formatter_names, "\n")
-          require("snacks").notify.info(formatter_message, {
-            title = "Activity Formatters",
-            timeout = 5000,
-          })
 
           local lint_ok, lint = pcall(require, "lint")
           local linters = {}
@@ -264,17 +264,17 @@ local M = {
               title = "Linter Status",
               timeout = 5000,
             })
-            return
+          else
+            local linter_names = {}
+            for _, linter in ipairs(linters) do
+              table.insert(linter_names, "󰦀 " .. linter)
+            end
+            local linter_message = table.concat(linter_names, "\n")
+            require("snacks").notify.info(linter_message, {
+              title = "Activity Linters",
+              timeout = 5000,
+            })
           end
-          local linter_names = {}
-          for _, linter in ipairs(linters) do
-            table.insert(linter_names, "󰦀 " .. linter)
-          end
-          local linter_message = table.concat(linter_names, "\n")
-          require("snacks").notify.info(linter_message, {
-            title = "Activity Linters",
-            timeout = 5000,
-          })
         end,
       },
 
