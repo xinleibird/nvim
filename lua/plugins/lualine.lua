@@ -139,10 +139,6 @@ local M = {
       lsp_clients_formatters_linters = {
         "lsp",
         fmt = function()
-          if not rawget(vim, "lsp") then
-            return ""
-          end
-
           local lsp_icon_map = {
             bashls = "",
             cssls = "",
@@ -174,6 +170,7 @@ local M = {
             prettier = "",
             shfmt = "",
             stylua = "",
+            vint = "",
           }
           local formatter_batch = ""
           local formatters = {}
@@ -216,8 +213,8 @@ local M = {
         on_click = function()
           local clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })
           if #clients == 0 then
-            require("snacks").notify.warn("No LSP Clients", {
-              title = "LSP Status",
+            require("snacks").notify.warn("󱐋 No LSP Clients", {
+              title = "LSP",
               timeout = 5000,
             })
           else
@@ -227,7 +224,7 @@ local M = {
             end
             local lsp_message = table.concat(client_names, "\n")
             require("snacks").notify.info(lsp_message, {
-              title = "Activity LSP Clients",
+              title = "LSP",
               timeout = 5000,
             })
           end
@@ -238,8 +235,8 @@ local M = {
             formatters = conform.list_formatters_for_buffer(0)
           end
           if #formatters == 0 then
-            require("snacks").notify.warn("No Formatters", {
-              title = "Formatter Status",
+            require("snacks").notify.warn("󰃢 No Formatters", {
+              title = "Formatter",
               timeout = 5000,
             })
           else
@@ -249,7 +246,7 @@ local M = {
             end
             local formatter_message = table.concat(formatter_names, "\n")
             require("snacks").notify.info(formatter_message, {
-              title = "Activity Formatters",
+              title = "Formatter",
               timeout = 5000,
             })
           end
@@ -260,8 +257,8 @@ local M = {
             linters = lint._resolve_linter_by_ft(vim.bo.ft)
           end
           if #linters == 0 then
-            require("snacks").notify.warn("No Linters", {
-              title = "Linter Status",
+            require("snacks").notify.warn("󰦀 No Linters", {
+              title = "Linter",
               timeout = 5000,
             })
           else
@@ -271,7 +268,7 @@ local M = {
             end
             local linter_message = table.concat(linter_names, "\n")
             require("snacks").notify.info(linter_message, {
-              title = "Activity Linters",
+              title = "Linter",
               timeout = 5000,
             })
           end
@@ -283,6 +280,12 @@ local M = {
         padding = { left = 0, right = 0 },
         icon_only = true,
         separator = { left = "" },
+        on_click = function()
+          require("snacks").notify.error(icons.ui.FileOutline .. " " .. vim.bo[0].filetype, {
+            title = "Filetype",
+            timeout = 5000,
+          })
+        end,
       },
 
       location = {
