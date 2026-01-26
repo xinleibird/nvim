@@ -9,7 +9,10 @@ local M = {
     opts = {
       file_types = { "markdown", "codecompanion" },
       latex = { enabled = false },
-      completions = { blink = { enabled = true } },
+      completions = { lsp = { enabled = true } },
+      code = {
+        border = "thick",
+      },
     },
   },
 }
