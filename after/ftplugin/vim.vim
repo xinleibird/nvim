@@ -1,4 +1,4 @@
 augroup VimLAutoFormat
-  autocmd!
-  autocmd BufWritePre <buffer> call FormatFile()
+autocmd!
+autocmd BufWritePre <buffer> call FormatFile()
 augroup END
