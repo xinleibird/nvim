@@ -87,11 +87,6 @@ return {
     Lua = {
       codeLens = { enable = true },
       hint = { enable = true, semicolon = "Disable" },
-      -- https://github.com/folke/lazydev.nvim/issues/136#issuecomment-3796597122
-      -- fix "Workspace libraries not loaded on first buffer with lua_ls 3.17.0"
-      workspace = {
-        library = vim.api.nvim_get_runtime_file("", true),
-      },
       telemetry = { enable = false },
     },
   },
