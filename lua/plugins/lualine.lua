@@ -170,7 +170,6 @@ local M = {
             prettier = "",
             shfmt = "",
             stylua = "",
-            vint = "",
           }
           local formatter_batch = ""
           local formatters = {}
