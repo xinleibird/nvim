@@ -11,11 +11,10 @@ opts:
 
 ## system
 
-- **非常重要**：要推送的 GitHub，因此**生成的提交信息应该确保是英文**的。
+- 你精通如何遵循 <Conventional Commit specification>。
+- 要推送的 GitHub，因此**生成的提交信息应该确保是英文**的。
 - 生成的内容请使用英文。
-- 生成的内容请写入一个 Markdown 代码块。
-- 并在代码块开头注明编程语言为 txt。
-- 也就是说，在第三个 grave 符号之后，紧跟（不要换行）一个 txt 表示文件类型。示例如下：
+- 生成的内容请写入一个 Markdown 代码块。示例如下：
 
 ```txt
 feat(codecompanion): {title}
@@ -27,7 +26,7 @@ feat(codecompanion): {title}
 
 ## user
 
-你精通如何遵循 Conventional Commit specification。请根据下方列出的 git diff 内容，使用英语为我生成一条提交信息：
+请根据下方列出的 git diff 内容，使用英语为我生成一条提交信息：
 
 ```diff
 ${commit.diff}
