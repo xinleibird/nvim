@@ -148,6 +148,7 @@ local M = {
             jsonls = "",
             lua_ls = "󰢱",
             marksman = "",
+            ["render-markdown"] = "",
             rust_analyzer = "",
             svelte = "",
             tailwindcss = "",
@@ -156,6 +157,7 @@ local M = {
             vimls = "",
             vtsls = "",
             vue_ls = "",
+            zk = "󰰶",
             yamlls = "",
           }
           local client_batch = ""
