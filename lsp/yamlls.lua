@@ -77,4 +77,5 @@ return {
     --- autocmd's which check this capability
     client.server_capabilities.documentFormattingProvider = true
   end,
+  single_file_support = true,
 }

@@ -26,4 +26,5 @@ return {
     },
     suggest = { fromVimruntime = true, fromRuntimepath = true },
   },
+  single_file_support = true,
 }
