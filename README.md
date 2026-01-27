@@ -11,9 +11,9 @@ A personal Neovim configuration focused on minimalism, fluidity, and aesthetics.
 
 ### Showcase
 
-|                              Light Mode                              |                              Dark Mode                               |
-| :------------------------------------------------------------------: | :------------------------------------------------------------------: |
-| <img src="./assets/showcase/May-27-2025-14-09-08.gif" width="384" /> | <img src="./assets/showcase/May-27-2025-08-02-25.gif" width="384" /> |
+|                      Light Mode                       |                      Dark Mode                       |
+| :---------------------------------------------------: | :--------------------------------------------------: |
+| <img src="./assets/showcase/light.gif" width="384" /> | <img src="./assets/showcase/dark.gif" width="384" /> |
 
 ## Installation
 
