@@ -1,52 +1,58 @@
-![showcase white](./assets/showcase/May-27-2025-14-09-08.gif)
+<div align="center">
 
-![showcase black](./assets/showcase/May-27-2025-08-02-25.gif)
+# My Neovim Configuration
+
+A personal Neovim configuration focused on minimalism, fluidity, and aesthetics.
+
+[![Neovim](https://img.shields.io/badge/Neovim-0.10+-57a143?style=for-the-badge&logo=neovim)](https://neovim.io)
+[![Lua](https://img.shields.io/badge/Lua-5.1-blue?style=for-the-badge&logo=lua)](https://www.lua.org)
+
+</div>
+
+### Showcase
+
+|                              Light Mode                              |                              Dark Mode                               |
+| :------------------------------------------------------------------: | :------------------------------------------------------------------: |
+| <img src="./assets/showcase/May-27-2025-14-09-08.gif" width="384" /> | <img src="./assets/showcase/May-27-2025-08-02-25.gif" width="384" /> |
 
 ## Installation
 
 ### Prerequisites
 
-- Base on [**Neovim**](https://neovim.io). Install it by your own preferred.
-- Idea from [NvChad](https://nvchad.com).
+- [**Neovim**](https://neovim.io) is required. Please install it using your preferred package manager.
+- This configuration is inspired by [NvChad](https://nvchad.com).
 
-### Optional
+### Recommendations (Optional)
 
-- The best font is [**JetBrains Mono**](https://www.jetbrains.com/lp/mono/), use modified third-part version [JetBrainsMono Nerd Font Mono](https://www.nerdfonts.com/font-downloads).
-- If you need a terminal emulator, recommend [ghostty](https://ghostty.org/) .
+- **Font:** [JetBrainsMono Nerd Font](https://www.nerdfonts.com/font-downloads) is highly recommended.
+- **Terminal:** [Ghostty](https://ghostty.org/) is the recommended terminal emulator.
 
-### Install
+### Setup
 
-Inside Neovim, use these command to install.
+Run the following commands within Neovim to complete the installation:
 
-- Install all plugins use [lazy.nvim](https://github.com/folke/lazy.nvim):
+- Install plugins via [lazy.nvim](https://github.com/folke/lazy.nvim):
 
 ```vim
 :Lazy sync
 ```
 
-- Install all LSP, Formatter, Linter and debug adapter use [mason.nvim](https://github.com/mason-org/mason.nvim):
+- Install LSPs, Formatters, Linters, and Debug Adapters via [mason.nvim](https://github.com/mason-org/mason.nvim):
 
 ```vim
 :MasonInstallEnsured
 ```
 
-- Install all Tree-sitter parsers use [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter/tree/main):
+- Install Tree-sitter parsers via [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter):
 
 ```vim
 :TSInstallEnsured
 ```
 
-### Additional install
+### Additional Dependencies
 
-- Image support provided by [snacks.image](https://github.com/folke/snacks.nvim/blob/main/docs/image.md) and requires an additional installation of [ImageMagick](https://imagemagick.org/).
-- Dashboard supported by [snacks.dashboard](https://github.com/folke/snacks.nvim/blob/main/docs/dashboard.md) and requires an additional installation of [chafa](https://github.com/hpjansson/chafa) support for `.gif` file display in the terminal environment.
-- Others
-  - HomeBrew
-    - fzf
-    - ripgrep
-    - fd
-    - ghostscript
-    - tectonic
-  - npm
-    - @mermaid-js/mermaid-cli
-    - @google/gemini-cli
+- **Image Support:** Provided by [snacks.image](https://github.com/folke/snacks.nvim/blob/main/docs/image.md). Requires [ImageMagick](https://imagemagick.org/).
+- **Dashboard:** Powered by [snacks.dashboard](https://github.com/folke/snacks.nvim/blob/main/docs/dashboard.md). Requires [chafa](https://github.com/hpjansson/chafa) for displaying `.gif` files in the terminal.
+- **System Tools:**
+  - **Homebrew:** `fzf`, `ripgrep`, `fd`, `ghostscript`, `tectonic`
+  - **npm:** `@mermaid-js/mermaid-cli`, `@google/gemini-cli`
