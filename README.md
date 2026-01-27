@@ -49,3 +49,4 @@ Inside Neovim, use these command to install.
     - tectonic
   - npm
     - @mermaid-js/mermaid-cli
+    - @google/gemini-cli
