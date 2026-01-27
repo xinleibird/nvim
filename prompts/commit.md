@@ -18,11 +18,11 @@ opts:
 
 ```txt
 
-<type>[optional scope]: <description>
+type(optional scope): description
 
-[optional body]
+optional body
 
-[optional footer(s)]
+optional footer
 ```
 
 ## user
