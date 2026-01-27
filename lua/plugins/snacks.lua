@@ -82,12 +82,14 @@ local M = {
     local state_dir = vim.fn.stdpath("state")
     local function filter_rtp(rtp)
       local patterns = {
+        "^" .. "/private/",
         "^" .. homebrew_repo,
         "^" .. data_dir,
         "^" .. cache_dir,
         "^" .. state_dir,
         "^" .. home_dir .. "/.rustup",
         "^" .. home_dir .. "/.notes",
+        "^" .. home_dir .. "/.ssh",
         "node_modules",
       }
       for _, pattern in ipairs(patterns) do
