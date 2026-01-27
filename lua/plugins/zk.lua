@@ -1,6 +1,6 @@
 local M = {
   "zk-org/zk-nvim",
-  lazy = false,
+  event = "VeryLazy",
   init = function()
     vim.keymap.set("n", "<leader>zp", "<cmd>ZkNotes<cr>", { desc = "Zk Notes" })
     vim.keymap.set("n", "<leader>zt", "<cmd>ZkTags<cr>", { desc = "Zk Tags" })

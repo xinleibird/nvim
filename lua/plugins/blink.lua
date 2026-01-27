@@ -22,11 +22,9 @@ local M = {
     },
     {
       "neovim/nvim-lspconfig",
-      lazy = false,
     },
     {
       "pmizio/typescript-tools.nvim",
-      lazy = false,
       opts = {},
     },
     {

@@ -1,7 +1,6 @@
 local M = {
   "folke/snacks.nvim",
   priority = 1000,
-  lazy = false,
   init = function()
     local function toggle_terminal_map()
       if vim.g.neovide then

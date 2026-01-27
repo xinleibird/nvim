@@ -1,8 +1,6 @@
 local M = {
   "kevinhwang91/nvim-bqf",
-  event = "BufEnter",
   ft = "qf",
-  lazy = false,
   dependencies = {
     "junegunn/fzf",
   },

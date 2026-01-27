@@ -1,8 +1,7 @@
 local M = {
   "mfussenegger/nvim-dap",
-  lazy = false,
+  event = "LspAttach",
   dependencies = {
-
     "rcarriga/nvim-dap-ui",
     dependencies = "nvim-neotest/nvim-nio",
     init = function()
@@ -78,7 +77,6 @@ local M = {
       require("dapui").setup(opts)
     end,
   },
-  event = "LspAttach",
   init = function()
     local dap = require("dap")
     vim.keymap.set("n", "<leader>dt", function()
@@ -128,7 +126,6 @@ local M = {
       { text = icons.ui.Rejected, numhl = "DapBreakpointRejected", texthl = "DapBreakpointRejected" }
     )
   end,
-
   config = function()
     local files_str = vim.fn.glob(vim.fn.stdpath("config") .. "/dap/*.lua")
     local files_list = vim.split(files_str, "\n", { plain = true })
