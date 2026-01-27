@@ -48,10 +48,11 @@ local M = {
         json = { "prettier" },
         jsonc = { "prettier" },
 
+        bash = { "shfmt" },
         sh = { "shfmt" },
+        zsh = { "shfmt" },
 
         yaml = { "prettier" },
-        zsh = { "shfmt" },
 
         -- Use the "_" filetype to run formatters on filetypes that don't
         -- have other formatters configured.

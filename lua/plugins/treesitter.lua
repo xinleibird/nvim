@@ -27,6 +27,7 @@ local M = {
       "vim",
       "vue",
       "yaml",
+      "zsh",
     }
     vim.api.nvim_create_user_command("TSInstallEnsured", function()
       require("nvim-treesitter").install(ensure_list):wait(600000)

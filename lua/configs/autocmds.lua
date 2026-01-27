@@ -1,15 +1,3 @@
--- Let treesitter use bash highlight for zsh files as well
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "zsh",
-  group = vim.api.nvim_create_augroup("user_zsh_highlight", { clear = true }),
-  callback = function()
-    local ok, highlight = pcall(require, "nvim-treesitter.highlight")
-    if ok then
-      highlight.attach(0, "bash")
-    end
-  end,
-})
-
 local hotkey_group = vim.api.nvim_create_augroup("user_buf_quit_hotkey", { clear = true })
 -- Close window with q
 vim.api.nvim_create_autocmd("FileType", {

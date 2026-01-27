@@ -16,6 +16,7 @@ local M = {
     require("lint").linters_by_ft = {
       bash = { "shellcheck" },
       html = { "htmlhint" },
+      sh = { "shellcheck" },
       zsh = { "shellcheck" },
     }
   end,
