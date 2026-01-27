@@ -22,8 +22,10 @@ return {
       --
       -- Default upstream pattern is "**/*@(.sh|.inc|.bash|.command)".
       globPattern = vim.env.GLOB_PATTERN or "*@(.sh|.inc|.bash|.command)",
+      shellcheckArguments = "--shell=bash", -- 强制 shellcheck 按 bash 逻辑处理，通常能覆盖大部分 zsh 语法
     },
   },
-  filetypes = { "bash", "sh" },
+  filetypes = { "bash", "sh", "zsh" },
   root_markers = { ".git" },
+  single_file_support = true,
 }
