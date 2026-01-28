@@ -167,18 +167,31 @@ local M = {
       interactions = {
         chat = {
           adapter = "gemini_cli",
-          model = "gemini-2.5-flash-lite",
+          model = "gemini-3-flash-preview",
+          keymaps = {
+            send = {
+              modes = {
+                n = "<C-s>",
+                i = "<C-s>",
+              },
+              callback = function(chat)
+                chat:submit()
+                vim.cmd("stopinsert")
+                vim.api.nvim_command("normal! G")
+              end,
+            },
+          },
         },
         -- inline = {
         --   adapter = "ollama",
         -- },
         cmd = {
           adapter = "gemini_cli",
-          model = "gemini-2.5-flash-lite",
+          model = "gemini-3-flash-preview",
         },
         background = {
           adapter = "gemini_cli",
-          model = "gemini-2.5-flash-lite",
+          model = "gemini-3-flash-preview",
         },
       },
     })

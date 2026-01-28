@@ -65,7 +65,7 @@ local M = {
       else
         vim.api.nvim_echo({ { "All ensure mason packages have been installed", "MoreMsg" } }, true, {})
       end
-    end, {})
+    end, { desc = "Install all ensured mason packages" })
   end,
   opts = function()
     local icons = require("configs.icons")
