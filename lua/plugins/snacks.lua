@@ -72,8 +72,8 @@ local M = {
     vim.cmd([[command! Pickers lua Snacks.picker()]])
   end,
 
-  ---@return snacks.Config
-  opts = function()
+  config = function()
+    local icons = require("configs.icons")
     local home_dir = vim.fn.expand("$HOME")
     local homebrew_repo = vim.fn.expand("$HOMEBREW_REPOSITORY")
     local data_dir = vim.fn.stdpath("data")
@@ -98,9 +98,7 @@ local M = {
       end
       return true
     end
-
-    local icons = require("configs.icons")
-    return {
+    require("snacks").setup({
       styles = {
         minimal = {
           relative = {},
@@ -165,7 +163,6 @@ local M = {
       },
       win = { backdrop = 38 },
       picker = {
-        ---@diagnostic disable-next-line: missing-fields
         icons = {
           tree = {
             vertical = "  ",
@@ -358,7 +355,7 @@ local M = {
             },
           },
           vscode = {
-            preview = false,
+            ---@diagnostic disable-next-line: assign-type-mismatch
             layout = {
               row = 2,
               width = 0.55,
@@ -390,6 +387,7 @@ local M = {
             },
           },
           select = {
+            ---@diagnostic disable-next-line: assign-type-mismatch
             preview = false,
             layout = {
               backdrop = false,
@@ -544,7 +542,7 @@ local M = {
           }
         end,
       },
-    }
+    })
   end,
   dependencies = {
     {
