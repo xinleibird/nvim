@@ -16,12 +16,9 @@ local M = {
       Snacks.terminal.toggle()
     end)
 
-    vim.keymap.set("t", "<C-x>", "<C-\\><C-N>", { desc = "Escape terminal mode" })
-
-    local term_group = vim.api.nvim_create_augroup("user_toggle_wincmd_keymap_for_lazygit_term_buf", { clear = true })
     vim.api.nvim_create_autocmd("TermOpen", {
       pattern = "*",
-      group = term_group,
+      group = vim.api.nvim_create_augroup("user_toggle_wincmd_keymap_for_lazygit_term_buf", { clear = true }),
       callback = function()
         local term_title = vim.b.term_title
         if term_title and term_title:match("lazygit") then
@@ -35,42 +32,34 @@ local M = {
       end,
     })
 
-    -- vim.keymap.set("n", "<leader>sp", "<cmd>lua Snacks.picker.pick('files')<cr>", { desc = "Files" })
-    vim.keymap.set("n", "<leader>sp", function()
-      local zk_ok = pcall(require, "zk")
-      if zk_ok and vim.fn.getcwd() == vim.env.ZK_NOTEBOOK_DIR then
-        vim.cmd("ZkNotes")
-      else
-        Snacks.picker.pick("files")
-      end
-    end, { desc = "Files" })
-
-    vim.keymap.set("n", "<leader>st", "<cmd>lua Snacks.picker.pick('live_grep')<CR>", { desc = "Live grep" })
-    vim.keymap.set({ "n", "x" }, "<leader>sx", "<cmd>lua Snacks.picker.grep_word()<CR>", { desc = "Word" })
-    vim.keymap.set("n", "<leader>sh", "<cmd>lua Snacks.picker.help()<CR>", { desc = "Help pages" })
-    vim.keymap.set("n", "<leader>sr", "<cmd>lua Snacks.picker.pick('oldfiles')<CR>", { desc = "Recent files" })
-    vim.keymap.set("n", "<leader>sb", "<cmd>lua Snacks.picker.lines()<CR>", { desc = "Buffer lines" })
-    vim.keymap.set("n", "<leader>sB", "<cmd>lua Snacks.picker.grep_buffers()<CR>", { desc = "Open buffers" })
-
-    vim.keymap.set("n", "<leader>gg", function()
+    vim.cmd([[command! Notifications lua Snacks.notifier.show_history()]])
+    vim.cmd([[command! Pickers lua Snacks.picker()]])
+  end,
+  keys = {
+    --stylua: ignore start
+    { "<leader>sp", function() Snacks.picker.pick('files') end,  desc = "Files" },
+    { "<leader>st", function() Snacks.picker.pick('live_grep') end, desc = "Live grep" },
+    { "<leader>sx", function() Snacks.picker.grep_word() end, desc = "Grep word" , mode ={ "n", "x" } },
+    { "<leader>sh", function() Snacks.picker.help() end, desc = "Help pages" },
+    { "<leader>sr", function() Snacks.picker.pick('oldfiles') end, desc = "Recent files" },
+    { "<leader>sb", function() Snacks.picker.lines() end, desc = "Buffer lines" },
+    { "<leader>sB", function() Snacks.picker.grep_buffers() end,  desc = "Open buffers" },
+    { "<leader>go", function() Snacks.picker.git_status() end, desc = "Git status" },
+    { "<leader>gO", function() Snacks.picker.git_diff() end, desc = "Git diff (Hunks)" },
+    { "<leader>e", function() Snacks.picker.explorer() end, desc = "Explorer" },
+    { "]]", function() Snacks.words.jump(vim.v.count1) end, desc = "Next reference" },
+    { "[[", function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev reference" },
+    {"<C-x>", "<C-\\><C-N>", { desc = "Escape terminal mode" }, mode ="t"},
+    { "<leader>gg", function()
       local root = Snacks.git.get_root()
       if root ~= nil then
         Snacks.lazygit()
       else
         vim.notify("Not in a git repository!", vim.log.levels.WARN, { title = "Lazygit" })
       end
-    end, { desc = "Lazygit" })
-    vim.keymap.set("n", "<leader>go", "<cmd>lua Snacks.picker.git_status()<CR>", { desc = "Git status" })
-    vim.keymap.set("n", "<leader>gO", "<cmd>lua Snacks.picker.git_diff()<CR>", { desc = "Git diff (Hunks)" })
-
-    vim.keymap.set("n", "<leader>e", "<cmd>lua Snacks.picker.explorer()<CR>", { desc = "Explorer" })
-
-    vim.keymap.set("n", "]]", "<cmd>lua Snacks.words.jump(vim.v.count1)<CR>", { desc = "Next reference" })
-    vim.keymap.set("n", "[[", "<cmd>lua Snacks.words.jump(-vim.v.count1)<CR>", { desc = "Prev reference" })
-
-    vim.cmd([[command! Notifications lua Snacks.notifier.show_history()]])
-    vim.cmd([[command! Pickers lua Snacks.picker()]])
-  end,
+    end,  desc = "Lazygit" },
+    -- stylua: ignore end
+  },
 
   config = function()
     local icons = require("configs.icons")
@@ -614,7 +603,7 @@ local M = {
           return Snacks.picker({
             title = "Sessions",
             items = items,
-            layout = "vscode",
+            layout = "select",
             format = function(item)
               local ret = {}
               ret[#ret + 1] = { ("%-" .. longest_name .. "s"):format(item.name), "SnacksPickerLabel" }
@@ -682,7 +671,7 @@ local M = {
           return Snacks.picker({
             title = "Workspaces",
             items = items,
-            layout = "vscode",
+            layout = "select",
             format = function(item)
               local ret = {}
               ret[#ret + 1] = { ("%-" .. longest_name .. "s"):format(item.name), "SnacksPickerLabel" }
