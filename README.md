@@ -9,11 +9,12 @@ A personal Neovim configuration focused on minimalism, fluidity, and aesthetics.
 
 </div>
 
-### Showcase
+## Showcase
 
-|                      Light Mode                       |                      Dark Mode                       |
-| :---------------------------------------------------: | :--------------------------------------------------: |
-| <img src="./assets/showcase/light.gif" width="384" /> | <img src="./assets/showcase/dark.gif" width="384" /> |
+<div style="display: flex; flex-flow: row nowrap;">
+  <img src="./assets/showcase/dark.gif" width="49%">
+  <img src="./assets/showcase/light.gif" width="49%">
+</div>
 
 ## Installation
 
@@ -55,4 +56,4 @@ Run the following commands within Neovim to complete the installation:
 - **Dashboard:** Powered by [snacks.dashboard](https://github.com/folke/snacks.nvim/blob/main/docs/dashboard.md). Requires [chafa](https://github.com/hpjansson/chafa) for displaying `.gif` files in the terminal.
 - **System Tools:**
   - **Homebrew:** `fzf`, `ripgrep`, `fd`, `ghostscript`, `tectonic`
-  - **npm:** `@mermaid-js/mermaid-cli`, `@google/gemini-cli`
+  - **npm:** `@google/gemini-cli`

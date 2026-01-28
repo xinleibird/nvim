@@ -42,6 +42,7 @@ local M = {
       -- markdown
       "marksman",
       "zk",
+      "mmdc", -- mermaid
     }
 
     -- custom cmd to install all mason binaries listed
