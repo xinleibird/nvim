@@ -563,24 +563,15 @@ local M = {
         vim.api.nvim_create_user_command("SessionPicker", function()
           local items = {}
           local longest_name = 0
-          local sep = require("persisted.utils").dir_pattern()
-
-          local function escape_pattern(str, pattern, replace, n)
-            pattern = string.gsub(pattern, "[%(%)%.%+%-%*%?%[%]%^%$%%]", "%%%1") -- escape pattern
-            replace = string.gsub(replace, "[%%]", "%%%%") -- escape replacement
-
-            return string.gsub(str, pattern, replace, n)
-          end
+          local sep = require("utils").dir_pattern
+          local escape_pattern = require("utils").escape_pattern
 
           for i, session in ipairs(require("persisted").list()) do
             local session_path = escape_pattern(session, require("persisted.config").config.save_dir, "")
               :gsub("%%", sep)
               -- :gsub(vim.fn.expand("~"), sep)
-              -- :gsub(vim.fn.expand("~"), "~")
-              :gsub(
-                "//",
-                ""
-              )
+              :gsub(vim.fn.expand("~"), "~")
+              :gsub("//", "")
               :sub(1, -5)
 
             if vim.fn.has("win32") == 1 then
@@ -589,13 +580,12 @@ local M = {
             end
 
             local root_dir = string.match(session_path, "[^/]%w+$")
-
             table.insert(items, {
               idx = i,
-              score = i,
-              text = session_path,
               name = root_dir,
+              score = i,
               session = session,
+              text = session_path,
             })
             longest_name = math.max(longest_name, #root_dir)
           end
@@ -657,13 +647,28 @@ local M = {
         vim.api.nvim_create_user_command("WorkspacesPicker", function()
           local items = {}
           local longest_name = 0
+          local sep = require("utils").dir_pattern
+          local escape_pattern = require("utils").escape_pattern
+
           for i, workspace in ipairs(require("workspaces").get()) do
+            local workspace_path = workspace
+              .path
+              :gsub("%%", sep)
+              -- :gsub(vim.fn.expand("~"), sep)
+              :gsub(vim.fn.expand("~"), "~")
+              :gsub("//", "")
+              :sub(1, -2)
+            if vim.fn.has("win32") == 1 then
+              workspace_path = escape_pattern(workspace_path, sep, ":", 1)
+              workspace_path = escape_pattern(workspace_path, sep, "\\")
+            end
+
             table.insert(items, {
-              idx = i,
-              score = i,
-              text = workspace.path,
-              name = workspace.name,
               file = workspace.path,
+              idx = i,
+              name = workspace.name,
+              score = i,
+              text = workspace_path,
             })
             longest_name = math.max(longest_name, #workspace.name)
           end

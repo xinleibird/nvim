@@ -190,4 +190,19 @@ M.buf_kill = function(kill_command, bufnr, force)
   end
 end
 
+M.escape_pattern = function(str, pattern, replace, n)
+  pattern = string.gsub(pattern, "[%(%)%.%+%-%*%?%[%]%^%$%%]", "%%%1") -- escape pattern
+  replace = string.gsub(replace, "[%%]", "%%%%") -- escape replacement
+
+  return string.gsub(str, pattern, replace, n)
+end
+
+M.dir_pattern = function()
+  local pattern = "/"
+  if vim.fn.has("win32") == 1 then
+    pattern = "[\\:]"
+  end
+  return pattern
+end
+
 return M
