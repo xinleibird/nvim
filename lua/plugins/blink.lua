@@ -83,9 +83,13 @@ local M = {
       nerd_font_variant = "mono",
     },
     sources = {
-      default = { "lsp", "alias_path", "snippets", "buffer" },
+      default = { "lsp", "path", "snippets", "buffer" },
       per_filetype = {
-        lua = { "lazydev", "lsp", "alias_path", "snippets", "buffer" },
+        lua = { "lazydev", "lsp", "path", "snippets", "buffer" },
+        html = { "lsp", "alias_path", "snippets", "buffer" },
+        css = { "lsp", "alias_path", "snippets", "buffer" },
+        javascriptreact = { "lsp", "alias_path", "snippets", "buffer" },
+        typescriptreact = { "lsp", "alias_path", "snippets", "buffer" },
         ["dap-repl"] = { "lsp" },
       },
       -- min_keyword_length = function()
