@@ -20,13 +20,11 @@ end, { desc = "Clear highlights and Escape popup" })
 
 -- quit window
 vim.keymap.set("n", "<leader>q", function()
-  if vim.bo.ft == "TelescopePrompt" then
-    vim.cmd("q!")
-  elseif vim.bo.ft == "checkhealth" or vim.bo.ft == "snacks_dashboard" then
+  if vim.bo.ft == "checkhealth" or vim.bo.ft == "snacks_dashboard" then
     vim.cmd("q!")
   elseif vim.bo.ft == "qf" then
     vim.cmd("cclose")
-  elseif vim.bo.ft == "NeogitStatus" then
+  elseif vim.bo.ft == "NeogitStatus" or vim.bo.ft == "help" then
     vim.cmd("close")
   elseif
     vim.bo.ft == "dapui_scopes"
@@ -39,7 +37,6 @@ vim.keymap.set("n", "<leader>q", function()
     require("dapui").close()
   else
     vim.cmd("confirm q")
-    vim.cmd("silent! DiffviewClose")
   end
 end, { desc = "Quit" })
 
@@ -58,7 +55,7 @@ vim.keymap.set(
   "<esc>:set paste<cr>a<c-r>=getreg('+')<cr><esc>:set nopaste<cr>mi`[=`]`ia",
   { desc = "Paste insert-mode" }
 )
-vim.keymap.set("c", paste_map, "<C-r>+", { desc = "Paste cmd-mode" })
+vim.keymap.set("c", paste_map, "<C-r>+", { desc = "Paste" })
 
 -- save
 vim.keymap.set("n", "<leader>w", "<cmd>w!<CR>", { desc = "Save with formatting" })
