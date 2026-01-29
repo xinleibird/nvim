@@ -558,8 +558,6 @@ local M = {
     {
       "olimorris/persisted.nvim",
       init = function()
-        vim.o.sessionoptions = "buffers,curdir,folds,globals,tabpages,winpos,winsize"
-
         vim.api.nvim_create_user_command("SessionPicker", function()
           local items = {}
           local longest_name = 0
@@ -629,6 +627,7 @@ local M = {
           "codecompanion",
         }
         require("persisted").setup({
+          save_dir = vim.fn.expand(vim.fn.stdpath("data") .. "/sessions/"),
           should_save = function()
             for _, ft in ipairs(deny_list) do
               if vim.bo.filetype == ft then

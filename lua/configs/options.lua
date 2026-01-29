@@ -79,3 +79,6 @@ vim.g["loaded_python3_provider"] = 0
 
 -- enable semantic tokens highlight
 vim.g["semantic_tokens"] = true
+
+-- sessions
+vim.o.sessionoptions = "buffers,curdir,folds,globals,tabpages,winpos,winsize"
