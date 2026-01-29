@@ -128,10 +128,10 @@ local M = {
         padding = { left = 2, right = 0 },
         sources = { "nvim_diagnostic" },
         symbols = {
-          error = icons.diagnostics.Error .. " ",
-          warn = icons.diagnostics.Warn .. " ",
-          info = icons.diagnostics.Info .. " ",
-          hint = icons.diagnostics.Hint .. " ",
+          error = icons.diagnostics.Default .. " ",
+          warn = icons.diagnostics.Default .. " ",
+          info = icons.diagnostics.Default .. " ",
+          hint = icons.diagnostics.Default .. " ",
         },
         -- cond =
       },
@@ -276,13 +276,23 @@ local M = {
         end,
       },
 
+      codecompanion = {
+        function()
+          local status = require("codecompanion").last_chat()
+          return status and "" or ""
+        end,
+        color = function()
+          return "DevIconApp"
+        end,
+      },
+
       filetype = {
         "filetype",
         padding = { left = 0, right = 0 },
         icon_only = true,
         separator = { left = "" },
         on_click = function()
-          require("snacks").notify.error(icons.ui.FileOutline .. " " .. vim.bo[0].filetype, {
+          require("snacks").notify.info(icons.ui.FileOutline .. " " .. vim.bo[0].filetype, {
             title = "Filetype",
             timeout = 5000,
           })
@@ -344,6 +354,7 @@ local M = {
           "%=",
         },
         lualine_x = {
+          components.codecompanion,
           components.filetype,
           components.sep,
         },
