@@ -36,6 +36,24 @@ local M = {
         require("nvim-highlight-colors").setup({})
       end,
     },
+    {
+      "rachartier/tiny-inline-diagnostic.nvim",
+      event = "VeryLazy",
+      priority = 1000,
+      opts = {},
+      config = function()
+        require("tiny-inline-diagnostic").setup({
+          options = {
+            multilines = {
+              enabled = true,
+            },
+            show_source = {
+              enabled = true,
+            },
+          },
+        })
+      end,
+    },
   },
   init = function()
     if vim.fn.has("nvim-0.11") == 1 and vim.lsp.config then

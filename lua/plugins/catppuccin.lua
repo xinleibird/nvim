@@ -22,7 +22,7 @@ local M = {
       },
       no_italic = false, -- Force no italic
       no_bold = false, -- Force no bold
-      no_underline = false,
+      no_underline = false, -- Force no underline
       styles = {
         comments = { "italic" },
         conditionals = { "italic" },
@@ -37,6 +37,25 @@ local M = {
         types = {},
         operators = {},
         miscs = {},
+      },
+      lsp_styles = { -- Handles the style of specific lsp hl groups (see `:h lsp-highlight`).
+        virtual_text = {
+          errors = { "italic" },
+          hints = { "italic" },
+          warnings = { "italic" },
+          information = { "italic" },
+          ok = { "italic" },
+        },
+        underlines = {
+          errors = { "undercurl" },
+          hints = { "undercurl" },
+          warnings = { "undercurl" },
+          information = { "undercurl" },
+          ok = { "underline" },
+        },
+        inlay_hints = {
+          background = true,
+        },
       },
       color_overrides = {
         latte = {
@@ -180,25 +199,6 @@ local M = {
         mini = {
           enabled = true,
           indentscope_color = "surface1", -- catppuccin color (eg. `lavender`) Default: text
-        },
-        lsp_styles = { -- Handles the style of specific lsp hl groups (see `:h lsp-highlight`).
-          virtual_text = {
-            errors = { "italic" },
-            hints = { "italic" },
-            warnings = { "italic" },
-            information = { "italic" },
-            ok = { "italic" },
-          },
-          underlines = {
-            errors = { "underline" },
-            hints = { "underline" },
-            warnings = { "underline" },
-            information = { "underline" },
-            ok = { "underline" },
-          },
-          inlay_hints = {
-            background = true,
-          },
         },
         nvim_surround = true,
         symbols_outline = true,
