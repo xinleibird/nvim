@@ -48,8 +48,11 @@ local M = {
               enabled = true,
             },
             show_source = {
-              enabled = true,
+              enabled = false,
             },
+          },
+          signs = {
+            diag = require("configs.icons").diagnostics.Checker,
           },
         })
       end,

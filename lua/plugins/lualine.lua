@@ -279,7 +279,7 @@ local M = {
       codecompanion = {
         function()
           local status = require("codecompanion").last_chat()
-          return status and "" or ""
+          return status and "󰍛" or ""
         end,
         color = function()
           return "DevIconApp"
