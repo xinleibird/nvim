@@ -23,7 +23,7 @@ vim.keymap.set("n", "<leader>q", function()
   if vim.bo.ft == "TelescopePrompt" then
     vim.cmd("q!")
   elseif vim.bo.ft == "checkhealth" or vim.bo.ft == "snacks_dashboard" then
-    vim.cmd("bd!")
+    vim.cmd("q!")
   elseif vim.bo.ft == "qf" then
     vim.cmd("cclose")
   elseif vim.bo.ft == "NeogitStatus" then
