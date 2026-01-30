@@ -5,5 +5,3 @@ vim.opt_local.softtabstop = 2
 
 vim.b.snacks_scope = false
 vim.b.snacks_image_attached = true
-
-vim.treesitter.language.register("markdown", { "codecompanion" })
