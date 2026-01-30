@@ -82,8 +82,12 @@ vim.keymap.set("n", "gF", vim.lsp.buf.type_definition, { desc = "Type definition
 vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Implementation" })
 vim.keymap.set("n", "gI", vim.lsp.buf.incoming_calls, { desc = "Incoming calls" }) -- who calls me
 vim.keymap.set("n", "gO", vim.lsp.buf.outgoing_calls, { desc = "Outgoing calls" }) -- me calls who
-vim.keymap.set("n", "<leader>ld", Snacks.picker.diagnostics_buffer, { desc = "Buff diagnostics" })
-vim.keymap.set("n", "<leader>lD", Snacks.picker.diagnostics, { desc = "Diagnostics" })
+vim.keymap.set("n", "<leader>ld", function()
+  Snacks.picker.diagnostics_buffer()
+end, { desc = "Buff diagnostics" })
+vim.keymap.set("n", "<leader>lD", function()
+  Snacks.picker.diagnostics_buffer()
+end, { desc = "Diagnostics" })
 
 vim.keymap.set("n", "<leader>lm", function()
   vim.lsp.buf.format()
