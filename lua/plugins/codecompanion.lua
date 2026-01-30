@@ -145,6 +145,34 @@ local M = {
               },
             })
           end,
+          qwen_code = function()
+            return require("codecompanion.adapters").extend("gemini_cli", {
+              name = "qwen_code",
+              formatted_name = "Qwen Code",
+              commands = {
+                default = {
+                  "qwen",
+                  "--experimental-acp",
+                },
+                yolo = {
+                  "qwen",
+                  "--yolo",
+                  "--experimental-acp",
+                },
+              },
+              defaults = {
+                auth_method = "qwen-oauth",
+                oauth_credentials_path = vim.fs.abspath("~/.qwen/oauth_creds.json"),
+              },
+              handlers = {
+                -- do not auth again if oauth_credentials is already exists
+                auth = function(self)
+                  local oauth_credentials_path = self.defaults.oauth_credentials_path
+                  return (oauth_credentials_path and vim.fn.filereadable(oauth_credentials_path)) == 1
+                end,
+              },
+            })
+          end,
         },
         http = {
           ollama = function()
@@ -166,8 +194,9 @@ local M = {
       },
       interactions = {
         chat = {
-          adapter = "gemini_cli",
-          model = "gemini-3-flash-preview",
+          adapter = "qwen_code",
+          -- adapter = "gemini_cli",
+          -- model = "gemini-3-flash-preview",
           keymaps = {
             send = {
               modes = {
@@ -186,12 +215,14 @@ local M = {
         --   adapter = "ollama",
         -- },
         cmd = {
-          adapter = "gemini_cli",
-          model = "gemini-3-flash-preview",
+          adapter = "qwen_code",
+          -- adapter = "gemini_cli",
+          -- model = "gemini-3-flash-preview",
         },
         background = {
-          adapter = "gemini_cli",
-          model = "gemini-3-flash-preview",
+          adapter = "qwen_code",
+          -- adapter = "gemini_cli",
+          -- model = "gemini-3-flash-preview",
         },
       },
     })
