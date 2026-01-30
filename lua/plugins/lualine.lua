@@ -203,9 +203,9 @@ local M = {
             ""
             .. (#clients > 0 and "" or "")
             .. (client_batch == "" and "" or ("" .. client_batch))
-            .. (#formatters > 0 and "  " or "")
+            .. (#formatters > 0 and "・" or "")
             .. (formatter_batch == "" and "" or ("" .. formatter_batch))
-            .. (#linters > 0 and "  " or "")
+            .. (#linters > 0 and "・" or "")
             .. (linter_batch == "" and "" or ("" .. linter_batch))
           )
         end,
@@ -278,12 +278,23 @@ local M = {
 
       codecompanion = {
         function()
-          local status = require("codecompanion").last_chat()
-          return status and "󰍛" or ""
+          local ok, codecompanion = pcall(require, "codecompanion")
+          if ok then
+            local status = codecompanion.last_chat()
+            return status and "" or ""
+          end
+          return "x"
         end,
         color = function()
-          return "DevIconApp"
+          local ok, codecompanion = pcall(require, "codecompanion")
+          if ok then
+            local status = codecompanion.last_chat()
+            return status and "LualineCodeCompanionOpen" or "LualineCodeCompanionClose"
+          end
+          return "LualineCodeCompanionClose"
         end,
+        separator = { left = "", right = "" },
+        padding = { left = 0, right = 0 },
       },
 
       filetype = {
@@ -354,18 +365,18 @@ local M = {
           "%=",
         },
         lualine_x = {
-          components.codecompanion,
           components.filetype,
           components.sep,
         },
         lualine_y = {
           components.lsp_clients_formatters_linters,
           components.sep,
+          components.codecompanion,
+          components.sep,
           components.location,
         },
         lualine_z = {
           components.progress,
-          components.sep,
         },
       },
       inactive_sections = {},
