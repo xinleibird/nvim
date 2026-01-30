@@ -135,6 +135,9 @@ local M = {
       },
       adapters = {
         acp = {
+          opts = {
+            show_presets = false,
+          },
           gemini_cli = function()
             return require("codecompanion.adapters").extend("gemini_cli", {
               defaults = {
@@ -175,6 +178,9 @@ local M = {
           end,
         },
         http = {
+          opts = {
+            show_presets = false,
+          },
           ollama = function()
             return require("codecompanion.adapters").extend("ollama", {
               env = {
@@ -210,19 +216,6 @@ local M = {
               end,
             },
           },
-        },
-        -- inline = {
-        --   adapter = "ollama",
-        -- },
-        cmd = {
-          adapter = "qwen_code",
-          -- adapter = "gemini_cli",
-          -- model = "gemini-3-flash-preview",
-        },
-        background = {
-          adapter = "qwen_code",
-          -- adapter = "gemini_cli",
-          -- model = "gemini-3-flash-preview",
         },
       },
     })
