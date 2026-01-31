@@ -27,7 +27,6 @@ vim.o.number = true
 vim.o.numberwidth = 6
 vim.o.ruler = false
 
-vim.o.termguicolors = true
 vim.o.cursorline = true
 -- vim.o.cursorlineopt = "number"
 
@@ -82,3 +81,12 @@ vim.g["semantic_tokens"] = true
 
 -- sessions
 vim.o.sessionoptions = "buffers,curdir,folds,globals,tabpages,winpos,winsize"
+
+-- gui color
+vim.o.termguicolors = true
+
+-- transparent bg
+local groups = { "Normal", "NormalFloat", "FloatBorder", "FidgetTask", "FidgetTitle" }
+for _, group in ipairs(groups) do
+  vim.api.nvim_set_hl(0, group, { bg = "NONE", ctermbg = "NONE" })
+end
