@@ -281,6 +281,36 @@ local M = {
         icon = "󰹑",
         desc = "Bottom of Screen",
       },
+      {
+        "zh",
+        icon = "󰹑",
+        desc = "Scroll Left one Word",
+      },
+      {
+        "zl",
+        icon = "󰹑",
+        desc = "Scroll Right one Word",
+      },
+      {
+        "zH",
+        icon = "󰹑",
+        desc = "Scroll Left one Screen",
+      },
+      {
+        "zL",
+        icon = "󰹑",
+        desc = "Scroll Right one Screen",
+      },
+      {
+        "0",
+        icon = "󰹑",
+        desc = "Scroll Head of Line ",
+      },
+      {
+        "$",
+        icon = "󰹑",
+        desc = "Scroll End of Line",
+      },
     })
 
     ---@diagnostic disable-next-line: missing-fields
