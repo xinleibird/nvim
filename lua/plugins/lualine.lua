@@ -294,15 +294,15 @@ local M = {
           end
           return "LualineCodeCompanionClose"
         end,
-        separator = { left = "", right = "" },
+        separator = { left = "", right = "" },
         padding = { left = 0, right = 0 },
       },
 
       filetype = {
         "filetype",
-        padding = { left = 1, right = 1 },
+        padding = { left = 0, right = 0 },
+        separator = { left = "", right = "" },
         icon_only = true,
-        -- separator = { left = " " },
         on_click = function()
           require("snacks").notify.info(icons.ui.FileOutline .. " " .. vim.bo[0].filetype, {
             title = "Filetype",
@@ -367,13 +367,11 @@ local M = {
         },
         lualine_x = {
           components.lsp_clients_formatters_linters,
-          -- components.sep,
-          components.filetype,
         },
         lualine_y = {
+          components.filetype,
           components.codecompanion,
-          components.sep,
-          components.location,
+          -- components.location,
         },
         lualine_z = {
           components.progress,

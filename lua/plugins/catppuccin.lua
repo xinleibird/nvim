@@ -177,9 +177,13 @@ local M = {
           Folded = { bg = C.surface0, fg = C.text },
 
           -- Lualine CodeCompanion
-          LualineLsp = { fg = C.overlay2 },
+          LualineLsp = { fg = C.overlay2, bg = C.mantle },
           LualineCodeCompanionClose = { bg = C.surface0, fg = C.overlay0 },
           LualineCodeCompanionOpen = { bg = C.surface0, fg = C.red },
+
+          FidgetNormal = { bg = "NONE" },
+          FidgetTask = { bg = "NONE" },
+          FidgetTitle = { bg = "NONE" },
         }
       end,
       default_integrations = false,
