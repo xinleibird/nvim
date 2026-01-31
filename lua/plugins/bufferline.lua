@@ -51,7 +51,7 @@ local M = {
         vim.cmd("bd!")
         return
       end
-      if vim.bo[0].filetype == "Outline" then
+      if vim.bo[0].filetype == "Outline" or vim.bo[0].filetype == "codecompanion" then
         vim.cmd("close")
         return
       end
