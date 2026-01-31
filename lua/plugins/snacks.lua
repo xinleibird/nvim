@@ -37,11 +37,12 @@ local M = {
   end,
   keys = {
     --stylua: ignore start
-    { "<leader>sp", function() Snacks.picker.pick('files') end,  desc = "Files" },
-    { "<leader>st", function() Snacks.picker.pick('live_grep') end, desc = "Live grep" },
+    { "<leader>sp", function() Snacks.picker.smart() end,  desc = "Smart Files" },
+    { "<leader>so", function() Snacks.picker.files() end,  desc = "Find Files" },
+    { "<leader>st", function() Snacks.picker.grep() end, desc = "Live grep" },
     { "<leader>sx", function() Snacks.picker.grep_word() end, desc = "Grep word" , mode ={ "n", "x" } },
     { "<leader>sh", function() Snacks.picker.help() end, desc = "Help pages" },
-    { "<leader>sr", function() Snacks.picker.pick('oldfiles') end, desc = "Recent files" },
+    { "<leader>sr", function() Snacks.picker.recent() end, desc = "Recent files" },
     { "<leader>sb", function() Snacks.picker.lines() end, desc = "Buffer lines" },
     { "<leader>sB", function() Snacks.picker.grep_buffers() end,  desc = "Open buffers" },
     { "<leader>go", function() Snacks.picker.git_status() end, desc = "Git status" },
