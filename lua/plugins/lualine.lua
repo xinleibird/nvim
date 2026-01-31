@@ -37,6 +37,14 @@ local M = {
         padding = { left = 0, right = 0 },
         color = { bg = "None", ctermbg = "None" },
       },
+      blank = {
+        "",
+        fmt = function()
+          return " "
+        end,
+        padding = { left = 0, right = 0 },
+        -- color = { bg = "None", ctermbg = "None" },
+      },
 
       mode = {
         "mode",
@@ -300,9 +308,9 @@ local M = {
 
       filetype = {
         "filetype",
-        padding = { left = 1, right = 1 },
+        padding = { left = 0, right = 0 },
+        separator = { left = "", right = "" },
         icon_only = true,
-        -- separator = { left = " " },
         on_click = function()
           require("snacks").notify.info(icons.ui.FileOutline .. " " .. vim.bo[0].filetype, {
             title = "Filetype",
@@ -367,12 +375,11 @@ local M = {
         },
         lualine_x = {
           components.lsp_clients_formatters_linters,
-          -- components.sep,
           components.filetype,
+          components.codecompanion,
+          components.blank,
         },
         lualine_y = {
-          components.codecompanion,
-          components.sep,
           components.location,
         },
         lualine_z = {
