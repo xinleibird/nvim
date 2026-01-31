@@ -50,8 +50,6 @@ M.diagnostics = {
   Info = "",
   Warn = "",
   Error = "",
-  Default = "",
-  Checker = "🐱",
 }
 
 M.ui = {

@@ -50,6 +50,8 @@ local M = {
     { "]]", function() Snacks.words.jump(vim.v.count1) end, desc = "Next reference" },
     { "[[", function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev reference" },
     {"<C-x>", "<C-\\><C-N>", { desc = "Escape terminal mode" }, mode ="t"},
+    { "<leader>ld", function() Snacks.picker.diagnostics_buffer() end,  desc = "Buff diagnostics" },
+    { "<leader>lD", function() Snacks.picker.diagnostics() end,  desc = "Diagnostics" },
     { "<leader>gg", function()
       local root = Snacks.git.get_root()
       if root ~= nil then

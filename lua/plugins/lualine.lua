@@ -102,7 +102,7 @@ local M = {
         icon = icons.ui.Branch,
         fmt = function(branch)
           if branch == "" then
-            return "⛔︎"
+            return ""
           end
           return branch
         end,
@@ -128,10 +128,10 @@ local M = {
         padding = { left = 2, right = 0 },
         sources = { "nvim_diagnostic" },
         symbols = {
-          error = icons.diagnostics.Default .. " ",
-          warn = icons.diagnostics.Default .. " ",
-          info = icons.diagnostics.Default .. " ",
-          hint = icons.diagnostics.Default .. " ",
+          error = icons.diagnostics.Error .. " ",
+          warn = icons.diagnostics.Warn .. " ",
+          info = icons.diagnostics.Info .. " ",
+          hint = icons.diagnostics.Hint .. " ",
         },
         -- cond =
       },
@@ -148,7 +148,7 @@ local M = {
             jsonls = "",
             lua_ls = "󰢱",
             marksman = "",
-            ["render-markdown"] = "",
+            ["render-markdown"] = "",
             rust_analyzer = "",
             svelte = "",
             tailwindcss = "",
@@ -157,7 +157,7 @@ local M = {
             vimls = "",
             vtsls = "",
             vue_ls = "",
-            zk = "󰰶",
+            zk = "󰰷",
             yamlls = "",
           }
           local client_batch = ""
