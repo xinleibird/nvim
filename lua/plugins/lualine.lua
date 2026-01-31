@@ -281,7 +281,7 @@ local M = {
           local ok, codecompanion = pcall(require, "codecompanion")
           if ok then
             local status = codecompanion.last_chat()
-            return status and "󰇧" or "󰇨"
+            return status and "" or ""
           end
           return ""
         end,
