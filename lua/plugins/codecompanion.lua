@@ -205,7 +205,7 @@ local M = {
       },
       interactions = {
         chat = {
-          adapter = "gemini_cli",
+          adapter = require("configs.settings").codecompanion_adapter,
           keymaps = {
             send = {
               modes = {
