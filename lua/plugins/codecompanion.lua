@@ -213,10 +213,16 @@ local M = {
                 i = "<C-s>",
               },
               callback = function(chat)
-                chat:submit()
                 vim.cmd("stopinsert")
                 vim.api.nvim_command("normal! G")
+                chat:submit()
               end,
+              description = "[Request] Send response",
+            },
+            clear = {
+              modes = { n = "<C-x>" },
+              callback = "keymaps.clear",
+              description = "[Chat] Clear",
             },
           },
         },

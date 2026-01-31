@@ -16,22 +16,6 @@ local M = {
       Snacks.terminal.toggle()
     end)
 
-    vim.api.nvim_create_autocmd("TermOpen", {
-      pattern = "*",
-      group = vim.api.nvim_create_augroup("user_toggle_wincmd_keymap_for_lazygit_term_buf", { clear = true }),
-      callback = function()
-        local term_title = vim.b.term_title
-        if term_title and term_title:match("lazygit") then
-          vim.keymap.set({ "n", "t", "i" }, "<C-h>", "", { silent = true, buffer = true })
-          vim.keymap.set({ "n", "t", "i" }, "<C-l>", "", { silent = true, buffer = true })
-          vim.keymap.set({ "n", "t", "i" }, "<C-j>", "", { silent = true, buffer = true })
-          vim.keymap.set({ "n", "t", "i" }, "<C-k>", "", { silent = true, buffer = true })
-          vim.keymap.set({ "n", "t", "i" }, "<Esc>", "<Esc>", { silent = true, buffer = true })
-          vim.keymap.set({ "n", "t", "i" }, "<C-c>", "<C-c>", { silent = true, buffer = true })
-        end
-      end,
-    })
-
     vim.cmd([[command! Notifications lua Snacks.notifier.show_history()]])
     vim.cmd([[command! Pickers lua Snacks.picker()]])
   end,

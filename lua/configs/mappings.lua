@@ -77,3 +77,43 @@ vim.keymap.set("n", "<C-`>", function() require("utils").loclist_toggle() end, {
 vim.keymap.set({ "i", "s" }, "<Esc>", function() vim.snippet.stop() return "<Esc>" end, { expr = true })
 vim.keymap.set({ "i", "s" }, "<C-c>", function() vim.snippet.stop() return "<C-c>" end, { expr = true })
 --stylua: ignore end
+
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  group = vim.api.nvim_create_augroup("user_toggle_wincmd_keymap_for_codecompanion_float_window", { clear = true }),
+  callback = function()
+    local win_config = vim.api.nvim_win_get_config(0)
+    if win_config.relative ~= "" then
+      vim.keymap.set({ "n", "t", "i" }, "<C-h>", "<Nop>", { silent = true, buffer = true })
+      vim.keymap.set({ "n", "t", "i" }, "<C-l>", "<Nop>", { silent = true, buffer = true })
+      vim.keymap.set({ "n", "t", "i" }, "<C-j>", "<Nop>", { silent = true, buffer = true })
+      vim.keymap.set({ "n", "t", "i" }, "<C-k>", "<Nop>", { silent = true, buffer = true })
+    end
+  end,
+})
+
+local hotkey_group = vim.api.nvim_create_augroup("user_buf_quit_q_hotkey", { clear = true })
+-- Close window with q
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "qf", "help" },
+  group = hotkey_group,
+  command = "nnoremap <buffer><silent> q <cmd>close!<CR>",
+})
+-- Close window with q
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = {
+    "dapui_scopes",
+    "dap-repl",
+    "dapui_console",
+    "dapui_watches",
+    "dapui_stacks",
+    "dapui_breakpoints",
+  },
+  group = hotkey_group,
+  command = "nnoremap <buffer><silent> q <cmd>lua require('dapui').close()<CR>",
+})
+-- Close checkhealth buffer with q
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "checkhealth" },
+  group = hotkey_group,
+  command = "nnoremap <buffer><silent> q <cmd>bd<CR>|nnoremap <buffer><silent> <C-w>q <cmd>bd<CR>",
+})

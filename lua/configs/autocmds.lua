@@ -1,30 +1,3 @@
-local hotkey_group = vim.api.nvim_create_augroup("user_buf_quit_hotkey", { clear = true })
--- Close window with q
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "qf", "help" },
-  group = hotkey_group,
-  command = "nnoremap <buffer><silent> q <cmd>close!<CR>",
-})
--- Close window with q
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = {
-    "dapui_scopes",
-    "dap-repl",
-    "dapui_console",
-    "dapui_watches",
-    "dapui_stacks",
-    "dapui_breakpoints",
-  },
-  group = hotkey_group,
-  command = "nnoremap <buffer><silent> q <cmd>lua require('dapui').close()<CR>",
-})
--- Close checkhealth buffer with q
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "checkhealth" },
-  group = hotkey_group,
-  command = "nnoremap <buffer><silent> q <cmd>bd<CR>|nnoremap <buffer><silent> <C-w>q <cmd>bd<CR>",
-})
-
 -- Disable automatic comment insertion on new line (o/O)
 vim.api.nvim_create_autocmd({ "BufWinEnter", "BufNewFile" }, {
   pattern = "*",
@@ -32,6 +5,8 @@ vim.api.nvim_create_autocmd({ "BufWinEnter", "BufNewFile" }, {
   command = "setlocal formatoptions-=o",
 })
 
+-- Automatically close auxiliary windows (e.g., DAP REPL) and prompt to quit Neovim
+-- when the last editable buffer is closed.
 vim.api.nvim_create_autocmd({ "QuitPre" }, {
   group = vim.api.nvim_create_augroup("user_quit_window_make_sure_other_closed", { clear = true }),
   callback = function()
