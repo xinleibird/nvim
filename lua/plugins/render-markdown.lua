@@ -8,11 +8,13 @@ local M = {
     ft = { "markdown", "codecompanion" },
     opts = {
       file_types = { "markdown", "codecompanion" },
-      anti_conceal = {
-        -- This enables hiding added text on the line the cursor is on.
-        enabled = false,
+      -- anti_conceal = {
+      --   -- This enables hiding added text on the line the cursor is on.
+      --   enabled = false,
+      -- },
+      completions = {
+        lsp = { enabled = true },
       },
-      completions = { lsp = { enabled = true } },
       code = {
         border = "thick",
       },

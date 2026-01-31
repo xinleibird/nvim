@@ -146,6 +146,11 @@ local M = {
               env = {
                 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY"),
               },
+              schema = {
+                model = {
+                  default = "gemini-3-flash-preview",
+                },
+              },
             })
           end,
           qwen_code = function()
@@ -200,9 +205,7 @@ local M = {
       },
       interactions = {
         chat = {
-          adapter = "qwen_code",
-          -- adapter = "gemini_cli",
-          -- model = "gemini-3-flash-preview",
+          adapter = "gemini_cli",
           keymaps = {
             send = {
               modes = {

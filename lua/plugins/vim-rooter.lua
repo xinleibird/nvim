@@ -90,9 +90,6 @@ local M = {
       -- rime library location
       "squirrel.yaml",
       "weasel.yaml",
-
-      -- zk notes
-      ".zk/",
     }
 
     -- a literal / to match directory buffers, a star * to match file buffers. disable directory buffers for snacks.explorer. default is {"/", "*"}

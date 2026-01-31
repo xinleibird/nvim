@@ -11,18 +11,40 @@ local M = {
     },
   },
   init = function()
-    vim.api.nvim_create_autocmd("VimEnter", {
-      group = vim.api.nvim_create_augroup("user_start_clock_timmer", { clear = true }),
-      callback = function()
-        vim.fn.timer_start((60 - vim.fn.strftime("%S")) * 1000, function()
-          vim.opt_local.ro = vim.opt_local.ro
+    local function start_async_clock()
+      local uv = vim.uv or vim.loop
+      local timer = uv.new_timer()
+      if not timer then
+        return
+      end
 
-          vim.fn.timer_start(60 * 1000, function()
-            vim.opt_local.ro = vim.opt_local.ro
-          end, { ["repeat"] = -1 })
-        end, { ["repeat"] = 1 })
-      end,
-    })
+      local last_time = ""
+      uv.timer_start(
+        timer,
+        0,
+        5000,
+        vim.schedule_wrap(function()
+          local current_time = os.date("%R")
+          if current_time ~= last_time then
+            ---@diagnostic disable-next-line: cast-local-type
+            last_time = current_time
+            vim.cmd.redrawtabline()
+          end
+        end)
+      )
+    end
+
+    if vim.v.vim_did_enter == 1 then
+      start_async_clock()
+    else
+      vim.api.nvim_create_autocmd("VimEnter", {
+        once = true,
+        group = vim.api.nvim_create_augroup("user_start_clock_timer", { clear = true }),
+        callback = function()
+          start_async_clock()
+        end,
+      })
+    end
 
     vim.keymap.set("n", "<leader>c", function()
       if vim.bo[0].filetype == "snacks_dashboard" then
@@ -33,9 +55,9 @@ local M = {
         vim.cmd("close")
         return
       end
-      local snacks_ok, _ = pcall(require, "snacks")
-      if snacks_ok then
-        Snacks.bufdelete.delete()
+      local ok, snacks = pcall(require, "snacks")
+      if ok then
+        snacks.bufdelete.delete()
         return
       end
       require("utils").buf_kill("bd")
@@ -98,9 +120,9 @@ local M = {
         mode = "buffers", -- set to "tabs" to only show tabpages instead
         numbers = "none", -- can be "none" | "ordinal" | "buffer_id" | "both" | function
         close_command = function(bufnr) -- can be a string | function, see "Mouse actions"
-          local snacks_ok, _ = pcall(require, "snacks")
-          if snacks_ok then
-            Snacks.bufdelete.delete(bufnr)
+          local ok, snacks = pcall(require, "snacks")
+          if ok then
+            snacks.bufdelete.delete(bufnr)
           end
           require("utils").buf_kill("bd", bufnr, false)
         end,
@@ -156,8 +178,6 @@ local M = {
         tab_size = 18,
         diagnostics = "nvim_lsp",
         diagnostics_update_in_insert = false,
-        -- diagnostics_indicator = diagnostics_indicator,
-        diagnostics_indicator = nil,
         -- NOTE: this will be called a lot so don't do any heavy processing here
         custom_filter = custom_filter,
         custom_areas = {
@@ -166,7 +186,7 @@ local M = {
 
             -- clock component
             local clock = {
-              text = " " .. icons.ui.Clock .. " " .. vim.fn.strftime("%H:%M") .. " ",
+              text = " " .. icons.ui.Clock .. " " .. os.date("%R") .. " ",
               link = "@text.warning",
             }
             table.insert(result, clock)
