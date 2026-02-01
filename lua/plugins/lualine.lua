@@ -208,17 +208,14 @@ local M = {
           end
 
           return (
-            (#clients + #formatters + #linters == 0 and "" or "⌜")
+            ""
             .. (client_batch == "" and "" or ("" .. client_batch))
             .. (#formatters > 0 and "⋅" or "")
             .. (formatter_batch == "" and "" or ("" .. formatter_batch))
             .. (#linters > 0 and "⋅" or "")
             .. (linter_batch == "" and "" or ("" .. linter_batch))
-            .. (#clients + #formatters + #linters == 0 and "" or "⌟")
           )
         end,
-        padding = { left = 1, right = 1 },
-        -- separator = { left = "", right = "" },
         on_click = function()
           local clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })
           if #clients == 0 then
@@ -282,6 +279,8 @@ local M = {
             })
           end
         end,
+        padding = { left = 0, right = 0 },
+        separator = { left = "", right = "" },
         color = "LualineLsp",
       },
 
@@ -407,6 +406,7 @@ local M = {
         },
         lualine_x = {
           components.lsp_clients_formatters_linters,
+          components.blank,
           components.filetype,
           components.blank,
           components.codecompanion,
