@@ -307,10 +307,42 @@ local M = {
       },
 
       filetype = {
-        "filetype",
+        function()
+          local devicons_ok, devicons = pcall(require, "nvim-web-devicons")
+          if not devicons_ok then
+            return ""
+          end
+          local icon = devicons.get_icon(vim.fn.expand("%:t"), vim.fn.expand("%:e"), { default = false })
+          if icon == nil then
+            icon = ""
+          end
+          return icon
+        end,
+        color = function()
+          local color = {}
+          local devicons_ok, devicons = pcall(require, "nvim-web-devicons")
+          if not devicons_ok then
+            color.fg = "None"
+          end
+
+          local palettes_ok, palettes = pcall(require, "catppuccin.palettes")
+          if not palettes_ok then
+            color.bg = "None"
+          end
+
+          local palette = palettes.get_palette()
+          local _, fg = devicons.get_icon_color(vim.fn.expand("%:t"), vim.fn.expand("%:e"), { default = false })
+          if fg == nil then
+            fg = palette.overlay0
+          end
+
+          color.fg = fg
+          color.bg = palette.surface0
+
+          return color
+        end,
         padding = { left = 0, right = 0 },
-        separator = { left = "", right = "" },
-        icon_only = true,
+        separator = { left = "", right = "" },
         on_click = function()
           require("snacks").notify.info(icons.ui.FileOutline .. " " .. vim.bo[0].filetype, {
             title = "Filetype",
@@ -376,6 +408,7 @@ local M = {
         lualine_x = {
           components.lsp_clients_formatters_linters,
           components.filetype,
+          components.blank,
           components.codecompanion,
           components.blank,
         },

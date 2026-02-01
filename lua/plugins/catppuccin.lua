@@ -177,7 +177,8 @@ local M = {
           Folded = { bg = C.surface0, fg = C.text },
 
           -- Lualine CodeCompanion
-          LualineLsp = { fg = C.overlay2, bg = C.mantle },
+          LualineLsp = { fg = C.subtext0 },
+          LualineFiletype = { bg = C.surface0 },
           LualineCodeCompanionClose = { bg = C.surface0, fg = C.overlay0 },
           LualineCodeCompanionOpen = { bg = C.surface0, fg = C.red },
 
