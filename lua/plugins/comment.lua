@@ -38,9 +38,9 @@ local M = {
       })
     end,
   },
-  config = function()
-    require("Comment").setup()
-  end,
+  -- config = function()
+  --   require("Comment").setup()
+  -- end,
 }
 
 return M

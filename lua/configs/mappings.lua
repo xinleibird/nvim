@@ -91,7 +91,6 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
   end,
 })
 
-local hotkey_group = vim.api.nvim_create_augroup("user_buf_quit_q_hotkey", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
   pattern = {
     "dap*",
@@ -100,7 +99,7 @@ vim.api.nvim_create_autocmd("FileType", {
     "checkhealth",
     "mason",
   },
-  group = hotkey_group,
+  group = vim.api.nvim_create_augroup("user_buf_quit_q_hotkey", { clear = true }),
   callback = function(event)
     local ft = vim.bo[event.buf].filetype
     local opts = { buffer = event.buf, silent = true, nowait = true }
