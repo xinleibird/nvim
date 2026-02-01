@@ -67,6 +67,15 @@ local M = {
         vim.api.nvim_echo({ { "All ensure mason packages have been installed", "MoreMsg" } }, true, {})
       end
     end, { desc = "Install all ensured mason packages" })
+
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "mason",
+      callback = function(event)
+        vim.schedule(function()
+          vim.keymap.set("n", "<Esc>", "<Nop>", { buffer = event.buf, silent = true, nowait = true })
+        end)
+      end,
+    })
   end,
   opts = function()
     local icons = require("configs.icons")
@@ -81,6 +90,9 @@ local M = {
           package_pending = icons.ui.Pending,
           package_installed = icons.ui.Checked,
           package_uninstalled = icons.ui.Unchecked,
+        },
+        keymaps = {
+          cancel_installation = "<C-c>",
         },
       },
 
