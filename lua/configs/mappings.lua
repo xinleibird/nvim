@@ -117,3 +117,10 @@ vim.api.nvim_create_autocmd("FileType", {
   group = hotkey_group,
   command = "nnoremap <buffer><silent> q <cmd>bd<CR>|nnoremap <buffer><silent> <C-w>q <cmd>bd<CR>",
 })
+
+-- Close buffer with Esc
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "qf", "lazy" },
+  group = hotkey_group,
+  command = "nnoremap <buffer><silent> <Esc> <cmd>close!<CR>",
+})
