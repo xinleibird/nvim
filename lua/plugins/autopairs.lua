@@ -11,7 +11,9 @@ local M = {
     })
 
     local Rule = require("nvim-autopairs.rule")
-    autopairs.add_rule(Rule("```", "```", { "codecompanion" }))
+
+    autopairs.add_rule(Rule("```", "```", { "codecompanion" }):with_pair(cond.not_before_char("`", 3)))
+    autopairs.add_rule(Rule("```.*$", "```", { "codecompanion" }):only_cr():use_regex(true))
 
     -- https://github.com/windwp/nvim-autopairs/wiki/Custom-rules#auto-pair--for-generics-but-not-as-greater-thanless-than-operators
     autopairs.add_rule(Rule("<", ">", {
