@@ -298,19 +298,20 @@ local M = {
           local status = codecompanion.last_chat()
           if ok then
             if status then
-              require("snacks").notify.info(" " .. "AI Ready!", {
-                title = "Filetype",
+              local adapter_name = require("configs.settings").codecompanion_adapter or "CodeCompanion"
+              require("snacks").notify.info("🤖 " .. "CodeCompanion **" .. adapter_name .. "** OK!", {
+                title = "CodeCompanion",
                 timeout = 5000,
               })
             else
-              require("snacks").notify.warn(" " .. "AI not Ready!", {
-                title = "Filetype",
+              require("snacks").notify.warn("🤖 " .. "CodeCompanion not Ready!", {
+                title = "CodeCompanion",
                 timeout = 5000,
               })
             end
           else
             require("snacks").notify.error(require("configs.icons").ui.GhostOutline .. "CodeCompanion Broken!", {
-              title = "Filetype",
+              title = "CodeCompanion",
               timeout = 5000,
             })
           end
