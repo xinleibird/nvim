@@ -81,8 +81,9 @@ local M = {
             handler:cancel()
             handler = nil
           end
+          local adapter_name = require("configs.settings").codecompanion_adapter or "CodeCompanion"
           handler = fidget.progress.handle.create({
-            title = "",
+            title = adapter_name,
             message = "Thinking...",
             lsp_client = { name = "CodeCompanion" },
           })
