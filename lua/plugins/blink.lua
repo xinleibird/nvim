@@ -8,6 +8,7 @@ local M = {
   -- build = "cargo build --release",
   dependencies = {
     "olimorris/codecompanion.nvim",
+    "neovim/nvim-lspconfig",
     {
       "folke/lazydev.nvim",
       ft = "lua", -- only load on lua files
@@ -19,14 +20,6 @@ local M = {
           { path = "snacks.nvim", words = { "Snacks", "snacks" } },
         },
       },
-    },
-    {
-      "neovim/nvim-lspconfig",
-    },
-    {
-      "pmizio/typescript-tools.nvim",
-      cond = false,
-      opts = {},
     },
     {
       "kola-web/blink-alias-path",
