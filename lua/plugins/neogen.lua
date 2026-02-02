@@ -1,5 +1,6 @@
 local M = {
-  "danymat/neogen",
+  "xinleibird/neogen",
+  name = "neogen",
   dependencies = "nvim-treesitter/nvim-treesitter",
   config = function()
     require("neogen").setup({
