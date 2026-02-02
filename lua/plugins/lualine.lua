@@ -291,7 +291,29 @@ local M = {
             local status = codecompanion.last_chat()
             return status and "" or ""
           end
-          return ""
+          return require("configs.icons").ui.GhostOutline
+        end,
+        on_click = function()
+          local ok, codecompanion = pcall(require, "codecompanion")
+          local status = codecompanion.last_chat()
+          if ok then
+            if status then
+              require("snacks").notify.info(" " .. "AI Ready!", {
+                title = "Filetype",
+                timeout = 5000,
+              })
+            else
+              require("snacks").notify.warn(" " .. "AI not Ready!", {
+                title = "Filetype",
+                timeout = 5000,
+              })
+            end
+          else
+            require("snacks").notify.error(require("configs.icons").ui.GhostOutline .. "CodeCompanion Broken!", {
+              title = "Filetype",
+              timeout = 5000,
+            })
+          end
         end,
         color = function()
           local ok, codecompanion = pcall(require, "codecompanion")
