@@ -25,6 +25,7 @@ local M = {
     },
     {
       "pmizio/typescript-tools.nvim",
+      cond = false,
       opts = {},
     },
     {
