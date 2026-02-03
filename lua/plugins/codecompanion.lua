@@ -81,7 +81,8 @@ local M = {
             handler:cancel()
             handler = nil
           end
-          local adapter_name = require("configs.settings").codecompanion_adapter or "CodeCompanion"
+          local adapter = request.data.adapter
+          local adapter_name = (adapter and (adapter.formatted_name or adapter.name)) or require("configs.settings").codecompanion_adapter or "CodeCompanion"
           handler = fidget.progress.handle.create({
             title = adapter_name,
             message = "Thinking...",

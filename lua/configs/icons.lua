@@ -116,6 +116,7 @@ M.ui = {
   Ignored = "",
   Follow = "",
   Track = "󰤔",
+  NoEntry = "",
 }
 
 M.git = {

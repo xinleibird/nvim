@@ -110,7 +110,7 @@ local M = {
         icon = icons.ui.Branch,
         fmt = function(branch)
           if branch == "" then
-            return ""
+            return require("configs.icons").ui.NoEntry
           end
           return branch
         end,
@@ -295,10 +295,13 @@ local M = {
         end,
         on_click = function()
           local ok, codecompanion = pcall(require, "codecompanion")
-          local status = codecompanion.last_chat()
           if ok then
-            if status then
-              local adapter_name = require("configs.settings").codecompanion_adapter or "CodeCompanion"
+            local chat = codecompanion.last_chat()
+            if chat then
+              local adapter = chat.adapter
+              local adapter_name = (adapter and (adapter.formatted_name or adapter.name))
+                or require("configs.settings").codecompanion_adapter
+                or "CodeCompanion"
               require("snacks").notify.info("🤖 " .. "CodeCompanion **" .. adapter_name .. "** OK!", {
                 title = "CodeCompanion",
                 timeout = 5000,
