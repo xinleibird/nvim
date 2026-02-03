@@ -5,6 +5,20 @@ local M = {
     "j-hui/fidget.nvim",
   },
   init = function()
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "codecompanion",
+      group = vim.api.nvim_create_augroup("user_toggle_wincmd_keymap_for_codecompanion_float_window", { clear = true }),
+      callback = function()
+        local win_config = vim.api.nvim_win_get_config(0)
+        if win_config.relative ~= "" then
+          vim.keymap.set({ "n", "t", "i" }, "<C-h>", "", { silent = true, buffer = true })
+          vim.keymap.set({ "n", "t", "i" }, "<C-l>", "", { silent = true, buffer = true })
+          vim.keymap.set({ "n", "t", "i" }, "<C-j>", "", { silent = true, buffer = true })
+          vim.keymap.set({ "n", "t", "i" }, "<C-k>", "", { silent = true, buffer = true })
+        end
+      end,
+    })
+
     vim.keymap.set(
       { "n" },
       "<Leader>aa",
@@ -82,7 +96,9 @@ local M = {
             handler = nil
           end
           local adapter = request.data.adapter
-          local adapter_name = (adapter and (adapter.formatted_name or adapter.name)) or require("configs.settings").codecompanion_adapter or "CodeCompanion"
+          local adapter_name = (adapter and (adapter.formatted_name or adapter.name))
+            or require("configs.settings").codecompanion_adapter
+            or "CodeCompanion"
           handler = fidget.progress.handle.create({
             title = adapter_name,
             message = "Thinking...",
