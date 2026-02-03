@@ -1,6 +1,7 @@
 local M = {
   "pmizio/typescript-tools.nvim",
   event = "BufReadPre",
+  -- cond = false,
   dependencies = {
     "nvim-lua/plenary.nvim",
     {
@@ -21,7 +22,20 @@ local M = {
       end,
     },
   },
-  opts = {},
+  opts = {
+    settings = {
+      tsserver_file_preferences = {
+        includeInlayParameterNameHints = "all",
+        includeInlayEnumMemberValueHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayVariableTypeHints = true,
+        includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+        includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+      },
+    },
+  },
 }
 
 return M
