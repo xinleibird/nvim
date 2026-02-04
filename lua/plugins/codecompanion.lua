@@ -2,7 +2,7 @@ local M = {
   "olimorris/codecompanion.nvim",
   dependencies = {
     "echasnovski/mini.diff",
-    "j-hui/fidget.nvim",
+    "saghen/blink.cmp",
   },
   init = function()
     vim.api.nvim_create_autocmd("FileType", {
@@ -52,37 +52,54 @@ local M = {
 
     vim.cmd([[cab cc CodeCompanion]])
 
-    local fidget = require("fidget")
-    local handler
-    vim.api.nvim_create_autocmd({ "User" }, {
+    local request_status
+    vim.api.nvim_create_autocmd("User", {
       pattern = "CodeCompanionRequest*",
-      group = vim.api.nvim_create_augroup("CodeCompanionHooks", {}),
       callback = function(request)
-        if request.match == "CodeCompanionRequestStarted" then
-          if handler then
-            handler.message = "Abort."
-            handler:cancel()
-            handler = nil
-          end
+        local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+        local status = request.match
+
+        if status == "CodeCompanionRequestStarted" then
           local adapter = request.data.adapter
           local adapter_name = (adapter and (adapter.formatted_name or adapter.name))
             or require("configs.settings").codecompanion_adapter
             or "CodeCompanion"
-          handler = fidget.progress.handle.create({
-            title = adapter_name,
-            message = "Thinking...",
-            lsp_client = { name = "CodeCompanion" },
+          vim.notify(" AI Thinking..." .. ("**%s**"):format(adapter_name), vim.log.levels.WARN, {
+            id = "codecompanion_notif",
+            style = "compact",
+            timeout = 0,
+            opts = function(notif)
+              notif.icon = spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
+            end,
           })
-        elseif request.match == "CodeCompanionRequestFinished" then
-          if handler then
-            handler.message = "Done."
-            handler:finish()
-            handler = nil
-          end
+          request_status = "started"
+        elseif status == "CodeCompanionRequestStopped" and request_status == "started" then
+          vim.notify(" AI Abort!", vim.log.levels.ERROR, {
+            id = "codecompanion_notif",
+            style = "compact",
+            icon = "",
+            timeout = 1500,
+            opts = function(notif)
+              notif.icon = ""
+            end,
+          })
+          request_status = "stopped"
+        elseif status == "CodeCompanionRequestFinished" and request_status ~= "stopped" then
+          vim.notify(" AI Done！", vim.log.levels.INFO, {
+            id = "codecompanion_notif",
+            style = "compact",
+            icon = "",
+            timeout = 1500,
+            opts = function(notif)
+              notif.icon = ""
+            end,
+          })
+          request_status = "finished"
         end
       end,
     })
   end,
+
   config = function()
     require("codecompanion").setup({
       display = {
@@ -205,6 +222,19 @@ local M = {
                 chat:submit()
               end,
               description = "[Request] Send response",
+            },
+            stop = {
+              modes = {
+                n = "q",
+              },
+              callback = function(chat)
+                vim.api.nvim_exec_autocmds("User", {
+                  pattern = "CodeCompanionRequestStopped",
+                  data = {},
+                })
+                chat:stop()
+              end,
+              description = "[Request] Stop",
             },
             clear = {
               modes = { n = "<C-x>" },

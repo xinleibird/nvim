@@ -1,31 +1,7 @@
 local M = {
   "stevearc/conform.nvim",
   event = "BufWritePre",
-  dependencies = {
-    "j-hui/fidget.nvim",
-  },
   config = function()
-    -- local function open_progress_win()
-    --   local bufnr = vim.api.nvim_create_buf(false, true)
-    --   vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { " Formatting..." })
-    --   local winid = vim.api.nvim_open_win(bufnr, false, {
-    --     relative = "editor",
-    --     anchor = "SE",
-    --     row = vim.o.lines - 2,
-    --     col = vim.o.columns,
-    --     width = 14,
-    --     height = 1,
-    --     style = "minimal",
-    --     border = "rounded",
-    --     focusable = false,
-    --     noautocmd = true,
-    --   })
-    --   vim.bo[bufnr].bufhidden = "wipe"
-    --   return winid
-    -- end
-    --
-    -- local winid
-
     require("conform").setup({
       formatters_by_ft = {
         lua = { "stylua" },
@@ -69,10 +45,13 @@ local M = {
           ---@diagnostic disable-next-line: redundant-return-value
         }, function(err)
           if not err then
-            -- winid = open_progress_win()
-            require("fidget.notification").notify("Formatting", vim.log.levels.INFO, {
-              annote = "Finished!",
-              ttl = 1,
+            vim.notify(" Formatting!", vim.log.levels.WARN, {
+              id = "conform_notify",
+              style = "compact",
+              timeout = 0,
+              opts = function(notif)
+                notif.icon = ""
+              end,
             })
           end
         end
@@ -82,7 +61,14 @@ local M = {
         return {
           lsp_fallback = true,
         }, function()
-          -- vim.api.nvim_win_close(winid, true)
+          vim.notify(" Format Finished！", vim.log.levels.INFO, {
+            id = "conform_notify",
+            style = "compact",
+            timeout = 500,
+            opts = function(notif)
+              notif.icon = ""
+            end,
+          })
         end
       end,
     })

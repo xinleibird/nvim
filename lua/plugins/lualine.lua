@@ -219,9 +219,10 @@ local M = {
         on_click = function()
           local clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })
           if #clients == 0 then
-            require("snacks").notify.warn("󱐋 No LSP Clients", {
+            vim.notify("󱐋 No LSP Clients", vim.log.levels.WARN, {
               title = "LSP",
-              timeout = 5000,
+              timeout = 3000,
+              id = "lsp_lualine",
             })
           else
             local client_names = {}
@@ -229,9 +230,10 @@ local M = {
               table.insert(client_names, "󱐋 " .. client.name)
             end
             local lsp_message = table.concat(client_names, "\n")
-            require("snacks").notify.info(lsp_message, {
+            vim.notify(lsp_message, vim.log.levels.INFO, {
               title = "LSP",
-              timeout = 5000,
+              timeout = 3000,
+              id = "lsp_lualine",
             })
           end
 
@@ -241,9 +243,10 @@ local M = {
             formatters = conform.list_formatters_for_buffer(0)
           end
           if #formatters == 0 then
-            require("snacks").notify.warn("󰃢 No Formatters", {
+            vim.notify("󰃢 No Formatters", vim.log.levels.WARN, {
               title = "Formatter",
-              timeout = 5000,
+              timeout = 3000,
+              id = "formatter_lualine",
             })
           else
             local formatter_names = {}
@@ -251,9 +254,10 @@ local M = {
               table.insert(formatter_names, "󰃢 " .. formatter)
             end
             local formatter_message = table.concat(formatter_names, "\n")
-            require("snacks").notify.info(formatter_message, {
+            vim.notify(formatter_message, vim.log.levels.INFO, {
               title = "Formatter",
-              timeout = 5000,
+              timeout = 3000,
+              id = "formatter_lualine",
             })
           end
 
@@ -263,9 +267,10 @@ local M = {
             linters = lint._resolve_linter_by_ft(vim.bo.ft)
           end
           if #linters == 0 then
-            require("snacks").notify.warn("󰦀 No Linters", {
+            vim.notify("󰦀 No Linters", vim.log.levels.WARN, {
               title = "Linter",
-              timeout = 5000,
+              timeout = 3000,
+              id = "linter_lualine",
             })
           else
             local linter_names = {}
@@ -273,9 +278,10 @@ local M = {
               table.insert(linter_names, "󰦀 " .. linter)
             end
             local linter_message = table.concat(linter_names, "\n")
-            require("snacks").notify.info(linter_message, {
+            vim.notify(linter_message, vim.log.levels.INFO, {
               title = "Linter",
-              timeout = 5000,
+              timeout = 3000,
+              id = "linter_lualine",
             })
           end
         end,
@@ -302,20 +308,23 @@ local M = {
               local adapter_name = (adapter and (adapter.formatted_name or adapter.name))
                 or require("configs.settings").codecompanion_adapter
                 or "CodeCompanion"
-              require("snacks").notify.info("🤖 " .. "CodeCompanion **" .. adapter_name .. "** OK!", {
+              vim.notify("🤖 " .. "CodeCompanion **" .. adapter_name .. "** OK!", vim.log.levels.INFO, {
                 title = "CodeCompanion",
-                timeout = 5000,
+                id = "codecompanion_lualine",
+                timeout = 3000,
               })
             else
-              require("snacks").notify.warn("🤖 " .. "CodeCompanion not Ready!", {
+              vim.notify("🤖 " .. "CodeCompanion not Ready!", vim.log.levels.WARN, {
                 title = "CodeCompanion",
-                timeout = 5000,
+                id = "codecompanion_lualine",
+                timeout = 3000,
               })
             end
           else
-            require("snacks").notify.error(require("configs.icons").ui.GhostOutline .. "CodeCompanion Broken!", {
+            vim.notify(require("configs.icons").ui.GhostOutline .. "CodeCompanion Broken!", vim.log.levels.ERROR, {
               title = "CodeCompanion",
-              timeout = 5000,
+              id = "codecompanion_lualine",
+              timeout = 3000,
             })
           end
         end,
@@ -369,9 +378,10 @@ local M = {
         padding = { left = 0, right = 0 },
         separator = { left = "", right = "" },
         on_click = function()
-          require("snacks").notify.info(icons.ui.FileOutline .. " " .. vim.bo[0].filetype, {
+          vim.notify(icons.ui.FileOutline .. " " .. vim.bo[0].filetype, vim.log.levels.INFO, {
             title = "Filetype",
-            timeout = 5000,
+            timeout = 3000,
+            id = "filetype_lualine",
           })
         end,
       },
