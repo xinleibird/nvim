@@ -179,7 +179,22 @@ local M = {
           should_show_items = function(ctx)
             local keyword = ctx.get_keyword()
             -- hide snippets after trigger character
-            return ctx.trigger.initial_kind ~= "trigger_character" and keyword ~= ""
+            local not_trigger_characters = ctx.trigger.initial_kind ~= "trigger_character" and keyword ~= ""
+
+            local success, node = pcall(vim.treesitter.get_node)
+            local enable_snippets = true
+            if
+              success
+              and node
+              and vim.tbl_contains(
+                { "comment", "line_comment", "block_comment", "string_literal", "string" },
+                node:type()
+              )
+            then
+              enable_snippets = false
+            end
+
+            return not_trigger_characters and enable_snippets
           end,
           opts = {
             friendly_snippets = false,
