@@ -5,7 +5,7 @@ description: Explain the LSP diagnostics for the selected code
 opts:
   alias: lsp
   is_slash_cmd: false
-  auto_submit: true
+  auto_submit: false
   modes:
     - v
   stop_context_insertion: true

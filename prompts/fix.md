@@ -4,7 +4,7 @@ interaction: chat
 description: Fix the selected code
 opts:
   alias: fix
-  auto_submit: true
+  auto_submit: false
   is_slash_cmd: false
   modes:
     - v

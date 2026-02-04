@@ -1,9 +1,9 @@
 ---
-name: Explain code
+name: Add code
 interaction: chat
-description: Explain how code in a buffer works
+description: Add code into chat buffer
 opts:
-  alias: explain
+  alias: add
   auto_submit: false
   is_slash_cmd: false
   modes:
@@ -23,7 +23,7 @@ opts:
 
 ## user
 
-请对缓冲区 ${context.bufnr} 中包含的如下代码进行解释:
+下面是来自缓冲区 ${context.bufnr} 的代码:
 
 ```${context.filetype}
 ${context.code}

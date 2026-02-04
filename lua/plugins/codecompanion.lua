@@ -25,43 +25,12 @@ local M = {
       "<cmd>CodeCompanionChat Toggle<cr>",
       { noremap = true, silent = true, desc = "CodeCompanion Toggle Chat" }
     )
-    vim.keymap.set("v", "<Leader>aa", function()
-      local context = require("codecompanion.utils.context").get(vim.api.nvim_get_current_buf(), {})
-      local content = table.concat(context.lines, "\n")
-      local codecompanion = require("codecompanion")
-      local chat = codecompanion.last_chat()
-
-      if chat then
-        local bufnr = chat.last_chat().ui.chat_bufnr
-        if vim.api.nvim_buf_is_valid(bufnr) then
-          local id = vim.fn.bufwinid(bufnr)
-          vim.fn.win_gotoid(id)
-          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, false, true), "n", false)
-        end
-      end
-
-      if not chat then
-        chat = codecompanion.chat({ context = {} })
-
-        if not chat then
-          local log = require("codecompanion.utils.log")
-          return log:warn("Could not create chat buffer")
-        end
-      end
-
-      local config = require("codecompanion.config")
-      chat:add_buf_message({
-        role = config.constants.USER_ROLE,
-        content = "下面是来自文件 `"
-          .. vim.fn.fnamemodify(context.filename, ":.")
-          .. "` 的代码片段：\n\n```"
-          .. context.filetype
-          .. "\n"
-          .. content
-          .. "\n```\n\n",
-      })
-      chat.ui:open()
-    end, { noremap = true, silent = true, desc = "CodeCompanionChat Add" })
+    vim.keymap.set(
+      { "v" },
+      "<Leader>aa",
+      "<cmd>CodeCompanion /add<cr>",
+      { noremap = true, silent = true, desc = "CodeCompanion /add" }
+    )
     vim.keymap.set(
       "v",
       "<Leader>ae",
