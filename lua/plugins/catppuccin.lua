@@ -181,10 +181,6 @@ local M = {
           LualineFiletype = { bg = C.surface0 },
           LualineCodeCompanionClose = { bg = C.surface0, fg = C.overlay0 },
           LualineCodeCompanionOpen = { bg = C.surface0, fg = C.red },
-
-          FidgetNormal = { bg = "NONE" },
-          FidgetTask = { bg = "NONE" },
-          FidgetTitle = { bg = "NONE" },
         }
       end,
       default_integrations = false,
@@ -201,7 +197,6 @@ local M = {
         },
         dap = true,
         dap_ui = true,
-        fidget = false,
         flash = true,
         fzf = true,
         markdown = true,
