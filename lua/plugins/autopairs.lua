@@ -1,10 +1,9 @@
 local M = {
   "windwp/nvim-autopairs",
-  event = "BufRead",
+  event = "BufEnter *.*",
   config = function()
     local autopairs = require("nvim-autopairs")
     local cond = require("nvim-autopairs.conds")
-
     autopairs.setup({
       fast_wrap = {},
       disable_filetype = { "snacks_picker_input" },

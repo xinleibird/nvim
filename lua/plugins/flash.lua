@@ -1,6 +1,6 @@
 local M = {
   "folke/flash.nvim",
-  event = "VeryLazy",
+  event = "BufEnter *.*",
   opts = {
     search = {
       exclude = {

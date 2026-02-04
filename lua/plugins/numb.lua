@@ -1,6 +1,6 @@
 local M = {
   "nacro90/numb.nvim",
-  event = "BufRead",
+  event = "BufEnter *.*",
   config = function()
     ---@diagnostic disable-next-line: missing-fields
     require("numb").setup({

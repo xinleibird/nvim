@@ -1,10 +1,9 @@
 local M = {
   "f-person/git-blame.nvim",
-  -- load the plugin at startup
-  event = "BufRead",
+  event = "BufEnter *.*",
   keys = {
     {
-      "gm",
+      "<leader>gm",
       "<cmd>GitBlameToggle<cr>",
       desc = "Toggle blame",
     },

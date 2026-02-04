@@ -1,6 +1,6 @@
 local M = {
   "echasnovski/mini.diff",
-  event = "BufRead",
+  event = "BufEnter *.*",
   init = function()
     vim.api.nvim_create_autocmd("FileType", {
       pattern = "*",

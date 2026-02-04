@@ -1,6 +1,6 @@
 local M = {
   "Wansmer/treesj",
-  event = "BufRead",
+  event = "BufEnter *.*",
   dependencies = "nvim-treesitter/nvim-treesitter",
   config = function()
     require("treesj").setup({

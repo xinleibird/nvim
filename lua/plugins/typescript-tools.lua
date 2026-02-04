@@ -1,7 +1,6 @@
 local M = {
   "pmizio/typescript-tools.nvim",
-  event = "BufReadPre",
-  -- cond = false,
+  event = "BufEnter *.*",
   dependencies = {
     "nvim-lua/plenary.nvim",
     {
