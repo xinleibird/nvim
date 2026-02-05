@@ -15,7 +15,7 @@ local M = {
       opts = {
         library = {
           { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-          { path = "snacks.nvim", words = { "Snacks", "snacks" } },
+          { path = "snacks.nvim", words = { "Snacks" } },
         },
       },
     },
