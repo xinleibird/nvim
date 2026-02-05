@@ -10,7 +10,6 @@ return {
           { path = "snacks.nvim", words = { "Snacks" } },
         },
       },
-      telemetry = { enable = false },
     },
   },
 }
