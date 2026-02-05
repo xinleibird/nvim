@@ -61,7 +61,7 @@ local M = {
       signs = {
         add = "▎",
         change = "▎",
-        delete = "",
+        delete = "",
       },
     },
     mappings = {
