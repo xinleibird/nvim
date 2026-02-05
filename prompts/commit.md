@@ -26,8 +26,8 @@ optional footer(s)
 
 ## user
 
-请根据下方列出的 git diff 内容，严格按照 `Conventional Commit(约定式提交)` 规范，使用英语生成一条提交信息：
+请根据下方列出的 git diff 内容：
 
-```diff
-${commit.diff}
-```
+<pre>${commit.diff}</pre>
+
+严格按照 `Conventional Commit(约定式提交)` 规范，使用英语生成一条提交信息。

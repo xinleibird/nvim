@@ -242,6 +242,9 @@ local M = {
               description = "[Chat] Clear",
             },
           },
+          variables = {
+            ["url"] = nil,
+          },
         },
       },
     })
