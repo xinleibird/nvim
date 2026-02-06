@@ -209,7 +209,13 @@ local M = {
       },
       interactions = {
         chat = {
-          adapter = require("configs.settings").codecompanion_adapter,
+          -- create your own configuration file lua/configs/settings
+          -- the KEY is codecompanion_adapter
+          ---@type "gemini_cli"|"qwen_code"|"ollama"|nil
+          adapter = (function()
+            local ok, settings = pcall(require, "configs.settings")
+            return ok and settings.codecompanion_adapter or nil
+          end)(),
           keymaps = {
             send = {
               modes = {
