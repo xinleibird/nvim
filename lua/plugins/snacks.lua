@@ -309,15 +309,6 @@ local M = {
               end,
             },
           },
-          files = {
-            win = {
-              input = {
-                keys = {
-                  ["<c-y>"] = { "create_new_file", mode = { "n", "i" } },
-                },
-              },
-            },
-          },
         },
         layouts = {
           default = {
@@ -440,21 +431,6 @@ local M = {
               { win = "preview", title = "{preview}", height = 0.4, border = "top" },
             },
           },
-        },
-        actions = {
-          create_new_file = function(picker)
-            local input = picker.input.filter.pattern
-
-            if input == "" then
-              return
-            end
-
-            picker:close()
-
-            vim.schedule(function()
-              vim.cmd("edit " .. input)
-            end)
-          end,
         },
       },
       indent = {
