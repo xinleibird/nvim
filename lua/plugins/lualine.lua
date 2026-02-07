@@ -427,7 +427,6 @@ local M = {
       },
       sections = {
         lualine_a = {
-          components.sep,
           components.mode,
           components.sep,
           components.cwd,
