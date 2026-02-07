@@ -162,6 +162,8 @@ local M = {
           },
           gemini_cli = function()
             return require("codecompanion.adapters").extend("gemini_cli", {
+              name = "gemini_cli",
+              formatted_name = "Gemini CLI",
               defaults = {
                 auth_method = "oauth-personal", -- "oauth-personal"|"gemini-api-key"|"vertex-ai"
               },
@@ -208,31 +210,15 @@ local M = {
           opts = {
             show_presets = false,
           },
-          ollama = function()
-            return require("codecompanion.adapters").extend("ollama", {
-              env = {
-                url = "http://192.168.2.119:11434",
-                -- api_key = "",
-              },
-              headers = {
-                ["Content-Type"] = "application/json",
-                ["Authorization"] = "Bearer ${api_key}",
-              },
-              parameters = {
-                sync = true,
-              },
-            })
-          end,
         },
       },
       interactions = {
         chat = {
           -- create your own configuration file lua/configs/settings
           -- the KEY is codecompanion_adapter
-          ---@type "gemini_cli"|"qwen_code"|"ollama"|nil
           adapter = (function()
             local ok, settings = pcall(require, "configs.settings")
-            return ok and settings.codecompanion_adapter or nil
+            return ok and settings.codecompanion_adapter or "copilot"
           end)(),
           keymaps = {
             send = {
@@ -265,9 +251,6 @@ local M = {
               callback = "keymaps.clear",
               description = "[Chat] Clear",
             },
-          },
-          variables = {
-            ["url"] = nil,
           },
         },
       },
