@@ -5,6 +5,20 @@ local M = {
     "saghen/blink.cmp",
   },
   init = function()
+    local function smart_codecompanion_window()
+      require("codecompanion.config").config.display.chat.window.layout = vim.o.columns > 120 and "vertical"
+        or "horizontal"
+      require("codecompanion.config").config.display.chat.window.position = vim.o.columns > 120 and "right" or "top"
+      require("codecompanion.config").config.display.chat.window.height = 0.36
+      require("codecompanion.config").config.display.chat.window.width = 0.46
+    end
+    vim.api.nvim_create_autocmd("VimResized", {
+      group = vim.api.nvim_create_augroup("user_smart_codecompanion_window", { clear = true }),
+      callback = function()
+        smart_codecompanion_window()
+      end,
+    })
+
     vim.api.nvim_create_autocmd("FileType", {
       pattern = "codecompanion",
       group = vim.api.nvim_create_augroup("user_toggle_wincmd_keymap_for_codecompanion_float_window", { clear = true }),
@@ -119,6 +133,10 @@ local M = {
             opts = {
               numberwidth = 4,
             },
+            layout = vim.o.columns > 120 and "vertical" or "horizontal",
+            position = vim.o.columns > 120 and "right" or "top",
+            height = 0.36,
+            width = 0.46,
           },
           intro_message = "",
         },
