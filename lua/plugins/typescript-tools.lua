@@ -12,7 +12,6 @@ local M = {
             "astro",
             "svelte",
             "ts_ls",
-            "tsserver", -- deprecated, use ts_ls
             "typescript-tools",
             "volar",
             "vtsls",
@@ -24,13 +23,13 @@ local M = {
   opts = {
     settings = {
       tsserver_file_preferences = {
-        includeInlayParameterNameHints = "all",
         includeInlayEnumMemberValueHints = true,
         includeInlayFunctionLikeReturnTypeHints = true,
         includeInlayFunctionParameterTypeHints = true,
+        includeInlayParameterNameHints = "all",
+        includeInlayParameterNameHintsWhenArgumentMatchesName = true,
         includeInlayPropertyDeclarationTypeHints = true,
         includeInlayVariableTypeHints = true,
-        includeInlayParameterNameHintsWhenArgumentMatchesName = true,
         includeInlayVariableTypeHintsWhenTypeMatchesName = true,
       },
     },
