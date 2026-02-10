@@ -100,6 +100,7 @@ local M = {
           },
         },
         lsp = {
+          fallbacks = {},
           transform_items = function(_, items)
             local filetype = vim.bo.filetype
             local enable_emmet = true
@@ -122,7 +123,7 @@ local M = {
 
             return vim.tbl_filter(function(item)
               if item.client_name == "emmet_language_server" then
-                item.kind_icon = ""
+                item.kind_icon = "󰯙"
                 return enable_emmet
               end
 
