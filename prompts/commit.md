@@ -17,11 +17,11 @@ opts:
 - 生成的内容请写入一个代码块。格式规范如下：
 
 ```txt
-type(optional scope): description
+<type>(<scope>): <description>
 
-optional body
+[optional body]
 
-optional footer(s)
+[optional footer(s)]
 ```
 
 ## user
