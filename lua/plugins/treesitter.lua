@@ -74,11 +74,12 @@ local M = {
       vim.treesitter.start(0)
     end, { desc = "Restart treesitter for current buffer" })
 
-    vim.api.nvim_create_autocmd("FileType", {
+    vim.api.nvim_create_autocmd("BufWinEnter", {
       pattern = "*",
       group = vim.api.nvim_create_augroup("user_treesitter_init", { clear = true }),
-      callback = function()
-        local bufnr = vim.api.nvim_get_current_buf()
+      callback = function(ev)
+        -- local bufnr = vim.api.nvim_get_current_buf()
+        local bufnr = ev.buf
         local parser = vim.treesitter.get_parser(bufnr, nil, { error = false })
         if parser then
           vim.treesitter.start(bufnr)
