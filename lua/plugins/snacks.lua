@@ -62,20 +62,6 @@ local M = {
       end,
     })
 
-    local function toggle_terminal_map()
-      if vim.g.neovide then
-        return "<D-j>"
-      end
-      if vim.env.TERM and (vim.env.TERM == "xterm-kitty" or vim.env.TERM == "xterm-ghostty") then
-        return "<D-j>"
-      end
-      return "<M-j>"
-    end
-
-    vim.keymap.set({ "n", "t" }, toggle_terminal_map(), function()
-      Snacks.terminal.toggle()
-    end)
-
     vim.cmd([[command! Notifications lua Snacks.notifier.show_history()]])
     vim.cmd([[command! Pickers lua Snacks.picker()]])
   end,
@@ -95,6 +81,7 @@ local M = {
     { "]]", function() Snacks.words.jump(vim.v.count1) end, desc = "Next reference" },
     { "[[", function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev reference" },
     {"<C-x>", "<C-\\><C-N>", { desc = "Escape terminal mode" }, mode ="t"},
+    {"<Esc>", "<C-\\><C-N>", { desc = "Escape terminal mode" }, mode ="t"},
     { "<leader>ld", function() Snacks.picker.diagnostics_buffer() end,  desc = "Buff diagnostics" },
     { "<leader>lD", function() Snacks.picker.diagnostics() end,  desc = "Diagnostics" },
     { "<leader>gg", function()
@@ -153,7 +140,6 @@ local M = {
       input = { enabled = true },
       quickfile = { enabled = true },
       statuscolumn = { enabled = true },
-      terminal = { enabled = true },
       words = { enabled = true },
       bigfile = {
         size = 1.0 * 1024 * 1024, -- 1.0MB
@@ -557,27 +543,6 @@ local M = {
     })
   end,
   dependencies = {
-    {
-      "folke/edgy.nvim",
-      ---@module 'edgy'
-      ---@param opts Edgy.Config
-      opts = function(_, opts)
-        for _, pos in ipairs({ "top", "bottom", "left", "right" }) do
-          opts[pos] = opts[pos] or {}
-          table.insert(opts[pos], {
-            ft = "snacks_terminal",
-            size = { height = 0.4 },
-            title = "%{b:snacks_terminal.id}: %{b:term_title}",
-            filter = function(_, win)
-              return vim.w[win].snacks_win
-                and vim.w[win].snacks_win.position == pos
-                and vim.w[win].snacks_win.relative == "editor"
-                and not vim.w[win].trouble_preview
-            end,
-          })
-        end
-      end,
-    },
     {
       "olimorris/persisted.nvim",
       init = function()
