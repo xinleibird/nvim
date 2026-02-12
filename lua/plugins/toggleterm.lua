@@ -45,12 +45,20 @@ local M = {
         decorate = "D"
       end
       vim.keymap.set({ "n", "t" }, "<" .. decorate .. "-S-j>", function()
+        if vim.bo.filetype == "snacks_picker_list" then
+          vim.cmd("wincmd p")
+        end
+
         local terms = require("toggleterm.terminal").get_all()
         local new_id = #terms + 1
         vim.cmd(new_id .. "ToggleTerm direction=horizontal")
       end, { desc = "New Terminal Instance" })
 
       vim.keymap.set({ "n", "t" }, "<" .. decorate .. "-j>", function()
+        if vim.bo.filetype == "snacks_picker_list" then
+          vim.cmd("wincmd p")
+        end
+
         local terms = require("toggleterm.terminal").get_all()
         if #terms == 0 then
           local new_id = #terms + 1
