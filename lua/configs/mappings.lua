@@ -43,6 +43,8 @@ vim.keymap.set("n", "<leader>q", function()
     or vim.bo.ft == "dapui_breakpoints"
   then
     require("dapui").close()
+  elseif vim.bo.ft == "codecompanion" then
+    vim.cmd("CodeCompanionChat Toggle")
   else
     vim.cmd("confirm q")
   end
