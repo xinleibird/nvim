@@ -10,6 +10,18 @@ local M = {
 
     vim.keymap.set("n", "zR", require("ufo").openAllFolds, { desc = "Open All Folds" })
     vim.keymap.set("n", "zM", require("ufo").closeAllFolds, { desc = "Close All Folds" })
+
+    if vim.fn.has("nvim-0.11") == 1 and vim.lsp.config then
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities.textDocument.foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true,
+      }
+
+      vim.lsp.config("*", {
+        capabilities = capabilities,
+      })
+    end
   end,
 
   config = function()
