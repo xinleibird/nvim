@@ -17,6 +17,7 @@ local M = {
       provider_selector = function()
         return { "treesitter", "indent" }
       end,
+      filetype_exclude = { "help", "lazy", "mason", "codecompanion", "snacks_picker_list", "Outline", "toggleterm" },
     })
   end,
 }
