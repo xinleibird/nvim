@@ -1,6 +1,6 @@
 local M = {
   "pmizio/typescript-tools.nvim",
-  event = "BufEnter *.*",
+  event = "VeryLazy",
   dependencies = {
     "nvim-lua/plenary.nvim",
     {
