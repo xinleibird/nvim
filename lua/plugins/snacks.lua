@@ -69,7 +69,7 @@ local M = {
     --stylua: ignore start
     { "<leader>sp", function() Snacks.picker.smart() end,  desc = "Smart Files" },
     { "<leader>so", function() Snacks.picker.files() end,  desc = "Find Files" },
-    { "<leader>st", function() Snacks.picker.grep() end, desc = "Live grep" },
+    { "<leader>st", function() Snacks.picker.grep({exclude ={"package-lock.json"}}) end, desc = "Live grep" },
     { "<leader>sx", function() Snacks.picker.grep_word() end, desc = "Grep word" , mode ={ "n", "x" } },
     { "<leader>sh", function() Snacks.picker.help() end, desc = "Help pages" },
     { "<leader>sr", function() Snacks.picker.recent() end, desc = "Recent files" },
@@ -81,7 +81,6 @@ local M = {
     { "]]", function() Snacks.words.jump(vim.v.count1) end, desc = "Next reference" },
     { "[[", function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev reference" },
     {"<C-x>", "<C-\\><C-N>", { desc = "Escape terminal mode" }, mode ="t"},
-    {"<Esc>", "<C-\\><C-N>", { desc = "Escape terminal mode" }, mode ="t"},
     { "<leader>ld", function() Snacks.picker.diagnostics_buffer() end,  desc = "Buff diagnostics" },
     { "<leader>lD", function() Snacks.picker.diagnostics() end,  desc = "Diagnostics" },
     { "<leader>gg", function()
@@ -142,7 +141,7 @@ local M = {
       statuscolumn = { enabled = true },
       words = { enabled = true },
       bigfile = {
-        size = 1.0 * 1024 * 1024, -- 1.0MB
+        size = 5.0 * 1024 * 1024, -- 1.0MB
         setup = function(ctx)
           if vim.fn.exists(":NoMatchParen") ~= 0 then
             vim.cmd([[NoMatchParen]])
@@ -448,7 +447,7 @@ local M = {
       },
       scope = {
         treesitter = {
-          enabled = false,
+          enabled = true,
           injections = true, -- include language injections when detecting scope (useful for languages like `vue`)
         },
       },
