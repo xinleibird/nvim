@@ -33,36 +33,31 @@ local M = {
       end,
     })
 
-    vim.keymap.set(
-      { "n" },
-      "<Leader>aa",
-      "<cmd>CodeCompanionChat Toggle<cr>",
-      { noremap = true, silent = true, desc = "CodeCompanion Toggle Chat" }
-    )
-    vim.keymap.set(
-      { "v" },
-      "<Leader>aa",
-      "<cmd>CodeCompanion /add<cr>",
-      { noremap = true, silent = true, desc = "CodeCompanion /add" }
-    )
-    vim.keymap.set(
-      "v",
-      "<Leader>ae",
-      "<cmd>CodeCompanion /explain<cr>",
-      { noremap = true, silent = true, desc = "CodeCompanion /explain" }
-    )
-    vim.keymap.set(
-      { "n", "v" },
-      "<Leader>ap",
-      "<cmd>CodeCompanionActions<cr>",
-      { noremap = true, silent = true, desc = "CodeCompanion Actions" }
-    )
-    vim.keymap.set(
-      { "n", "v" },
-      "<Leader>ac",
-      "<cmd>CodeCompanion /commit<cr>",
-      { noremap = true, silent = true, desc = "CodeCompanion /commit" }
-    )
+    vim.keymap.set({ "n" }, "<Leader>aa", function()
+      if vim.bo.filetype ~= "snacks_dashboard" then
+        vim.cmd("CodeCompanionChat Toggle")
+      end
+    end, { noremap = true, silent = true, desc = "CodeCompanion Toggle Chat" })
+    vim.keymap.set({ "v" }, "<Leader>aa", function()
+      if vim.bo.filetype ~= "snacks_dashboard" then
+        vim.cmd("CodeCompanion /add")
+      end
+    end, { noremap = true, silent = true, desc = "CodeCompanion /add" })
+    vim.keymap.set("v", "<Leader>ae", function()
+      if vim.bo.filetype ~= "snacks_dashboard" then
+        vim.cmd("CodeCompanion /explain")
+      end
+    end, { noremap = true, silent = true, desc = "CodeCompanion /explain" })
+    vim.keymap.set({ "n", "v" }, "<Leader>ac", function()
+      if vim.bo.filetype ~= "snacks_dashboard" then
+        vim.cmd("CodeCompanion /commit")
+      end
+    end, { noremap = true, silent = true, desc = "CodeCompanion /commit" })
+    vim.keymap.set({ "n", "v" }, "<Leader>ap", function()
+      if vim.bo.filetype ~= "snacks_dashboard" then
+        vim.cmd("CodeCompanionActions")
+      end
+    end, { noremap = true, silent = true, desc = "CodeCompanion Actions" })
 
     vim.cmd([[cab cc CodeCompanion]])
 
