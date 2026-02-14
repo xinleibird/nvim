@@ -103,17 +103,17 @@ local M = {
           fallbacks = {},
           transform_items = function(_, items)
             local filetype = vim.bo.filetype
-            local enable_emmet = true
+            local should_emmet_show = true
             if filetype == "javascriptreact" or filetype == "typescriptreact" then
-              enable_emmet = (function()
+              should_emmet_show = (function()
                 local node = vim.treesitter.get_node()
                 while node do
                   local type = node:type()
-                  if type == "jsx_expression" then
-                    return false
-                  end
                   if type == "jsx_element" or type == "jsx_self_closing_element" or type == "jsx_fragment" then
                     return true
+                  end
+                  if type == "jsx_expression" then
+                    return false
                   end
                   node = node:parent()
                 end
@@ -124,7 +124,7 @@ local M = {
             return vim.tbl_filter(function(item)
               if item.client_name == "emmet_language_server" then
                 item.kind_icon = "󰯙"
-                return enable_emmet
+                return should_emmet_show
               end
 
               if item.client_name == "typescript-tools" then
@@ -141,18 +141,6 @@ local M = {
               return true
             end, items)
           end,
-          override = {
-            -- trigger character add {} [] ()
-            get_trigger_characters = function(self)
-              local ignored = { "}", "]", ")", "" }
-              local trigger_characters = self:get_trigger_characters()
-              trigger_characters = vim.tbl_filter(function(trigger)
-                -- disable {, [, ( trigger
-                return not vim.tbl_contains(ignored, trigger)
-              end, trigger_characters)
-              return trigger_characters
-            end,
-          },
         },
         lazydev = {
           name = "LazyDev",
@@ -160,7 +148,7 @@ local M = {
           score_offset = 100,
           transform_items = function(_, items)
             for _, item in ipairs(items) do
-              item.kind_icon = ""
+              item.kind_icon = "󱙷"
             end
             return items
           end,
