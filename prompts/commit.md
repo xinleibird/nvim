@@ -6,7 +6,6 @@ opts:
   alias: commit
   auto_submit: false
   is_slash_cmd: true
-  stop_context_insertion: true
 ---
 
 ## system

@@ -43,7 +43,7 @@ local M = {
         vim.cmd("CodeCompanion /add")
       end
     end, { noremap = true, silent = true, desc = "CodeCompanion /add" })
-    vim.keymap.set("v", "<Leader>ae", function()
+    vim.keymap.set({ "n", "v" }, "<Leader>ae", function()
       if vim.bo.filetype ~= "snacks_dashboard" then
         vim.cmd("CodeCompanion /explain")
       end
@@ -53,6 +53,21 @@ local M = {
         vim.cmd("CodeCompanion /commit")
       end
     end, { noremap = true, silent = true, desc = "CodeCompanion /commit" })
+    vim.keymap.set({ "n", "v" }, "<Leader>af", function()
+      if vim.bo.filetype ~= "snacks_dashboard" then
+        vim.cmd("CodeCompanion /fix")
+      end
+    end, { noremap = true, silent = true, desc = "CodeCompanion /fix" })
+    vim.keymap.set({ "n", "v" }, "<Leader>al", function()
+      if vim.bo.filetype ~= "snacks_dashboard" then
+        vim.cmd("CodeCompanion /lsp")
+      end
+    end, { noremap = true, silent = true, desc = "CodeCompanion /lsp" })
+    vim.keymap.set({ "n", "v" }, "<Leader>aw", function()
+      if vim.bo.filetype ~= "snacks_dashboard" then
+        vim.cmd("CodeCompanion /workflow")
+      end
+    end, { noremap = true, silent = true, desc = "CodeCompanion /workflow" })
     vim.keymap.set({ "n", "v" }, "<Leader>ap", function()
       if vim.bo.filetype ~= "snacks_dashboard" then
         vim.cmd("CodeCompanionActions")

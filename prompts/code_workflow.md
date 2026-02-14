@@ -3,7 +3,9 @@ name: Code workflow
 interaction: workflow
 description: Use a workflow to guide an LLM in writing code
 opts:
-  auto_submit: false
+  alias: workflow
+  auto_submit: true
+  is_slash_cmd: false
   is_workflow: true
 ---
 
