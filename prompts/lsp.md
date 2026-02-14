@@ -7,6 +7,7 @@ opts:
   is_slash_cmd: false
   auto_submit: false
   modes:
+    - n
     - v
   stop_context_insertion: true
 ---
