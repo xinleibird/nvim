@@ -1,7 +1,7 @@
 local M = {
   "kkoomen/vim-doge",
   build = ":call doge#install()",
-  event = "BufWinEnter",
+  lazy = false,
   init = function()
     vim.g.doge_mapping = "<leader>nn"
     vim.g.doge_javascript_settings = {

@@ -13,6 +13,10 @@ local M = {
       },
       compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
       transparent_background = false,
+      float = {
+        transparent = true, -- enable transparent floating windows
+        solid = false, -- use solid styling for floating windows, see |winborder|
+      },
       show_end_of_buffer = false, -- show the '~' characters after the end of buffers
       term_colors = true,
       dim_inactive = {
@@ -29,14 +33,14 @@ local M = {
         loops = { "bold" },
         functions = { "bold" },
         keywords = { "bold" },
-        strings = {},
-        variables = {},
-        numbers = {},
-        booleans = {},
+        -- strings = {},
+        -- variables = {},
+        -- numbers = {},
+        -- booleans = {},
         properties = { "italic" },
-        types = {},
-        operators = {},
-        miscs = {},
+        -- types = {},
+        -- operators = {},
+        -- miscs = {},
       },
       lsp_styles = { -- Handles the style of specific lsp hl groups (see `:h lsp-highlight`).
         virtual_text = {
