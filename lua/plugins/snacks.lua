@@ -1,6 +1,7 @@
 local M = {
   "folke/snacks.nvim",
   priority = 1000,
+  lazy = false,
   init = function()
     ---@type table<number, {token:lsp.ProgressToken, msg:string, done:boolean}[]>
     local progress = vim.defaulttable()
