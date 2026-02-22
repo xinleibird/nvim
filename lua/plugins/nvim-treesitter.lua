@@ -41,6 +41,7 @@ local M = {
       "css",
       "gitignore",
       "html",
+      "http",
       "javascript",
       "jsdoc",
       "json",
