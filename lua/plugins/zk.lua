@@ -1,6 +1,6 @@
 local M = {
   "zk-org/zk-nvim",
-  cmd = { "ZkNotes", "ZkTags", "ZkNew", "ZkGrep" },
+  lazy = false,
   dependencies = "folke/snacks.nvim",
   init = function()
     local function zk_grep()
