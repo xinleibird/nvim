@@ -60,13 +60,13 @@ vim.o.swapfile = false
 vim.o.wrap = false
 
 -- set win border separator
-vim.opt.fillchars:append({ vert = "⠅" })
-vim.opt.fillchars:append({ vertright = "⠅" })
-vim.opt.fillchars:append({ vertleft = "⠅" })
-vim.opt.fillchars:append({ horiz = "⠂" })
-vim.opt.fillchars:append({ horizup = "⠂" })
-vim.opt.fillchars:append({ horizdown = "⠂" })
-vim.opt.fillchars:append({ verthoriz = "⠂" })
+-- vim.opt.fillchars:append({ vert = "⠅" })
+-- vim.opt.fillchars:append({ vertright = "⠅" })
+-- vim.opt.fillchars:append({ vertleft = "⠅" })
+-- vim.opt.fillchars:append({ horiz = "⠂" })
+-- vim.opt.fillchars:append({ horizup = "⠂" })
+-- vim.opt.fillchars:append({ horizdown = "⠂" })
+-- vim.opt.fillchars:append({ verthoriz = "⠂" })
 
 -- add fzf runtimepath
 vim.opt.rtp:append("/opt/homebrew/opt/fzf")
