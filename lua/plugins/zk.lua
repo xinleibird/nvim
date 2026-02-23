@@ -23,9 +23,11 @@ local M = {
         prompt = "Zk Grep ❯ ",
         format = function(item, _)
           local title = title_map[item.file] or vim.fn.fnamemodify(item.file, ":t")
+          local pos_str = string.format(":%d:%d:", item.end_pos[1], item.end_pos[2])
           local ret = {}
           table.insert(ret, { "󰠮 ", "SnacksPickerIcon" })
-          table.insert(ret, { string.format("%-20s", title), "SnacksPickerLabel" })
+          table.insert(ret, { title, "SnacksPickerLabel" })
+          table.insert(ret, { pos_str, "SnacksPickerComment" })
           return ret
         end,
       })
