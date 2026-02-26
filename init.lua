@@ -21,3 +21,5 @@ require("configs.mappings")
 require("configs.lsp")
 -- load filetypes
 require("configs.filetypes")
+-- load hacks
+require("configs.hacks")
