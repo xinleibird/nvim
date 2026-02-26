@@ -167,21 +167,14 @@ local M = {
           },
         },
       },
-      gemini_cli = {
-        config = {
-          os = {
-            edit = '[ -z ""$NVIM"" ] && (nvim -- {{filename}}) || (nvim --server ""$NVIM"" --remote-send ""q"" && nvim --server ""$NVIM"" --remote {{filename}})',
-          },
-        },
-      },
       notifier = {
         timeout = 2000,
         icons = {
-          error = require("configs.icons").diagnostics.Error .. " ",
-          warn = require("configs.icons").diagnostics.Warn .. " ",
-          info = require("configs.icons").diagnostics.Info .. " ",
-          debug = require("configs.icons").ui.Bug .. " ",
-          trace = require("configs.icons").ui.Track .. " ",
+          error = require("configs.icons").diagnostics.Error,
+          warn = require("configs.icons").diagnostics.Warn,
+          info = require("configs.icons").diagnostics.Info,
+          debug = require("configs.icons").ui.Bug,
+          trace = require("configs.icons").ui.Track,
         },
       },
       win = { backdrop = 38 },
