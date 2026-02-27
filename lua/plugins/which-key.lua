@@ -313,7 +313,6 @@ local M = {
       },
     })
 
-    ---@diagnostic disable-next-line: missing-fields
     require("which-key").setup({
       win = {
         height = { min = 4, max = 25 },

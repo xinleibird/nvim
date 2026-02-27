@@ -3,6 +3,7 @@ local M = {
   event = "BufEnter *.*",
   dependencies = {
     "nvim-lua/plenary.nvim",
+    "folke/snacks.nvim",
   },
   init = function()
     vim.keymap.set("n", "]t", function()

@@ -24,9 +24,8 @@ local M = {
         0,
         5000,
         vim.schedule_wrap(function()
-          local current_time = os.date("%R")
+          local current_time = tostring(os.date("%R"))
           if current_time ~= last_time then
-            ---@diagnostic disable-next-line: cast-local-type
             last_time = current_time
             vim.cmd.redrawtabline()
           end
@@ -89,6 +88,7 @@ local M = {
         "gitcommit",
         "DiffviewFiles",
         "checkhealth",
+        "query",
         "",
       }
       local cur_ft = vim.bo[bufnr].filetype

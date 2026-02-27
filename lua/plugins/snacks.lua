@@ -362,7 +362,6 @@ local M = {
             },
           },
           vscode = {
-            ---@diagnostic disable-next-line: assign-type-mismatch
             layout = {
               row = 2,
               width = 0.55,

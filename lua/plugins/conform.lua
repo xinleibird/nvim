@@ -42,19 +42,7 @@ local M = {
         return {
           timeout_ms = 500,
           lsp_fallback = true,
-          ---@diagnostic disable-next-line: redundant-return-value
-        }, function(err)
-          if not err then
-            vim.notify(" Formatting!", vim.log.levels.WARN, {
-              id = "conform_notify",
-              style = "compact",
-              timeout = 0,
-              opts = function(notif)
-                notif.icon = ""
-              end,
-            })
-          end
-        end
+        }
       end,
 
       format_after_save = function()
