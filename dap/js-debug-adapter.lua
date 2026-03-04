@@ -11,12 +11,29 @@ dap.adapters["pwa-node"] = {
   },
 }
 
-require("dap").configurations.javascript = {
+dap.configurations.javascript = {
   {
     type = "pwa-node",
     request = "launch",
     name = "Launch with [pwa-node]",
     program = "${file}",
     cwd = "${workspaceFolder}",
+  },
+}
+
+dap.configurations.typescript = {
+  {
+    type = "pwa-node",
+    request = "launch",
+    name = "Launch file",
+    runtimeExecutable = "deno",
+    runtimeArgs = {
+      "run",
+      "--inspect-wait",
+      "--allow-all",
+    },
+    program = "${file}",
+    cwd = "${workspaceFolder}",
+    attachSimplePort = 9229,
   },
 }
