@@ -1,9 +1,7 @@
 local M = {
   "saghen/blink.cmp",
   -- use a release tag to download pre-built binaries
-  -- version = "1.3.1", -- fallback 1.3.1 to fix markdown lost buffer provier --- https://github.com/Saghen/blink.cmp/issues/1943
-  -- use a release tag to download pre-built binaries
-  version = "1.*",
+  version = "*",
   -- or build it yourself
   -- build = "cargo build --release",
   dependencies = {
