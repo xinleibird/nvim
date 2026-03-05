@@ -6,17 +6,17 @@ local M = {
       {
         title = "DAP Scopes",
         ft = "dapui_scopes",
-        size = { height = 0.35 },
+        size = { height = 0.25 },
       },
       {
         title = "DAP Breakpoints",
         ft = "dapui_breakpoints",
-        size = { height = 0.2 },
+        size = { height = 0.25 },
       },
       {
         title = "DAP Stacks",
         ft = "dapui_stacks",
-        size = { height = 0.2 },
+        size = { height = 0.25 },
       },
       {
         title = "DAP Watches",
@@ -26,15 +26,14 @@ local M = {
     },
     bottom = {
       {
-        title = "DAP Repl",
+        -- title = "DAP Repl",
         ft = "dapui_repl",
-        wo = { winfixwidth = true },
+        size = { width = 0.5 },
       },
       -- {
       --   title = "DAP Console",
       --   ft = "dapui_console",
-      --   size = { height = 0.2 },
-      --   wo = { winfixwidth = true },
+      --   size = { width = 0.5 },
       -- },
       {
         ft = "toggleterm",
@@ -45,8 +44,18 @@ local M = {
         end,
         wo = {
           winhighlight = "Normal:Normal,NormalNC:NormalNC",
+          -- winfixwidth = true,
+          -- winfixheight = true,
         },
       },
+    },
+
+    options = {
+      left = { size = 40 },
+    },
+    icons = {
+      closed = require("configs.icons").ui.ArrowClosed,
+      open = require("configs.icons").ui.ArrowOpen,
     },
   },
 }
