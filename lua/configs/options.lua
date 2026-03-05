@@ -8,7 +8,7 @@ vim.o.laststatus = 3
 vim.o.showmode = false
 
 -- clipboard
-vim.o.clipboard = "unnamedplus"
+vim.o.clipboard = ""
 
 -- indenting
 vim.o.expandtab = true
