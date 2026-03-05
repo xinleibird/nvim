@@ -17,6 +17,7 @@ dap.configurations.javascript = {
     request = "launch",
     name = "Launch with [pwa-node]",
     program = "${file}",
+    console = "integratedTerminal",
     cwd = "${workspaceFolder}",
   },
 }
@@ -29,9 +30,11 @@ dap.configurations.typescript = {
     runtimeExecutable = "deno",
     runtimeArgs = {
       "run",
+      "--check",
       "--inspect-wait",
       "--allow-all",
     },
+    console = "integratedTerminal",
     program = "${file}",
     cwd = "${workspaceFolder}",
     attachSimplePort = 9229,
