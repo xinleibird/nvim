@@ -17,91 +17,38 @@ local M = {
       vim.wo.relativenumber = false
     end,
   },
-  dependencies = {
-    "folke/edgy.nvim",
-    event = "VeryLazy",
-    opts = {
-      left = {
-        {
-          title = "DAP Scopes",
-          ft = "dapui_scopes",
-          size = { height = 0.35 },
-        },
-        {
-          title = "DAP Breakpoints",
-          ft = "dapui_breakpoints",
-          size = { height = 0.2 },
-        },
-        {
-          title = "DAP Stacks",
-          ft = "dapui_stacks",
-          size = { height = 0.2 },
-        },
-        {
-          title = "DAP Watches",
-          ft = "dapui_watches",
-          size = { height = 0.25 },
-        },
-      },
-      bottom = {
-        {
-          title = "DAP Repl",
-          ft = "dapui_repl",
-          wo = { winfixwidth = true },
-        },
-        -- {
-        --   title = "DAP Console",
-        --   ft = "dapui_console",
-        --   size = { height = 0.2 },
-        --   wo = { winfixwidth = true },
-        -- },
-        {
-          ft = "toggleterm",
-          title = " term %{b:toggle_number}",
-          size = { height = 0.4 },
-          filter = function(_, win)
-            return vim.api.nvim_win_get_config(win).relative == ""
-          end,
-          wo = {
-            winhighlight = "Normal:Normal,NormalNC:NormalNC",
-          },
-        },
-      },
-    },
-
-    init = function()
-      local decorate = "M"
-      if vim.g.neovide then
-        decorate = "D"
+  init = function()
+    local decorate = "M"
+    if vim.g.neovide then
+      decorate = "D"
+    end
+    if vim.env.TERM and (vim.env.TERM == "xterm-kitty" or vim.env.TERM == "xterm-ghostty") then
+      decorate = "D"
+    end
+    vim.keymap.set({ "n", "t" }, "<" .. decorate .. "-S-j>", function()
+      if vim.bo.filetype == "snacks_picker_list" then
+        vim.cmd("wincmd p")
       end
-      if vim.env.TERM and (vim.env.TERM == "xterm-kitty" or vim.env.TERM == "xterm-ghostty") then
-        decorate = "D"
-      end
-      vim.keymap.set({ "n", "t" }, "<" .. decorate .. "-S-j>", function()
-        if vim.bo.filetype == "snacks_picker_list" then
-          vim.cmd("wincmd p")
-        end
 
-        local terms = require("toggleterm.terminal").get_all()
+      local terms = require("toggleterm.terminal").get_all()
+      local new_id = #terms + 1
+      vim.cmd(new_id .. "ToggleTerm direction=horizontal")
+    end, { desc = "New Terminal Instance" })
+
+    vim.keymap.set({ "n", "t" }, "<" .. decorate .. "-j>", function()
+      if vim.bo.filetype == "snacks_picker_list" then
+        vim.cmd("wincmd p")
+      end
+
+      local terms = require("toggleterm.terminal").get_all()
+      if #terms == 0 then
         local new_id = #terms + 1
         vim.cmd(new_id .. "ToggleTerm direction=horizontal")
-      end, { desc = "New Terminal Instance" })
-
-      vim.keymap.set({ "n", "t" }, "<" .. decorate .. "-j>", function()
-        if vim.bo.filetype == "snacks_picker_list" then
-          vim.cmd("wincmd p")
-        end
-
-        local terms = require("toggleterm.terminal").get_all()
-        if #terms == 0 then
-          local new_id = #terms + 1
-          vim.cmd(new_id .. "ToggleTerm direction=horizontal")
-        else
-          require("toggleterm").toggle_all()
-        end
-      end, { desc = "Toggle All Terminals" })
-    end,
-  },
+      else
+        require("toggleterm").toggle_all()
+      end
+    end, { desc = "Toggle All Terminals" })
+  end,
 }
 
 return M
