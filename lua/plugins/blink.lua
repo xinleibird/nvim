@@ -9,6 +9,8 @@ local M = {
   dependencies = {
     "olimorris/codecompanion.nvim",
     "neovim/nvim-lspconfig",
+    "mayromr/blink-cmp-dap",
+    "mfussenegger/nvim-dap",
     {
       "folke/lazydev.nvim",
       ft = "lua", -- only load on lua files
@@ -82,13 +84,17 @@ local M = {
         css = { "lsp", "alias_path", "snippets", "buffer" },
         javascriptreact = { "lsp", "alias_path", "snippets", "buffer" },
         typescriptreact = { "lsp", "alias_path", "snippets", "buffer" },
-        ["dap-repl"] = { "lsp" },
+        ["dap-repl"] = { "dap", "lsp" },
       },
       -- min_keyword_length = function()
       --   return vim.bo.filetype == "markdown" and 2 or 0
       -- end,
       min_keyword_length = 0,
       providers = {
+        dap = {
+          name = "dap",
+          module = "blink-cmp-dap",
+        },
         alias_path = {
           name = "aliasPath",
           module = "blink-alias-path",
@@ -146,20 +152,20 @@ local M = {
           name = "LazyDev",
           module = "lazydev.integrations.blink",
           score_offset = 100,
-          transform_items = function(_, items)
-            for _, item in ipairs(items) do
-              item.kind_icon = "󱙷"
-            end
-            return items
-          end,
+          -- transform_items = function(_, items)
+          --   for _, item in ipairs(items) do
+          --     item.kind_icon = "󱙷"
+          --   end
+          --   return items
+          -- end,
         },
         cmdline = {
-          transform_items = function(_, items)
-            for _, item in ipairs(items) do
-              item.kind_icon = ""
-            end
-            return items
-          end,
+          -- transform_items = function(_, items)
+          --   for _, item in ipairs(items) do
+          --     item.kind_icon = ""
+          --   end
+          --   return items
+          -- end,
         },
         snippets = {
           --- @param ctx blink.cmp.Context
@@ -222,10 +228,29 @@ local M = {
           padding = { 1, 1 },
 
           -- completion menu style
-          columns = { { "kind_icon", "label", "label_description", gap = 1 }, { "kind" } },
-
+          columns = { { "kind_icon", "label", "label_description", gap = 1 }, { "kind" }, { "source_icon", gap = 1 } },
           -- show completion kind
           components = {
+            source_icon = {
+              -- width = "fill",
+              text = function(ctx)
+                -- 这里是核心映射表
+                local source_map = {
+                  lsp = "",
+                  snippets = "",
+                  buffer = "󰈙",
+                  path = "󰝰",
+                  alias_path = "󰝰",
+                  cmdline = "",
+                  lazydev = "󱙷",
+                  dap = "",
+                }
+                return source_map[ctx.source_id] or ctx.source_id:sub(1, 1):upper()
+              end,
+              highlight = function(ctx)
+                return "BlinkCmpKind" .. ctx.kind
+              end,
+            },
             -- customize the drawing of kind icons
             kind_icon = {
               text = function(ctx)
@@ -282,14 +307,14 @@ local M = {
         --   end
         --   return a.client_name == "emmet_language_server"
         -- end,
-        "exact",
+        -- "exact",
         -- defaults
         "score",
         "sort_text",
       },
     },
     cmdline = {
-      enabled = false,
+      -- enabled = false,
       sources = function()
         local type = vim.fn.getcmdtype()
         -- Search forward and backward
@@ -308,9 +333,10 @@ local M = {
             if cmp.is_ghost_text_visible() and not cmp.is_menu_visible() then
               return cmp.accept()
             end
+            return cmp.show()
           end,
-          "show_and_insert",
-          -- "select_next",
+          -- "show_and_insert",
+          "select_next",
           -- "fallback",
         },
         ["<CR>"] = { "select_accept_and_enter", "fallback" },
