@@ -47,7 +47,7 @@ local M = {
               { id = "watches", size = 0.25 },
             },
             size = 40,
-            position = "right",
+            position = "left",
           },
           {
             elements = {
