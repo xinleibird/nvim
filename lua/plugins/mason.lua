@@ -22,6 +22,7 @@ local M = {
 
       -- browser debug
       "js-debug-adapter",
+      "deno",
 
       -- shell stuff
       "bash-language-server",

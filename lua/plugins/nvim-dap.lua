@@ -3,6 +3,15 @@ local M = {
   event = "LspAttach",
   dependencies = {
     {
+      "theHamsta/nvim-dap-virtual-text",
+      opts = {
+        enabled = true,
+        enabled_commands = true,
+        highlight_changed_variables = true,
+        show_stop_reason = true,
+      },
+    },
+    {
       "rcarriga/nvim-dap-ui",
       dependencies = "nvim-neotest/nvim-nio",
       init = function()
