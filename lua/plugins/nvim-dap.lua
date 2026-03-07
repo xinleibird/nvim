@@ -42,21 +42,21 @@ local M = {
           layouts = {
             {
               elements = {
-                { id = "scopes", size = 0.25 },
-                { id = "breakpoints", size = 0.25 },
-                { id = "stacks", size = 0.25 },
-                { id = "watches", size = 0.25 },
+                { id = "scopes", size = 0.2 },
+                { id = "breakpoints", size = 0.2 },
+                { id = "stacks", size = 0.2 },
+                { id = "watches", size = 0.2 },
+                { id = "console", size = 0.2 },
               },
-              size = 30,
+              size = 0.2,
               position = "left",
             },
             {
               elements = {
-                { id = "repl", size = 0.5 },
-                { id = "console", size = 0.5 },
+                { id = "repl", size = 0.3 },
               },
-              size = 11,
-              position = "bottom",
+              size = 0.2,
+              position = "top",
             },
           },
           floating = {
