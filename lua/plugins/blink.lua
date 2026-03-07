@@ -242,6 +242,7 @@ local M = {
                   cmdline = "",
                   lazydev = "󱙷",
                   dap = "",
+                  codecompanion = "",
                 }
                 return source_map[ctx.source_id] or ctx.source_id:sub(1, 1):upper()
               end,
