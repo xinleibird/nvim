@@ -26,17 +26,15 @@ dap.configurations.typescript = {
   {
     type = "pwa-node",
     request = "launch",
-    name = "Launch file",
-    runtimeExecutable = "deno",
-    runtimeArgs = {
-      "run",
-      "--check",
-      "--inspect-wait",
-      "--allow-all",
-    },
-    console = "integratedTerminal",
+    name = "Launch with [pwa-node]",
     program = "${file}",
     cwd = "${workspaceFolder}",
-    attachSimplePort = 9229,
+    sourceMaps = true,
+    protocol = "inspector",
+    console = "integratedTerminal",
+    skipFiles = {
+      "<node_internals>/**",
+      "node_modules/**",
+    },
   },
 }
