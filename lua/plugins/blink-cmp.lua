@@ -312,7 +312,7 @@ local M = {
       end,
       keymap = {
         ["<Tab>"] = { "show", "accept" },
-        ["<CR>"] = { "accept_and_enter", "fallback" },
+        ["<CR>"] = { "accept", "fallback" },
       },
       completion = {
         menu = {
