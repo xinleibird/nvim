@@ -46,6 +46,7 @@ local M = {
       })
     end
   end,
+  ---@type blink.cmp.Config
   opts = {
     keymap = {
       preset = "default",
@@ -150,20 +151,6 @@ local M = {
           name = "LazyDev",
           module = "lazydev.integrations.blink",
           score_offset = 100,
-          -- transform_items = function(_, items)
-          --   for _, item in ipairs(items) do
-          --     item.kind_icon = "󱙷"
-          --   end
-          --   return items
-          -- end,
-        },
-        cmdline = {
-          -- transform_items = function(_, items)
-          --   for _, item in ipairs(items) do
-          --     item.kind_icon = ""
-          --   end
-          --   return items
-          -- end,
         },
         snippets = {
           --- @param ctx blink.cmp.Context
@@ -232,7 +219,6 @@ local M = {
             source_icon = {
               -- width = "fill",
               text = function(ctx)
-                -- 这里是核心映射表
                 local source_map = {
                   lsp = "",
                   snippets = "",
@@ -297,7 +283,6 @@ local M = {
     },
     fuzzy = {
       implementation = "prefer_rust_with_warning",
-      -- prebuilt_binaries = { force_version = "v1.0.0" },
       sorts = {
         -- lua sorter slowly
         -- function(a, b)
@@ -313,7 +298,6 @@ local M = {
       },
     },
     cmdline = {
-      -- enabled = false,
       sources = function()
         local type = vim.fn.getcmdtype()
         -- Search forward and backward
@@ -327,21 +311,22 @@ local M = {
         return {}
       end,
       keymap = {
-        ["<Tab>"] = {
-          function(cmp)
-            if cmp.is_ghost_text_visible() and not cmp.is_menu_visible() then
-              return cmp.accept()
-            end
-            return cmp.show()
-          end,
-          -- "show_and_insert",
-          "select_next",
-          -- "fallback",
-        },
-        ["<CR>"] = { "select_accept_and_enter", "fallback" },
-        -- ["<CR>"] = { "select_and_accept", "fallback" },
+        ["<Tab>"] = { "show", "accept" },
+        ["<CR>"] = { "accept_and_enter", "fallback" },
       },
-      -- completion = { menu = { auto_show = true } },
+      completion = {
+        menu = {
+          auto_show = function(ctx)
+            local type = vim.fn.getcmdtype()
+            if type == ":" or type == "@" then
+              if #ctx.line > 2 then
+                return true
+              end
+            end
+            return false
+          end,
+        },
+      },
     },
   },
   opts_extend = { "sources.default" },

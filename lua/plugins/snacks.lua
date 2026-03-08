@@ -419,7 +419,6 @@ local M = {
           char = "▏",
           only_scope = false,
           only_current = false,
-          hl = "SnacksIndent",
         },
         animate = {
           enabled = vim.fn.has("nvim-0.10") == 1,
@@ -436,7 +435,6 @@ local M = {
           char = "▏",
           underline = false, -- https://github.com/folke/snacks.nvim/pull/1635
           only_current = false,
-          hl = "SnacksIndentScope",
         },
       },
       scope = {
