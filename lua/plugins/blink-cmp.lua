@@ -220,7 +220,7 @@ local M = {
               -- width = "fill",
               text = function(ctx)
                 local source_map = {
-                  lsp = "",
+                  lsp = "",
                   snippets = "",
                   buffer = "󰈙",
                   path = "󰝰",
@@ -298,35 +298,7 @@ local M = {
       },
     },
     cmdline = {
-      sources = function()
-        local type = vim.fn.getcmdtype()
-        -- Search forward and backward
-        if type == "/" or type == "?" then
-          return { "buffer" }
-        end
-        -- Commands
-        if type == ":" or type == "@" then
-          return { "cmdline" }
-        end
-        return {}
-      end,
-      keymap = {
-        ["<Tab>"] = { "show", "accept" },
-        ["<CR>"] = { "accept", "fallback" },
-      },
-      completion = {
-        menu = {
-          auto_show = function(ctx)
-            local type = vim.fn.getcmdtype()
-            if type == ":" or type == "@" then
-              if #ctx.line > 2 then
-                return true
-              end
-            end
-            return false
-          end,
-        },
-      },
+      enabled = false,
     },
   },
   opts_extend = { "sources.default" },
