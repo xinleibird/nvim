@@ -19,6 +19,6 @@ opts:
 
 ## user
 
-该编程语言为 ${context.filetype}。以下是诊断消息列表：
+在编程语言为 ${context.filetype} 的文件中有以下诊断消息：
 
 ${lsp.diagnostics}

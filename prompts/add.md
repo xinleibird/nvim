@@ -8,7 +8,6 @@ opts:
   is_slash_cmd: false
   modes:
     - v
-  stop_context_insertion: true
 ---
 
 ## system
@@ -24,7 +23,3 @@ opts:
 ## user
 
 下面是来自缓冲区 ${context.bufnr} 的代码:
-
-```${context.filetype}
-${context.code}
-```
