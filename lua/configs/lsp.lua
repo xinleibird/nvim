@@ -20,7 +20,7 @@ vim.diagnostic.config({
   --   end,
   --   source = true,
   -- },
-  virtual_text = true,
+  virtual_text = false,
   float = {
     source = true,
   },
