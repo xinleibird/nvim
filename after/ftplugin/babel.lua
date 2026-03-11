@@ -6,7 +6,7 @@ vim.opt_local.concealcursor = ""
 
 vim.opt_local.filetype = "markdown"
 
-vim.b.snacks_scope = false
+vim.b.indent_guide = false
 vim.b.snacks_image_attached = true
 
 vim.treesitter.language.register("markdown", { "babel" })

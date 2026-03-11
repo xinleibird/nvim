@@ -136,6 +136,8 @@ local M = {
           },
         },
       },
+      indent = { enabled = false },
+      scope = { enabled = false },
       explorer = { enabled = true },
       image = { enabled = true },
       input = { enabled = true },
@@ -410,37 +412,6 @@ local M = {
               { win = "preview", title = "{preview}", height = 0.4, border = "top" },
             },
           },
-        },
-      },
-      indent = {
-        indent = {
-          enabled = true,
-          priority = 1,
-          char = "▏",
-          only_scope = false,
-          only_current = false,
-        },
-        animate = {
-          enabled = vim.fn.has("nvim-0.10") == 1,
-          style = "out",
-          easing = "linear",
-          duration = {
-            step = 10,
-            total = 100,
-          },
-        },
-        scope = {
-          enabled = true,
-          priority = 200,
-          char = "▏",
-          underline = false, -- https://github.com/folke/snacks.nvim/pull/1635
-          only_current = false,
-        },
-      },
-      scope = {
-        treesitter = {
-          enabled = true,
-          injections = true, -- include language injections when detecting scope (useful for languages like `vue`)
         },
       },
       dashboard = {
