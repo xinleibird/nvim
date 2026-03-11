@@ -298,7 +298,25 @@ local M = {
       },
     },
     cmdline = {
-      enabled = false,
+      sources = function()
+        local type = vim.fn.getcmdtype()
+        if type == "/" or type == "?" then
+          return { "buffer" }
+        end
+        if type == ":" or type == "@" then
+          return { "cmdline" }
+        end
+        return {}
+      end,
+      keymap = {
+        ["<Tab>"] = { "show", "accept" },
+        ["<CR>"] = { "accept_and_enter", "fallback" },
+      },
+      completion = {
+        menu = {
+          auto_show = false,
+        },
+      },
     },
   },
   opts_extend = { "sources.default" },
