@@ -33,6 +33,10 @@ local M = {
         icon = "󰤼",
       },
       {
+        "<leader>tt",
+        icon = "󰗊",
+      },
+      {
         "<leader>d",
         group = "Debug",
         icon = "󰨰",
