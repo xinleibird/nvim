@@ -15,7 +15,7 @@ vim.keymap.set("c", "<C-b>", "<End>", { desc = "Move ending of line" })
 -- esc clear highlights, Escape popup
 vim.keymap.set("n", "<Esc>", function()
   vim.cmd("noh")
-  vim.api.nvim_feedkeys("hl", "nt", true)
+  vim.api.nvim_feedkeys("hl", "n", true)
   if vim.diagnostic.config().virtual_lines then
     vim.diagnostic.config({ virtual_lines = false })
   end
