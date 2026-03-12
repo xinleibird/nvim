@@ -175,6 +175,41 @@ local M = {
             fg = colors.vary_color({ latte = colors.lighten(C.text, 0.1, C.base) }, colors.darken(C.text, 0.1, C.base)),
           },
 
+          -- Blink Indnet
+          BlinkIndentRed = {
+            fg = colors.vary_color({ latte = colors.lighten(C.red, 0.6, C.base) }, colors.darken(C.red, 0.3, C.base)),
+          },
+          BlinkIndentYellow = {
+            fg = colors.vary_color(
+              { latte = colors.lighten(C.yellow, 0.6, C.base) },
+              colors.darken(C.yellow, 0.3, C.base)
+            ),
+          },
+          BlinkIndentBlue = {
+            fg = colors.vary_color({ latte = colors.lighten(C.blue, 0.6, C.base) }, colors.darken(C.blue, 0.3, C.base)),
+          },
+          BlinkIndentOrange = {
+            fg = colors.vary_color(
+              { latte = colors.lighten(C.peach, 0.6, C.base) },
+              colors.darken(C.peach, 0.3, C.base)
+            ),
+          },
+          BlinkIndentGreen = {
+            fg = colors.vary_color(
+              { latte = colors.lighten(C.green, 0.6, C.base) },
+              colors.darken(C.green, 0.3, C.base)
+            ),
+          },
+          BlinkIndentViolet = {
+            fg = colors.vary_color(
+              { latte = colors.lighten(C.mauve, 0.6, C.base) },
+              colors.darken(C.mauve, 0.3, C.base)
+            ),
+          },
+          BlinkIndentCyan = {
+            fg = colors.vary_color({ latte = colors.lighten(C.text, 0.6, C.base) }, colors.darken(C.text, 0.3, C.base)),
+          },
+
           -- Fold
           Folded = { bg = C.surface0, fg = C.text },
 
