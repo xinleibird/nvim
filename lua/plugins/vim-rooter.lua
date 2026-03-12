@@ -1,6 +1,6 @@
 local M = {
   "airblade/vim-rooter",
-  event = "BufEnter *.*",
+  lazy = false,
   init = function()
     vim.g.rooter_patterns = {
       -- exclude
