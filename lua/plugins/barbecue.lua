@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 local M = {
   "BrunoKrugel/bbq.nvim",
   name = "barbecue",

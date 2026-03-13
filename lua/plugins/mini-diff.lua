@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 local M = {
   "echasnovski/mini.diff",
   event = "BufEnter *.*",

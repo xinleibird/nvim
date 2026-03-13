@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 local M = {
   "numToStr/Comment.nvim",
   event = "FileReadPre",

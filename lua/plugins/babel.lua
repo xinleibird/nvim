@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 local M = {
   "acidsugarx/babel.nvim",
   version = "*", -- recomended for the latest tag, not main

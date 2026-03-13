@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 local M = {
   "saghen/blink.cmp",
   -- use a release tag to download pre-built binaries

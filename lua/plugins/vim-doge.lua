@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 local M = {
   "kkoomen/vim-doge",
   build = ":call doge#install()",

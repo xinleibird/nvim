@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 local M = {
   "akinsho/bufferline.nvim",
   event = { "BufRead", "User SnacksDashboardClosed" },

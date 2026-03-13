@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 local M = {
   "s1n7ax/nvim-window-picker",
   event = "UIEnter",

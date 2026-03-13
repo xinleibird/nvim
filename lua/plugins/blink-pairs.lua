@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 local M = {
   "saghen/blink.pairs",
   version = "*", -- (recommended) only required with prebuilt binaries

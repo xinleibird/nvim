@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 local M = {
   "airblade/vim-rooter",
   lazy = false,

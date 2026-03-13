@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 local M = {
   "saecki/crates.nvim",
   event = { "BufRead Cargo.toml" },

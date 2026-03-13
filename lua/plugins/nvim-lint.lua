@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 local M = {
   "mfussenegger/nvim-lint",
   event = "BufEnter",

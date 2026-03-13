@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 local M = {
   "saifulapm/commasemi.nvim",
   event = "BufEnter *.*",

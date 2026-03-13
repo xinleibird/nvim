@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 local M = {
   "saghen/blink.indent",
   event = "BufEnter *.*",

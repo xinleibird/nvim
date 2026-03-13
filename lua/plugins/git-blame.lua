@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 local M = {
   "f-person/git-blame.nvim",
   event = "BufEnter *.*",

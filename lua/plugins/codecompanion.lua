@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 local M = {
   "olimorris/codecompanion.nvim",
   dependencies = {

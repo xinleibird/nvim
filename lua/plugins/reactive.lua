@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 local M = {
   "rasulomaroff/reactive.nvim",
   event = "BufEnter *.*",

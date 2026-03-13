@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 local M = {
   "folke/todo-comments.nvim",
   event = "BufEnter *.*",

@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 local M = {
   "folke/flash.nvim",
   event = "VeryLazy",

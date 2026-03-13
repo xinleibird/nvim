@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 local M = {
   "zk-org/zk-nvim",
   lazy = false,
