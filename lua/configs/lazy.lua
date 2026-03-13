@@ -39,7 +39,7 @@ require("lazy").setup({
   },
   install = {
     missing = true,
-    colorscheme = { "catppuccin" },
+    colorscheme = { "catppuccin-nvim" },
   },
   -- automatically check for plugin updates
   checker = { enabled = true },
