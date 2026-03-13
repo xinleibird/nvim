@@ -12,9 +12,13 @@ local M = {
       },
     },
     {
-      "m00qek/baleia.nvim",
+      "0xferrous/ansi.nvim",
       config = function()
-        vim.g.baleia = require("baleia").setup({})
+        require("ansi").setup({
+          auto_enable = true, -- Auto-enable for configured filetypes
+          filetypes = { "log", "ansi", "dap-repl" }, -- Filetypes to auto-enable
+          theme = "gruvbox",
+        })
       end,
     },
     {
@@ -24,7 +28,7 @@ local M = {
         local dap = require("dap")
         local dapui = require("dapui")
 
-        local function setup_dap_repl_baleia()
+        local function render_dap_repl_ansi()
           local repl_buf = nil
           for _, buf in ipairs(vim.api.nvim_list_bufs()) do
             if vim.bo[buf].filetype == "dap-repl" then
@@ -34,18 +38,24 @@ local M = {
           end
 
           if repl_buf then
-            vim.g.baleia.automatically(repl_buf)
+            require("ansi.renderer").enable_for_buffer(repl_buf, "gruvbox")
           end
         end
 
         dap.listeners.before.attach.dapui_config = function()
           dapui.open()
-          setup_dap_repl_baleia()
         end
         dap.listeners.before.launch.dapui_config = function()
           dapui.open()
-          setup_dap_repl_baleia()
         end
+
+        dap.listeners.before.event_terminated.dapui_config = function()
+          render_dap_repl_ansi()
+        end
+        dap.listeners.before.event_exited.dapui_config = function()
+          render_dap_repl_ansi()
+        end
+
         -- dap.listeners.before.event_terminated.dapui_config = function()
         --   dapui.close()
         -- end
