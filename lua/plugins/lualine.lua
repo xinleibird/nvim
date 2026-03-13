@@ -419,7 +419,7 @@ local M = {
     return {
       options = {
         component_separators = "",
-        theme = "catppuccin", -- for catppuccin colorscheme
+        theme = "catppuccin-nvim", -- for catppuccin colorscheme
         globalstatus = true,
         refresh = { -- sets how often lualine should refresh it's contents (in ms)
           statusline = 50, -- The refresh option sets minimum time that lualine tries
