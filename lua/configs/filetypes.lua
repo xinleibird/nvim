@@ -1,6 +1,6 @@
 vim.filetype.add({
   pattern = {
-    [".*/themes/catppuccin-.*"] = "txt",
+    [".*/themes/catppuccin-.*"] = "conf",
     [".*/.vscode/launch.json"] = "jsonc",
   },
 })
