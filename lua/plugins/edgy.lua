@@ -6,35 +6,35 @@ local M = {
       {
         title = "DAP Scopes",
         ft = "dapui_scopes",
-        size = { height = 0.2 },
+        size = { height = 0.25 },
       },
       {
         title = "DAP Breakpoints",
         ft = "dapui_breakpoints",
-        size = { height = 0.2 },
+        size = { height = 0.25 },
       },
       {
         title = "DAP Stacks",
         ft = "dapui_stacks",
-        size = { height = 0.2 },
+        size = { height = 0.25 },
       },
       {
         title = "DAP Watches",
         ft = "dapui_watches",
-        size = { height = 0.2 },
-      },
-      {
-        title = "DAP Console",
-        ft = "dapui_console",
-        size = { height = 0.2 },
+        size = { height = 0.25 },
       },
     },
     top = {
       {
         title = "DAP Repl",
         ft = "dapui_repl",
-        size = { width = 0.5 },
+        size = { height = 0.25 },
       },
+      -- {
+      --   title = "DAP Console",
+      --   ft = "dapui_console",
+      --   size = { height = 0.25 },
+      -- },
     },
     bottom = {
       {

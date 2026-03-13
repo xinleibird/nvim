@@ -104,6 +104,7 @@ local M = {
     local state_dir = vim.fn.stdpath("state")
     local function filter_rtp(rtp)
       local patterns = {
+        "^" .. "/" .. "$",
         "^" .. "/private/",
         "^" .. homebrew_repo,
         "^" .. data_dir,

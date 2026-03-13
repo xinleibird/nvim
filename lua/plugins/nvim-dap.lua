@@ -12,17 +12,39 @@ local M = {
       },
     },
     {
+      "m00qek/baleia.nvim",
+      config = function()
+        vim.g.baleia = require("baleia").setup({})
+      end,
+    },
+    {
       "rcarriga/nvim-dap-ui",
       dependencies = "nvim-neotest/nvim-nio",
       init = function()
         local dap = require("dap")
         local dapui = require("dapui")
 
+        local function setup_dap_repl_baleia()
+          local repl_buf = nil
+          for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+            if vim.bo[buf].filetype == "dap-repl" then
+              repl_buf = buf
+              break
+            end
+          end
+
+          if repl_buf then
+            vim.g.baleia.automatically(repl_buf)
+          end
+        end
+
         dap.listeners.before.attach.dapui_config = function()
           dapui.open()
+          setup_dap_repl_baleia()
         end
         dap.listeners.before.launch.dapui_config = function()
           dapui.open()
+          setup_dap_repl_baleia()
         end
         -- dap.listeners.before.event_terminated.dapui_config = function()
         --   dapui.close()
@@ -51,20 +73,20 @@ local M = {
           layouts = {
             {
               elements = {
-                { id = "scopes", size = 0.2 },
-                { id = "breakpoints", size = 0.2 },
-                { id = "stacks", size = 0.2 },
-                { id = "watches", size = 0.2 },
-                { id = "console", size = 0.2 },
+                { id = "scopes", size = 0.25 },
+                { id = "breakpoints", size = 0.25 },
+                { id = "stacks", size = 0.25 },
+                { id = "watches", size = 0.25 },
               },
               size = 0.2,
               position = "left",
             },
             {
               elements = {
-                { id = "repl", size = 0.3 },
+                { id = "repl", size = 0.5 },
+                -- { id = "console", size = 0.5 },
               },
-              size = 0.2,
+              size = 0.25,
               position = "top",
             },
           },

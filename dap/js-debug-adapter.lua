@@ -26,7 +26,7 @@ dap.configurations.typescript = {
   {
     type = "pwa-node",
     request = "launch",
-    name = "Launch",
+    name = "Launch (tsc)",
     program = "${file}",
     cwd = "${workspaceFolder}",
     sourceMaps = true,
@@ -35,6 +35,34 @@ dap.configurations.typescript = {
     skipFiles = {
       "<node_internals>/**",
       "node_modules/**",
+    },
+  },
+  {
+    type = "pwa-node",
+    request = "launch",
+    name = "Launch (ts-node)",
+    cwd = "${workspaceFolder}",
+    runtimeArgs = { "-r", "ts-node/register" }, -- 如果是 CommonJS 项目使用这个
+    runtimeExecutable = "node",
+    args = { "--inspect", "${file}" },
+    sourceMaps = true,
+    protocol = "inspector",
+    console = "integratedTerminal",
+    resolveSourceMapLocations = {
+      "${workspaceFolder}/**",
+      "!**/node_modules/**",
+    },
+    skipFiles = {
+      "<node_internals>/**",
+      "**/node_modules/**",
+      "**/ts-node/**",
+    },
+
+    env = {
+      FORCE_COLOR = "0",
+      TS_NODE_COLOR = "false",
+      NO_COLOR = "1",
+      TERM = "dumb",
     },
   },
 }
