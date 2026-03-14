@@ -190,7 +190,7 @@ local M = {
               },
               schema = {
                 model = {
-                  default = "gemini-3-flash-preview",
+                  -- default = "gemini-3-flash-preview",
                 },
               },
             })
@@ -265,7 +265,7 @@ local M = {
               description = "[Request] Stop",
             },
             clear = {
-              modes = { n = "<C-x>" },
+              modes = { n = { "<C-x>" } },
               callback = "keymaps.clear",
               description = "[Chat] Clear",
             },
@@ -314,7 +314,7 @@ local M = {
             ---On exiting and entering neovim, loads the last chat on opening chat
             continue_last_chat = false,
             ---When chat is cleared with `gx` delete the chat from history
-            delete_on_clearing_chat = false,
+            delete_on_clearing_chat = true,
             ---Directory path to save the chats
             dir_to_save = vim.fn.stdpath("data") .. "/codecompanion-history",
             ---Enable detailed logging for history extension
@@ -339,22 +339,22 @@ local M = {
             },
 
             -- Memory system (requires VectorCode CLI)
-            -- memory = {
-            --   -- Automatically index summaries when they are generated
-            --   auto_create_memories_on_summary_generation = true,
-            --   -- Path to the VectorCode executable
-            --   vectorcode_exe = "vectorcode",
-            --   -- Tool configuration
-            --   tool_opts = {
-            --     -- Default number of memories to retrieve
-            --     default_num = 10,
-            --   },
-            --   -- Enable notifications for indexing progress
-            --   notify = true,
-            --   -- Index all existing memories on startup
-            --   -- (requires VectorCode 0.6.12+ for efficient incremental indexing)
-            --   index_on_startup = false,
-            -- },
+            memory = {
+              -- Automatically index summaries when they are generated
+              auto_create_memories_on_summary_generation = true,
+              -- Path to the VectorCode executable
+              vectorcode_exe = "vectorcode",
+              -- Tool configuration
+              tool_opts = {
+                -- Default number of memories to retrieve
+                default_num = 10,
+              },
+              -- Enable notifications for indexing progress
+              notify = true,
+              -- Index all existing memories on startup
+              -- (requires VectorCode 0.6.12+ for efficient incremental indexing)
+              index_on_startup = false,
+            },
           },
         },
       },
