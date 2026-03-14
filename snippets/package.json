@@ -6,10 +6,6 @@
   "contributes": {
     "snippets": [
       {
-        "language": "javascriptreact",
-        "path": "./sections/javascript/react.json"
-      },
-      {
         "language": [
           "javascript",
           "typescript",
@@ -19,6 +15,20 @@
           "svelte"
         ],
         "path": "./sections/javascript/javascript.json"
+      },
+      {
+        "language": [
+          "javascriptreact",
+          "typescriptreact"
+        ],
+        "path": "./sections/javascript/react.json"
+      },
+      {
+        "language": [
+          "markdown",
+          "codecompanion"
+        ],
+        "path": "./sections/markdown.json"
       }
     ]
   }
