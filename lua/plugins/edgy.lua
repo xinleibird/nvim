@@ -46,19 +46,18 @@ local M = {
         filter = function(_, win)
           return vim.api.nvim_win_get_config(win).relative == ""
         end,
-        wo = {
-          winhighlight = "Normal:Normal,NormalNC:NormalNC",
-          winfixwidth = true,
-          winfixheight = true,
-        },
       },
     },
     options = {
       left = { size = 0.2 },
+      right = { size = 30 },
     },
     icons = {
       closed = require("configs.icons").ui.ArrowClosed,
       open = require("configs.icons").ui.ArrowOpen,
+    },
+    animate = {
+      enabled = false,
     },
   },
 }
