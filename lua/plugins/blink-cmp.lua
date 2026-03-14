@@ -16,6 +16,7 @@ local M = {
       ft = "lua", -- only load on lua files
       opts = {
         library = {
+          vim.env.VIMRUNTIME,
           { path = "${3rd}/luv/library", words = { "vim%.uv" } },
           { path = "snacks.nvim", words = { "Snacks" } },
         },
