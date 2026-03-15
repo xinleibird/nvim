@@ -9,10 +9,10 @@ if vim.g.neovide then
   require("configs.neovide")
 end
 
--- bootstrap lazy and all plugins
-require("configs.lazy")
 -- load options
 require("configs.options")
+-- bootstrap lazy and all plugins
+require("configs.lazy")
 -- load autocmds
 require("configs.autocmds")
 -- load mappings

@@ -294,6 +294,9 @@ local M = {
         which_key = true,
       },
     })
+
+    -- colorscheme
+    vim.cmd.colorscheme("catppuccin-nvim")
   end,
 }
 
