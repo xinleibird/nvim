@@ -591,6 +591,8 @@ local M = {
             return true
           end,
         })
+        -- sessions options
+        vim.o.sessionoptions = "buffers,curdir,folds,globals,tabpages,winpos,winsize"
       end,
     },
     {
