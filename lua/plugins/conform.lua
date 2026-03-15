@@ -51,10 +51,13 @@ local M = {
         return {
           lsp_fallback = true,
         }, function()
-          vim.notify(" Format Finished！", vim.log.levels.INFO, {
+          local formatters = require("conform").list_formatters(0)
+          local formatter_name = formatters[1].name
+          vim.notify(" " .. "**" .. formatter_name .. "**" .. " Formatted！", vim.log.levels.INFO, {
             id = "conform_notify",
+            title = "conform.nvim",
             style = "compact",
-            timeout = 500,
+            timeout = 1000,
             opts = function(notif)
               notif.icon = ""
             end,

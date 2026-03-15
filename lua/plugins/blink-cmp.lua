@@ -223,14 +223,14 @@ local M = {
               -- width = "fill",
               text = function(ctx)
                 local source_map = {
-                  lsp = "",
+                  lsp = "󰍹",
                   snippets = "",
-                  buffer = "󰈙",
-                  path = "󰝰",
-                  alias_path = "󰝰",
-                  cmdline = "",
+                  buffer = "󰧭",
+                  path = "󰉖",
+                  alias_path = "󰉖",
+                  cmdline = "",
                   lazydev = "󱙷",
-                  dap = "",
+                  dap = "󰨰",
                   codecompanion = "",
                 }
                 return source_map[ctx.source_id] or ctx.source_id:sub(1, 1):upper()
