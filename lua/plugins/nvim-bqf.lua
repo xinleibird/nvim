@@ -5,6 +5,10 @@ local M = {
   ft = "qf",
   dependencies = {
     "junegunn/fzf",
+    init = function()
+      -- add fzf runtimepath
+      vim.opt.rtp:append("/opt/homebrew/opt/fzf")
+    end,
   },
   init = function()
     function _G.qftf(info)

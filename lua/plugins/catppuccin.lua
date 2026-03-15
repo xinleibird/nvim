@@ -286,7 +286,6 @@ local M = {
         },
         nvim_surround = true,
         symbols_outline = true,
-        semantic_tokens = true,
         snacks = {
           enabled = true,
           indent_scope_color = "surface2",

@@ -85,17 +85,6 @@ vim.keymap.set("n", "<leader>lj", function() vim.diagnostic.jump({ count = 1, fl
 -- vim.keymap.set("n", "<leader>wl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, { desc = "Lsp List workspace folders" })
 --stylua: ignore end
 
--- lsp config
-vim.lsp.config("*", {
-  capabilities = {
-    textDocument = {
-      semanticTokens = {
-        multilineTokenSupport = true,
-      },
-    },
-  },
-})
-
 -- lsp enable
 vim.lsp.enable({
   "bashls",
