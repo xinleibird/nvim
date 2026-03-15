@@ -29,6 +29,8 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 -- Setup lazy.nvim
+---@module "lazy"
+---@type LazyConfig
 require("lazy").setup({
   defaults = {
     lazy = true,
@@ -45,12 +47,10 @@ require("lazy").setup({
   checker = { enabled = true },
   -- enable change detection with no notifications
   change_detection = { enabled = true, notify = false },
-  -- options
-  opts = {
-    rocks = {
-      enabled = false,
-      hererocks = false,
-    },
+  -- rocks
+  rocks = {
+    enabled = false,
+    hererocks = false,
   },
   performance = {
     rtp = {
