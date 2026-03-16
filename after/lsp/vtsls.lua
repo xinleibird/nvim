@@ -16,6 +16,11 @@ for _, lang in ipairs({
       functionLikeReturnTypes = { enabled = true },
       enumMemberValues = { enabled = true },
     },
+    tsserver = {
+      experimental = {
+        enableProjectDiagnostics = true,
+      },
+    },
   }
 end
 

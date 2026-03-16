@@ -18,6 +18,11 @@ for _, lang in ipairs({
       includeInlayFunctionLikeReturnTypeHints = true,
       includeInlayEnumMemberValueHints = true,
     },
+    tsserver = {
+      experimental = {
+        enableProjectDiagnostics = true,
+      },
+    },
   }
 end
 

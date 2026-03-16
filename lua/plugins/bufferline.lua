@@ -56,12 +56,16 @@ local M = {
         vim.cmd("close")
         return
       end
-      local ok, snacks = pcall(require, "snacks")
-      if ok then
-        snacks.bufdelete.delete()
-        return
+
+      local bufnr = vim.api.nvim_get_current_buf()
+      vim.bo[bufnr].buflisted = false
+
+      local listed_buffers = vim.fn.getbufinfo({ buflisted = 1 })
+      if #listed_buffers > 0 then
+        vim.cmd("BufferLineCyclePrev")
+      else
+        vim.cmd("enew")
       end
-      require("utils").buf_kill("bd")
     end, { desc = "Close buffer" })
     vim.keymap.set("n", "<leader>be", "<cmd>enew<CR>", { desc = "New buffer" })
     vim.keymap.set("n", "<leader>bb", "<cmd>BufferLineCyclePrev<CR>", { desc = "Prev buffer" })
@@ -122,11 +126,7 @@ local M = {
         mode = "buffers", -- set to "tabs" to only show tabpages instead
         numbers = "none", -- can be "none" | "ordinal" | "buffer_id" | "both" | function
         close_command = function(bufnr) -- can be a string | function, see "Mouse actions"
-          local ok, snacks = pcall(require, "snacks")
-          if ok then
-            snacks.bufdelete.delete(bufnr)
-          end
-          require("utils").buf_kill("bd", bufnr, false)
+          vim.bo[bufnr].buflisted = false
         end,
         right_mouse_command = "vert sbuffer %d", -- can be a string | function, see "Mouse actions"
         left_mouse_command = "buffer %d", -- can be a string | function, see "Mouse actions"
