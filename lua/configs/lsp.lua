@@ -58,7 +58,7 @@ vim.keymap.set("n", "gI", vim.lsp.buf.incoming_calls, { desc = "Incoming calls" 
 vim.keymap.set("n", "gO", vim.lsp.buf.outgoing_calls, { desc = "Outgoing calls" })
 -- any config in https://github.com/MysticalDevil/inlay-hints.nvim
 vim.keymap.set("n", "gh", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ 0 }), { 0 }) end, { desc = "Inlay hints" })
-vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover information" })
+vim.keymap.set("n", "K", function () vim.lsp.buf.hover({border = "rounded"}) end, { desc = "Hover information" })
 vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, { desc = "Lsp Rename" })
 vim.keymap.set({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, { desc = "Code action" })
 
@@ -68,8 +68,9 @@ vim.keymap.set("n", "gl", vim.diagnostic.open_float, { desc = "Floating diagnost
 vim.keymap.set("n", "<leader>lm", function() vim.lsp.buf.format() end, { desc = "Format synchronous" })
 vim.keymap.set("n", "<leader>lM", function() vim.lsp.buf.format({ async = true }) end, { desc = "Format asynchronous" })
 
-vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, { desc = "Signature" })
-vim.keymap.set("n", "<leader>ls", vim.lsp.buf.signature_help, { desc = "Signature" })
+vim.keymap.set("n", "gs", function () vim.lsp.buf.signature_help({border = "rounded"}) end, { desc = "Signature" })
+vim.keymap.set("n", "<leader>ls", function () vim.lsp.buf.signature_help({border = "rounded"}) end, { desc = "Signature" })
+vim.keymap.set("i", "<C-s>", function () vim.lsp.buf.signature_help({border = "rounded"}) end, { desc = "Signature" })
 
 vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = "Prev diagnostic" })
 vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end, { desc = "Next diagnostic" })

@@ -76,9 +76,6 @@ vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.o.foldmethod = "expr"
 vim.o.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 
--- winborder
-vim.o.winborder = "rounded"
-
 ---glable variable---------------
 -- disable some default providers
 vim.g["loaded_perl_provider"] = 0

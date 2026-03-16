@@ -211,7 +211,7 @@ local M = {
         },
       },
       menu = {
-        border = "none",
+        border = "rounded",
         draw = {
           padding = { 1, 1 },
 
@@ -273,7 +273,7 @@ local M = {
       },
       documentation = {
         window = {
-          border = "solid",
+          border = "rounded",
         },
       },
     },
@@ -287,7 +287,7 @@ local M = {
         show_on_insert_on_trigger_character = true,
       },
       window = {
-        border = "solid",
+        border = "rounded",
         show_documentation = false,
       },
     },
