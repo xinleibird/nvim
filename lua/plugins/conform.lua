@@ -5,6 +5,32 @@ local M = {
   event = "BufWritePre",
   config = function()
     require("conform").setup({
+      formatters = {
+        auto_indent = {
+          format = function(self, ctx, lines, callback)
+            local new_lines = {}
+
+            for _, line in ipairs(lines) do
+              table.insert(new_lines, (line:gsub("%s+$", "")))
+            end
+
+            while #new_lines > 0 and new_lines[#new_lines] == "" do
+              table.remove(new_lines)
+            end
+
+            vim.schedule(function()
+              if vim.api.nvim_buf_is_valid(ctx.buf) then
+                local view = vim.fn.winsaveview()
+                vim.api.nvim_buf_call(ctx.buf, function()
+                  vim.cmd("silent! normal! gg=G")
+                end)
+                vim.fn.winrestview(view)
+              end
+              callback(nil, new_lines)
+            end)
+          end,
+        },
+      },
       formatters_by_ft = {
         lua = { "stylua" },
 
@@ -32,6 +58,8 @@ local M = {
 
         yaml = { "prettier" },
 
+        ["_"] = { "auto_indent" },
+
         -- Use the "_" filetype to run formatters on filetypes that don't
         -- have other formatters configured.
         -- ["_"] = { "trim_whitespace" },
@@ -52,8 +80,15 @@ local M = {
           lsp_fallback = true,
         }, function()
           local formatters = require("conform").list_formatters(0)
-          local formatter_name = formatters[1].name
-          vim.notify(" " .. "**" .. formatter_name .. "**" .. " Formatted！", vim.log.levels.INFO, {
+          if #formatters == 0 then
+            return
+          end
+          local formatter_names = ""
+          for _, formatter in ipairs(formatters) do
+            formatter_names = #formatter_names == 0 and formatter.name or formatter_names .. " " .. formatter.name
+          end
+
+          vim.notify(" Formatted by: " .. "**" .. formatter_names .. "**", vim.log.levels.INFO, {
             id = "conform_notify",
             title = "conform.nvim",
             style = "compact",

@@ -182,6 +182,7 @@ local M = {
             prettier = "",
             shfmt = "",
             stylua = "",
+            auto_indent = "󱣲",
           }
           local formatter_batch = ""
           local formatters = {}
