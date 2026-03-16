@@ -28,6 +28,10 @@ return {
             item.severity = 4
             item.tags = { 1 }
           end
+          if item.code == "no-unused-vars" then
+            item.severity = 4
+            item.tags = { 1 }
+          end
         end
       end
       vim.lsp.handlers["textDocument/diagnostic"](err, result, ctx, config)

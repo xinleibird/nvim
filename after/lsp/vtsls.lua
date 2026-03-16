@@ -16,6 +16,9 @@ for _, lang in ipairs({
       functionLikeReturnTypes = { enabled = true },
       enumMemberValues = { enabled = true },
     },
+    vtsls = {
+      autoUseWorkspaceTsdk = true,
+    },
     tsserver = {
       experimental = {
         enableProjectDiagnostics = true,
