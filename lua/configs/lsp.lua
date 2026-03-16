@@ -22,10 +22,10 @@ vim.diagnostic.config({
   --   source = true,
   -- },
   virtual_text = false,
-  -- float = {
-  --   border = "rounded",
-  --   source = "if_many",
-  -- },
+  float = {
+    border = "rounded",
+    source = "if_many",
+  },
   virtual_lines = false,
   severity_sort = true,
   signs = {
@@ -58,16 +58,12 @@ vim.keymap.set("n", "gI", vim.lsp.buf.incoming_calls, { desc = "Incoming calls" 
 vim.keymap.set("n", "gO", vim.lsp.buf.outgoing_calls, { desc = "Outgoing calls" })
 -- any config in https://github.com/MysticalDevil/inlay-hints.nvim
 vim.keymap.set("n", "gh", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ 0 }), { 0 }) end, { desc = "Inlay hints" })
-vim.keymap.set("n", "K", function ()
-  vim.lsp.buf.hover({border = "rounded"})
-end, { desc = "Hover information" })
+vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover information" })
 vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, { desc = "Lsp Rename" })
 vim.keymap.set({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, { desc = "Code action" })
 
 vim.keymap.set("n", "<leader>lf", vim.diagnostic.open_float, { desc = "Floating diagnostics" })
-vim.keymap.set("n", "gl", function ()
-  vim.diagnostic.open_float({border="rounded", source="if_many"})
-end, { desc = "Floating diagnostics" })
+vim.keymap.set("n", "gl", vim.diagnostic.open_float, { desc = "Floating diagnostics" })
 
 vim.keymap.set("n", "<leader>lm", function() vim.lsp.buf.format() end, { desc = "Format synchronous" })
 vim.keymap.set("n", "<leader>lM", function() vim.lsp.buf.format({ async = true }) end, { desc = "Format asynchronous" })

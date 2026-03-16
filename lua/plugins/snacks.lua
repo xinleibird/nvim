@@ -236,49 +236,7 @@ local M = {
           },
         },
         layouts = {
-          default = {
-            layout = {
-              box = "vertical",
-              width = 0.9,
-              height = 0.9,
-              border = "none",
-              {
-                win = "input",
-                height = 1,
-                border = "solid",
-                title = "Find {title} {live} {flags}",
-                title_pos = "center",
-              },
-              {
-                box = "horizontal",
-                { win = "list", border = "solid" },
-                {
-                  win = "preview",
-                  border = "solid",
-                  width = 0.6,
-                },
-              },
-            },
-          },
-          vertical = {
-            layout = {
-              box = "vertical",
-              width = 0.8,
-              height = 0.9,
-              border = "none",
-              {
-                win = "input",
-                border = "solid",
-                height = 1,
-                title = "Find {title} {live} {flags}",
-                title_pos = "center",
-              },
-              { win = "list", border = "solid", height = 8 },
-              { win = "preview", border = "solid" },
-            },
-          },
           sidebar = {
-            -- preview = "main",
             layout = {
               backdrop = false,
               width = 27,
@@ -298,25 +256,6 @@ local M = {
                 title = "{title} {live} {flags}",
                 title_pos = "center",
               },
-              -- {
-              --   win = "preview",
-              --   title = "{preview}",
-              --   height = 0.5,
-              --   border = "top",
-              -- },
-            },
-          },
-          vscode = {
-            layout = {
-              row = 2,
-              width = 0.55,
-              min_width = 80,
-              height = 0.55,
-              border = "none",
-              box = "vertical",
-              { win = "input", height = 1, border = "solid", title = "{title} {live} {flags}", title_pos = "center" },
-              { win = "list", border = "solid" },
-              { win = "preview", title = "{preview}", border = "solid" },
             },
           },
           ivy = {
@@ -335,24 +274,6 @@ local M = {
                 { win = "list", border = "solid" },
                 { win = "preview", title = "{preview}", width = 0.6, border = "solid" },
               },
-            },
-          },
-          select = {
-            ---@diagnostic disable-next-line: assign-type-mismatch
-            preview = false,
-            layout = {
-              backdrop = false,
-              width = 0.5,
-              min_width = 80,
-              height = 0.4,
-              min_height = 3,
-              box = "vertical",
-              border = "single",
-              title = "{title}",
-              title_pos = "center",
-              { win = "input", height = 1, border = "bottom" },
-              { win = "list", border = "none" },
-              { win = "preview", title = "{preview}", height = 0.4, border = "top" },
             },
           },
         },

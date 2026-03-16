@@ -211,7 +211,7 @@ local M = {
         },
       },
       menu = {
-        -- border = "solid",
+        border = "none",
         draw = {
           padding = { 1, 1 },
 
@@ -273,12 +273,19 @@ local M = {
       },
       documentation = {
         window = {
-          -- border = "solid",
+          border = "solid",
         },
       },
     },
     signature = {
       enabled = true,
+      trigger = {
+        enabled = true,
+        show_on_keyword = true,
+        show_on_trigger_character = true,
+        show_on_insert = true,
+        show_on_insert_on_trigger_character = true,
+      },
       window = {
         border = "solid",
         show_documentation = false,
