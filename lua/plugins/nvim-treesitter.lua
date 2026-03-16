@@ -82,14 +82,10 @@ local M = {
       pattern = "*",
       group = vim.api.nvim_create_augroup("user_treesitter_init", { clear = true }),
       callback = function(ev)
-        -- local bufnr = vim.api.nvim_get_current_buf()
         local bufnr = ev.buf
         local parser = vim.treesitter.get_parser(bufnr, nil, { error = false })
         if parser then
           vim.treesitter.start(bufnr)
-          vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
-          vim.wo[0][0].foldmethod = "expr"
-          vim.bo[bufnr].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         end
       end,
     })

@@ -71,6 +71,11 @@ vim.o.wrap = false
 -- vim.opt.fillchars:append({ horizdown = "⠂" })
 -- vim.opt.fillchars:append({ verthoriz = "⠂" })
 
+-- treesitter
+vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.o.foldmethod = "expr"
+vim.o.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+
 ---glable variable---------------
 -- disable some default providers
 vim.g["loaded_perl_provider"] = 0
