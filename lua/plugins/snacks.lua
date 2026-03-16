@@ -70,7 +70,7 @@ local M = {
           relative = {},
           wo = {
             -- fillchars = "eob: ,lastline:…,horiz:⠂,horizdown:⠂,horizup:⠂,vert: ,verthoriz:⠂,vertleft:⠅,vertright:⠅",
-            fillchars = "eob: ,lastline:…,vert: ",
+            fillchars = "eob: ,lastline:…,vert:│",
           },
         },
         notification = {

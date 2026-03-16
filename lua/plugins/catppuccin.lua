@@ -131,7 +131,10 @@ local M = {
           ActionHintsReferences = { fg = C.blue },
 
           -- All separator
-          WinSeparator = { fg = C.mauve },
+          WinSeparator = { fg = C.crust },
+
+          -- BlinkIndent
+          BlinkIndent = { fg = C.mantle },
 
           -- Outline
           OutlineDetails = { link = "Comment" },

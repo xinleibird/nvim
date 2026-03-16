@@ -133,7 +133,7 @@ local M = {
         middle_mouse_command = nil, -- can be a string | function, see "Mouse actions"
 
         indicator = {
-          icon = "▎", -- ▎default |this should be omitted if indicator style is not 'icon'
+          icon = "▍", -- ▎default |this should be omitted if indicator style is not 'icon'
           style = "icon", -- can also be 'underline'|'none'|'icon',
         },
         -- can also be a table containing 2 custom separators
