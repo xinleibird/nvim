@@ -44,7 +44,10 @@ local M = {
       -- markdown
       "marksman",
       "zk",
-      "mmdc", -- mermaid
+      "mmdc", -- mermaid, required by snacks
+
+      -- latex
+      "tectonic", -- required by snacks
     }
 
     -- custom cmd to install all mason binaries listed

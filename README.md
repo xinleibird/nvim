@@ -38,7 +38,7 @@ Run the following commands within Neovim to complete the installation:
 :Lazy sync
 ```
 
-- Install LSPs, Formatters, Linters, and Debug Adapters via [mason.nvim](https://github.com/mason-org/mason.nvim):
+- Install LSPs, Formatters, Linters, Debug Adapters and other tools via [mason.nvim](https://github.com/mason-org/mason.nvim):
 
 ```vim
 :MasonInstallEnsured
@@ -52,8 +52,10 @@ Run the following commands within Neovim to complete the installation:
 
 ### Additional Dependencies
 
-- **Image Support:** Provided by [snacks.image](https://github.com/folke/snacks.nvim/blob/main/docs/image.md). Requires [ImageMagick](https://imagemagick.org/).
-- **Dashboard:** Powered by [snacks.dashboard](https://github.com/folke/snacks.nvim/blob/main/docs/dashboard.md). Requires [chafa](https://github.com/hpjansson/chafa) for displaying `.gif` files in the terminal.
-- **System Tools:**
-  - **Homebrew:** `fzf`, `ripgrep`, `fd`, `ghostscript`, `tectonic`
-  - **npm:** `@google/gemini-cli`, `@qwen-code/qwen-code`
+- **Image Support**: Provided by [snacks.image](https://github.com/folke/snacks.nvim/blob/main/docs/image.md). [ImageMagick](https://imagemagick.org) for displaying images. [Ghostscript](https://www.ghostscript.com) for displaying PDF.
+  - **Homebrew**: `imagemagick`, `ghostscript`
+- **Dashboard**: Powered by [snacks.dashboard](https://github.com/folke/snacks.nvim/blob/main/docs/dashboard.md). [Chafa](https://github.com/hpjansson/chafa) for displaying `.gif` files in the terminal.
+  - **Homebrew**: `chafa`
+- **System Tools**:
+  - **Homebrew**: `fzf`, `ripgrep`, `fd`
+  - **npm**: `@google/gemini-cli`, `@qwen-code/qwen-code`
