@@ -256,7 +256,8 @@ local M = {
             },
             stop = {
               modes = {
-                n = "q",
+                n = "<C-c>",
+                i = "<C-c>",
               },
               callback = function(chat)
                 vim.api.nvim_exec_autocmds("User", {
@@ -268,9 +269,19 @@ local M = {
               description = "[Request] Stop",
             },
             clear = {
-              modes = { n = { "<C-x>" } },
+              modes = {
+                n = "<C-x>",
+                i = "<C-x>",
+              },
               callback = "keymaps.clear",
               description = "[Chat] Clear",
+            },
+            close = {
+              modes = {
+                n = "q",
+              },
+              callback = "keymaps.close",
+              description = "[Chat] Close",
             },
           },
         },
@@ -293,8 +304,8 @@ local M = {
             chat_filter = nil, -- function(chat_data) return boolean end
             -- Customize picker keymaps (optional)
             picker_keymaps = {
-              rename = { n = "r", i = "<M-r>" },
-              delete = { n = "d", i = "<M-d>" },
+              rename = { n = "<F2>", i = "<F2>" },
+              delete = { n = "<C-d>", i = "<C-d>" },
               duplicate = { n = "<C-y>", i = "<C-y>" },
             },
             ---Automatically generate titles for new chats
