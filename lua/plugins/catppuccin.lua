@@ -157,6 +157,23 @@ local M = {
           BufferLinePick = { bg = C.base, fg = C.red, bold = true },
           BufferLinePickSelected = { fg = C.overlay0, bg = C.base, bold = true, italic = true },
 
+          -- Snacks
+          SnacksPickerBoxTitle = { bg = C.blue, fg = C.base, bold = true },
+          SnacksPickerInput = { bg = C.mantle, fg = C.text },
+          SnacksPickerInputBorder = { fg = C.yellow },
+          SnacksPickerInputTitle = { bg = C.blue, fg = C.base, bold = true },
+          SnacksPickerList = { bg = C.crust },
+          SnacksPickerListBorder = { bg = C.crust, fg = C.crust },
+          -- SnacksPickerListCursorLine = { bg = colors.lighten(C.overlay0, 0.3, C.base) },
+          SnacksPickerListCursorLine = {
+            bg = colors.lighten(C.overlay2, 0.2, C.base),
+          },
+          SnacksPickerPreviewBorder = { bg = C.mantle, fg = C.mantle },
+          SnacksPickerPrompt = { bg = C.mantle, fg = C.text },
+          SnacksIndentScope = {
+            fg = colors.vary_color({ latte = colors.lighten(C.red, 0.6, C.base) }, colors.darken(C.red, 0.3, C.base)),
+          },
+
           -- Snacks Dashboard logo and reflection
           SnacksDashboardHeader = { fg = colors.darken(C.red, 0.8) },
           SnacksDashboardHeaderReflection = {
