@@ -105,13 +105,6 @@ local M = {
           vim.b.disable_autolint = true
         end,
       },
-      lazygit = {
-        config = {
-          os = {
-            edit = '[ -z ""$NVIM"" ] && (nvim -- {{filename}}) || (nvim --server ""$NVIM"" --remote-send ""q"" && nvim --server ""$NVIM"" --remote {{filename}})',
-          },
-        },
-      },
       notifier = {
         timeout = 2000,
         icons = {
