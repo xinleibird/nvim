@@ -142,7 +142,7 @@ local M = {
           width = 95,
           height = 10,
           prompt = "Prompt ", -- Prompt used for interactive LLM calls
-          provider = "default", -- default|telescope|mini_pick
+          provider = "default", -- default|telescope|mini_pick|snacks
           opts = {
             -- show_preset_actions = true, -- Show the preset actions in the action palette?
             show_preset_prompts = false, -- Show the preset prompts in the action palette?
@@ -181,27 +181,11 @@ local M = {
           opts = {
             show_presets = false,
           },
-          gemini_cli = function()
-            return require("codecompanion.adapters").extend("gemini_cli", {
-              name = "gemini_cli",
-              formatted_name = "Gemini CLI",
-              defaults = {
-                auth_method = "oauth-personal", -- "oauth-personal"|"gemini-api-key"|"vertex-ai"
-              },
-              env = {
-                GEMINI_API_KEY = os.getenv("GEMINI_API_KEY"),
-              },
-              schema = {
-                model = {
-                  -- default = "gemini-3-flash-preview",
-                },
-              },
-            })
-          end,
+          gemini_cli = "gemini_cli",
           qwen_code = function()
             return require("codecompanion.adapters").extend("gemini_cli", {
               name = "qwen_code",
-              formatted_name = "Qwen Code",
+              formatted_name = "Qwen CLI",
               commands = {
                 default = {
                   "qwen",
