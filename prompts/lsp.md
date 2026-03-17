@@ -19,6 +19,6 @@ opts:
 
 ## user
 
-在编程语言为 ${context.filetype} 的文件中有以下诊断消息：
+路径为 ${fs.fpath} 的文件中存在以下诊断消息进行解释，不要主动修复：
 
 ${lsp.diagnostics}

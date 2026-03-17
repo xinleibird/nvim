@@ -22,4 +22,4 @@ opts:
 
 ## user
 
-下面是来自缓冲区 ${context.bufnr} 的代码:
+下面是来自 ${fs.fpath} 的代码:

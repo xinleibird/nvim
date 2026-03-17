@@ -23,7 +23,7 @@ opts:
 
 ## user
 
-请对缓冲区 ${context.bufnr} 中包含的如下代码进行解释:
+请对 ${fs.fpath} 中包含的如下代码进行解释:
 
 ```${context.filetype}
 ${context.code}

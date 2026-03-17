@@ -31,7 +31,7 @@ opts:
 
 ## user
 
-请修复缓冲区 ${context.bufnr} 中的代码：
+请修复 ${fs.fpath} 中的代码：
 
 ```${context.filetype}
 ${context.code}
