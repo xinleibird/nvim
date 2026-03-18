@@ -7,7 +7,7 @@ local M = {
     require("conform").setup({
       formatters = {
         auto_indent = {
-          format = function(self, ctx, lines, callback)
+          format = function(_, ctx, lines, callback)
             local new_lines = {}
 
             for _, line in ipairs(lines) do
