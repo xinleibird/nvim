@@ -14,6 +14,16 @@ local M = {
           require("reactive").setup({
             configs = {
               ["catppuccin-latte-cursorline"] = {
+                static = {
+                  winhl = {
+                    inactive = {
+                      CursorLine = { bg = lighten(latte.mantle, 0.7, latte.base) },
+                      CursorLineNr = { bg = lighten(latte.mantle, 0.7, latte.base) },
+                      -- CursorLine = { bg = latte.none },
+                      -- CursorLineNr = { bg = latte.none },
+                    },
+                  },
+                },
                 modes = {
                   R = {
                     winhl = {
@@ -37,6 +47,15 @@ local M = {
           require("reactive").setup({
             configs = {
               ["catppuccin-mocha-cursorline"] = {
+                static = {
+                  winhl = {
+                    inactive = {
+                      CursorLine = { bg = darken(mocha.surface0, 0.64, mocha.base) },
+                      CursorLineNr = { bg = darken(mocha.surface0, 0.64, mocha.base) },
+                    },
+                  },
+                },
+
                 modes = {
                   R = {
                     winhl = {

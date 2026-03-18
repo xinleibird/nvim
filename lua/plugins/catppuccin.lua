@@ -131,11 +131,18 @@ local M = {
           ActionHintsReferences = { fg = C.blue },
 
           -- All separator
-          WinSeparator = { fg = C.crust },
+          -- WinSeparator = { fg = C.crust },
+          WinSeparator = {
+            -- fg = C.crust,
+            fg = colors.vary_color({ latte = C.surface2 }, C.crust),
+          },
 
           -- Outline
           OutlineDetails = { link = "Comment" },
-          OutlineGuides = { fg = C.mantle },
+          OutlineGuides = {
+            -- fg = C.mantle,
+            fg = colors.vary_color({ latte = C.surface0 }, C.mantle),
+          },
 
           -- CursorLine highlight
           CursorLine = {
@@ -178,7 +185,9 @@ local M = {
           },
 
           -- BlinkIndent
-          BlinkIndent = { fg = C.mantle },
+          BlinkIndent = {
+            fg = colors.vary_color({ latte = C.surface0 }, C.mantle),
+          },
 
           BlinkIndentRed = {
             fg = colors.vary_color({ latte = colors.lighten(C.red, 0.6, C.base) }, colors.darken(C.red, 0.3, C.base)),
