@@ -44,7 +44,7 @@ dap.configurations.typescript = {
     cwd = "${workspaceFolder}",
     runtimeArgs = { "-r", "ts-node/register" }, -- 如果是 CommonJS 项目使用这个
     runtimeExecutable = "node",
-    args = { "--inspect", "${file}" },
+    args = "${file}",
     sourceMaps = true,
     protocol = "inspector",
     console = "integratedTerminal",
@@ -56,13 +56,6 @@ dap.configurations.typescript = {
       "<node_internals>/**",
       "**/node_modules/**",
       "**/ts-node/**",
-    },
-
-    env = {
-      FORCE_COLOR = "0",
-      TS_NODE_COLOR = "false",
-      NO_COLOR = "1",
-      TERM = "dumb",
     },
   },
 }
