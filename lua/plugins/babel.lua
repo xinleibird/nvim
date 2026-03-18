@@ -3,7 +3,7 @@
 local M = {
   "acidsugarx/babel.nvim",
   version = "*", -- recomended for the latest tag, not main
-  event = "BufEnter *.*",
+  event = { "BufRead", "User SnacksDashboardClosed" },
   opts = {
     target = "zh-CN", -- target language
     -- display = "picker", -- "float" or "picker"

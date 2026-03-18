@@ -2,7 +2,7 @@
 ---@type LazySpec
 local M = {
   "saghen/blink.indent",
-  event = "BufEnter *.*",
+  event = { "BufRead", "User SnacksDashboardClosed" },
   --- @module 'blink.indent'
   --- @type blink.indent.Config
   opts = {

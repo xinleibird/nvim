@@ -2,7 +2,7 @@
 ---@type LazySpec
 local M = {
   "rasulomaroff/reactive.nvim",
-  event = "BufEnter *.*",
+  event = { "BufRead", "User SnacksDashboardClosed" },
   init = function()
     vim.api.nvim_create_autocmd({ "OptionSet" }, {
       pattern = "background",

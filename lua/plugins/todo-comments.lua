@@ -2,7 +2,7 @@
 ---@type LazySpec
 local M = {
   "folke/todo-comments.nvim",
-  event = "BufEnter *.*",
+  event = { "BufRead", "User SnacksDashboardClosed" },
   dependencies = {
     "nvim-lua/plenary.nvim",
     "folke/snacks.nvim",

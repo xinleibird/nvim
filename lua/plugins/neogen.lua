@@ -2,7 +2,7 @@
 ---@type LazySpec
 local M = {
   "danymat/neogen",
-  event = "BufEnter *.*",
+  event = { "BufRead", "User SnacksDashboardClosed" },
   config = function()
     ---@type neogen.Configuration
     require("neogen").setup({})

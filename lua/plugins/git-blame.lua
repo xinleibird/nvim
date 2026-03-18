@@ -2,7 +2,7 @@
 ---@type LazySpec
 local M = {
   "f-person/git-blame.nvim",
-  event = "BufEnter *.*",
+  event = { "BufRead", "User SnacksDashboardClosed" },
   keys = {
     {
       "<leader>gm",

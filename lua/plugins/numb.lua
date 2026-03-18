@@ -2,7 +2,7 @@
 ---@type LazySpec
 local M = {
   "nacro90/numb.nvim",
-  event = "BufEnter *.*",
+  event = { "BufRead", "User SnacksDashboardClosed" },
   config = function()
     ---@diagnostic disable-next-line: missing-fields
     require("numb").setup({

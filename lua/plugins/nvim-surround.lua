@@ -2,7 +2,7 @@
 ---@type LazySpec
 local M = {
   "kylechui/nvim-surround",
-  event = "BufEnter *.*",
+  event = { "BufRead", "User SnacksDashboardClosed" },
   config = function()
     require("nvim-surround").setup()
   end,
