@@ -1,13 +1,5 @@
-local settings = {}
-for _, lang in ipairs({
-  "javascript",
-  "javascriptreact",
-  "javascript.jsx",
-  "typescript",
-  "typescriptreact",
-  "typescript.tsx",
-}) do
-  settings[lang] = {
+local settings = {
+  javascript = {
     inlayHints = {
       includeInlayParameterNameHints = "all",
       includeInlayParameterNameHintsWhenArgumentMatchesName = true,
@@ -18,13 +10,15 @@ for _, lang in ipairs({
       includeInlayFunctionLikeReturnTypeHints = true,
       includeInlayEnumMemberValueHints = true,
     },
+  },
+  typescript = {
     tsserver = {
       experimental = {
         enableProjectDiagnostics = true,
       },
     },
-  }
-end
+  },
+}
 
 ---@type vim.lsp.Config
 return {
