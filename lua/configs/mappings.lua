@@ -30,9 +30,7 @@ vim.keymap.set({ "i", "s" }, "<C-c>", function() vim.snippet.stop() return "<C-c
 vim.keymap.set("n", "<leader>q", function()
   if vim.bo.ft == "checkhealth" or vim.bo.ft == "snacks_dashboard" then
     vim.cmd("q!")
-  elseif vim.bo.ft == "qf" then
-    vim.cmd("cclose")
-  elseif vim.bo.ft == "NeogitStatus" or vim.bo.ft == "help" then
+  elseif vim.bo.ft == "NeogitStatus" or vim.bo.ft == "help" or vim.bo.ft == "qf" then
     vim.cmd("close")
   elseif
     vim.bo.ft == "dapui_scopes"
