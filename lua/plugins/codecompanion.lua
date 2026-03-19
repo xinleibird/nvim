@@ -14,8 +14,11 @@ local M = {
       pattern = "snacks_picker_input",
       callback = function()
         vim.schedule(function()
-          if vim.fn.mode() ~= "i" then
-            vim.cmd.startinsert()
+          local picker = Snacks.picker.get()[1]
+          if picker and picker.opts.title == "Saved Chats" then
+            if vim.fn.mode() ~= "i" then
+              vim.cmd.startinsert()
+            end
           end
         end)
       end,
