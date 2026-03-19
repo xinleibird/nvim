@@ -8,6 +8,19 @@ local M = {
     "ravitemer/codecompanion-history.nvim",
   },
   init = function()
+    -- auto enter insert mode in snacks_picker_input buffer, for history picker issue
+    vim.api.nvim_create_autocmd({ "FileType", "BufWinEnter" }, {
+      group = vim.api.nvim_create_augroup("user_snacks_picker_input", { clear = true }),
+      pattern = "snacks_picker_input",
+      callback = function()
+        vim.schedule(function()
+          if vim.fn.mode() ~= "i" then
+            vim.cmd.startinsert()
+          end
+        end)
+      end,
+    })
+
     local function smart_codecompanion_window()
       require("codecompanion.config").config.display.chat.window.layout = vim.o.columns > 120 and "vertical"
         or "horizontal"
@@ -289,7 +302,7 @@ local M = {
             -- Customize picker keymaps (optional)
             picker_keymaps = {
               rename = { n = "<F2>", i = "<F2>" },
-              delete = { n = "<C-d>", i = "<C-d>" },
+              delete = { n = "d", i = "<C-d>" },
               duplicate = { n = "<C-y>", i = "<C-y>" },
             },
             ---Automatically generate titles for new chats
