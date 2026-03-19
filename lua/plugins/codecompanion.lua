@@ -98,8 +98,6 @@ local M = {
       end
     end, { noremap = true, silent = true, desc = "CodeCompanion History" })
 
-    vim.cmd([[cab cc CodeCompanion]])
-
     local request_status
     vim.api.nvim_create_autocmd("User", {
       pattern = "CodeCompanionRequest*",
@@ -205,12 +203,12 @@ local M = {
               commands = {
                 default = {
                   "qwen",
-                  "--experimental-acp",
+                  "--acp",
                 },
                 yolo = {
                   "qwen",
                   "--yolo",
-                  "--experimental-acp",
+                  "--acp",
                 },
               },
               defaults = {

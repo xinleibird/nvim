@@ -10,14 +10,17 @@ local M = {
           format = function(_, ctx, lines, callback)
             local new_lines = {}
 
+            -- Trim trailing whitespace from each line
             for _, line in ipairs(lines) do
               table.insert(new_lines, (line:gsub("%s+$", "")))
             end
 
+            -- Remove trailing empty lines
             while #new_lines > 0 and new_lines[#new_lines] == "" do
               table.remove(new_lines)
             end
 
+            -- gg=G
             vim.schedule(function()
               if vim.api.nvim_buf_is_valid(ctx.buf) then
                 local view = vim.fn.winsaveview()

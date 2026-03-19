@@ -1,6 +1,6 @@
 .DS_Store
-Icon
 ._*
 .Trashes
 lazy-lock.json
 lua/configs/settings.lua
+.qwen/
