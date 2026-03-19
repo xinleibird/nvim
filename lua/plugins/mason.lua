@@ -28,7 +28,6 @@ local M = {
       -- shell stuff
       "bash-language-server",
       "shfmt",
-      "shellcheck",
 
       -- rust stuff
       "rust-analyzer",
