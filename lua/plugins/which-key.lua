@@ -2,10 +2,8 @@
 ---@type LazySpec
 local M = {
   "folke/which-key.nvim",
-  event = "ColorScheme",
+  event = "VeryLazy",
   dependencies = "nvim-tree/nvim-web-devicons",
-  keys = { "<leader>", "<c-r>", '"', "'", "g" },
-  cmd = "WhichKey",
   config = function()
     local wk = require("which-key")
     wk.add({
@@ -324,7 +322,7 @@ local M = {
         height = { min = 4, max = 25 },
       },
       triggers = {
-        { "<auto>", mode = "nso" },
+        { "<auto>", mode = "n" },
       },
       plugins = {
         marks = true, -- shows a list of your marks on ' and `

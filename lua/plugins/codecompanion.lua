@@ -3,8 +3,8 @@
 local M = {
   "olimorris/codecompanion.nvim",
   dependencies = {
-    "echasnovski/mini.diff",
-    "saghen/blink.cmp",
+    "nvim-lua/plenary.nvim",
+    "nvim-treesitter/nvim-treesitter",
     "ravitemer/codecompanion-history.nvim",
   },
   init = function()

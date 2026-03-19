@@ -17,23 +17,27 @@ local M = {
     config = function()
       vim.keymap.set({ "x", "o" }, "am", function()
         require("nvim-treesitter-textobjects.select").select_textobject("@function.outer", "textobjects")
-      end)
+      end, { desc = "Outer Function" })
       vim.keymap.set({ "x", "o" }, "im", function()
         require("nvim-treesitter-textobjects.select").select_textobject("@function.inner", "textobjects")
-      end)
+      end, { desc = "Inner Function" })
       vim.keymap.set({ "x", "o" }, "ac", function()
         require("nvim-treesitter-textobjects.select").select_textobject("@class.outer", "textobjects")
-      end)
+      end, { desc = "Outer Class" })
       vim.keymap.set({ "x", "o" }, "ic", function()
         require("nvim-treesitter-textobjects.select").select_textobject("@class.inner", "textobjects")
-      end)
+      end, { desc = "Inner Class" })
       -- You can also use captures from other query groups like `locals.scm`
       vim.keymap.set({ "x", "o" }, "as", function()
         require("nvim-treesitter-textobjects.select").select_textobject("@local.scope", "locals")
-      end)
+      end, { desc = "Outer Scope" })
       vim.keymap.set({ "x", "o" }, "is", function()
         require("nvim-treesitter-textobjects.select").select_textobject("@local.scope", "locals")
-      end)
+      end, { desc = "Inner Scope" })
+      -- m function
+      -- c class
+      -- s scope
+      -- i object
     end,
   },
   init = function()
