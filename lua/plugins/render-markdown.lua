@@ -10,7 +10,9 @@ local M = {
     ft = { "markdown", "codecompanion" },
     opts = {
       file_types = { "markdown", "codecompanion" },
-      render_modes = { "n", "c", "t" },
+      render_modes = true,
+      preset = "obsidian", ---@type "obsidian"|"lazy"|"none"
+      restart_highlighter = true,
       anti_conceal = {
         -- This enables hiding added text on the line the cursor is on.
         enabled = true,

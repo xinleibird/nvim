@@ -292,7 +292,6 @@ local M = {
         dap_ui = true,
         flash = true,
         fzf = true,
-        markdown = true,
         mason = true,
         mini = {
           enabled = true,
