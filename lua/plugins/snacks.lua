@@ -87,24 +87,7 @@ local M = {
       quickfile = { enabled = false },
       statuscolumn = { enabled = true },
       words = { enabled = true },
-      bigfile = {
-        size = 5.0 * 1024 * 1024, -- 5MB
-        setup = function(ctx)
-          if vim.fn.exists(":NoMatchParen") ~= 0 then
-            vim.cmd([[NoMatchParen]])
-          end
-          Snacks.util.wo(0, { foldmethod = "manual", statuscolumn = "", conceallevel = 0 })
-          vim.b.minianimate_disable = true
-          vim.schedule(function()
-            if vim.api.nvim_buf_is_valid(ctx.buf) then
-              vim.bo[ctx.buf].syntax = ctx.ft
-            end
-          end)
-          -- for bigfile disable autofomat and autolint
-          vim.b.disable_autoformat = true
-          vim.b.disable_autolint = true
-        end,
-      },
+      bigfile = { enabled = true },
       notifier = {
         timeout = 2000,
         icons = {
