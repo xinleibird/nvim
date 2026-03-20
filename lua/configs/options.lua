@@ -4,6 +4,9 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+-- dynamic background
+vim.o.background = require("utils").detect_dark_mode()
+
 ---vim options---------------
 -- statusline
 vim.o.showtabline = 2
@@ -20,7 +23,6 @@ vim.o.smartindent = true
 vim.o.tabstop = 2
 vim.o.softtabstop = 2
 
-vim.opt.fillchars = { eob = " " }
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.mouse = "a"
@@ -63,6 +65,7 @@ vim.o.swapfile = false
 vim.o.wrap = false
 
 -- set win border separator
+vim.opt.fillchars = { eob = " " }
 -- vim.opt.fillchars:append({ vert = "⠅" })
 -- vim.opt.fillchars:append({ vertright = "⠅" })
 -- vim.opt.fillchars:append({ vertleft = "⠅" })

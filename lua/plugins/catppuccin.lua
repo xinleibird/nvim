@@ -4,6 +4,9 @@ local M = {
   "catppuccin/nvim",
   name = "catppuccin",
   priority = 1000,
+  dependencies = {
+    "vimpostor/vim-lumen",
+  },
   config = function()
     require("catppuccin").setup({
       flavour = "auto", -- latte, frappe, macchiato, mocha, auto
@@ -134,7 +137,7 @@ local M = {
           -- WinSeparator = { fg = C.crust },
           WinSeparator = {
             -- fg = C.crust,
-            fg = colors.vary_color({ latte = C.surface2 }, C.crust),
+            fg = colors.vary_color({ latte = C.overlay1 }, C.crust),
           },
 
           -- Outline
