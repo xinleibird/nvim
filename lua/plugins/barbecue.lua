@@ -3,25 +3,11 @@
 local M = {
   "BrunoKrugel/bbq.nvim",
   name = "barbecue",
-  event = "LspAttach",
+  event = { "BufRead", "User SnacksDashboardClosed" },
   dependencies = {
     "SmiteshP/nvim-navic",
     "nvim-tree/nvim-web-devicons",
   },
-  init = function()
-    vim.api.nvim_create_autocmd({
-      "WinScrolled",
-      "BufWinEnter",
-      "CursorHold",
-      "InsertLeave",
-      "BufModifiedSet",
-    }, {
-      group = vim.api.nvim_create_augroup("barbecue.updater", { clear = true }),
-      callback = function()
-        require("barbecue.ui").update()
-      end,
-    })
-  end,
   config = function()
     require("barbecue").setup({
       create_autocmd = false,
@@ -77,6 +63,21 @@ local M = {
       kinds = require("configs.icons").lspkind,
 
       exclude_filetypes = { "netrw", "FTerm", "snacks_layout_box", "nvim-dap-view" },
+    })
+
+    vim.api.nvim_create_autocmd({
+      "WinScrolled",
+      "BufWinEnter",
+      "CursorHold",
+      "InsertLeave",
+      "BufModifiedSet",
+    }, {
+      group = vim.api.nvim_create_augroup("barbecue.updater", { clear = true }),
+      callback = function()
+        vim.schedule(function()
+          coroutine.wrap(require("barbecue.ui").update)()
+        end)
+      end,
     })
   end,
 }

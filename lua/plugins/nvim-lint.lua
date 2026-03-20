@@ -2,8 +2,11 @@
 ---@type LazySpec
 local M = {
   "mfussenegger/nvim-lint",
-  event = "BufEnter",
-  init = function()
+  event = { "BufRead", "User SnacksDashboardClosed" },
+  config = function()
+    require("lint").linters_by_ft = {
+      html = { "htmlhint" },
+    }
     vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave", "CursorHold", "CursorHoldI" }, {
       group = vim.api.nvim_create_augroup("nvim-lint-group", { clear = true }),
       pattern = "*",
@@ -13,11 +16,6 @@ local M = {
         end
       end,
     })
-  end,
-  config = function()
-    require("lint").linters_by_ft = {
-      html = { "htmlhint" },
-    }
   end,
 }
 

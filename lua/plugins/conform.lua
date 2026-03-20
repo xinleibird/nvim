@@ -2,7 +2,7 @@
 ---@type LazySpec
 local M = {
   "stevearc/conform.nvim",
-  event = "BufWritePre",
+  event = { "BufRead", "User SnacksDashboardClosed" },
   config = function()
     require("conform").setup({
       formatters = {
