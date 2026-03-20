@@ -41,7 +41,24 @@ local M = {
     end,
   },
   init = function()
-    local ensure_list = {
+    vim.api.nvim_create_user_command("TSStart", function()
+      vim.treesitter.start(0)
+    end, { desc = "Start treesitter" })
+    vim.api.nvim_create_user_command("TSStop", function()
+      vim.treesitter.stop(0)
+    end, { desc = "Stop treesitter" })
+    vim.api.nvim_create_user_command("TSRestart", function()
+      vim.treesitter.stop(0)
+      vim.treesitter.start(0)
+    end, { desc = "Restart treesitter" })
+  end,
+
+  config = function()
+    require("nvim-treesitter").setup({
+      install_dir = vim.fn.stdpath("data") .. "/site",
+    })
+
+    local ensure_languages = {
       "bash",
       "c",
       "css",
@@ -69,37 +86,35 @@ local M = {
       "yaml",
       "zsh",
     }
-    vim.api.nvim_create_user_command("TSInstallEnsured", function()
-      require("nvim-treesitter").install(ensure_list):wait(600000)
-    end, { desc = "Install all ensured treesitter parsers" })
+    require("nvim-treesitter").install(ensure_languages):wait(600000)
 
-    vim.api.nvim_create_user_command("TSStart", function()
-      vim.treesitter.start(0)
-    end, { desc = "Start treesitter for current buffer" })
-    vim.api.nvim_create_user_command("TSStop", function()
-      vim.treesitter.stop(0)
-    end, { desc = "Stop treesitter for current buffer" })
-    vim.api.nvim_create_user_command("TSRestart", function()
-      vim.treesitter.stop(0)
-      vim.treesitter.start(0)
-    end, { desc = "Restart treesitter for current buffer" })
+    vim.api.nvim_create_autocmd("FileType", {
+      group = vim.api.nvim_create_augroup("user_treesitter_setup", { clear = true }),
+      callback = function(e)
+        local bufnr = e.buf
+        local filetype = e.match
 
-    vim.api.nvim_create_autocmd("BufWinEnter", {
-      pattern = "*",
-      group = vim.api.nvim_create_augroup("user_treesitter_init", { clear = true }),
-      callback = function(ev)
-        local bufnr = ev.buf
-        local parser = vim.treesitter.get_parser(bufnr, nil, { error = false })
+        -- you need some mechanism to avoid running on buffers that do not
+        -- correspond to a language (like oil.nvim buffers), this implementation
+        -- checks if a parser exists for the current language
+        local language = vim.treesitter.language.get_lang(filetype) or filetype
+
+        local parser = vim.treesitter.language.add(language)
         if parser then
-          vim.treesitter.start(bufnr)
+          vim.treesitter.start(bufnr, language)
+        end
+
+        local folds = vim.treesitter.query.get(language, "folds")
+        if folds then
+          vim.wo.foldmethod = "expr"
+          vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+        end
+
+        local indents = vim.treesitter.query.get(language, "indents")
+        if indents then
+          vim.bo[bufnr].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         end
       end,
-    })
-  end,
-
-  config = function()
-    require("nvim-treesitter").setup({
-      install_dir = vim.fn.stdpath("data") .. "/site",
     })
   end,
 }
