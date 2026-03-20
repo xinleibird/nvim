@@ -4,11 +4,11 @@ local M = {
   "folke/edgy.nvim",
   event = "VeryLazy",
   opts = {
-    left = {
+    right = {
       {
-        title = "DAP Scopes",
-        ft = "dapui_scopes",
-        size = { height = 0.25 },
+        title = "Outline",
+        ft = "Outline",
+        -- pinned = true,
       },
       {
         title = "DAP Breakpoints",
@@ -16,13 +16,29 @@ local M = {
         size = { height = 0.25 },
       },
       {
-        title = "DAP Stacks",
-        ft = "dapui_stacks",
+        title = "DAP Scopes",
+        ft = "dapui_scopes",
         size = { height = 0.25 },
+      },
+    },
+    left = {
+      {
+        title = "Explorer",
+        ft = "snacks_layout_box",
+        -- exclude floating windows
+        filter = function(_, win)
+          return vim.api.nvim_win_get_config(win).relative == ""
+        end,
+        -- pinned = true,
       },
       {
         title = "DAP Watches",
         ft = "dapui_watches",
+        size = { height = 0.25 },
+      },
+      {
+        title = "DAP Stacks",
+        ft = "dapui_stacks",
         size = { height = 0.25 },
       },
     },
@@ -30,7 +46,6 @@ local M = {
       {
         title = "DAP Repl",
         ft = "dapui_repl",
-        size = { height = 0.25 },
       },
       -- {
       --   title = "DAP Console",
@@ -42,15 +57,16 @@ local M = {
       {
         ft = "toggleterm",
         title = " term %{b:toggle_number}",
-        size = { height = 0.4 },
         filter = function(_, win)
           return vim.api.nvim_win_get_config(win).relative == ""
         end,
       },
     },
     options = {
-      left = { size = 0.2 },
+      left = { size = 30 },
       right = { size = 30 },
+      top = { size = 0.25 },
+      bottom = { size = 0.35 },
     },
     icons = {
       closed = require("configs.icons").ui.ArrowClosed,

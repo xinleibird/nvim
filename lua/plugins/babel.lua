@@ -13,8 +13,8 @@ local M = {
       translate_word = "<leader>tt",
     },
   },
-  init = function()
-    require("babel")
+  config = function(_, opts)
+    require("babel").setup(opts)
   end,
 }
 

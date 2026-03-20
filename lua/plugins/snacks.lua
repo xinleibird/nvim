@@ -69,7 +69,7 @@ local M = {
         minimal = {
           relative = {},
           wo = {
-            -- fillchars = "eob: ,lastline:…,horiz:⠂,horizdown:⠂,horizup:⠂,vert: ,verthoriz:⠂,vertleft:⠅,vertright:⠅",
+            -- fillchars = "eob: ,lastline:…,horiz:⠂,horizdown:⠂,horizup:⠂,vert:⠅,verthoriz:⠂,vertleft:⠅,vertright:⠅",
             fillchars = "eob: ,lastline:…,vert:│",
           },
         },
@@ -84,11 +84,11 @@ local M = {
       explorer = { enabled = true },
       image = { enabled = true },
       input = { enabled = true },
-      quickfile = { enabled = true },
+      quickfile = { enabled = false },
       statuscolumn = { enabled = true },
       words = { enabled = true },
       bigfile = {
-        size = 5.0 * 1024 * 1024, -- 1.0MB
+        size = 5.0 * 1024 * 1024, -- 5MB
         setup = function(ctx)
           if vim.fn.exists(":NoMatchParen") ~= 0 then
             vim.cmd([[NoMatchParen]])

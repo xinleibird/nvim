@@ -90,8 +90,14 @@ local M = {
               elements = {
                 { id = "scopes", size = 0.25 },
                 { id = "breakpoints", size = 0.25 },
-                { id = "stacks", size = 0.25 },
+              },
+              size = 0.2,
+              position = "right",
+            },
+            {
+              elements = {
                 { id = "watches", size = 0.25 },
+                { id = "stacks", size = 0.25 },
               },
               size = 0.2,
               position = "left",

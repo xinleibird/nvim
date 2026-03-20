@@ -2,7 +2,6 @@
 ---@type LazySpec
 local M = {
   "akinsho/toggleterm.nvim",
-  version = "*",
   opts = {
     size = 20,
     open_mapping = "<Nop>",
