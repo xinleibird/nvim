@@ -21,7 +21,7 @@ vim.keymap.set("n", "<Esc>", function()
   end
 end, { desc = "Clear highlights, Escape popup and virtual lines" })
 
---stylua: ignore start
+-- stylua: ignore start
 -- esc stop snippet
 vim.keymap.set({ "i", "s" }, "<Esc>", function() vim.snippet.stop() return "<Esc>" end, { expr = true })
 vim.keymap.set({ "i", "s" }, "<C-c>", function() vim.snippet.stop() return "<C-c>" end, { expr = true })
@@ -76,7 +76,7 @@ vim.keymap.set("v", ">", ">gv", { desc = "Indent line forward" })
 -- quickfix loclist
 vim.keymap.set("n", "<C-q>", function() require("utils").quickfix_toggle() end, { desc = "Toggle quickfix window" })
 vim.keymap.set("n", "<C-`>", function() require("utils").loclist_toggle() end, { desc = "Toggle loclist window" })
---stylua: ignore end
+-- stylua: ignore end
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = {

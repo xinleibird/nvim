@@ -40,7 +40,6 @@ vim.api.nvim_create_autocmd("QuitPre", {
       end
       if vim.bo[b].buftype == "" then
         vim.cmd("confirm qall")
-        -- vim.cmd("qall!")
       end
     end
   end,
