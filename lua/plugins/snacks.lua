@@ -156,11 +156,6 @@ local M = {
             format = "file",
             dev = { "~/dev", "~/projects" },
             confirm = "load_session",
-            matcher = {
-              frecency = true, -- use frecency boosting
-              sort_empty = true, -- sort even when the filter is empty
-              cwd_bonus = true,
-            },
             filter = {
               filter = function(item)
                 return filter_rtp(item.file)
