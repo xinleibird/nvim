@@ -169,7 +169,6 @@ local M = {
               local show = false
               local gap = 1
               local min_width, max_width = 20, 100
-              --
               local rel = picker.layout.root
               local update = function(win) ---@param win snacks.win
                 if rel.win == nil then
