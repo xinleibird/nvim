@@ -44,7 +44,7 @@ vim.opt.shortmess:append("sI")
 vim.o.signcolumn = "yes"
 vim.o.splitbelow = true
 vim.o.splitright = true
-vim.o.timeoutlen = 400
+vim.o.timeoutlen = 500
 vim.o.undofile = true
 
 -- interval for writing swap file to disk, also used by gitsigns
