@@ -91,7 +91,7 @@ local M = {
             formatter_names = #formatter_names == 0 and formatter.name or formatter_names .. " " .. formatter.name
           end
 
-          vim.notify(" Formatted by: " .. "**" .. formatter_names .. "**", vim.log.levels.INFO, {
+          vim.notify("󰃢 Formatted by: " .. "**" .. formatter_names .. "**", vim.log.levels.INFO, {
             id = "conform_notify",
             title = "conform.nvim",
             style = "compact",
