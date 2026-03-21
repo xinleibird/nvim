@@ -7,15 +7,35 @@ vim.api.nvim_create_autocmd({ "BufWinEnter", "BufNewFile" }, {
 
 -- Automatically close auxiliary windows (e.g., DAP REPL) and prompt to quit Neovim
 -- when the last editable buffer is closed.
-
 vim.api.nvim_create_autocmd("QuitPre", {
   group = vim.api.nvim_create_augroup("user_quit_window_make_sure_other_closed", { clear = true }),
   callback = function()
     -- The autocmd for persistence doesn't work, manually save.
     -- cause used "QuitPre"
-    local ok, persistence = pcall(require, "persistence")
-    if ok then
+    local persistence_ok, persistence = pcall(require, "persistence")
+    if persistence_ok then
       persistence.save()
+    end
+
+    -- clean up CodeCompanion's Qwen CLI ACP connection and child processes before closing
+    local codecompanion_ok, codecompanion = pcall(require, "codecompanion")
+    if codecompanion_ok then
+      local chat = codecompanion.last_chat()
+      if chat and chat.acp_connection and chat.acp_connection.adapter.formatted_name == "Qwen CLI" then
+        pcall(function()
+          local nvim_pid = vim.fn.getpid()
+          local sub_pid = vim.fn.system('pgrep -f "node.*node.*node.*qwen --acp"')
+          local ancestors = require("utils").get_ancestors(sub_pid)
+          local is_descendant = vim.tbl_contains(ancestors, nvim_pid)
+
+          if is_descendant then
+            vim.fn.system(("kill -9 " .. sub_pid))
+          end
+
+          chat.acp_connection:disconnect()
+        end)
+      end
+      codecompanion.close_last_chat()
     end
 
     -- make close

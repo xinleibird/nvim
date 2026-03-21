@@ -204,4 +204,25 @@ M.dir_pattern = function()
   return pattern
 end
 
+M.get_ancestors = function(pid)
+  local ancestors = {}
+  local current = pid
+  while true do
+    local handle = io.popen(string.format("ps -o ppid= -p %s 2>/dev/null", current))
+    if handle then
+      local ppid = handle:read("*a")
+      handle:close()
+      ppid = ppid and tonumber(ppid)
+      if not ppid or ppid == 0 then
+        break
+      end
+      table.insert(ancestors, ppid)
+      current = ppid
+    else
+      break
+    end
+  end
+  return ancestors
+end
+
 return M
