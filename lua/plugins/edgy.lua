@@ -63,8 +63,8 @@ local M = {
       },
     },
     options = {
-      left = { size = 30 },
-      right = { size = 30 },
+      left = { size = 28 },
+      right = { size = 28 },
       top = { size = 0.25 },
       bottom = { size = 0.35 },
     },
