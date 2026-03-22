@@ -24,12 +24,14 @@ vim.api.nvim_create_autocmd("QuitPre", {
       if chat and chat.acp_connection and chat.acp_connection.adapter.formatted_name == "Qwen CLI" then
         pcall(function()
           local nvim_pid = vim.fn.getpid()
-          local sub_pid = vim.fn.system('pgrep -f "^/.*qwen.*--acp"')
-          local ancestors = require("utils").get_ancestors(sub_pid)
-          local is_descendant = vim.tbl_contains(ancestors, nvim_pid)
+          local sub_pids = vim.fn.systemlist('pgrep -f "^/.*qwen.*--acp"')
 
-          if is_descendant then
-            vim.fn.system(("kill -9 " .. sub_pid))
+          for _, sub_pid in pairs(sub_pids) do
+            local ancestors = require("utils").get_ancestors(sub_pid)
+            local is_descendant = vim.tbl_contains(ancestors, nvim_pid)
+            if is_descendant then
+              vim.fn.system(("kill -9 " .. sub_pid))
+            end
           end
 
           chat.acp_connection:disconnect()
