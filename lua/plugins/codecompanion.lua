@@ -280,7 +280,9 @@ local M = {
               modes = {
                 n = "q",
               },
-              callback = "keymaps.close",
+              callback = function(chat)
+                chat:toggle()
+              end,
               description = "[Chat] Close",
             },
           },

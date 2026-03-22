@@ -21,23 +21,23 @@ vim.api.nvim_create_autocmd("QuitPre", {
     local codecompanion_ok, codecompanion = pcall(require, "codecompanion")
     if codecompanion_ok then
       local chat = codecompanion.last_chat()
-      if chat and chat.acp_connection and chat.acp_connection.adapter.formatted_name == "Qwen CLI" then
-        pcall(function()
-          local nvim_pid = vim.fn.getpid()
-          local sub_pids = vim.fn.systemlist('pgrep -f "^/.*qwen.*--acp"')
+      if chat then
+        if chat.acp_connection.adapter.formatted_name == "Qwen CLI" then
+          pcall(function()
+            local nvim_pid = vim.fn.getpid()
+            local sub_pids = vim.fn.systemlist('pgrep -f "^/.*qwen.*--acp"')
 
-          for _, sub_pid in pairs(sub_pids) do
-            local ancestors = require("utils").get_ancestors(sub_pid)
-            local is_descendant = vim.tbl_contains(ancestors, nvim_pid)
-            if is_descendant then
-              vim.fn.system(("kill -9 " .. sub_pid))
+            for _, sub_pid in pairs(sub_pids) do
+              local ancestors = require("utils").get_ancestors(sub_pid)
+              local is_descendant = vim.tbl_contains(ancestors, nvim_pid)
+              if is_descendant then
+                vim.fn.system(("kill -9 " .. sub_pid))
+              end
             end
-          end
-
-          chat.acp_connection:disconnect()
-        end)
+          end)
+        end
+        chat:close()
       end
-      codecompanion.close_last_chat()
     end
 
     -- make close
