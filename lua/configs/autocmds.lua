@@ -10,14 +10,6 @@ vim.api.nvim_create_autocmd({ "BufWinEnter", "BufNewFile" }, {
 vim.api.nvim_create_autocmd("QuitPre", {
   group = vim.api.nvim_create_augroup("user_quit_vim_make_sure_other_closed", { clear = true }),
   callback = function()
-    -- The autocmd for persistence doesn't work, manually save.
-    -- cause used "QuitPre"
-    local persistence_ok, persistence = pcall(require, "persistence")
-    if persistence_ok then
-      persistence.save()
-    end
-
-    -- make close
     local current_win = vim.api.nvim_get_current_win()
     local wins = vim.api.nvim_list_wins()
 

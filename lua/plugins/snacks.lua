@@ -443,6 +443,18 @@ local M = {
         vim.keymap.set("n", "<leader>sS", function()
           require("persistence").select()
         end, { desc = "Save Session" })
+
+        vim.api.nvim_create_autocmd("QuitPre", {
+          group = vim.api.nvim_create_augroup("user_quit_vim_make_sure_persistence_save", { clear = true }),
+          callback = function()
+            -- The autocmd for persistence doesn't work, manually save.
+            -- cause used "QuitPre"
+            local persistence_ok, persistence = pcall(require, "persistence")
+            if persistence_ok then
+              persistence.save()
+            end
+          end,
+        })
       end,
     },
   },
