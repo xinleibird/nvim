@@ -204,11 +204,13 @@ local M = {
                 default = {
                   "qwen",
                   "--acp",
+                  "--web-search-default=google",
                 },
                 yolo = {
                   "qwen",
                   "--yolo",
                   "--acp",
+                  "--web-search-default=google",
                 },
               },
               defaults = {
