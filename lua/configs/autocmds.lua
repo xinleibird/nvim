@@ -24,7 +24,7 @@ vim.api.nvim_create_autocmd("QuitPre", {
       if chat and chat.acp_connection and chat.acp_connection.adapter.formatted_name == "Qwen CLI" then
         pcall(function()
           local nvim_pid = vim.fn.getpid()
-          local sub_pid = vim.fn.system('pgrep -f "node.*node.*node.*qwen --acp"')
+          local sub_pid = vim.fn.system('pgrep -f "^/.*qwen.*--acp"')
           local ancestors = require("utils").get_ancestors(sub_pid)
           local is_descendant = vim.tbl_contains(ancestors, nvim_pid)
 
