@@ -4,6 +4,41 @@ local M = {
   "williamboman/mason.nvim",
   event = "VimEnter",
   init = function()
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "mason",
+      callback = function(event)
+        vim.schedule(function()
+          vim.keymap.set("n", "<Esc>", "<Nop>", { buffer = event.buf, silent = true, nowait = true })
+        end)
+      end,
+    })
+  end,
+  opts = function()
+    local icons = require("configs.icons")
+    return {
+      ---@type '"prepend"' | '"append"' | '"skip"'
+      PATH = "prepend",
+
+      ui = {
+        width = 0.8,
+        height = 0.8,
+        icons = {
+          package_pending = icons.ui.Pending,
+          package_installed = icons.ui.Checked,
+          package_uninstalled = icons.ui.Unchecked,
+        },
+        keymaps = {
+          cancel_installation = "<C-c>",
+        },
+      },
+
+      max_concurrent_installers = 10,
+    }
+  end,
+
+  config = function(_, opts)
+    require("mason").setup(opts)
+
     local mason_ensure_installed = {
       -- lua stuff
       "lua-language-server",
@@ -48,7 +83,6 @@ local M = {
       -- latex
       "tectonic", -- required by snacks
     }
-
     -- custom cmd to install all mason binaries listed
     vim.api.nvim_create_user_command("MasonInstallEnsured", function()
       local mason_already_installed = require("mason-registry").get_installed_package_names()
@@ -66,46 +100,11 @@ local M = {
       end
 
       if #will_install > 0 then
-        vim.cmd("MasonInstall " .. table.concat(will_install, " "))
+        require("mason.api.command").MasonInstall(will_install)
       else
         vim.api.nvim_echo({ { "All ensure mason packages have been installed", "MoreMsg" } }, true, {})
       end
     end, { desc = "Install all ensured mason packages" })
-
-    vim.api.nvim_create_autocmd("FileType", {
-      pattern = "mason",
-      callback = function(event)
-        vim.schedule(function()
-          vim.keymap.set("n", "<Esc>", "<Nop>", { buffer = event.buf, silent = true, nowait = true })
-        end)
-      end,
-    })
-  end,
-  opts = function()
-    local icons = require("configs.icons")
-    return {
-      ---@type '"prepend"' | '"append"' | '"skip"'
-      PATH = "prepend",
-
-      ui = {
-        width = 0.8,
-        height = 0.8,
-        icons = {
-          package_pending = icons.ui.Pending,
-          package_installed = icons.ui.Checked,
-          package_uninstalled = icons.ui.Unchecked,
-        },
-        keymaps = {
-          cancel_installation = "<C-c>",
-        },
-      },
-
-      max_concurrent_installers = 10,
-    }
-  end,
-
-  config = function(_, opts)
-    require("mason").setup(opts)
   end,
 }
 

@@ -86,7 +86,9 @@ local M = {
       "yaml",
       "zsh",
     }
-    require("nvim-treesitter").install(ensure_languages):wait(600000)
+    vim.api.nvim_create_user_command("TSInstallEnsured", function()
+      require("nvim-treesitter").install(ensure_languages):wait(600000)
+    end, { desc = "Install all ensured treesitter parsers" })
 
     vim.api.nvim_create_autocmd("FileType", {
       group = vim.api.nvim_create_augroup("user_treesitter_setup", { clear = true }),
