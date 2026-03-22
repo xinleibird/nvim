@@ -8,6 +8,36 @@ local M = {
     "ravitemer/codecompanion-history.nvim",
   },
   init = function()
+    vim.api.nvim_create_autocmd("User", {
+      pattern = "CodeCompanionChatCreated",
+      group = vim.api.nvim_create_augroup("user_registering_codecompanion_callback", { clear = true }),
+      callback = function(args)
+        local chat = require("codecompanion").buf_get_chat(args.data.bufnr)
+        chat:add_callback("on_closed", function()
+          local nvim_pid = vim.fn.getpid()
+          local sub_pids = vim.fn.systemlist('pgrep -f "^/.*qwen.*--acp"')
+
+          for _, sub_pid in pairs(sub_pids) do
+            local ancestors = require("utils").get_ancestors(sub_pid)
+            local is_descendant = vim.tbl_contains(ancestors, nvim_pid)
+            if is_descendant then
+              vim.fn.system(("kill -9 " .. sub_pid))
+            end
+          end
+        end)
+      end,
+    })
+    vim.api.nvim_create_autocmd("QuitPre", {
+      group = vim.api.nvim_create_augroup("user_quit_nvim_make_sure_qwen_subprocess_terminated", { clear = true }),
+      callback = function()
+        local codecompanion = require("codecompanion")
+        local chat = codecompanion.last_chat()
+        if chat then
+          chat:close()
+        end
+      end,
+    })
+
     -- auto enter insert mode in snacks_picker_input buffer, for history picker issue
     vim.api.nvim_create_autocmd({ "FileType", "BufWinEnter" }, {
       group = vim.api.nvim_create_augroup("user_snacks_picker_input", { clear = true }),
@@ -278,10 +308,11 @@ local M = {
             },
             close = {
               modes = {
-                n = "q",
+                n = "<c-q>",
+                i = "<c-q>",
               },
               callback = function(chat)
-                chat:toggle()
+                chat:close()
               end,
               description = "[Chat] Close",
             },
