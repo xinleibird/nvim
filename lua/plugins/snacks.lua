@@ -42,7 +42,6 @@ local M = {
     local icons = require("configs.icons")
     local home_dir = vim.fn.expand("$HOME")
     local homebrew_repo = vim.fn.expand("$HOMEBREW_REPOSITORY")
-    local data_dir = vim.fn.stdpath("data")
     local cache_dir = vim.fn.stdpath("cache")
     local state_dir = vim.fn.stdpath("state")
     local function filter_rtp(rtp)
@@ -50,7 +49,6 @@ local M = {
         "^" .. "/" .. "$",
         "^" .. "/private/",
         "^" .. homebrew_repo,
-        "^" .. data_dir,
         "^" .. cache_dir,
         "^" .. state_dir,
         "^" .. home_dir .. "/.rustup",
@@ -92,11 +90,11 @@ local M = {
       notifier = {
         timeout = 2000,
         icons = {
-          error = require("configs.icons").diagnostics.Error,
-          warn = require("configs.icons").diagnostics.Warn,
-          info = require("configs.icons").diagnostics.Info,
-          debug = require("configs.icons").ui.Bug,
-          trace = require("configs.icons").ui.Track,
+          error = icons.diagnostics.Error,
+          warn = icons.diagnostics.Warn,
+          info = icons.diagnostics.Info,
+          debug = icons.ui.Bug,
+          trace = icons.ui.Track,
         },
       },
       win = { backdrop = 38 },
