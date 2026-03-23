@@ -293,12 +293,12 @@ local M = {
         color = "LualineLsp",
       },
 
-      codecompanion = {
+      codecompanion_chat = {
         function()
           local ok, codecompanion = pcall(require, "codecompanion")
           if ok then
-            local status = codecompanion.last_chat()
-            return status and "" or ""
+            local chat_session = codecompanion.last_chat()
+            return chat_session and "󰭻" or "󱋊"
           end
           return require("configs.icons").ui.GhostOutline
         end,
@@ -308,16 +308,14 @@ local M = {
             local chat = codecompanion.last_chat()
             if chat then
               local adapter = chat.adapter
-              local adapter_name = (adapter and (adapter.formatted_name or adapter.name))
-                or require("configs.settings").codecompanion_adapter
-                or "CodeCompanion"
-              vim.notify("🤖 " .. "CodeCompanion **" .. adapter_name .. "** OK!", vim.log.levels.INFO, {
+              local adapter_name = adapter.formatted_name or adapter.name or "CodeCompanion"
+              vim.notify("💬 **" .. adapter_name .. "** Chat OK!", vim.log.levels.INFO, {
                 title = "CodeCompanion",
                 id = "codecompanion_lualine",
                 timeout = 3000,
               })
             else
-              vim.notify("🤖 " .. "CodeCompanion not Ready!", vim.log.levels.WARN, {
+              vim.notify("💬 Chat Mode not Ready!", vim.log.levels.WARN, {
                 title = "CodeCompanion",
                 id = "codecompanion_lualine",
                 timeout = 3000,
@@ -340,7 +338,54 @@ local M = {
           return "LualineCodeCompanionClose"
         end,
         separator = { left = "", right = "" },
-        padding = { left = 0, right = 0 },
+        padding = { left = 0, right = 1 },
+      },
+
+      codecompanion_cli = {
+        function()
+          local ok = pcall(require, "codecompanion")
+          if ok then
+            local cli_session = require("codecompanion.interactions.cli").last_cli()
+            return cli_session and "󰚩" or "󱙺"
+          end
+          return require("configs.icons").ui.GhostOutline
+        end,
+        on_click = function()
+          local ok = pcall(require, "codecompanion")
+          if ok then
+            local cli_session = require("codecompanion.interactions.cli").last_cli()
+            if cli_session then
+              local cli_name = cli_session.agent.description or cli_session.agent_name
+              vim.notify("🤖 **" .. cli_name .. "** CLI OK!", vim.log.levels.INFO, {
+                title = "CodeCompanion",
+                id = "codecompanion_lualine",
+                timeout = 3000,
+              })
+            else
+              vim.notify("🤖 CLI Mode not Ready!", vim.log.levels.WARN, {
+                title = "CodeCompanion",
+                id = "codecompanion_lualine",
+                timeout = 3000,
+              })
+            end
+          else
+            vim.notify(require("configs.icons").ui.GhostOutline .. "CodeCompanion Broken!", vim.log.levels.ERROR, {
+              title = "CodeCompanion",
+              id = "codecompanion_lualine",
+              timeout = 3000,
+            })
+          end
+        end,
+        color = function()
+          local ok = pcall(require, "codecompanion")
+          if ok then
+            local cli_session = require("codecompanion.interactions.cli").last_cli()
+            return cli_session and "LualineCodeCompanionOpen" or "LualineCodeCompanionClose"
+          end
+          return "LualineCodeCompanionClose"
+        end,
+        separator = { left = "", right = "" },
+        padding = { left = 1, right = 0 },
       },
 
       filetype = {
@@ -447,7 +492,8 @@ local M = {
           components.blank,
           components.filetype,
           components.blank,
-          components.codecompanion,
+          components.codecompanion_chat,
+          components.codecompanion_cli,
           components.blank,
         },
         lualine_y = {

@@ -6,19 +6,14 @@ local M = {
   opts = {
     right = {
       {
-        title = "Outline",
-        ft = "Outline",
+        title = "|- CodeCompanion Chat 💬 -|",
+        ft = "codecompanion",
         -- pinned = true,
       },
       {
-        title = "DAP Breakpoints",
-        ft = "dapui_breakpoints",
-        size = { height = 0.25 },
-      },
-      {
-        title = "DAP Scopes",
-        ft = "dapui_scopes",
-        size = { height = 0.25 },
+        title = "|- CodeCompanion CLI  🤖 -|",
+        ft = "codecompanion_cli",
+        -- pinned = true,
       },
     },
     left = {
@@ -32,13 +27,23 @@ local M = {
         -- pinned = true,
       },
       {
-        title = "DAP Watches",
-        ft = "dapui_watches",
+        title = "DAP Scopes",
+        ft = "dapui_scopes",
         size = { height = 0.25 },
       },
       {
         title = "DAP Stacks",
         ft = "dapui_stacks",
+        size = { height = 0.25 },
+      },
+      {
+        title = "DAP Breakpoints",
+        ft = "dapui_breakpoints",
+        size = { height = 0.25 },
+      },
+      {
+        title = "DAP Watches",
+        ft = "dapui_watches",
         size = { height = 0.25 },
       },
     },
@@ -64,7 +69,7 @@ local M = {
     },
     options = {
       left = { size = 28 },
-      right = { size = 28 },
+      right = { size = 0.5 },
       top = { size = 0.25 },
       bottom = { size = 0.35 },
     },

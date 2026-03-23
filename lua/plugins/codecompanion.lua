@@ -13,7 +13,7 @@ local M = {
       group = vim.api.nvim_create_augroup("user_registering_codecompanion_callback", { clear = true }),
       callback = function(args)
         local chat = require("codecompanion").buf_get_chat(args.data.bufnr)
-        if chat.adapter.type == "acp" and chat.adapter.formatted_name == "Qwen CLI" then
+        if chat.adapter.type == "acp" and chat.adapter.formatted_name == "Qwen Code" then
           chat:add_callback("on_closed", function()
             local nvim_pid = vim.fn.getpid()
             local sub_pids = vim.fn.systemlist('pgrep -f "^/.*qwen.*--acp"')
@@ -52,20 +52,6 @@ local M = {
             end
           end
         end)
-      end,
-    })
-
-    local function smart_codecompanion_window()
-      require("codecompanion.config").config.display.chat.window.layout = vim.o.columns > 120 and "vertical"
-        or "horizontal"
-      require("codecompanion.config").config.display.chat.window.position = vim.o.columns > 120 and "right" or "top"
-      require("codecompanion.config").config.display.chat.window.height = 0.36
-      require("codecompanion.config").config.display.chat.window.width = 0.46
-    end
-    vim.api.nvim_create_autocmd("VimResized", {
-      group = vim.api.nvim_create_augroup("user_smart_codecompanion_window", { clear = true }),
-      callback = function()
-        smart_codecompanion_window()
       end,
     })
 
@@ -128,7 +114,7 @@ local M = {
       if vim.bo.filetype ~= "snacks_dashboard" then
         local cli_session = require("codecompanion.interactions.cli").last_cli()
         if cli_session then
-          require("codecompanion").toggle()
+          require("codecompanion.interactions.cli").toggle()
         else
           vim.cmd("CodeCompanionCLI")
         end
@@ -136,22 +122,44 @@ local M = {
     end, { noremap = true, silent = true, desc = "CodeCompanion Toggle CLI" })
     vim.keymap.set({ "n", "v", "t" }, "<C-.>", function()
       if vim.bo.filetype ~= "snacks_dashboard" then
-        require("codecompanion").toggle()
+        local codecompanion = require("codecompanion")
+        local chat = codecompanion.last_chat()
+        local cli_session = require("codecompanion.interactions.cli").last_cli()
+
+        if chat == nil and cli_session == nil then
+          return
+        end
+
+        if (chat and chat:is_visible()) and (cli_session and not cli_session.is_visible()) then
+          require("codecompanion.interactions.cli").toggle()
+          return
+        end
+
+        if (chat and not chat:is_visible()) and (cli_session and cli_session.is_visible()) then
+          chat:toggle()
+          return
+        end
+
+        if chat then
+          chat:toggle()
+        end
+        if cli_session then
+          require("codecompanion.interactions.cli").toggle()
+        end
       end
     end, { noremap = true, silent = true, desc = "CodeCompanion Toggle" })
 
-    local request_status
+    local request_status = {}
     vim.api.nvim_create_autocmd("User", {
       pattern = "CodeCompanionRequest*",
       callback = function(request)
         local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
         local status = request.match
+        local bufnr = request.buf
 
         if status == "CodeCompanionRequestStarted" then
           local adapter = request.data.adapter
-          local adapter_name = (adapter and (adapter.formatted_name or adapter.name))
-            or require("configs.settings").codecompanion_adapter
-            or "CodeCompanion"
+          local adapter_name = adapter.formatted_name or adapter.name or "CodeCompanion"
           vim.notify(" AI Thinking..." .. ("**%s**"):format(adapter_name), vim.log.levels.WARN, {
             id = "codecompanion_notif",
             style = "compact",
@@ -161,8 +169,8 @@ local M = {
               notif.icon = spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
             end,
           })
-          request_status = "started"
-        elseif status == "CodeCompanionRequestStopped" and request_status == "started" then
+          request_status[bufnr] = "started"
+        elseif status == "CodeCompanionRequestStopped" and request_status[bufnr] == "started" then
           vim.notify(" AI Abort!", vim.log.levels.ERROR, {
             id = "codecompanion_notif",
             style = "compact",
@@ -173,8 +181,8 @@ local M = {
               notif.icon = ""
             end,
           })
-          request_status = "stopped"
-        elseif status == "CodeCompanionRequestFinished" and request_status ~= "stopped" then
+          request_status[bufnr] = "stopped"
+        elseif status == "CodeCompanionRequestFinished" and request_status[bufnr] ~= "stopped" then
           vim.notify(" AI Done！", vim.log.levels.INFO, {
             id = "codecompanion_notif",
             style = "compact",
@@ -185,7 +193,7 @@ local M = {
               notif.icon = ""
             end,
           })
-          request_status = "finished"
+          request_status[bufnr] = "finished"
         end
       end,
     })
@@ -210,10 +218,8 @@ local M = {
             opts = {
               numberwidth = 4,
             },
-            layout = vim.o.columns > 120 and "vertical" or "horizontal",
-            position = vim.o.columns > 120 and "right" or "top",
-            height = 0.36,
-            width = 0.46,
+            -- layout = vim.o.columns > 120 and "vertical" or "horizontal",
+            -- position = vim.o.columns > 120 and "right" or "top",
           },
           intro_message = "",
         },
@@ -241,7 +247,7 @@ local M = {
           qwen_code = function()
             return require("codecompanion.adapters").extend("gemini_cli", {
               name = "qwen_code",
-              formatted_name = "Qwen CLI",
+              formatted_name = "Qwen Code",
               commands = {
                 default = {
                   "qwen",
@@ -284,18 +290,13 @@ local M = {
               args = {
                 "--web-search-default=google",
               },
-              description = "Qwen Code CLI",
+              description = "Qwen Code",
               provider = "terminal",
             },
           },
         },
         chat = {
-          -- create your own configuration file lua/configs/settings
-          -- the KEY is codecompanion_adapter
-          adapter = (function()
-            local ok, settings = pcall(require, "configs.settings")
-            return ok and settings.codecompanion_adapter or "copilot"
-          end)(),
+          adapter = "qwen_code",
           keymaps = {
             send = {
               modes = {
