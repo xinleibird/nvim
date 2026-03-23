@@ -98,11 +98,6 @@ local M = {
         vim.cmd("CodeCompanion /explain")
       end
     end, { noremap = true, silent = true, desc = "CodeCompanion /explain" })
-    vim.keymap.set({ "n", "v" }, "<Leader>ac", function()
-      if vim.bo.filetype ~= "snacks_dashboard" then
-        vim.cmd("CodeCompanion /commit")
-      end
-    end, { noremap = true, silent = true, desc = "CodeCompanion /commit" })
     vim.keymap.set({ "n", "v" }, "<Leader>af", function()
       if vim.bo.filetype ~= "snacks_dashboard" then
         vim.cmd("CodeCompanion /fix")
@@ -128,6 +123,22 @@ local M = {
         vim.cmd("CodeCompanionHistory")
       end
     end, { noremap = true, silent = true, desc = "CodeCompanion History" })
+
+    vim.keymap.set({ "n", "v" }, "<Leader>ac", function()
+      if vim.bo.filetype ~= "snacks_dashboard" then
+        local cli_session = require("codecompanion.interactions.cli").last_cli()
+        if cli_session then
+          require("codecompanion").toggle()
+        else
+          vim.cmd("CodeCompanionCLI")
+        end
+      end
+    end, { noremap = true, silent = true, desc = "CodeCompanion Toggle CLI" })
+    vim.keymap.set({ "n", "v", "t" }, "<C-.>", function()
+      if vim.bo.filetype ~= "snacks_dashboard" then
+        require("codecompanion").toggle()
+      end
+    end, { noremap = true, silent = true, desc = "CodeCompanion Toggle" })
 
     local request_status
     vim.api.nvim_create_autocmd("User", {
@@ -265,6 +276,19 @@ local M = {
         },
       },
       interactions = {
+        cli = {
+          agent = "qwen_code",
+          agents = {
+            qwen_code = {
+              cmd = "qwen",
+              args = {
+                "--web-search-default=google",
+              },
+              description = "Qwen Code CLI",
+              provider = "terminal",
+            },
+          },
+        },
         chat = {
           -- create your own configuration file lua/configs/settings
           -- the KEY is codecompanion_adapter
