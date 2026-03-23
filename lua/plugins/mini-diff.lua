@@ -2,7 +2,7 @@
 ---@type LazySpec
 local M = {
   "echasnovski/mini.diff",
-  event = { "BufRead", "User SnacksDashboardClosed" },
+  event = { "BufRead", "BufNewFile", "User SnacksDashboardClosed" },
   init = function()
     vim.api.nvim_create_autocmd("FileType", {
       pattern = "*",

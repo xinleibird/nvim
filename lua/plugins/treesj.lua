@@ -2,7 +2,7 @@
 ---@type LazySpec
 local M = {
   "Wansmer/treesj",
-  event = { "BufRead", "User SnacksDashboardClosed" },
+  event = { "BufRead", "BufNewFile", "User SnacksDashboardClosed" },
   dependencies = "nvim-treesitter/nvim-treesitter",
   config = function()
     require("treesj").setup({

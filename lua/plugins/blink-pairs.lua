@@ -2,37 +2,15 @@
 ---@type LazySpec
 local M = {
   "saghen/blink.pairs",
-  -- version = "*", -- (recommended) only required with prebuilt binaries
+  version = "*", -- (recommended) only required with prebuilt binaries
   lazy = false,
-
   -- download prebuilt binaries from github releases
-  -- dependencies = "saghen/blink.download",
+  dependencies = "saghen/blink.download",
   -- OR build from source, requires nightly:
   -- https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
-  build = "cargo build --release",
+  -- build = "cargo build --release",
   -- If you use nix, you can build from source using latest nightly rust with:
   -- build = 'nix run .#build-plugin',
-
-  init = function()
-    vim.api.nvim_create_autocmd({ "CmdlineEnter" }, {
-      group = vim.api.nvim_create_augroup("user_cmdline_enter", { clear = true }),
-      callback = function()
-        local type = vim.fn.getcmdtype()
-        if type == "/" or type == "?" then
-          vim.b.blink_pairs = false
-        end
-        if type == ":" or type == "@" then
-          vim.b.blink_pairs = true
-        end
-      end,
-    })
-    vim.api.nvim_create_autocmd({ "CmdlineLeave" }, {
-      group = vim.api.nvim_create_augroup("user_cmdline_leave", { clear = true }),
-      callback = function()
-        vim.b.blink_pairs = true
-      end,
-    })
-  end,
 
   --- @module 'blink.pairs'
   --- @type blink.pairs.Config
@@ -42,7 +20,7 @@ local M = {
       -- and require("blink.pairs.mappings").disable()
       -- to enable/disable mappings at runtime
       enabled = true,
-      cmdline = true,
+      cmdline = false,
       -- or disable with `vim.g.pairs = false` (global) and `vim.b.pairs = false` (per-buffer)
       -- and/or with `vim.g.blink_pairs = false` and `vim.b.blink_pairs = false`
       disabled_filetypes = { "snacks_picker_input" },

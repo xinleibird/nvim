@@ -6,12 +6,12 @@ local M = {
   opts = {
     right = {
       {
-        title = "|- CodeCompanion Chat 💬 -|",
+        title = "  CodeCompanion Chat 💬",
         ft = "codecompanion",
         -- pinned = true,
       },
       {
-        title = "|- CodeCompanion CLI  🤖 -|",
+        title = "  CodeCompanion CLI  🤖",
         ft = "codecompanion_cli",
         -- pinned = true,
       },

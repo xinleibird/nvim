@@ -2,7 +2,7 @@
 ---@type LazySpec
 local M = {
   "nvim-lualine/lualine.nvim",
-  event = { "BufRead", "User SnacksDashboardClosed" },
+  event = { "BufWinEnter", "User SnacksDashboardClosed" },
   dependencies = {
     "nvim-tree/nvim-web-devicons",
     "echasnovski/mini.diff",

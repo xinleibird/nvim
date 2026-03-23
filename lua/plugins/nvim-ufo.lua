@@ -2,7 +2,7 @@
 ---@type LazySpec
 local M = {
   "kevinhwang91/nvim-ufo",
-  event = { "BufRead", "User SnacksDashboardClosed" },
+  event = { "BufRead", "BufNewFile", "User SnacksDashboardClosed" },
   dependencies = "kevinhwang91/promise-async",
   config = function()
     require("ufo").setup({

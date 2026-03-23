@@ -2,7 +2,7 @@
 ---@type LazySpec
 local M = {
   "akinsho/bufferline.nvim",
-  event = { "BufRead", "User SnacksDashboardClosed" },
+  event = { "BufRead", "BufNewFile", "User SnacksDashboardClosed" },
   dependencies = {
     "nvim-tree/nvim-web-devicons",
     {

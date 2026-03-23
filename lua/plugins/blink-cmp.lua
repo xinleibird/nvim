@@ -10,7 +10,6 @@ local M = {
     "olimorris/codecompanion.nvim",
     "neovim/nvim-lspconfig",
     "mayromr/blink-cmp-dap",
-    "mfussenegger/nvim-dap",
     {
       "folke/lazydev.nvim",
       ft = "lua", -- only load on lua files

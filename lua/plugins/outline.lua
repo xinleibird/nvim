@@ -2,7 +2,7 @@
 ---@type LazySpec
 local M = {
   "hedyhli/outline.nvim",
-  event = { "BufRead", "User SnacksDashboardClosed" },
+  event = { "BufRead", "BufNewFile", "User SnacksDashboardClosed" },
   init = function()
     vim.keymap.set("n", "<leader>o", "<cmd>silent! Outline<CR>", { desc = "Toggle outline" })
   end,

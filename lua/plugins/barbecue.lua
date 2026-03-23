@@ -3,7 +3,7 @@
 local M = {
   "BrunoKrugel/bbq.nvim",
   name = "barbecue",
-  event = { "BufRead", "User SnacksDashboardClosed" },
+  event = { "BufRead", "BufNewFile", "User SnacksDashboardClosed" },
   dependencies = {
     "SmiteshP/nvim-navic",
     "nvim-tree/nvim-web-devicons",

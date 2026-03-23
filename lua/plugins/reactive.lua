@@ -67,7 +67,7 @@ end
 ---@type LazySpec
 local M = {
   "rasulomaroff/reactive.nvim",
-  event = { "BufRead", "User SnacksDashboardClosed" },
+  event = { "BufRead", "BufNewFile", "User SnacksDashboardClosed" },
   config = function()
     apply_background()
 

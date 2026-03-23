@@ -2,7 +2,7 @@
 ---@type LazySpec
 local M = {
   "numToStr/Comment.nvim",
-  event = { "BufRead", "User SnacksDashboardClosed" },
+  event = { "BufRead", "BufNewFile", "User SnacksDashboardClosed" },
   dependencies = {
     "JoosepAlviste/nvim-ts-context-commentstring",
     event = "FileReadPre",

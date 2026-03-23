@@ -427,7 +427,7 @@ local M = {
   dependencies = {
     {
       "folke/persistence.nvim",
-      event = { "BufRead", "User SnacksDashboardClosed" },
+      event = { "BufRead", "BufNewFile", "User SnacksDashboardClosed" },
       init = function()
         vim.o.sessionoptions = "buffers,curdir,folds,globals,tabpages,winpos,winsize"
       end,

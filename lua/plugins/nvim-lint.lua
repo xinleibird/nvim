@@ -2,7 +2,7 @@
 ---@type LazySpec
 local M = {
   "mfussenegger/nvim-lint",
-  event = { "BufRead", "User SnacksDashboardClosed" },
+  event = { "BufRead", "BufNewFile", "User SnacksDashboardClosed" },
   config = function()
     require("lint").linters_by_ft = {
       html = { "htmlhint" },

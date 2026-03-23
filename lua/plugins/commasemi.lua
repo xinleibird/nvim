@@ -2,7 +2,7 @@
 ---@type LazySpec
 local M = {
   "saifulapm/commasemi.nvim",
-  event = { "BufRead", "User SnacksDashboardClosed" },
+  event = { "BufRead", "BufNewFile", "User SnacksDashboardClosed" },
   init = function()
     vim.keymap.set({ "n", "i", "v" }, "<C-,>", function()
       if vim.bo[0].buftype == "" then

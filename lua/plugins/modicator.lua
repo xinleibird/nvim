@@ -2,7 +2,7 @@
 ---@type LazySpec
 local M = {
   "mawkler/modicator.nvim",
-  event = { "BufRead", "User SnacksDashboardClosed" },
+  event = { "BufRead", "BufNewFile", "User SnacksDashboardClosed" },
   dependencies = "nvim-lualine/lualine.nvim",
   opts = {
     -- Warn if any required option above is missing. May emit false positives
