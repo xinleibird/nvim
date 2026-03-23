@@ -137,7 +137,7 @@ local M = {
           -- WinSeparator = { fg = C.crust },
           WinSeparator = {
             -- fg = C.crust,
-            fg = colors.vary_color({ latte = C.overlay1 }, C.crust),
+            fg = colors.vary_color({ latte = C.surface1 }, C.crust),
           },
 
           -- Outline

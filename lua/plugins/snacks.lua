@@ -83,7 +83,7 @@ local M = {
       explorer = { enabled = true },
       image = { enabled = true },
       input = { enabled = true },
-      quickfile = { enabled = true },
+      quickfile = { enabled = false },
       statuscolumn = { enabled = true },
       words = { enabled = true },
       bigfile = { enabled = true },
