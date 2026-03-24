@@ -13,36 +13,14 @@ local M = {
     },
   },
   init = function()
-    local function start_async_clock()
-      local uv = vim.uv or vim.loop
-      local timer = uv.new_timer()
-      if not timer then
-        return
-      end
-
-      local last_time = ""
-      uv.timer_start(
-        timer,
-        0,
-        5000,
-        vim.schedule_wrap(function()
-          local current_time = tostring(os.date("%R"))
-          if current_time ~= last_time then
-            last_time = current_time
-            vim.cmd.redrawtabline()
-          end
-        end)
-      )
-    end
-
     if vim.v.vim_did_enter == 1 then
-      start_async_clock()
+      require("utils").start_async_clock()
     else
       vim.api.nvim_create_autocmd("VimEnter", {
         once = true,
         group = vim.api.nvim_create_augroup("user_start_clock_timer", { clear = true }),
         callback = function()
-          start_async_clock()
+          require("utils").start_async_clock()
         end,
       })
     end
@@ -210,7 +188,7 @@ local M = {
 
             -- clock component
             local clock = {
-              text = " " .. icons.ui.Clock .. " " .. os.date("%R") .. " ",
+              text = " " .. icons.ui.Clock .. " " .. require("utils").get_last_time() .. " ",
               link = "@text.warning",
             }
             table.insert(result, clock)
@@ -250,63 +228,18 @@ local M = {
 
         offsets = {
           {
-            filetype = "undotree",
-            text = "Undotree",
-            highlight = "PanelHeading",
-            padding = 0,
-          },
-          {
-            filetype = "NvimTree",
-            text_align = "left",
-            text = "󰙅 Explorer",
-            highlight = "NeoTreeHeaderAndTitle",
-            padding = 0,
-          },
-          {
-            filetype = "neo-tree",
-            text_align = "left",
-            text = function()
-              return "󰙅 TREE" .. vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-            end,
-            highlight = "NeoTreeHeaderAndTitle",
-            padding = 0,
-          },
-          {
             filetype = "snacks_layout_box",
             text_align = "left",
             text = "󰙅 Explorer",
-            highlight = "NeoTreeHeaderAndTitle",
+            highlight = "Constant",
             padding = 0,
           },
           {
             filetype = "Outline",
             text = "Outline 󰺔",
-            highlight = "NeoTreeHeaderAndTitle",
+            highlight = "Constant",
             text_align = "right",
             padding = 1,
-          },
-          {
-            filetype = "DiffviewFiles",
-            text = "Diff View",
-            highlight = "PanelHeading",
-            padding = 0,
-          },
-          {
-            filetype = "flutterToolsOutline",
-            text = "Flutter Outline",
-            highlight = "PanelHeading",
-          },
-          {
-            filetype = "lazy",
-            text = "Lazy",
-            highlight = "PanelHeading",
-            padding = 0,
-          },
-          {
-            filetype = "mason",
-            text = "Mason",
-            highlight = "PanelHeading",
-            padding = 0,
           },
         },
       },

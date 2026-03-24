@@ -225,4 +225,28 @@ M.get_ancestors = function(pid)
   return ancestors
 end
 
+local last_time = ""
+M.get_last_time = function()
+  return last_time
+end
+M.start_async_clock = function()
+  local uv = vim.uv or vim.loop
+  local timer = uv.new_timer()
+  if not timer then
+    return
+  end
+  uv.timer_start(
+    timer,
+    0,
+    10000,
+    vim.schedule_wrap(function()
+      local current_time = tostring(os.date("%R"))
+      if current_time ~= last_time then
+        last_time = current_time
+        vim.cmd.redrawtabline()
+      end
+    end)
+  )
+end
+
 return M

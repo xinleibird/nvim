@@ -148,8 +148,7 @@ local M = {
 
       lsp_clients = {
         function()
-          local clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })
-          return #clients > 0 and "󰇖" or "󰮌"
+          return "󰇖"
         end,
         on_click = function()
           local clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })
@@ -176,7 +175,7 @@ local M = {
         end,
         color = function()
           local clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })
-          return #clients > 0 and "LualinePluginActive" or "LualinePluginInactive"
+          return #clients > 0 and "LualineLspActive" or "LualineLspInactive"
         end,
         padding = { left = 1, right = 0 },
         separator = { left = "", right = "" },
@@ -184,12 +183,7 @@ local M = {
 
       linters = {
         function()
-          local ok, lint = pcall(require, "lint")
-          if ok then
-            local linters = lint._resolve_linter_by_ft(vim.bo.ft)
-            return #linters > 0 and "󱍧" or "󱍨"
-          end
-          return "󱍨"
+          return "󰚃"
         end,
         on_click = function()
           local lint_ok, lint = pcall(require, "lint")
@@ -200,7 +194,7 @@ local M = {
           if #linters == 0 then
             vim.notify("✗ No Linters", vim.log.levels.WARN, {
               title = "Linter",
-              icon = "󱍨",
+              icon = "󰚃",
               timeout = 3000,
               id = "linter_lualine",
             })
@@ -212,7 +206,7 @@ local M = {
             local linter_message = table.concat(linter_names, "\n")
             vim.notify(linter_message, vim.log.levels.INFO, {
               title = "Linter",
-              icon = "󱍧",
+              icon = "󰚃",
               timeout = 3000,
               id = "linter_lualine",
             })
@@ -222,9 +216,9 @@ local M = {
           local ok, lint = pcall(require, "lint")
           if ok then
             local linters = lint._resolve_linter_by_ft(vim.bo.ft)
-            return #linters > 0 and "LualinePluginActive" or "LualinePluginInactive"
+            return #linters > 0 and "LualineLspActive" or "LualineLspInactive"
           end
-          return "LualinePluginInactive"
+          return "LualineLspInactive"
         end,
         padding = { left = 0, right = 0 },
         separator = { left = "", right = "" },
@@ -232,11 +226,6 @@ local M = {
 
       formatters = {
         function()
-          local ok, conform = pcall(require, "conform")
-          if ok then
-            local formatters = conform.list_formatters_for_buffer(0)
-            return #formatters > 0 and "󰑌" or "󱎝"
-          end
           return "󰑌"
         end,
         on_click = function()
@@ -270,9 +259,9 @@ local M = {
           local ok, conform = pcall(require, "conform")
           if ok then
             local formatters = conform.list_formatters_for_buffer(0)
-            return #formatters > 0 and "LualinePluginActive" or "LualinePluginActive"
+            return #formatters > 0 and "LualineLspActive" or "LualineLspInactive"
           end
-          return "LualinePluginInactive"
+          return "LualineLspInactive"
         end,
         padding = { left = 1, right = 0 },
         separator = { left = "", right = "" },
@@ -280,12 +269,7 @@ local M = {
 
       codecompanion_chat = {
         function()
-          local ok, codecompanion = pcall(require, "codecompanion")
-          if ok then
-            local chat_session = codecompanion.last_chat()
-            return chat_session and "󰭻" or "󱋊"
-          end
-          return require("configs.icons").ui.GhostOutline
+          return "󰭻"
         end,
         on_click = function()
           local ok, codecompanion = pcall(require, "codecompanion")
@@ -296,13 +280,15 @@ local M = {
               local adapter_name = adapter.formatted_name or adapter.name or "CodeCompanion"
               vim.notify("💬 **" .. adapter_name .. "** Chat OK!", vim.log.levels.INFO, {
                 title = "CodeCompanion",
-                id = "codecompanion_lualine",
+                id = "codecompanion_chat_lualine",
+                icon = "󰭻",
                 timeout = 3000,
               })
             else
               vim.notify("💬 Chat Mode not Ready!", vim.log.levels.WARN, {
                 title = "CodeCompanion",
-                id = "codecompanion_lualine",
+                id = "codecompanion_chat_lualine",
+                icon = "󰭻",
                 timeout = 3000,
               })
             end
@@ -318,9 +304,9 @@ local M = {
           local ok, codecompanion = pcall(require, "codecompanion")
           if ok then
             local status = codecompanion.last_chat()
-            return status and "LualinePluginActive" or "LualinePluginInactive"
+            return status and "LualineCodeCompanionActive" or "LualineCodeCompanionInactive"
           end
-          return "LualineCodeCompanionClose"
+          return "LualineCodeCompanionInactive"
         end,
         separator = { left = "", right = "" },
         padding = { left = 0, right = 1 },
@@ -328,12 +314,7 @@ local M = {
 
       codecompanion_cli = {
         function()
-          local ok = pcall(require, "codecompanion")
-          if ok then
-            local cli_session = require("codecompanion.interactions.cli").last_cli()
-            return cli_session and "󰚩" or "󱙺"
-          end
-          return require("configs.icons").ui.GhostOutline
+          return ""
         end,
         on_click = function()
           local ok = pcall(require, "codecompanion")
@@ -343,13 +324,15 @@ local M = {
               local cli_name = cli_session.agent.description or cli_session.agent_name
               vim.notify("🤖 **" .. cli_name .. "** CLI OK!", vim.log.levels.INFO, {
                 title = "CodeCompanion",
-                id = "codecompanion_lualine",
+                icon = "",
+                id = "codecompanion_cli_lualine",
                 timeout = 3000,
               })
             else
               vim.notify("🤖 CLI Mode not Ready!", vim.log.levels.WARN, {
                 title = "CodeCompanion",
-                id = "codecompanion_lualine",
+                icon = "",
+                id = "codecompanion_cli_lualine",
                 timeout = 3000,
               })
             end
@@ -365,9 +348,9 @@ local M = {
           local ok = pcall(require, "codecompanion")
           if ok then
             local cli_session = require("codecompanion.interactions.cli").last_cli()
-            return cli_session and "LualinePluginActive" or "LualinePluginInactive"
+            return cli_session and "LualineCodeCompanionActive" or "LualineCodeCompanionInactive"
           end
-          return "LualineCodeCompanionClose"
+          return "LualineCodeCompanionInactive"
         end,
         separator = { left = "", right = "" },
         padding = { left = 0, right = 0 },
@@ -473,11 +456,11 @@ local M = {
           "%=",
         },
         lualine_x = {
+          components.filetype,
+          components.blank,
           components.linters,
           components.formatters,
           components.lsp_clients,
-          components.blank,
-          components.filetype,
           components.blank,
           components.codecompanion_chat,
           components.codecompanion_cli,

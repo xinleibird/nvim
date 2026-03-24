@@ -227,8 +227,11 @@ local M = {
           LualineFiletype = { bg = C.surface0 },
 
           -- Lualine CodeCompanion
-          LualinePluginActive = { bg = C.surface0, fg = C.red },
-          LualinePluginInactive = { bg = C.surface0, fg = C.overlay0 },
+          LualineCodeCompanionActive = { bg = C.surface0, fg = C.red },
+          LualineCodeCompanionInactive = { bg = C.surface0, fg = C.overlay0 },
+
+          LualineLspActive = { bg = C.surface0, fg = C.yellow },
+          LualineLspInactive = { bg = C.surface0, fg = C.overlay0 },
 
           -- LSP
           LspKindClass = { fg = C.yellow },
