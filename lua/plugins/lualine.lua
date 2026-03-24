@@ -146,151 +146,136 @@ local M = {
         -- cond =
       },
 
-      lsp_clients_formatters_linters = {
-        "lsp",
-        fmt = function()
-          local lsp_icon_map = {
-            bashls = "",
-            cssls = "",
-            emmet_language_server = "",
-            eslint = "",
-            html = "",
-            jsonls = "",
-            lua_ls = "󰢱",
-            marksman = "",
-            ["render-markdown"] = "",
-            rust_analyzer = "",
-            svelte = "",
-            tailwindcss = "",
-            ts_ls = "",
-            ["typescript-tools"] = "",
-            vimls = "",
-            vtsls = "",
-            vue_ls = "",
-            zk = "󰰷",
-            yamlls = "",
-          }
-          local client_batch = ""
+      lsp_clients = {
+        function()
           local clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })
-          for _, client in ipairs(clients) do
-            if client.attached_buffers[get_statusline_bufnr()] and client.name ~= "null-ls" then
-              client_batch = client_batch .. (lsp_icon_map[client.name] or "")
-            end
-          end
-
-          local formatter_icon_map = {
-            prettier = "",
-            shfmt = "",
-            stylua = "",
-            auto_indent = "󱣲",
-          }
-          local formatter_batch = ""
-          local formatters = {}
-          local conform_ok, conform = pcall(require, "conform")
-          if conform_ok then
-            formatters = conform.list_formatters_for_buffer(0)
-          end
-
-          for _, formatter in ipairs(formatters) do
-            formatter_batch = formatter_batch .. (formatter_icon_map[formatter] or "")
-          end
-
-          local linter_icon_map = {
-            htmlhint = "",
-            shellcheck = "",
-          }
-          local linter_batch = ""
-          local lint_ok, lint = pcall(require, "lint")
-          local linters = {}
-          if lint_ok then
-            linters = lint._resolve_linter_by_ft(vim.bo.ft)
-          end
-
-          for _, linter in ipairs(linters) do
-            linter_batch = linter_batch .. (linter_icon_map[linter] or "")
-          end
-
-          return (
-            ""
-            .. (client_batch == "" and "" or ("" .. client_batch))
-            .. (#formatters > 0 and "⋅" or "")
-            .. (formatter_batch == "" and "" or ("" .. formatter_batch))
-            .. (#linters > 0 and "⋅" or "")
-            .. (linter_batch == "" and "" or ("" .. linter_batch))
-          )
+          return #clients > 0 and "󰇖" or "󰮌"
         end,
         on_click = function()
           local clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })
           if #clients == 0 then
-            vim.notify("󱐋 No LSP Clients", vim.log.levels.WARN, {
+            vim.notify("✗ No LSP Clients", vim.log.levels.WARN, {
               title = "LSP",
+              icon = "󰮌",
               timeout = 3000,
               id = "lsp_lualine",
             })
           else
             local client_names = {}
             for _, client in ipairs(clients) do
-              table.insert(client_names, "󱐋 " .. client.name)
+              table.insert(client_names, " **" .. client.name .. "**")
             end
             local lsp_message = table.concat(client_names, "\n")
             vim.notify(lsp_message, vim.log.levels.INFO, {
               title = "LSP",
+              icon = "󰇖",
               timeout = 3000,
               id = "lsp_lualine",
             })
           end
+        end,
+        color = function()
+          local clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })
+          return #clients > 0 and "LualinePluginActive" or "LualinePluginInactive"
+        end,
+        padding = { left = 1, right = 0 },
+        separator = { left = "", right = "" },
+      },
 
-          local formatters = {}
-          local conform_ok, conform = pcall(require, "conform")
-          if conform_ok then
-            formatters = conform.list_formatters_for_buffer(0)
+      linters = {
+        function()
+          local ok, lint = pcall(require, "lint")
+          if ok then
+            local linters = lint._resolve_linter_by_ft(vim.bo.ft)
+            return #linters > 0 and "󱍧" or "󱍨"
           end
-          if #formatters == 0 then
-            vim.notify("󰃢 No Formatters", vim.log.levels.WARN, {
-              title = "Formatter",
-              timeout = 3000,
-              id = "formatter_lualine",
-            })
-          else
-            local formatter_names = {}
-            for _, formatter in ipairs(formatters) do
-              table.insert(formatter_names, "󰃢 " .. formatter)
-            end
-            local formatter_message = table.concat(formatter_names, "\n")
-            vim.notify(formatter_message, vim.log.levels.INFO, {
-              title = "Formatter",
-              timeout = 3000,
-              id = "formatter_lualine",
-            })
-          end
-
+          return "󱍨"
+        end,
+        on_click = function()
           local lint_ok, lint = pcall(require, "lint")
           local linters = {}
           if lint_ok then
             linters = lint._resolve_linter_by_ft(vim.bo.ft)
           end
           if #linters == 0 then
-            vim.notify("󰦀 No Linters", vim.log.levels.WARN, {
+            vim.notify("✗ No Linters", vim.log.levels.WARN, {
               title = "Linter",
+              icon = "󱍨",
               timeout = 3000,
               id = "linter_lualine",
             })
           else
             local linter_names = {}
             for _, linter in ipairs(linters) do
-              table.insert(linter_names, "󰦀 " .. linter)
+              table.insert(linter_names, " **" .. linter .. "**")
             end
             local linter_message = table.concat(linter_names, "\n")
             vim.notify(linter_message, vim.log.levels.INFO, {
               title = "Linter",
+              icon = "󱍧",
               timeout = 3000,
               id = "linter_lualine",
             })
           end
         end,
+        color = function()
+          local ok, lint = pcall(require, "lint")
+          if ok then
+            local linters = lint._resolve_linter_by_ft(vim.bo.ft)
+            return #linters > 0 and "LualinePluginActive" or "LualinePluginInactive"
+          end
+          return "LualinePluginInactive"
+        end,
         padding = { left = 0, right = 0 },
         separator = { left = "", right = "" },
-        color = "LualineLsp",
+      },
+
+      formatters = {
+        function()
+          local ok, conform = pcall(require, "conform")
+          if ok then
+            local formatters = conform.list_formatters_for_buffer(0)
+            return #formatters > 0 and "󰑌" or "󱎝"
+          end
+          return "󰑌"
+        end,
+        on_click = function()
+          local formatters = {}
+          local conform_ok, conform = pcall(require, "conform")
+          if conform_ok then
+            formatters = conform.list_formatters_for_buffer(0)
+          end
+          if #formatters == 0 then
+            vim.notify("✗ No Formatters", vim.log.levels.WARN, {
+              title = "Formatter",
+              icon = "󱎝",
+              timeout = 3000,
+              id = "formatter_lualine",
+            })
+          else
+            local formatter_names = {}
+            for _, formatter in ipairs(formatters) do
+              table.insert(formatter_names, " **" .. formatter .. "**")
+            end
+            local formatter_message = table.concat(formatter_names, "\n")
+            vim.notify(formatter_message, vim.log.levels.INFO, {
+              title = "Formatter",
+              icon = "󰑌",
+              timeout = 3000,
+              id = "formatter_lualine",
+            })
+          end
+        end,
+        color = function()
+          local ok, conform = pcall(require, "conform")
+          if ok then
+            local formatters = conform.list_formatters_for_buffer(0)
+            return #formatters > 0 and "LualinePluginActive" or "LualinePluginActive"
+          end
+          return "LualinePluginInactive"
+        end,
+        padding = { left = 1, right = 0 },
+        separator = { left = "", right = "" },
       },
 
       codecompanion_chat = {
@@ -333,7 +318,7 @@ local M = {
           local ok, codecompanion = pcall(require, "codecompanion")
           if ok then
             local status = codecompanion.last_chat()
-            return status and "LualineCodeCompanionOpen" or "LualineCodeCompanionClose"
+            return status and "LualinePluginActive" or "LualinePluginInactive"
           end
           return "LualineCodeCompanionClose"
         end,
@@ -380,12 +365,12 @@ local M = {
           local ok = pcall(require, "codecompanion")
           if ok then
             local cli_session = require("codecompanion.interactions.cli").last_cli()
-            return cli_session and "LualineCodeCompanionOpen" or "LualineCodeCompanionClose"
+            return cli_session and "LualinePluginActive" or "LualinePluginInactive"
           end
           return "LualineCodeCompanionClose"
         end,
         separator = { left = "", right = "" },
-        padding = { left = 1, right = 0 },
+        padding = { left = 0, right = 0 },
       },
 
       filetype = {
@@ -488,7 +473,9 @@ local M = {
           "%=",
         },
         lualine_x = {
-          components.lsp_clients_formatters_linters,
+          components.linters,
+          components.formatters,
+          components.lsp_clients,
           components.blank,
           components.filetype,
           components.blank,
