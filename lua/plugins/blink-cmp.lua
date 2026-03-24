@@ -286,7 +286,7 @@ local M = {
         show_on_insert_on_trigger_character = true,
       },
       window = {
-        border = "rounded",
+        border = "solid",
         show_documentation = false,
       },
     },

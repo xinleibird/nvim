@@ -17,7 +17,7 @@ local M = {
       compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
       transparent_background = false,
       float = {
-        transparent = true, -- enable transparent floating windows
+        transparent = false, -- enable transparent floating windows
         solid = false, -- use solid styling for floating windows, see |winborder|
       },
       show_end_of_buffer = false, -- show the '~' characters after the end of buffers
@@ -164,28 +164,18 @@ local M = {
           BufferLinePick = { bg = C.base, fg = C.red, bold = true },
           BufferLinePickSelected = { fg = C.overlay0, bg = C.base, bold = true, italic = true },
 
-          -- Snacks
-          SnacksPickerBoxTitle = { bg = C.blue, fg = C.base, bold = true },
-          SnacksPickerInput = { bg = C.mantle, fg = C.text },
-          SnacksPickerInputBorder = { fg = C.yellow },
-          SnacksPickerInputTitle = { bg = C.blue, fg = C.base, bold = true },
-          SnacksPickerList = { bg = C.crust },
-          SnacksPickerListBorder = { bg = C.crust, fg = C.crust },
-          -- SnacksPickerListCursorLine = { bg = colors.lighten(C.overlay0, 0.3, C.base) },
-          SnacksPickerListCursorLine = {
-            bg = colors.lighten(C.overlay2, 0.2, C.base),
-          },
-          SnacksPickerPreviewBorder = { bg = C.mantle, fg = C.mantle },
-          SnacksPickerPrompt = { bg = C.mantle, fg = C.text },
-          SnacksIndentScope = {
-            fg = colors.vary_color({ latte = colors.lighten(C.red, 0.6, C.base) }, colors.darken(C.red, 0.3, C.base)),
-          },
-
           -- Snacks Dashboard logo and reflection
           SnacksDashboardHeader = { fg = colors.darken(C.red, 0.8) },
           SnacksDashboardHeaderReflection = {
             fg = colors.vary_color({ latte = colors.lighten(C.text, 0.1, C.base) }, colors.darken(C.text, 0.1, C.base)),
           },
+
+          -- Edgy
+          EdgyNormal = { bg = C.base },
+
+          -- CodeCompanion Chat Normal
+          CodeCompanionNormal = { bg = C.base },
+          CodeCompanionBorder = { bg = C.base },
 
           -- BlinkIndent
           BlinkIndent = {
@@ -232,9 +222,11 @@ local M = {
           -- Fold
           Folded = { bg = C.surface0, fg = C.text },
 
-          -- Lualine CodeCompanion
+          -- Lualine
           LualineLsp = { bg = C.surface0, fg = C.lavender },
           LualineFiletype = { bg = C.surface0 },
+
+          -- Lualine CodeCompanion
           LualineCodeCompanionClose = { bg = C.surface0, fg = C.overlay0 },
           LualineCodeCompanionOpen = { bg = C.surface0, fg = C.red },
 

@@ -8,6 +8,40 @@ local M = {
     vim.cmd([[command! Notifications lua Snacks.notifier.show_history()]])
     vim.cmd([[command! Pickers lua Snacks.picker()]])
   end,
+  dependencies = {
+    {
+      "folke/persistence.nvim",
+      event = { "BufRead", "BufNewFile", "User SnacksDashboardClosed" },
+      init = function()
+        vim.o.sessionoptions = "buffers,curdir,folds,globals,tabpages,winpos,winsize"
+      end,
+      config = function()
+        require("persistence").setup({
+          dir = vim.fn.stdpath("state") .. "/sessions/",
+          need = 1,
+          branch = true,
+        })
+        vim.keymap.set("n", "<leader>ss", function()
+          require("persistence").select()
+        end, { desc = "Restore Sessions" })
+        vim.keymap.set("n", "<leader>sS", function()
+          require("persistence").select()
+        end, { desc = "Save Session" })
+
+        vim.api.nvim_create_autocmd("QuitPre", {
+          group = vim.api.nvim_create_augroup("user_quit_vim_make_sure_persistence_save", { clear = true }),
+          callback = function()
+            -- The autocmd for persistence doesn't work, manually save.
+            -- cause used "QuitPre"
+            local persistence_ok, persistence = pcall(require, "persistence")
+            if persistence_ok then
+              persistence.save()
+            end
+          end,
+        })
+      end,
+    },
+  },
   keys = {
     --stylua: ignore start
     { "<leader>sp", function() Snacks.picker.smart() end,  desc = "Smart Files" },
@@ -268,8 +302,8 @@ local M = {
           sidebar = {
             layout = {
               backdrop = false,
-              width = 27,
-              min_width = 27,
+              width = 28,
+              min_width = 28,
               height = 0,
               position = "left",
               border = "none",
@@ -424,40 +458,6 @@ local M = {
       },
     })
   end,
-  dependencies = {
-    {
-      "folke/persistence.nvim",
-      event = { "BufRead", "BufNewFile", "User SnacksDashboardClosed" },
-      init = function()
-        vim.o.sessionoptions = "buffers,curdir,folds,globals,tabpages,winpos,winsize"
-      end,
-      config = function()
-        require("persistence").setup({
-          dir = vim.fn.stdpath("state") .. "/sessions/",
-          need = 1,
-          branch = true,
-        })
-        vim.keymap.set("n", "<leader>ss", function()
-          require("persistence").select()
-        end, { desc = "Restore Sessions" })
-        vim.keymap.set("n", "<leader>sS", function()
-          require("persistence").select()
-        end, { desc = "Save Session" })
-
-        vim.api.nvim_create_autocmd("QuitPre", {
-          group = vim.api.nvim_create_augroup("user_quit_vim_make_sure_persistence_save", { clear = true }),
-          callback = function()
-            -- The autocmd for persistence doesn't work, manually save.
-            -- cause used "QuitPre"
-            local persistence_ok, persistence = pcall(require, "persistence")
-            if persistence_ok then
-              persistence.save()
-            end
-          end,
-        })
-      end,
-    },
-  },
 }
 
 return M
