@@ -8,13 +8,6 @@ local M = {
     "ravitemer/codecompanion-history.nvim",
   },
   init = function()
-    vim.api.nvim_create_autocmd("FileType", {
-      pattern = "codecompanion*",
-      callback = function()
-        vim.wo.winhighlight = "NormalFloat:CodeCompanionNormal,FloatBorder:CodeCompanionBorder"
-      end,
-    })
-
     vim.api.nvim_create_autocmd("User", {
       pattern = "CodeCompanionChatCreated",
       group = vim.api.nvim_create_augroup("user_registering_codecompanion_callback", { clear = true }),
