@@ -8,9 +8,11 @@ vim.keymap.set({ "n", "t", "i" }, "<C-k>", "<cmd>wincmd k<CR>", { desc = "Jump u
 vim.keymap.set({ "n" }, "Q", "q", { noremap = true, silent = true })
 vim.keymap.set({ "n" }, "q", "<Nop>", { noremap = true, silent = true })
 
--- remap start of line
-vim.keymap.set("c", "<C-a>", "<Home>", { desc = "Move beginning of line" })
-vim.keymap.set("c", "<C-b>", "<End>", { desc = "Move ending of line" })
+-- Ctrl+a: beginning of line in command mode (tty-style)
+vim.keymap.set("c", "<C-a>", "<C-b>", { desc = "Move beginning of line" })
+
+vim.keymap.set("i", "<C-a>", "<C-o>I", { desc = "Move beginning of line" })
+vim.keymap.set("i", "<C-e>", "<C-o>A", { desc = "Move ending of line" })
 
 -- esc clear highlights, Escape popup
 vim.keymap.set("n", "<Esc>", function()
