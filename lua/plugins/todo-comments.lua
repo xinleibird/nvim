@@ -34,7 +34,7 @@ local M = {
       FIX = { icon = "󰆇 ", color = "error", alt = { "FIXME", "BUG", "FIXIT", "ISSUE" } },
       HACK = { icon = "󰅾 ", color = "warning", alt = { "XXX", "WARN" } },
       TODO = { icon = "󱀢 ", color = "info", alt = { "AFTER" } },
-      NOTE = { icon = "󱋄 ", color = "hint", alt = { "RECORD" } },
+      NOTE = { icon = "󱋄 ", color = "hint", alt = { "RECORD", "TIP" } },
       PERF = { icon = "󰆆 ", color = "default", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
       TEST = { icon = "󰆅 ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
     },

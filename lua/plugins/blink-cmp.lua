@@ -106,6 +106,12 @@ local M = {
             },
           },
         },
+        path = {
+          opts = {
+            -- TIP: Show hidden files by pressing <C-e> to close completion, then press "."
+            show_hidden_files_by_default = false,
+          },
+        },
         lsp = {
           fallbacks = {},
           transform_items = function(_, items)
@@ -293,13 +299,6 @@ local M = {
     fuzzy = {
       implementation = "prefer_rust_with_warning",
       sorts = {
-        -- lua sorter slowly
-        -- function(a, b)
-        --   if (a.client_name == nil or b.client_name == nil) or (a.client_name == b.client_name) then
-        --     return
-        --   end
-        --   return a.client_name == "emmet_language_server"
-        -- end,
         -- "exact",
         -- defaults
         "score",
