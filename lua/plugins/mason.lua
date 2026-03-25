@@ -75,6 +75,9 @@ local M = {
       "json-lsp",
       "yaml-language-server",
 
+      -- toml
+      "taplo",
+
       -- markdown
       "marksman",
       "zk",

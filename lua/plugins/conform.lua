@@ -59,6 +59,8 @@ local M = {
         sh = { "shfmt" },
         zsh = { "shfmt" },
 
+        toml = { "taplo" },
+
         yaml = { "prettier" },
 
         ["_"] = { "auto_indent" },
