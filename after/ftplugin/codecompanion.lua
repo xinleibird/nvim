@@ -6,3 +6,11 @@ vim.opt_local.softtabstop = 2
 vim.b.indent_guide = false
 
 vim.wo.winhighlight = "NormalFloat:CodeCompanionNormal,FloatBorder:CodeCompanionBorder"
+
+local win_config = vim.api.nvim_win_get_config(0)
+if win_config.relative ~= "" then
+  vim.keymap.set({ "n", "t", "i" }, "<C-h>", "", { silent = true, buffer = true })
+  vim.keymap.set({ "n", "t", "i" }, "<C-l>", "", { silent = true, buffer = true })
+  vim.keymap.set({ "n", "t", "i" }, "<C-j>", "", { silent = true, buffer = true })
+  vim.keymap.set({ "n", "t", "i" }, "<C-k>", "", { silent = true, buffer = true })
+end

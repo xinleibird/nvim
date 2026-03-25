@@ -44,6 +44,7 @@ local M = {
   },
   keys = {
     --stylua: ignore start
+    { "<leader>sT", function() Snacks.picker() end,  desc = "Snacks Pickers" },
     { "<leader>sp", function() Snacks.picker.smart() end,  desc = "Smart Files" },
     { "<leader>sP", function() Snacks.picker.projects() end,  desc = "Recent Projects" },
     { "<leader>so", function() Snacks.picker.files() end,  desc = "Find Files" },

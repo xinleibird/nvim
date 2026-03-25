@@ -3,7 +3,7 @@
 local M = {
   "nvim-treesitter/nvim-treesitter",
   branch = "main",
-  lazy = false,
+  event = { "BufRead", "BufNewFile", "User SnacksDashboardClosed" },
   build = ":TSUpdate",
   dependencies = {
     "nvim-treesitter/nvim-treesitter-textobjects",
@@ -40,7 +40,12 @@ local M = {
       -- i object
     end,
   },
-  init = function()
+
+  config = function()
+    require("nvim-treesitter").setup({
+      install_dir = vim.fn.stdpath("data") .. "/site",
+    })
+
     vim.api.nvim_create_user_command("TSStart", function()
       vim.treesitter.start(0)
     end, { desc = "Start treesitter" })
@@ -51,12 +56,6 @@ local M = {
       vim.treesitter.stop(0)
       vim.treesitter.start(0)
     end, { desc = "Restart treesitter" })
-  end,
-
-  config = function()
-    require("nvim-treesitter").setup({
-      install_dir = vim.fn.stdpath("data") .. "/site",
-    })
 
     local ensure_languages = {
       "bash",

@@ -2,9 +2,23 @@
 ---@type LazySpec
 local M = {
   "zk-org/zk-nvim",
-  lazy = false,
+  event = "VeryLazy",
   dependencies = "folke/snacks.nvim",
-  init = function()
+  config = function()
+    require("zk").setup({
+      picker = "snacks_picker",
+      highlight = {
+        additional_vim_regex_highlighting = { "markdown" },
+      },
+      picker_options = {
+        snacks_picker = {
+          layout = {
+            preset = "default",
+          },
+        },
+      },
+    })
+
     local function zk_grep()
       local snacks = require("snacks")
       local util = require("zk.util")
@@ -40,21 +54,6 @@ local M = {
     vim.keymap.set("n", "<leader>zT", "<cmd>ZkTags<cr>", { desc = "Zk Tags" })
     vim.keymap.set("n", "<leader>zn", "<cmd>ZkNew<cr>", { desc = "Zk New" })
     vim.keymap.set("n", "<leader>zt", "<cmd>ZkGrep<cr>", { desc = "Zk Grep" })
-  end,
-  config = function()
-    require("zk").setup({
-      picker = "snacks_picker",
-      highlight = {
-        additional_vim_regex_highlighting = { "markdown" },
-      },
-      picker_options = {
-        snacks_picker = {
-          layout = {
-            preset = "default",
-          },
-        },
-      },
-    })
   end,
 }
 

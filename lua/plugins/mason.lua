@@ -2,17 +2,7 @@
 ---@type LazySpec
 local M = {
   "williamboman/mason.nvim",
-  event = "VimEnter",
-  init = function()
-    vim.api.nvim_create_autocmd("FileType", {
-      pattern = "mason",
-      callback = function(event)
-        vim.schedule(function()
-          vim.keymap.set("n", "<Esc>", "<Nop>", { buffer = event.buf, silent = true, nowait = true })
-        end)
-      end,
-    })
-  end,
+  event = "VeryLazy",
   opts = function()
     local icons = require("configs.icons")
     return {

@@ -2,11 +2,18 @@
 ---@type LazySpec
 local M = {
   "rcarriga/nvim-dap-ui",
-  event = "VeryLazy",
+  event = { "BufRead", "BufNewFile", "User SnacksDashboardClosed" },
+  lazy = true,
   dependencies = {
     {
       "mfussenegger/nvim-dap",
-      init = function()
+      config = function()
+        local files_str = vim.fn.glob(vim.fn.stdpath("config") .. "/dap/*.lua")
+        local files_list = vim.split(files_str, "\n", { plain = true })
+        for _, file_path in ipairs(files_list) do
+          dofile(file_path)
+        end
+
         local dap = require("dap")
         vim.keymap.set("n", "<leader>dt", function()
           dap.toggle_breakpoint()
@@ -82,13 +89,6 @@ local M = {
           { text = icons.ui.Rejected, numhl = "DapBreakpointRejected", texthl = "DapBreakpointRejected" }
         )
       end,
-      config = function()
-        local files_str = vim.fn.glob(vim.fn.stdpath("config") .. "/dap/*.lua")
-        local files_list = vim.split(files_str, "\n", { plain = true })
-        for _, file_path in ipairs(files_list) do
-          dofile(file_path)
-        end
-      end,
     },
     {
       "0xferrous/ansi.nvim",
@@ -102,53 +102,6 @@ local M = {
     },
     "nvim-neotest/nvim-nio",
   },
-  init = function()
-    local dap = require("dap")
-    local dapui = require("dapui")
-
-    local function render_dap_repl_ansi()
-      local repl_buf = nil
-      for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-        if vim.bo[buf].filetype == "dap-repl" then
-          repl_buf = buf
-          break
-        end
-      end
-
-      if repl_buf then
-        require("ansi.renderer").enable_for_buffer(repl_buf, "gruvbox")
-      end
-    end
-
-    dap.listeners.before.attach.dapui_config = function()
-      dapui.open()
-    end
-    dap.listeners.before.launch.dapui_config = function()
-      dapui.open()
-    end
-
-    dap.listeners.before.event_terminated.dapui_config = function()
-      render_dap_repl_ansi()
-    end
-    dap.listeners.before.event_exited.dapui_config = function()
-      render_dap_repl_ansi()
-    end
-
-    -- dap.listeners.before.event_terminated.dapui_config = function()
-    --   dapui.close()
-    -- end
-    -- dap.listeners.before.event_exited.dapui_config = function()
-    --   dapui.close()
-    -- end
-
-    vim.keymap.set("n", "<leader>dU", function()
-      dapui.toggle({ reset = true })
-    end, { desc = "Toggle DAP UI" })
-    vim.keymap.set("n", "<C-S-D>", function()
-      dapui.toggle({ reset = true })
-    end, { desc = "Toggle DAP UI" })
-  end,
-
   opts = function()
     return {
       icons = { expanded = "▾", collapsed = "▸" },
@@ -198,6 +151,51 @@ local M = {
 
   config = function(_, opts)
     require("dapui").setup(opts)
+
+    local dap = require("dap")
+    local dapui = require("dapui")
+
+    local function render_dap_repl_ansi()
+      local repl_buf = nil
+      for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+        if vim.bo[buf].filetype == "dap-repl" then
+          repl_buf = buf
+          break
+        end
+      end
+
+      if repl_buf then
+        require("ansi.renderer").enable_for_buffer(repl_buf, "gruvbox")
+      end
+    end
+
+    dap.listeners.before.attach.dapui_config = function()
+      dapui.open()
+    end
+    dap.listeners.before.launch.dapui_config = function()
+      dapui.open()
+    end
+
+    dap.listeners.before.event_terminated.dapui_config = function()
+      render_dap_repl_ansi()
+    end
+    dap.listeners.before.event_exited.dapui_config = function()
+      render_dap_repl_ansi()
+    end
+
+    -- dap.listeners.before.event_terminated.dapui_config = function()
+    --   dapui.close()
+    -- end
+    -- dap.listeners.before.event_exited.dapui_config = function()
+    --   dapui.close()
+    -- end
+
+    vim.keymap.set("n", "<leader>dU", function()
+      dapui.toggle({ reset = true })
+    end, { desc = "Toggle DAP UI" })
+    vim.keymap.set("n", "<C-S-D>", function()
+      dapui.toggle({ reset = true })
+    end, { desc = "Toggle DAP UI" })
   end,
 }
 

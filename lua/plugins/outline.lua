@@ -3,11 +3,6 @@
 local M = {
   "hedyhli/outline.nvim",
   event = { "BufRead", "BufNewFile", "User SnacksDashboardClosed" },
-  init = function()
-    vim.keymap.set("n", "<leader>o", function()
-      require("outline").toggle()
-    end, { desc = "Toggle outline" })
-  end,
   config = function()
     local icons = require("configs.icons").lspkind
     require("outline").setup({
@@ -56,6 +51,10 @@ local M = {
         },
       },
     })
+
+    vim.keymap.set("n", "<leader>o", function()
+      require("outline").toggle()
+    end, { desc = "Toggle outline" })
   end,
 }
 

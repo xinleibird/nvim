@@ -8,6 +8,9 @@ local M = {
       {
         title = "  CodeCompanion Chat 💬",
         ft = "codecompanion",
+        filter = function(_, win)
+          return vim.api.nvim_win_get_config(win).relative == ""
+        end,
         -- pinned = true,
       },
       {

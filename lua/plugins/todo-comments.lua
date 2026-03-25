@@ -15,16 +15,6 @@ local M = {
     vim.keymap.set("n", "[t", function()
       require("todo-comments").jump_prev()
     end, { desc = "Prev todo comment" })
-
-    vim.keymap.set("n", "<leader>sT", function()
-      ---@diagnostic disable-next-line: undefined-field
-      Snacks.picker.todo_comments()
-    end, { desc = "Todo" })
-
-    vim.api.nvim_create_user_command("TodoSnacksPicker", function()
-      ---@diagnostic disable-next-line: undefined-field
-      Snacks.picker.todo_comments()
-    end, {})
   end,
   opts = {
     signs = true, -- show icons in the signs column

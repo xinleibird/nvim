@@ -7,8 +7,6 @@ local M = {
   -- or build it yourself
   -- build = "cargo build --release",
   dependencies = {
-    "olimorris/codecompanion.nvim",
-    "neovim/nvim-lspconfig",
     "mayromr/blink-cmp-dap",
     {
       "folke/lazydev.nvim",
