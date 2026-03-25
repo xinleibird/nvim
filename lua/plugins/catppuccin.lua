@@ -6,6 +6,20 @@ local M = {
   priority = 1000,
   dependencies = {
     "vimpostor/vim-lumen",
+    init = function()
+      vim.api.nvim_create_autocmd("User", {
+        pattern = { "LumenLight", "LumenDark" },
+        callback = function()
+          if vim.bo.filetype == "snacks_dashboard" then
+            if vim.g.lumen_dashboard_update_count > 0 then
+              require("snacks").dashboard.update()
+            end
+          end
+          -- configs/options : vim.g.lumen_dashboard_update_count
+          vim.g.lumen_dashboard_update_count = vim.g.lumen_dashboard_update_count + 1
+        end,
+      })
+    end,
   },
   config = function()
     require("catppuccin").setup({
