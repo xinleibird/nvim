@@ -195,13 +195,6 @@ local M = {
       dapui.toggle({ reset = true })
     end, { desc = "Toggle DAP UI" })
 
-    vim.keymap.set("n", "<Esc>", function()
-      vim.cmd("noh")
-      vim.api.nvim_feedkeys("hl", "n", true)
-      if vim.diagnostic.config().virtual_lines then
-        vim.diagnostic.config({ virtual_lines = false })
-      end
-    end, { desc = "Clear highlights, Escape popup and virtual lines" })
     vim.api.nvim_create_autocmd("FileType", {
       pattern = { "dap-*", "dapui_*" },
       callback = function()

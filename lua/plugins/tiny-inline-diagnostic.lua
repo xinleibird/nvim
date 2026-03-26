@@ -2,8 +2,7 @@
 ---@type LazySpec
 local M = {
   "rachartier/tiny-inline-diagnostic.nvim",
-  event = "VeryLazy",
-  priority = 1000,
+  lazy = false,
   config = function()
     require("tiny-inline-diagnostic").setup({
       options = {

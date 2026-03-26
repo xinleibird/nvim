@@ -128,7 +128,7 @@ vim.api.nvim_create_autocmd("LspProgress", {
 vim.lsp.enable({
   "bashls",
   "cssls",
-  "eslint",
+  -- "eslint",
   "emmet_language_server",
   "html",
   "jsonls",
