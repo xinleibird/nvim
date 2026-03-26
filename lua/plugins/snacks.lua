@@ -75,20 +75,17 @@ local M = {
 
   config = function()
     local icons = require("configs.icons")
-    local home_dir = vim.fn.expand("$HOME")
-    local homebrew_repo = vim.fn.expand("$HOMEBREW_REPOSITORY")
-    local cache_dir = vim.fn.stdpath("cache")
-    local state_dir = vim.fn.stdpath("state")
     local function filter_rtp(rtp)
       local patterns = {
-        "^" .. "/" .. "$",
-        "^" .. "/private/",
-        "^" .. homebrew_repo,
-        "^" .. cache_dir,
-        "^" .. state_dir,
-        "^" .. home_dir .. "/.rustup",
-        "^" .. home_dir .. "/.notes",
-        "^" .. home_dir .. "/.ssh",
+        vim.fn.stdpath("data"),
+        vim.fn.stdpath("cache"),
+        vim.fn.stdpath("state"),
+        os.getenv("HOME") .. "/.rustup",
+        os.getenv("HOME") .. "/.notes",
+        os.getenv("HOME") .. "/.ssh",
+        os.getenv("HOMEBREW_REPOSITORY"),
+        "^/$",
+        "^/private/",
         "node_modules",
       }
       for _, pattern in ipairs(patterns) do

@@ -266,10 +266,14 @@ local M = {
     vim.api.nvim_create_autocmd("QuitPre", {
       group = vim.api.nvim_create_augroup("user_quit_nvim_make_sure_qwen_subprocess_terminated", { clear = true }),
       callback = function()
-        local codecompanion = require("codecompanion")
-        local chat = codecompanion.last_chat()
+        local chat = require("codecompanion.interactions.chat").last_chat()
         if chat then
           chat:close()
+        end
+
+        local cli_session = require("codecompanion.interactions.cli").last_cli()
+        if cli_session then
+          cli_session:close()
         end
       end,
     })

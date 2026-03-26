@@ -3,7 +3,6 @@
 local M = {
   "rcarriga/nvim-dap-ui",
   event = { "BufRead", "BufNewFile", "User SnacksDashboardClosed" },
-  lazy = true,
   dependencies = {
     {
       "mfussenegger/nvim-dap",
@@ -128,7 +127,7 @@ local M = {
         {
           elements = {
             { id = "repl", size = 0.5 },
-            -- { id = "console", size = 0.5 },
+            { id = "console", size = 0.5 },
           },
           size = 0.25,
           position = "top",
@@ -148,7 +147,6 @@ local M = {
       },
     }
   end,
-
   config = function(_, opts)
     require("dapui").setup(opts)
 
@@ -196,6 +194,25 @@ local M = {
     vim.keymap.set("n", "<C-S-D>", function()
       dapui.toggle({ reset = true })
     end, { desc = "Toggle DAP UI" })
+
+    vim.keymap.set("n", "<Esc>", function()
+      vim.cmd("noh")
+      vim.api.nvim_feedkeys("hl", "n", true)
+      if vim.diagnostic.config().virtual_lines then
+        vim.diagnostic.config({ virtual_lines = false })
+      end
+    end, { desc = "Clear highlights, Escape popup and virtual lines" })
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = { "dap-*", "dapui_*" },
+      callback = function()
+        vim.keymap.set("n", "q", function()
+          require("dapui").close()
+        end, { buffer = true, silent = true, nowait = true })
+        vim.keymap.set("n", "<leader>q", function()
+          require("dapui").close()
+        end, { buffer = true, silent = true, nowait = true })
+      end,
+    })
   end,
 }
 

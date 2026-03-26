@@ -29,26 +29,7 @@ vim.keymap.set({ "i", "s" }, "<Esc>", function() vim.snippet.stop() return "<Esc
 vim.keymap.set({ "i", "s" }, "<C-c>", function() vim.snippet.stop() return "<C-c>" end, { expr = true })
 
 -- quit window
-vim.keymap.set("n", "<leader>q", function()
-  if vim.bo.ft == "checkhealth" or vim.bo.ft == "snacks_dashboard" then
-    vim.cmd("q!")
-  elseif vim.bo.ft == "NeogitStatus" or vim.bo.ft == "help" or vim.bo.ft == "qf" then
-    vim.cmd("close")
-  elseif
-    vim.bo.ft == "dapui_scopes"
-    or vim.bo.ft == "dap-repl"
-    or vim.bo.ft == "dapui_console"
-    or vim.bo.ft == "dapui_watches"
-    or vim.bo.ft == "dapui_stacks"
-    or vim.bo.ft == "dapui_breakpoints"
-  then
-    require("dapui").close()
-  elseif vim.bo.ft == "codecompanion" then
-    vim.cmd("CodeCompanionChat Toggle")
-  else
-    vim.cmd("confirm q")
-  end
-end, { desc = "Quit" })
+vim.keymap.set("n", "<leader>q", function() vim.cmd("confirm q") end, { desc = "Quit" })
 
 -- easy paste
 local current_os = require("utils").detect_os()
@@ -79,34 +60,3 @@ vim.keymap.set("v", ">", ">gv", { desc = "Indent line forward" })
 vim.keymap.set("n", "<C-q>", function() require("utils").quickfix_toggle() end, { desc = "Toggle quickfix window" })
 vim.keymap.set("n", "<C-`>", function() require("utils").loclist_toggle() end, { desc = "Toggle loclist window" })
 -- stylua: ignore end
-
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = {
-    "dap*",
-    "qf",
-    "help",
-    "checkhealth",
-    "mason",
-  },
-  group = vim.api.nvim_create_augroup("user_buf_quit_q_hotkey", { clear = true }),
-  callback = function(event)
-    local ft = vim.bo[event.buf].filetype
-    local opts = { buffer = event.buf, silent = true, nowait = true }
-
-    if ft == "qf" then
-      vim.keymap.set("n", "q", "<cmd>close!<CR>", opts)
-      vim.keymap.set("n", "<Esc>", "<cmd>close!<CR>", opts)
-    elseif ft == "help" then
-      vim.keymap.set("n", "q", "<cmd>close!<CR>", opts)
-    elseif ft == "checkhealth" then
-      vim.keymap.set("n", "q", "<cmd>bd<CR>", opts)
-      vim.keymap.set("n", "<C-w>q", "<cmd>bd<CR>", opts)
-    elseif ft:match("^dap*") then
-      vim.keymap.set("n", "q", function()
-        require("dapui").close()
-      end, opts)
-    elseif ft == "mason" then
-      vim.keymap.set("n", "<Esc>", "<Nop>", opts)
-    end
-  end,
-})

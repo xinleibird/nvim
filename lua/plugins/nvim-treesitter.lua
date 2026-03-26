@@ -3,7 +3,7 @@
 local M = {
   "nvim-treesitter/nvim-treesitter",
   branch = "main",
-  event = { "BufRead", "BufNewFile", "User SnacksDashboardClosed" },
+  lazy = false,
   build = ":TSUpdate",
   dependencies = {
     "nvim-treesitter/nvim-treesitter-textobjects",

@@ -53,13 +53,14 @@ local M = {
     top = {
       {
         title = "DAP Repl",
-        ft = "dapui_repl",
+        ft = "dap-repl",
+        width = 0.5,
       },
-      -- {
-      --   title = "DAP Console",
-      --   ft = "dapui_console",
-      --   size = { height = 0.25 },
-      -- },
+      {
+        title = "DAP Console",
+        ft = "dapui_console",
+        width = 0.5,
+      },
     },
     bottom = {
       {
@@ -73,7 +74,7 @@ local M = {
     options = {
       left = { size = 28 },
       right = { size = 0.5 },
-      top = { size = 0.25 },
+      top = { size = 0.23 },
       bottom = { size = 0.35 },
     },
     icons = {
