@@ -194,6 +194,7 @@ local M = {
           },
           buffers = { layout = { preset = "vertical" } },
           explorer = {
+            exclude = { "Syntax tree for *" },
             layout = { preset = "sidebar" },
             on_show = function(picker)
               local show = false

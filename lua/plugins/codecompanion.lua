@@ -294,21 +294,14 @@ local M = {
     })
 
     local request_status = {}
-    local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
-    local spinner_index = 1
-    vim.uv.new_timer():start(
-      80,
-      80,
-      vim.schedule_wrap(function()
-        spinner_index = (spinner_index % #spinner) + 1
-      end)
-    )
     vim.api.nvim_create_autocmd("User", {
       pattern = "CodeCompanionRequest*",
+      group = vim.api.nvim_create_augroup("user_codecompanion_progress_notify", { clear = true }),
       callback = function(request)
         local status = request.match
         local bufnr = request.buf
 
+        local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
         if status == "CodeCompanionRequestStarted" then
           local adapter = request.data and request.data.adapter or {}
           local adapter_name = adapter.formatted_name or adapter.name or "CodeCompanion"
@@ -318,7 +311,7 @@ local M = {
             title = "CodeCompanion",
             timeout = 0,
             opts = function(notif)
-              notif.icon = spinner[spinner_index]
+              notif.icon = spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
             end,
           })
           request_status[bufnr] = "started"

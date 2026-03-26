@@ -90,7 +90,6 @@ local M = {
         "DiffviewFiles",
         "checkhealth",
         "query",
-        "",
       }
       local cur_ft = vim.bo[bufnr].filetype
       local should_show = not vim.tbl_contains(exclude_ft, cur_ft)

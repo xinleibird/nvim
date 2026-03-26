@@ -196,6 +196,7 @@ local M = {
     end, { desc = "Toggle DAP UI" })
 
     vim.api.nvim_create_autocmd("FileType", {
+      group = vim.api.nvim_create_augroup("user_dapui_cancel_q_and_c_q", { clear = true }),
       pattern = { "dap-*", "dapui_*" },
       callback = function()
         vim.keymap.set("n", "q", function()

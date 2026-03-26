@@ -5,6 +5,7 @@ local M = {
   event = { "BufRead", "BufNewFile", "User SnacksDashboardClosed" },
   init = function()
     vim.api.nvim_create_autocmd("FileType", {
+      group = vim.api.nvim_create_augroup("nvim_mini_diff_notify", { clear = true }),
       pattern = "*",
       callback = function()
         local notify = function()

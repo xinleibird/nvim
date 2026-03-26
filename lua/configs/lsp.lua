@@ -37,7 +37,7 @@ vim.diagnostic.config({
     },
   },
   underline = true,
-  update_in_insert = false,
+  update_in_insert = true,
 })
 
 local function toggle_virtual_lines()
@@ -83,6 +83,7 @@ vim.keymap.set("n", "<leader>lr", ":LspRestart<CR>", { desc = "Restart LSP" })
 ---@type table<number, {token:lsp.ProgressToken, msg:string, done:boolean}[]>
 local progress = vim.defaulttable()
 vim.api.nvim_create_autocmd("LspProgress", {
+  group = vim.api.nvim_create_augroup("user_lsp_progress_notify", { clear = true }),
   ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
   callback = function(ev)
     local client = vim.lsp.get_client_by_id(ev.data.client_id)
@@ -128,7 +129,6 @@ vim.api.nvim_create_autocmd("LspProgress", {
 vim.lsp.enable({
   "bashls",
   "cssls",
-  -- "eslint",
   "emmet_language_server",
   "html",
   "jsonls",
