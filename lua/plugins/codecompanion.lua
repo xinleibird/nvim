@@ -240,8 +240,7 @@ local M = {
       },
     },
   },
-  config = function(_, opts)
-    require("codecompanion").setup(opts)
+  init = function()
     vim.api.nvim_create_autocmd("User", {
       pattern = "CodeCompanionChatCreated",
       group = vim.api.nvim_create_augroup("user_registering_codecompanion_callback", { clear = true }),
@@ -293,6 +292,66 @@ local M = {
         end)
       end,
     })
+
+    local request_status = {}
+    local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+    local spinner_index = 1
+    vim.uv.new_timer():start(
+      80,
+      80,
+      vim.schedule_wrap(function()
+        spinner_index = (spinner_index % #spinner) + 1
+      end)
+    )
+    vim.api.nvim_create_autocmd("User", {
+      pattern = "CodeCompanionRequest*",
+      callback = function(request)
+        local status = request.match
+        local bufnr = request.buf
+
+        if status == "CodeCompanionRequestStarted" then
+          local adapter = request.data and request.data.adapter or {}
+          local adapter_name = adapter.formatted_name or adapter.name or "CodeCompanion"
+          vim.notify(" AI Thinking..." .. ("**%s**"):format(adapter_name), vim.log.levels.WARN, {
+            id = "codecompanion_notif",
+            style = "compact",
+            title = "CodeCompanion",
+            timeout = 0,
+            opts = function(notif)
+              notif.icon = spinner[spinner_index]
+            end,
+          })
+          request_status[bufnr] = "started"
+        elseif status == "CodeCompanionRequestStopped" and request_status[bufnr] == "started" then
+          vim.notify(" AI Abort!", vim.log.levels.ERROR, {
+            id = "codecompanion_notif",
+            style = "compact",
+            icon = "",
+            title = "CodeCompanion",
+            timeout = 1500,
+            opts = function(notif)
+              notif.icon = ""
+            end,
+          })
+          request_status[bufnr] = "stopped"
+        elseif status == "CodeCompanionRequestFinished" and request_status[bufnr] ~= "stopped" then
+          vim.notify(" AI Done！", vim.log.levels.INFO, {
+            id = "codecompanion_notif",
+            style = "compact",
+            icon = "",
+            title = "CodeCompanion",
+            timeout = 1500,
+            opts = function(notif)
+              notif.icon = ""
+            end,
+          })
+          request_status[bufnr] = "finished"
+        end
+      end,
+    })
+  end,
+  config = function(_, opts)
+    require("codecompanion").setup(opts)
 
     vim.keymap.set({ "n" }, "<Leader>aa", function()
       vim.cmd("CodeCompanionChat Toggle")
@@ -361,55 +420,6 @@ local M = {
         require("codecompanion.interactions.cli").toggle()
       end
     end, { noremap = true, silent = true, desc = "CodeCompanion Toggle" })
-
-    local request_status = {}
-    vim.api.nvim_create_autocmd("User", {
-      pattern = "CodeCompanionRequest*",
-      callback = function(request)
-        local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
-        local status = request.match
-        local bufnr = request.buf
-
-        if status == "CodeCompanionRequestStarted" then
-          local adapter = request.data.adapter
-          local adapter_name = adapter.formatted_name or adapter.name or "CodeCompanion"
-          vim.notify(" AI Thinking..." .. ("**%s**"):format(adapter_name), vim.log.levels.WARN, {
-            id = "codecompanion_notif",
-            style = "compact",
-            title = "CodeCompanion",
-            timeout = 0,
-            opts = function(notif)
-              notif.icon = spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
-            end,
-          })
-          request_status[bufnr] = "started"
-        elseif status == "CodeCompanionRequestStopped" and request_status[bufnr] == "started" then
-          vim.notify(" AI Abort!", vim.log.levels.ERROR, {
-            id = "codecompanion_notif",
-            style = "compact",
-            icon = "",
-            title = "CodeCompanion",
-            timeout = 1500,
-            opts = function(notif)
-              notif.icon = ""
-            end,
-          })
-          request_status[bufnr] = "stopped"
-        elseif status == "CodeCompanionRequestFinished" and request_status[bufnr] ~= "stopped" then
-          vim.notify(" AI Done！", vim.log.levels.INFO, {
-            id = "codecompanion_notif",
-            style = "compact",
-            icon = "",
-            title = "CodeCompanion",
-            timeout = 1500,
-            opts = function(notif)
-              notif.icon = ""
-            end,
-          })
-          request_status[bufnr] = "finished"
-        end
-      end,
-    })
   end,
 }
 

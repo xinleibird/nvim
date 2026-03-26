@@ -14,3 +14,7 @@ if win_config.relative ~= "" then
   vim.keymap.set({ "n", "t", "i" }, "<C-j>", "", { silent = true, buffer = true })
   vim.keymap.set({ "n", "t", "i" }, "<C-k>", "", { silent = true, buffer = true })
 end
+
+vim.keymap.set("n", "<leader>q", function()
+  vim.cmd("close")
+end, { desc = "Quit", buffer = true, silent = true, nowait = true })
