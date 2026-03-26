@@ -244,6 +244,7 @@ local M = {
           LualineCodeCompanionActive = { bg = C.surface0, fg = C.red },
           LualineCodeCompanionInactive = { bg = C.surface0, fg = C.overlay0 },
 
+          -- Lualine Lsp
           LualineLspActive = { bg = C.surface0, fg = C.yellow },
           LualineLspInactive = { bg = C.surface0, fg = C.overlay0 },
 

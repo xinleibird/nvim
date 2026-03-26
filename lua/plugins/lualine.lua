@@ -153,8 +153,8 @@ local M = {
         on_click = function()
           local clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })
           if #clients == 0 then
-            vim.notify("✗ No LSP Clients", vim.log.levels.WARN, {
-              title = "LSP",
+            vim.notify("✗ ~LSP Clients~", vim.log.levels.WARN, {
+              title = "LSP Clients",
               icon = "󰮌",
               timeout = 3000,
               id = "lsp_lualine",
@@ -166,7 +166,7 @@ local M = {
             end
             local lsp_message = table.concat(client_names, "\n")
             vim.notify(lsp_message, vim.log.levels.INFO, {
-              title = "LSP",
+              title = "LSP Clients",
               icon = "󰇖",
               timeout = 3000,
               id = "lsp_lualine",
@@ -192,7 +192,7 @@ local M = {
             linters = lint._resolve_linter_by_ft(vim.bo.ft)
           end
           if #linters == 0 then
-            vim.notify("✗ No Linters", vim.log.levels.WARN, {
+            vim.notify("✗ ~Linters~", vim.log.levels.WARN, {
               title = "Linter",
               icon = "󰚃",
               timeout = 3000,
@@ -235,7 +235,7 @@ local M = {
             formatters = conform.list_formatters_for_buffer(0)
           end
           if #formatters == 0 then
-            vim.notify("✗ No Formatters", vim.log.levels.WARN, {
+            vim.notify("✗ ~Formatters~", vim.log.levels.WARN, {
               title = "Formatter",
               icon = "󱎝",
               timeout = 3000,
@@ -375,26 +375,66 @@ local M = {
             color.fg = "None"
           end
 
-          local palettes_ok, palettes = pcall(require, "catppuccin.palettes")
-          if not palettes_ok then
+          local ok, palettes = pcall(require, "catppuccin.palettes")
+          if ok then
+            local palette = palettes.get_palette()
+            local _, fg = devicons.get_icon_color(vim.fn.expand("%:t"), vim.fn.expand("%:e"), { default = false })
+            if fg == nil then
+              fg = palette.overlay0
+            end
+
+            color.fg = fg
+            color.bg = palette.surface0
+          else
             color.bg = "None"
           end
-
-          local palette = palettes.get_palette()
-          local _, fg = devicons.get_icon_color(vim.fn.expand("%:t"), vim.fn.expand("%:e"), { default = false })
-          if fg == nil then
-            fg = palette.overlay0
-          end
-
-          color.fg = fg
-          color.bg = palette.surface0
 
           return color
         end,
         padding = { left = 0, right = 0 },
         separator = { left = "", right = "" },
         on_click = function()
-          vim.notify(icons.ui.FileOutline .. " " .. vim.bo[0].filetype, vim.log.levels.INFO, {
+          local bufnr = vim.api.nvim_get_current_buf()
+          local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
+          local language = vim.treesitter.language.get_lang(filetype) or filetype
+
+          local parser = vim.treesitter.language.add(language)
+          local folds = vim.treesitter.query.get(language, "folds")
+          local indents = vim.treesitter.query.get(language, "indents")
+
+          local icon = ""
+          local ok, devicons = pcall(require, "nvim-web-devicons")
+          if ok then
+            icon = devicons.get_icon(vim.fn.expand("%:t"), vim.fn.expand("%:e"), { default = false })
+            icon = icon or ""
+          end
+
+          local ft = filetype == "" and " ~NO~" or " **" .. filetype .. "**"
+          local messages = {
+            "Filetype: ",
+            icon .. ft,
+            " ",
+            "Tree-sitter:",
+          }
+          if parser then
+            table.insert(messages, " **parser**")
+          else
+            table.insert(messages, "✗ ~parser~")
+          end
+          if folds then
+            table.insert(messages, " **folds**")
+          else
+            table.insert(messages, "✗ ~folds~")
+          end
+          if indents then
+            table.insert(messages, " **indents**")
+          else
+            table.insert(messages, "✗ ~indents~")
+          end
+
+          local message = table.concat(messages, "\n")
+
+          vim.notify(message, vim.log.levels.INFO, {
             title = "Filetype",
             timeout = 3000,
             id = "filetype_lualine",
