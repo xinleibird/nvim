@@ -8,6 +8,7 @@ local M = {
       -- exclude
       "!=snippets/",
       "!=deps/",
+      "!>node_modules",
 
       -- directories
       "client",
