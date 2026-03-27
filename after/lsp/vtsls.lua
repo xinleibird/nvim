@@ -11,6 +11,9 @@ local settings = {
       functionLikeReturnTypes = { enabled = true },
       enumMemberValues = { enabled = true },
     },
+    preferences = {
+      useAliasesForRenames = false,
+    },
   },
   typescript = {
     tsserver = {
@@ -25,6 +28,9 @@ local settings = {
       propertyDeclarationTypes = { enabled = true },
       functionLikeReturnTypes = { enabled = true },
       enumMemberValues = { enabled = true },
+    },
+    preferences = {
+      useAliasesForRenames = false,
     },
   },
 }
@@ -44,4 +50,30 @@ return {
     end,
   },
   settings = settings,
+  on_attach = function(client, bufnr)
+    client.commands["_typescript.didOrganizeImports"] = function() end
+
+    vim.api.nvim_buf_create_user_command(bufnr, "OrganizeImports", function()
+      vim.lsp.buf.code_action({
+        apply = true,
+        context = {
+          only = { "source.organizeImports" },
+          diagnostics = {},
+        },
+      })
+    end, { desc = "Organize imports" })
+
+    vim.api.nvim_buf_create_user_command(bufnr, "LspActions", function()
+      local source_actions = vim.tbl_filter(function(action)
+        return vim.startswith(action, "source.")
+      end, client.server_capabilities.codeActionProvider.codeActionKinds)
+
+      vim.lsp.buf.code_action({
+        context = {
+          only = source_actions,
+          diagnostics = {},
+        },
+      })
+    end, { desc = "Lsp Acctions from TypeScript" })
+  end,
 }
