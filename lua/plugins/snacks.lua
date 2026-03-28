@@ -128,6 +128,12 @@ local M = {
           debug = icons.ui.Bug,
           trace = icons.ui.Track,
         },
+        filter = function(notif)
+          if notif.msg:match("Syntax tree for") then
+            return false
+          end
+          return true
+        end,
       },
       win = { backdrop = 38 },
       picker = {
