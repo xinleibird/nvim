@@ -24,7 +24,7 @@ local M = {
       chat = {
         window = {
           opts = {
-            numberwidth = 4,
+            numberwidth = 6,
           },
           -- layout = vim.o.columns > 120 and "vertical" or "horizontal",
           -- position = vim.o.columns > 120 and "right" or "top",
