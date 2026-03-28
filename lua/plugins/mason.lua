@@ -36,23 +36,25 @@ local M = {
 
       -- web dev stuff
       "css-lsp",
-      "eslint-lsp",
       "html-lsp",
-      "htmlhint",
-      "prettier",
+      "vtsls",
+
+      "emmet-language-server",
       "svelte-language-server",
       "tailwindcss-language-server",
-      "typescript-language-server",
-      "vtsls",
       "vue-language-server",
-      "emmet-language-server",
 
-      -- browser debug
+      "eslint-lsp",
+      "htmlhint",
+      "oxlint",
+
+      "oxfmt",
+
       "js-debug-adapter",
 
       -- shell stuff
       "bash-language-server",
-      "shfmt",
+      "beautysh",
 
       -- rust stuff
       "rust-analyzer",
@@ -64,9 +66,6 @@ local M = {
       -- json / yaml
       "json-lsp",
       "yaml-language-server",
-
-      -- toml
-      "taplo",
 
       -- markdown
       "marksman",

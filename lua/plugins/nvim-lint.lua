@@ -6,14 +6,6 @@ local M = {
   config = function()
     require("lint").linters_by_ft = {
       html = { "htmlhint" },
-      javascript = { "eslint" },
-      javascriptreact = { "eslint" },
-      typescript = { "eslint" },
-      typescriptreact = { "eslint" },
-      vue = { "eslint" },
-      svelte = { "eslint" },
-      astro = { "eslint" },
-      htmlangular = { "eslint" },
     }
     vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave", "CursorHold", "CursorHoldI" }, {
       group = vim.api.nvim_create_augroup("nvim-lint-group", { clear = true }),

@@ -191,6 +191,16 @@ local M = {
           if lint_ok then
             linters = lint._resolve_linter_by_ft(vim.bo.ft)
           end
+
+          local clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })
+          if #clients > 0 then
+            for _, client in ipairs(clients) do
+              if vim.tbl_contains({ "eslint", "oxlint" }, client.name) then
+                table.insert(linters, client.name)
+              end
+            end
+          end
+
           if #linters == 0 then
             vim.notify("✗ ~Linters~", vim.log.levels.WARN, {
               title = "Linter",
@@ -213,6 +223,14 @@ local M = {
           end
         end,
         color = function()
+          local clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })
+          if #clients > 0 then
+            for _, client in ipairs(clients) do
+              if vim.tbl_contains({ "eslint", "oxlint" }, client.name) then
+                return "LualineLspActive"
+              end
+            end
+          end
           local ok, lint = pcall(require, "lint")
           if ok then
             local linters = lint._resolve_linter_by_ft(vim.bo.ft)

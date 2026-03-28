@@ -33,35 +33,38 @@ local M = {
             end)
           end,
         },
+        beautysh = {
+          append_args = { "-i", "2" },
+        },
       },
       formatters_by_ft = {
         lua = { "stylua" },
 
-        javascript = { "prettier" },
-        javascriptreact = { "prettier" },
-        typescript = { "prettier" },
-        typescriptreact = { "prettier" },
+        bash = { "beautysh" },
+        sh = { "beautysh" },
+        zsh = { "beautysh" },
 
-        vue = { "prettier" },
+        css = { "oxfmt" },
+        scss = { "oxfmt" },
+        less = { "oxfmt" },
 
-        html = { "prettier" },
+        html = { "oxfmt" },
 
-        css = { "prettier" },
-        scss = { "prettier" },
-        less = { "prettier" },
+        javascript = { "oxfmt" },
+        javascriptreact = { "oxfmt" },
+        typescript = { "oxfmt" },
+        typescriptreact = { "oxfmt" },
+        vue = { "oxfmt" },
 
-        markdown = { "prettier" },
+        json = { "oxfmt" },
+        jsonc = { "oxfmt" },
+        json5 = { "oxfmt" },
+        toml = { "oxfmt" },
+        yaml = { "oxfmt" },
 
-        json = { "prettier" },
-        jsonc = { "prettier" },
+        graphql = { "oxfmt" },
 
-        bash = { "shfmt" },
-        sh = { "shfmt" },
-        zsh = { "shfmt" },
-
-        toml = { "taplo" },
-
-        yaml = { "prettier" },
+        markdown = { "oxfmt" },
 
         ["_"] = { "auto_indent" },
 
@@ -70,8 +73,8 @@ local M = {
         -- ["_"] = { "trim_whitespace" },
       },
 
-      format_on_save = function()
-        if vim.b.disable_autoformat then -- for bigfile disable autoformat
+      format_on_save = function(bufnr)
+        if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
           return
         end
         return {
