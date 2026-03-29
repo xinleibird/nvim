@@ -26,7 +26,27 @@ local M = {
       disabled_filetypes = { "snacks_picker_input" },
       -- see the defaults:
       -- https://github.com/Saghen/blink.pairs/blob/main/lua/blink/pairs/config/mappings.lua#L14
+
       pairs = {
+        [">"] = {
+          {
+            "<",
+            when = function(ctx)
+              return ctx:text_before_cursor():match("<.*>") and ctx:text_after_cursor():match("</.*>")
+            end,
+            enter = true,
+            languages = {
+              "html",
+              "javascript",
+              "javascriptreact",
+              "typescript",
+              "typescriptreact",
+              "vue",
+              "svelte",
+              "astro",
+            },
+          },
+        },
         ["`"] = {
           {
             "```",
@@ -52,6 +72,9 @@ local M = {
           { "`", enter = false, space = false },
         },
       },
+
+      -- pairs = {
+      -- },
     },
     highlights = {
       enabled = true,
