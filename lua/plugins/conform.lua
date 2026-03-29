@@ -41,30 +41,24 @@ local M = {
         lua = { "stylua" },
 
         bash = { "beautysh" },
-        sh = { "beautysh" },
-        zsh = { "beautysh" },
-
         css = { "oxfmt" },
-        scss = { "oxfmt" },
-        less = { "oxfmt" },
-
+        graphql = { "oxfmt" },
         html = { "oxfmt" },
-
         javascript = { "oxfmt" },
         javascriptreact = { "oxfmt" },
+        json = { "oxfmt" },
+        json5 = { "oxfmt" },
+        jsonc = { "oxfmt" },
+        less = { "oxfmt" },
+        markdown = { "oxfmt" },
+        scss = { "oxfmt" },
+        sh = { "beautysh" },
+        toml = { "oxfmt" },
         typescript = { "oxfmt" },
         typescriptreact = { "oxfmt" },
         vue = { "oxfmt" },
-
-        json = { "oxfmt" },
-        jsonc = { "oxfmt" },
-        json5 = { "oxfmt" },
-        toml = { "oxfmt" },
         yaml = { "oxfmt" },
-
-        graphql = { "oxfmt" },
-
-        markdown = { "oxfmt" },
+        zsh = { "beautysh" },
 
         ["_"] = { "auto_indent" },
 
