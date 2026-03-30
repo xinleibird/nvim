@@ -286,6 +286,16 @@ local M = {
           LspKindFolder = { fg = C.blue },
           LspKindUnit = { fg = C.green },
           LspKindValue = { fg = C.peach },
+
+          ModesCopy = { bg = C.peach },
+          ModesDelete = { bg = C.red },
+          ModesChagee = { bg = C.red },
+          ModesFormat = { bg = C.yellow },
+          ModesInsert = { bg = C.blue },
+          ModesReplace = { bg = C.red },
+          ModesSelect = { bg = C.red },
+          ModesVisual = { bg = C.pink },
+          Cursor = { bg = C.yellow },
         }
       end,
       default_integrations = false,
