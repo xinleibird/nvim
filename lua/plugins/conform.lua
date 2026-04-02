@@ -3,6 +3,23 @@
 local M = {
   "stevearc/conform.nvim",
   event = { "BufRead", "BufNewFile", "User SnacksDashboardClosed" },
+  dependencies = {
+    "j-hui/fidget.nvim",
+    opts = {
+      progress = {
+        display = {
+          done_ttl = 2, -- How long a message should persist after completion
+          done_icon = require("configs.icons").ui.CheckBold, -- Icon shown when all LSP progress tasks are complete
+          progress_icon = { pattern = "circle_halves", period = 1 },
+        },
+      },
+      notification = {
+        window = {
+          winblend = 100,
+        },
+      },
+    },
+  },
   config = function()
     require("conform").setup({
       formatters = {
