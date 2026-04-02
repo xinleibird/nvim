@@ -6,7 +6,7 @@ local M = {
   opts = {
     right = {
       {
-        title = "  CodeCompanion Chat 💬",
+        title = "    CodeCompanion Chat 💬",
         ft = "codecompanion",
         filter = function(_, win)
           return vim.api.nvim_win_get_config(win).relative == ""
@@ -14,7 +14,7 @@ local M = {
         -- pinned = true,
       },
       {
-        title = "  CodeCompanion CLI  🤖",
+        title = "    CodeCompanion CLI  🤖",
         ft = "codecompanion_cli",
         -- pinned = true,
       },

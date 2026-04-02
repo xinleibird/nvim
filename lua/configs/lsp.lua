@@ -37,7 +37,7 @@ vim.diagnostic.config({
     },
   },
   underline = true,
-  update_in_insert = true,
+  update_in_insert = false,
 })
 
 local function toggle_virtual_lines()
@@ -139,6 +139,7 @@ vim.lsp.enable({
   "rust_analyzer",
   "svelte",
   "tailwindcss",
+  -- "ts_ls",
   "vimls",
   "vtsls",
   "vue_ls",

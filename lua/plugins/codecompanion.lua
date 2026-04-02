@@ -8,6 +8,11 @@ local M = {
     "nvim-treesitter/nvim-treesitter",
   },
   opts = {
+    opts = {
+      -- show_defaults = false,
+      log_level = "ERROR", -- TRACE|DEBUG|ERROR|INFO
+      language = "Chinese",
+    },
     display = {
       action_palette = {
         width = 95,
@@ -38,12 +43,6 @@ local M = {
           vim.fn.stdpath("config") .. "/prompts",
         },
       },
-    },
-    ignore_warnings = true,
-    opts = {
-      -- show_defaults = false,
-      log_level = "ERROR", -- TRACE|DEBUG|ERROR|INFO
-      language = "Chinese",
     },
     adapters = {
       acp = {
@@ -192,16 +191,17 @@ local M = {
 
     local request_status = {}
     vim.api.nvim_create_autocmd("User", {
-      pattern = "CodeCompanionRequest*",
+      pattern = "CodeCompanion*",
       group = vim.api.nvim_create_augroup("user_codecompanion_progress_notify", { clear = true }),
       callback = function(request)
         local status = request.match
         local bufnr = request.buf
 
         local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+        local adapter = request.data and request.data.adapter or {}
+        local adapter_name = adapter.formatted_name or adapter.name or "CodeCompanion"
+
         if status == "CodeCompanionRequestStarted" then
-          local adapter = request.data and request.data.adapter or {}
-          local adapter_name = adapter.formatted_name or adapter.name or "CodeCompanion"
           vim.notify(" AI Thinking..." .. ("**%s**"):format(adapter_name), vim.log.levels.WARN, {
             id = "codecompanion_notif",
             style = "compact",
@@ -212,16 +212,31 @@ local M = {
             end,
           })
           request_status[bufnr] = "started"
-        elseif status == "CodeCompanionRequestStopped" and request_status[bufnr] == "started" then
+        elseif status == "CodeCompanionToolApprovalRequested" and request_status[bufnr] == "started" then
+          vim.notify(" Your Choice?", vim.log.levels.INFO, {
+            id = "codecompanion_notif",
+            style = "compact",
+            icon = "",
+            title = "CodeCompanion",
+            timeout = 0,
+          })
+        elseif status == "CodeCompanionToolApprovalFinished" and request_status[bufnr] == "started" then
+          vim.notify(" AI Thinking..." .. ("**%s**"):format(adapter_name), vim.log.levels.WARN, {
+            id = "codecompanion_notif",
+            style = "compact",
+            title = "CodeCompanion",
+            timeout = 0,
+            opts = function(notif)
+              notif.icon = spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
+            end,
+          })
+        elseif status == "CodeCompanionChatStopped" and request_status[bufnr] == "started" then
           vim.notify(" AI Abort!", vim.log.levels.ERROR, {
             id = "codecompanion_notif",
             style = "compact",
-            icon = "",
+            icon = "󱈸",
             title = "CodeCompanion",
             timeout = 1500,
-            opts = function(notif)
-              notif.icon = ""
-            end,
           })
           request_status[bufnr] = "stopped"
         elseif status == "CodeCompanionRequestFinished" and request_status[bufnr] ~= "stopped" then
@@ -231,9 +246,6 @@ local M = {
             icon = "",
             title = "CodeCompanion",
             timeout = 1500,
-            opts = function(notif)
-              notif.icon = ""
-            end,
           })
           request_status[bufnr] = "finished"
         end

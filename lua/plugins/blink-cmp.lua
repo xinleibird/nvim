@@ -111,31 +111,11 @@ local M = {
           },
         },
         lsp = {
-          fallbacks = {},
           transform_items = function(_, items)
-            local filetype = vim.bo.filetype
-            local should_emmet_show = true
-            if filetype == "javascriptreact" or filetype == "typescriptreact" then
-              should_emmet_show = (function()
-                local node = vim.treesitter.get_node()
-                while node do
-                  local type = node:type()
-                  if type == "jsx_element" or type == "jsx_self_closing_element" or type == "jsx_fragment" then
-                    return true
-                  end
-                  if type == "jsx_expression" then
-                    return false
-                  end
-                  node = node:parent()
-                end
-                return false
-              end)()
-            end
-
             return vim.tbl_filter(function(item)
               if item.client_name == "emmet_language_server" then
                 item.kind_icon = "󰯙"
-                return should_emmet_show
+                item.score_offset = item.score_offset - 5
               end
 
               if item.client_name == "typescript-tools" then

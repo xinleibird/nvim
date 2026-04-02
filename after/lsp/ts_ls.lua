@@ -1,5 +1,5 @@
 local settings = {
-  javascript = {
+  typescript = {
     inlayHints = {
       includeInlayParameterNameHints = "all",
       includeInlayParameterNameHintsWhenArgumentMatchesName = true,
@@ -10,11 +10,10 @@ local settings = {
       includeInlayFunctionLikeReturnTypeHints = true,
       includeInlayEnumMemberValueHints = true,
     },
-  },
-  typescript = {
     tsserver = {
       experimental = {
         enableProjectDiagnostics = true,
+        useTsgo = true,
       },
     },
   },

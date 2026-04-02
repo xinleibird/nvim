@@ -37,6 +37,7 @@ local M = {
       -- web dev stuff
       "css-lsp",
       "html-lsp",
+      "typescript-language-server",
       "vtsls",
 
       "emmet-language-server",

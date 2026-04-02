@@ -9,6 +9,7 @@ local M = {
       "!=snippets/",
       "!=deps/",
       "!>node_modules",
+      "!^node_modules",
 
       -- directories
       "client",

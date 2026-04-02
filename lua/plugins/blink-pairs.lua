@@ -32,9 +32,19 @@ local M = {
           {
             "<",
             when = function(ctx)
-              return ctx:text_before_cursor():match("<.*>") and ctx:text_after_cursor():match("</.*>")
+              -- return ctx:text_before_cursor():match("<.*>%s*$") and ctx:text_after_cursor():match("^%s*</.*>")
+              -- return ctx:text_before_cursor():match("<[^>]+>%s*$") and ctx:text_after_cursor():match("^%s*</[^>]+>")
+              local text_before = ctx:text_before_cursor()
+              local text_after = ctx:text_after_cursor()
+              local open_tag = text_before:match("<([%w%-]+)%s*[^/]*>%s*$")
+              if not open_tag then
+                return false
+              end
+
+              return text_after:match("^%s*</" .. open_tag .. ">")
             end,
             enter = true,
+            space = true,
             languages = {
               "html",
               "javascript",

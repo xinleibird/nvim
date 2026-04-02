@@ -185,6 +185,8 @@ local M = {
             fg = colors.vary_color({ latte = colors.lighten(C.text, 0.1, C.base) }, colors.darken(C.text, 0.1, C.base)),
           },
 
+          SnacksPickerPrompt = { bg = C.mantle, fg = C.text },
+
           -- Edgy
           EdgyNormal = { bg = C.base },
 
@@ -289,9 +291,9 @@ local M = {
 
           ModesCopy = { bg = C.peach },
           ModesDelete = { bg = C.red },
-          ModesChagee = { bg = C.red },
+          ModesChange = { bg = C.red },
           ModesFormat = { bg = C.yellow },
-          ModesInsert = { bg = C.blue },
+          ModesInsert = { bg = C.green },
           ModesReplace = { bg = C.red },
           ModesSelect = { bg = C.red },
           ModesVisual = { bg = C.pink },

@@ -40,9 +40,17 @@ return {
   handlers = {
     ["textDocument/publishDiagnostics"] = function(err, result, ctx)
       if result and result.diagnostics then
-        for _, diagnostic in ipairs(result.diagnostics) do
-          if diagnostic.code == 6133 then
-            diagnostic.severity = 4
+        -- for _, diagnostic in ipairs(result.diagnostics) do
+        --   if diagnostic.code == 6133 then
+        --     diagnostic.severity = 4
+        --   end
+        -- end
+        local idx = 1
+        while idx <= #result.diagnostics do
+          if string.find(result.uri, "node_modules") then
+            table.remove(result.diagnostics, idx)
+          else
+            idx = idx + 1
           end
         end
       end
