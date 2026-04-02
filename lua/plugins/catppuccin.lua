@@ -32,7 +32,7 @@ local M = {
       compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
       transparent_background = false,
       float = {
-        transparent = false, -- enable transparent floating windows
+        transparent = true, -- enable transparent floating windows
         solid = false, -- use solid styling for floating windows, see |winborder|
       },
       show_end_of_buffer = false, -- show the '~' characters after the end of buffers
@@ -316,6 +316,7 @@ local M = {
         blink_pairs = true,
         dap = true,
         dap_ui = true,
+        fidget = true,
         flash = true,
         fzf = true,
         mason = true,
@@ -330,6 +331,7 @@ local M = {
           indent_scope_color = "surface2",
         },
         render_markdown = true,
+        ufo = true,
         which_key = true,
       },
     })

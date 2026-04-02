@@ -109,11 +109,6 @@ local M = {
               n = "<C-s>",
               i = "<C-s>",
             },
-            callback = function(chat)
-              vim.cmd("stopinsert")
-              vim.api.nvim_command("normal! G")
-              chat:submit()
-            end,
             description = "[Request] Send response",
           },
           stop = {

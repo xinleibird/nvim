@@ -2,7 +2,7 @@
 ---@type LazySpec
 local M = {
   "mvllow/modes.nvim",
-  event = { "BufRead", "BufNewFile", "User SnacksDashboardflavourlosed" },
+  event = { "BufRead", "BufNewFile", "User SnacksDashboardClosed" },
   opts = function()
     return {
       line_opacity = 0.15,

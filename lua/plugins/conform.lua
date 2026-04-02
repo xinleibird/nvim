@@ -67,39 +67,28 @@ local M = {
         -- ["_"] = { "trim_whitespace" },
       },
 
-      format_on_save = function(bufnr)
-        if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+      format_on_save = function()
+        if vim.b.disable_autoformat then -- for bigfile disable autoformat
           return
         end
         return {
           timeout_ms = 500,
           lsp_fallback = true,
-        }
+          ---@diagnostic disable-next-line: redundant-return-value
+        }, function(err)
+          if not err then
+            require("fidget.notification").notify("Formatting", vim.log.levels.INFO, {
+              annote = "Finished!",
+              ttl = 1,
+            })
+          end
+        end
       end,
 
       format_after_save = function()
         return {
           lsp_fallback = true,
-        }, function()
-          local formatters = require("conform").list_formatters(0)
-          if #formatters == 0 then
-            return
-          end
-          local formatter_names = ""
-          for _, formatter in ipairs(formatters) do
-            formatter_names = #formatter_names == 0 and formatter.name or formatter_names .. " " .. formatter.name
-          end
-
-          vim.notify("󰃢 Formatted by: " .. "**" .. formatter_names .. "**", vim.log.levels.INFO, {
-            id = "conform_notify",
-            title = "conform.nvim",
-            style = "compact",
-            timeout = 1000,
-            opts = function(notif)
-              notif.icon = ""
-            end,
-          })
-        end
+        }, function() end
       end,
     })
   end,
