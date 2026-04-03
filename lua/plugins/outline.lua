@@ -13,6 +13,11 @@ local M = {
         focus_on_open = false,
         jump_highlight_duration = false,
       },
+      providers = {
+        markdown = {
+          filetypes = { "markdown", "codecompanion" },
+        },
+      },
       symbols = {
         icons = {
           File = { icon = icons.File, hl = "LspKindFile" },

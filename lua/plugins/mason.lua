@@ -55,7 +55,7 @@ local M = {
 
       -- shell stuff
       "bash-language-server",
-      "beautysh",
+      "shfmt",
 
       -- rust stuff
       "rust-analyzer",

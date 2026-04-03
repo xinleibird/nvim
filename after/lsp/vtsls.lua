@@ -45,14 +45,9 @@ return {
         --     diagnostic.severity = 4
         --   end
         -- end
-        local idx = 1
-        while idx <= #result.diagnostics do
-          if string.find(result.uri, "node_modules") then
-            table.remove(result.diagnostics, idx)
-          else
-            idx = idx + 1
-          end
-        end
+        result.diagnostics = vim.tbl_filter(function()
+          return not string.find(result.uri, "node_modules")
+        end, result.diagnostics)
       end
       vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx)
     end,

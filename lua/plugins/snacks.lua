@@ -129,7 +129,7 @@ local M = {
           trace = icons.ui.Track,
         },
         filter = function(notif)
-          if notif.msg:match("Syntax tree for") then
+          if notif.msg:match("ENOENT: no such file or directory") then
             return false
           end
           return true

@@ -50,14 +50,14 @@ local M = {
             end)
           end,
         },
-        beautysh = {
-          append_args = { "-i", "2" },
-        },
       },
       formatters_by_ft = {
         lua = { "stylua" },
 
-        bash = { "beautysh" },
+        bash = { "shfmt" },
+        sh = { "shfmt" },
+        zsh = { "shfmt" },
+
         css = { "oxfmt" },
         graphql = { "oxfmt" },
         html = { "oxfmt" },
@@ -69,13 +69,11 @@ local M = {
         less = { "oxfmt" },
         markdown = { "oxfmt" },
         scss = { "oxfmt" },
-        sh = { "beautysh" },
         toml = { "oxfmt" },
         typescript = { "oxfmt" },
         typescriptreact = { "oxfmt" },
         vue = { "oxfmt" },
         yaml = { "oxfmt" },
-        zsh = { "beautysh" },
 
         ["_"] = { "auto_indent" },
 
