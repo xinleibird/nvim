@@ -21,6 +21,8 @@ opts:
 [optional footer(s)]
 ```
 
+- 但是要注意，不需要给出类似于 `git commit -m "xxxx"` 这样的 commit 命令。我只需要将你提供的 commit 内容手动填入 lazygit。
+
 ## user
 
 请根据下方列出的 git diff 内容：
