@@ -207,25 +207,8 @@ local M = {
             end,
           })
           request_status[bufnr] = "started"
-        elseif status == "CodeCompanionToolApprovalRequested" and request_status[bufnr] == "started" then
-          vim.notify(" Your Choice?", vim.log.levels.INFO, {
-            id = "codecompanion_notif",
-            style = "compact",
-            icon = "",
-            title = "CodeCompanion",
-            timeout = 0,
-          })
-        elseif status == "CodeCompanionToolApprovalFinished" and request_status[bufnr] == "started" then
-          vim.notify(" AI Thinking..." .. ("**%s**"):format(adapter_name), vim.log.levels.WARN, {
-            id = "codecompanion_notif",
-            style = "compact",
-            title = "CodeCompanion",
-            timeout = 0,
-            opts = function(notif)
-              notif.icon = spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
-            end,
-          })
-        elseif status == "CodeCompanionChatStopped" and request_status[bufnr] == "started" then
+        end
+        if status == "CodeCompanionChatStopped" and request_status[bufnr] == "started" then
           vim.notify(" AI Abort!", vim.log.levels.ERROR, {
             id = "codecompanion_notif",
             style = "compact",
@@ -234,7 +217,8 @@ local M = {
             timeout = 1500,
           })
           request_status[bufnr] = "stopped"
-        elseif status == "CodeCompanionRequestFinished" and request_status[bufnr] ~= "stopped" then
+        end
+        if status == "CodeCompanionRequestFinished" and request_status[bufnr] ~= "stopped" then
           vim.notify(" AI Done！", vim.log.levels.INFO, {
             id = "codecompanion_notif",
             style = "compact",
@@ -243,6 +227,25 @@ local M = {
             timeout = 1500,
           })
           request_status[bufnr] = "finished"
+        end
+
+        if status == "CodeCompanionToolApprovalRequested" then
+          vim.notify(" Your Choice?", vim.log.levels.WARN, {
+            id = "codecompanion_choice",
+            style = "compact",
+            icon = "",
+            title = "CodeCompanion",
+            timeout = 0,
+          })
+        end
+        if status == "CodeCompanionToolApprovalFinished" then
+          vim.notify(" OK!", vim.log.levels.INFO, {
+            id = "codecompanion_choice",
+            style = "compact",
+            title = "CodeCompanion",
+            icon = "",
+            timeout = 1500,
+          })
         end
       end,
     })

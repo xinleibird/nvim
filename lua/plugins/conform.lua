@@ -22,6 +22,8 @@ local M = {
   },
   config = function()
     require("conform").setup({
+      notify_no_formatters = true,
+      notify_on_error = false,
       formatters = {
         auto_indent = {
           format = function(_, ctx, lines, callback)
@@ -75,35 +77,35 @@ local M = {
         vue = { "oxfmt" },
         yaml = { "oxfmt" },
 
-        ["_"] = { "auto_indent" },
+        conf = { "auto_indent" },
+        vim = { "auto_indent" },
 
         -- Use the "_" filetype to run formatters on filetypes that don't
         -- have other formatters configured.
         -- ["_"] = { "trim_whitespace" },
       },
 
-      format_on_save = function()
+      format_on_save = function(bufnr)
         if vim.b.disable_autoformat then -- for bigfile disable autoformat
           return
         end
         return {
           timeout_ms = 500,
-          lsp_fallback = true,
           ---@diagnostic disable-next-line: redundant-return-value
         }, function(err)
-          if not err then
-            require("fidget.notification").notify("Formatting", vim.log.levels.INFO, {
+          local formatters = require("conform").list_formatters_for_buffer(bufnr) or {}
+          if err then
+            require("fidget.notification").notify(err, vim.log.levels.ERROR, {
+              annote = "Error!",
+              ttl = 1,
+            })
+          else
+            require("fidget.notification").notify(table.concat(formatters, ","), vim.log.levels.INFO, {
               annote = "Finished!",
               ttl = 1,
             })
           end
         end
-      end,
-
-      format_after_save = function()
-        return {
-          lsp_fallback = true,
-        }, function() end
       end,
     })
   end,

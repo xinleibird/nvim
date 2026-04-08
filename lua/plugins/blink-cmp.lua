@@ -261,7 +261,7 @@ local M = {
       },
     },
     signature = {
-      enabled = true,
+      enabled = false,
       trigger = {
         enabled = true,
         show_on_keyword = true,

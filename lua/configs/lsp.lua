@@ -94,6 +94,7 @@ vim.lsp.enable({
   "rust_analyzer",
   "svelte",
   "tailwindcss",
+  -- "tsgo",
   -- "ts_ls",
   "vimls",
   "vtsls",
