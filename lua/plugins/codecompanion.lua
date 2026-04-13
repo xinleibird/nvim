@@ -230,7 +230,7 @@ local M = {
         end
 
         if status == "CodeCompanionToolApprovalRequested" then
-          vim.notify(" Your Choice?", vim.log.levels.WARN, {
+          vim.notify(" Your Choice?", vim.log.levels.ERROR, {
             id = "codecompanion_choice",
             style = "compact",
             icon = "",
