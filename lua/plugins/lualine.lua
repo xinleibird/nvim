@@ -73,40 +73,6 @@ local M = {
         color = { gui = "" },
       },
 
-      filename = {
-        "filename",
-        fmt = function(filename)
-          if filename:find("filesystem") then
-            filename = "NeoTree"
-          end
-
-          if filename:match("OUTLINE_") then
-            filename = "Outline"
-          end
-
-          if filename:match("#toggleterm#") then
-            filename = "ToggleTerm"
-          end
-
-          local modified = vim.bo[get_statusline_bufnr()].modified
-          local modifiable = vim.bo[get_statusline_bufnr()].modifiable
-
-          if not modifiable then
-            return icons.ui.Lock .. " " .. filename
-          end
-
-          if modified then
-            return icons.ui.FileOutline .. " " .. filename .. icons.ui.Modified
-          end
-
-          return icons.ui.FileOutline .. " " .. filename .. " "
-        end,
-        separator = { left = "", right = "" },
-        padding = { left = 0, right = 0 },
-        color = { gui = "italic" },
-        file_status = false,
-      },
-
       branch = {
         "branch",
         icon = icons.ui.Branch,
@@ -376,15 +342,10 @@ local M = {
 
       filetype = {
         function()
-          local devicons_ok, devicons = pcall(require, "nvim-web-devicons")
-          if not devicons_ok then
-            return ""
-          end
-          local icon = devicons.get_icon(vim.fn.expand("%:t"), vim.fn.expand("%:e"), { default = false })
-          if icon == nil then
-            icon = ""
-          end
-          return icon
+          local bufnr = vim.api.nvim_get_current_buf()
+          local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
+          local icon = require("nvim-web-devicons").get_icon_by_filetype(filetype, { default = false })
+          return icon or ""
         end,
         color = function()
           local color = {}
