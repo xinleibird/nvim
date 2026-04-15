@@ -303,9 +303,9 @@ local M = {
       default_integrations = false,
       integrations = {
         barbecue = {
-          dim_dirname = true, -- directory name is dimmed by default
+          dim_dirname = false, -- directory name is dimmed by default
           bold_basename = true,
-          dim_context = false,
+          dim_context = true,
           alt_background = false,
         },
         blink_cmp = {

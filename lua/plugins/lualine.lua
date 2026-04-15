@@ -357,7 +357,9 @@ local M = {
           local ok, palettes = pcall(require, "catppuccin.palettes")
           if ok then
             local palette = palettes.get_palette()
-            local _, fg = devicons.get_icon_color(vim.fn.expand("%:t"), vim.fn.expand("%:e"), { default = false })
+            local bufnr = vim.api.nvim_get_current_buf()
+            local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
+            local _, fg = devicons.get_icon_color_by_filetype(filetype, { default = false })
             if fg == nil then
               fg = palette.overlay0
             end

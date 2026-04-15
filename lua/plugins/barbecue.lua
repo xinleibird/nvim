@@ -11,6 +11,8 @@ local M = {
   config = function()
     require("barbecue").setup({
       create_autocmd = false,
+      show_dirname = true,
+      show_basename = false,
 
       theme = {
         -- these highlights are used for context/navic icons
@@ -48,11 +50,6 @@ local M = {
         separator = { link = "LspKindFolder" },
         modified = { link = "LspKindFolder" },
         diagnostics = { fg = "#ff0000" },
-
-        -- these highlights represent the _text_ of three main parts of barbecue
-        dirname = { link = "LspKindFolder" },
-        basename = { bold = true },
-        context = {},
       },
 
       symbols = {
