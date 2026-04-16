@@ -49,34 +49,19 @@ local M = {
         opts = {
           show_presets = false,
         },
-        gemini_cli = "gemini_cli",
-        qwen_code = function()
+        opencode = "opencode",
+        gemini_cli = function()
           return require("codecompanion.adapters").extend("gemini_cli", {
-            name = "qwen_code",
-            formatted_name = "Qwen Code",
             commands = {
               default = {
-                "qwen",
+                "gemini",
                 "--acp",
-                "--web-search-default=google",
               },
               yolo = {
-                "qwen",
+                "gemini",
                 "--yolo",
                 "--acp",
-                "--web-search-default=google",
               },
-            },
-            defaults = {
-              auth_method = "qwen-oauth",
-              oauth_credentials_path = vim.fs.abspath("~/.qwen/oauth_creds.json"),
-            },
-            handlers = {
-              -- do not auth again if oauth_credentials is already exists
-              auth = function(self)
-                local oauth_credentials_path = self.defaults.oauth_credentials_path
-                return (oauth_credentials_path and vim.fn.filereadable(oauth_credentials_path)) == 1
-              end,
             },
           })
         end,
@@ -89,20 +74,17 @@ local M = {
     },
     interactions = {
       cli = {
-        agent = "qwen_code",
+        agent = "opencode",
         agents = {
-          qwen_code = {
-            cmd = "qwen",
-            args = {
-              "--web-search-default=google",
-            },
-            description = "Qwen Code",
+          opencode = {
+            cmd = "opencode",
+            description = "OpenCode",
             provider = "terminal",
           },
         },
       },
       chat = {
-        adapter = "qwen_code",
+        adapter = "opencode",
         keymaps = {
           send = {
             modes = {
@@ -148,42 +130,6 @@ local M = {
     },
   },
   init = function()
-    vim.api.nvim_create_autocmd("User", {
-      pattern = "CodeCompanionChatCreated",
-      group = vim.api.nvim_create_augroup("user_registering_codecompanion_callback", { clear = true }),
-      callback = function(args)
-        local chat = require("codecompanion").buf_get_chat(args.data.bufnr)
-        if chat.adapter.type == "acp" and chat.adapter.formatted_name == "Qwen Code" then
-          chat:add_callback("on_closed", function()
-            local nvim_pid = vim.fn.getpid()
-            local sub_pids = vim.fn.systemlist('pgrep -f "^/.*qwen.*--acp"')
-            for _, sub_pid in pairs(sub_pids) do
-              local ancestors = require("utils").get_ancestors(sub_pid)
-              local is_descendant = vim.tbl_contains(ancestors, nvim_pid)
-              if is_descendant then
-                vim.fn.system(("kill -9 " .. sub_pid))
-              end
-            end
-          end)
-        end
-      end,
-    })
-
-    vim.api.nvim_create_autocmd("QuitPre", {
-      group = vim.api.nvim_create_augroup("user_quit_nvim_make_sure_qwen_subprocess_terminated", { clear = true }),
-      callback = function()
-        local chat = require("codecompanion.interactions.chat").last_chat()
-        if chat then
-          chat:close()
-        end
-
-        local cli_session = require("codecompanion.interactions.cli").last_cli()
-        if cli_session then
-          cli_session:close()
-        end
-      end,
-    })
-
     local request_status = {}
     vim.api.nvim_create_autocmd("User", {
       pattern = "CodeCompanion*",

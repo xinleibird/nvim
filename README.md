@@ -58,4 +58,4 @@ Run the following commands within Neovim to complete the installation:
   - **Homebrew**: `chafa`
 - **System Tools**:
   - **Homebrew**: `fzf`, `ripgrep`, `fd`
-  - **npm**: `@google/gemini-cli`, `@qwen-code/qwen-code`
+  - **npm**: `@google/gemini-cli`, ~`@qwen-code/qwen-code`~ (R.I.P. 😭), `opencode-ai`
