@@ -261,7 +261,7 @@ local M = {
       },
     },
     signature = {
-      enabled = false,
+      enabled = true,
       trigger = {
         enabled = true,
         show_on_keyword = true,
@@ -270,7 +270,7 @@ local M = {
         show_on_insert_on_trigger_character = true,
       },
       window = {
-        border = "solid",
+        border = "rounded",
         show_documentation = false,
       },
     },

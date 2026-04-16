@@ -86,6 +86,7 @@ local M = {
       },
 
       format_on_save = function(bufnr)
+        vim.snippet.stop() -- fix snippet dident stop issue
         if vim.b.disable_autoformat then -- for bigfile disable autoformat
           return
         end
