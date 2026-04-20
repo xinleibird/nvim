@@ -13,7 +13,6 @@ local settings = {
     tsserver = {
       experimental = {
         enableProjectDiagnostics = true,
-        useTsgo = true,
       },
     },
   },

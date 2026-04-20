@@ -76,6 +76,11 @@ local M = {
       cli = {
         agent = "opencode",
         agents = {
+          gemini_cli = {
+            cmd = "gemini",
+            description = "Gemini CLI",
+            provider = "terminal",
+          },
           opencode = {
             cmd = "opencode",
             description = "OpenCode",

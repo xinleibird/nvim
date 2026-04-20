@@ -158,8 +158,7 @@ local M = {
           -- Outline
           OutlineDetails = { link = "Comment" },
           OutlineGuides = {
-            -- fg = C.mantle,
-            fg = colors.vary_color({ latte = C.surface0 }, C.mantle),
+            fg = colors.vary_color({ latte = C.surface0 }, colors.lighten(C.crust, 0.4, C.base)),
           },
 
           -- CursorLine highlight
@@ -196,7 +195,7 @@ local M = {
 
           -- BlinkIndent
           BlinkIndent = {
-            fg = colors.vary_color({ latte = C.surface0 }, C.mantle),
+            fg = colors.vary_color({ latte = C.surface0 }, colors.lighten(C.crust, 0.4, C.base)),
           },
 
           BlinkIndentRed = {

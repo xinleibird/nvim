@@ -115,13 +115,7 @@ local M = {
             return vim.tbl_filter(function(item)
               if item.client_name == "emmet_language_server" then
                 item.kind_icon = "󰯙"
-                item.score_offset = item.score_offset - 5
-              end
-
-              if item.client_name == "typescript-tools" then
-                if item.kind == 9 then
-                  item.kind_icon = ""
-                end
+                item.score_offset = item.score_offset - 8
               end
 
               if item.client_name == "html" then
@@ -132,6 +126,17 @@ local M = {
               return true
             end, items)
           end,
+          override = {
+            -- trigger character add {} [] ()
+            get_trigger_characters = function(self)
+              local ignored = { "}", "]", ")", "" }
+              local trigger_characters = self:get_trigger_characters()
+              trigger_characters = vim.tbl_filter(function(trigger)
+                return not vim.tbl_contains(ignored, trigger)
+              end, trigger_characters)
+              return trigger_characters
+            end,
+          },
         },
         lazydev = {
           name = "LazyDev",
