@@ -67,6 +67,7 @@ local M = {
       "javascript",
       "jsdoc",
       "json",
+      "jsx",
       "latex",
       "lua",
       "luadoc",

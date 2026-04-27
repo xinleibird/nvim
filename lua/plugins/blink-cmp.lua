@@ -111,6 +111,7 @@ local M = {
           },
         },
         lsp = {
+          fallbacks = {},
           transform_items = function(_, items)
             return vim.tbl_filter(function(item)
               if item.client_name == "emmet_language_server" then
@@ -172,6 +173,7 @@ local M = {
           },
         },
         buffer = {
+          score_offset = -3,
           transform_items = function(_, items)
             return vim.tbl_filter(function(item)
               -- disable completion for Chinese characters

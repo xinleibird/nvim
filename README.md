@@ -54,6 +54,8 @@ Run the following commands within Neovim to complete the installation:
 
 - **Image Support**: Provided by [snacks.image](https://github.com/folke/snacks.nvim/blob/main/docs/image.md). [ImageMagick](https://imagemagick.org) for displaying images. [Ghostscript](https://www.ghostscript.com) for displaying PDF.
   - **Homebrew**: `imagemagick`, `ghostscript`
+- **Markdown Support**: Provided by [render-markdown](https://github.com/MeanderingProgrammer/render-markdown.nvim/tree/d67113f11384c0dad96fced2f7b91f1fc811e97f)
+  - **Homebrew**: `utftex`
 - **Dashboard**: Powered by [snacks.dashboard](https://github.com/folke/snacks.nvim/blob/main/docs/dashboard.md). [Chafa](https://github.com/hpjansson/chafa) for displaying `.gif` files in the terminal.
   - **Homebrew**: `chafa`
 - **System Tools**:

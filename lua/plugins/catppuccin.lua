@@ -184,8 +184,6 @@ local M = {
             fg = colors.vary_color({ latte = colors.lighten(C.text, 0.1, C.base) }, colors.darken(C.text, 0.1, C.base)),
           },
 
-          SnacksPickerPrompt = { bg = C.mantle, fg = C.text },
-
           -- Edgy
           EdgyNormal = { bg = C.base },
 

@@ -1,5 +1,3 @@
----@module "lspconfig"
----@type lspconfig.settings.vtsls
 local settings = {
   vtsls = {
     autoUseWorkspaceTsdk = true,

@@ -1,5 +1,3 @@
----@module "lspconfig"
----@type lspconfig.settings.ts_ls
 local settings = {
   typescript = {
     inlayHints = {
