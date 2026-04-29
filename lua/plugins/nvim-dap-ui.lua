@@ -81,7 +81,7 @@ local M = {
           "DapBreakpointCondition",
           { text = icons.ui.Point, numhl = "DapBreakpointCondition", texthl = "DapBreakpointCondition" }
         )
-        vim.fn.sign_define("DagLogPoint", { text = icons.ui.Unchecked, numhl = "DapLogPoint", texthl = "DapLogPoint" })
+        vim.fn.sign_define("DapLogPoint", { text = icons.ui.Unchecked, numhl = "DapLogPoint", texthl = "DapLogPoint" })
         vim.fn.sign_define("DapStopped", { text = icons.ui.Stopped, numhl = "DapStopped", texthl = "DapStopped" })
         vim.fn.sign_define(
           "DapBreakpointRejected",

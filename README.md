@@ -4,7 +4,7 @@
 
 A personal Neovim configuration focused on minimalism, fluidity, and aesthetics.
 
-[![Neovim](https://img.shields.io/badge/Neovim-0.10+-57a143?style=for-the-badge&logo=neovim)](https://neovim.io)
+[![Neovim](https://img.shields.io/badge/Neovim-0.11+-57a143?style=for-the-badge&logo=neovim)](https://neovim.io)
 [![Lua](https://img.shields.io/badge/Lua-5.1-blue?style=for-the-badge&logo=lua)](https://www.lua.org)
 
 </div>
@@ -20,7 +20,7 @@ A personal Neovim configuration focused on minimalism, fluidity, and aesthetics.
 
 ### Prerequisites
 
-- [**Neovim**](https://neovim.io) is required. Please install it using your preferred package manager.
+- [**Neovim**](https://neovim.io) **0.11+** is required. Please install it using your preferred package manager.
 - This configuration is inspired by [NvChad](https://nvchad.com).
 
 ### Recommendations (Optional)

@@ -21,7 +21,7 @@ M.detect_os = function()
 end
 
 M.detect_term = function()
-  return vim.api.nvim_get_chan_info(vim.api.nvim_list_uis()[1].chan).client.name
+  return vim.api.nvim_get_chan_info(vim.api.nvim_list_uis()[1].chan).client.name or "unknown"
 end
 
 M.detect_dark_mode = function()
