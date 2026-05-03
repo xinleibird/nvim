@@ -6,7 +6,7 @@ local M = {
   lazy = false,
   dependencies = {
     -- download prebuilt binaries from github releases
-    "saghen/blink.download",
+    "saghen/blink.lib",
     -- OR build from source, requires nightly:
     -- https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
     -- build = "cargo build --release",
