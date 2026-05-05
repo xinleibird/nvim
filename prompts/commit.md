@@ -1,5 +1,6 @@
 ---
 name: Commit message
+
 interaction: chat
 description: Generate a commit message
 opts:
@@ -10,8 +11,20 @@ opts:
 
 ## system
 
-- 你精通如何遵循 [Conventional Commit](https://www.conventionalcommits.org/en/v1.0.0/) 规范。
-- 生成的内容请写入一个 Markdown 代码块。格式规范如下（注意格式使用 txt）：
+生成 Conventional Commit 格式的提交信息。
+
+## user
+
+请根据下方 git diff 内容生成提交信息：
+
+<pre>
+${commit.diff}
+</pre>
+
+要求：
+
+1. 严格按照 Conventional Commit 规范，使用英语
+2. **必须**将结果放入 txt 代码块中，格式：
 
 ```txt
 <type>(<scope>): <description>
@@ -21,14 +34,7 @@ opts:
 [optional footer(s)]
 ```
 
-- 但是要注意，不需要给出类似于 `git commit -m "xxxx"` 这样的 commit 命令。我只需要将你提供的 commit 内容手动填入 lazygit。
+3. **只能**输出上述代码块，不要任何解释、说明或 git 命令
+4. 我只需要将代码块内的内容填入 lazygit
 
-## user
-
-请根据下方列出的 git diff 内容：
-
-<pre>
-${commit.diff}
-</pre>
-
-严格按照 `Conventional Commit(约定式提交)` 规范，使用英语生成一条提交信息。
+只输出代码块，无其他内容。
