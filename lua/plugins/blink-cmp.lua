@@ -70,6 +70,11 @@ local M = {
         end,
         "fallback",
       },
+      ["<C-y>"] = {
+        function(cmp)
+          cmp.show({ providers = { "emmet" } })
+        end,
+      },
     },
     appearance = {
       use_nvim_cmp_as_default = false,
@@ -110,13 +115,43 @@ local M = {
             show_hidden_files_by_default = false,
           },
         },
+        emmet = {
+          name = "emmet",
+          module = "blink.cmp.sources.lsp",
+          enabled = function()
+            return vim.tbl_contains({
+              "astro",
+              "css",
+              "eruby",
+              "html",
+              "htmlangular",
+              "htmldjango",
+              "javascriptreact",
+              "less",
+              "sass",
+              "scss",
+              "svelte",
+              "typescriptreact",
+              "vue",
+            }, vim.bo.filetype)
+          end,
+          transform_items = function(_, items)
+            return vim.tbl_filter(function(item)
+              if item.client_name == "emmet_language_server" then
+                item.kind_icon = "󰯙"
+                return true
+              end
+
+              return false
+            end, items)
+          end,
+        },
         lsp = {
           fallbacks = {},
           transform_items = function(_, items)
             return vim.tbl_filter(function(item)
               if item.client_name == "emmet_language_server" then
-                item.kind_icon = "󰯙"
-                item.score_offset = item.score_offset - 8
+                return false
               end
 
               if item.client_name == "html" then
