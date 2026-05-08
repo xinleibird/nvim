@@ -9,7 +9,7 @@ local M = {
     }
     vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave", "CursorHold", "CursorHoldI" }, {
       group = vim.api.nvim_create_augroup("nvim-lint-group", { clear = true }),
-      pattern = "*",
+      pattern = { "*.html" },
       callback = function()
         if not vim.b.disable_autolint then -- for bigfile disable autolint
           require("lint").try_lint()

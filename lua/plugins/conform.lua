@@ -96,13 +96,13 @@ local M = {
         }, function(err)
           local formatters = require("conform").list_formatters_for_buffer(bufnr) or {}
           if err then
-            require("fidget.notification").notify(err, vim.log.levels.ERROR, {
+            require("fidget.notification").notify(table.concat(formatters, ","), vim.log.levels.ERROR, {
               annote = "Error!",
               ttl = 1,
             })
           else
             require("fidget.notification").notify(table.concat(formatters, ","), vim.log.levels.INFO, {
-              annote = "Finished!",
+              annote = "Formatted!",
               ttl = 1,
             })
           end
