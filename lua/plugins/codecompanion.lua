@@ -27,6 +27,10 @@ local M = {
       },
       chat = {
         window = {
+          layout = "float",
+          border = "rounded",
+          width = 0.8,
+          height = 0.8,
           opts = {
             numberwidth = 6,
           },
@@ -122,8 +126,8 @@ local M = {
           },
           close = {
             modes = {
-              n = "<c-q>",
-              i = "<c-q>",
+              n = "<c-s-q>",
+              i = "<c-s-q>",
             },
             callback = function(chat)
               chat:close()
@@ -244,29 +248,16 @@ local M = {
     vim.keymap.set({ "n", "v", "t" }, "<C-.>", function()
       local codecompanion = require("codecompanion")
       local chat = codecompanion.last_chat()
-      local cli_session = require("codecompanion.interactions.cli").last_cli()
-
-      if chat == nil and cli_session == nil then
-        return
-      end
-
-      if (chat and chat:is_visible()) and (cli_session and not cli_session.is_visible()) then
-        require("codecompanion.interactions.cli").toggle()
-        return
-      end
-
-      if (chat and not chat:is_visible()) and (cli_session and cli_session.is_visible()) then
-        chat:toggle()
-        return
-      end
-
       if chat then
         chat:toggle()
       end
-      if cli_session then
-        require("codecompanion.interactions.cli").toggle()
+    end, { noremap = true, silent = true, desc = "CodeCompanionChat Toggle" })
+    vim.keymap.set({ "n", "v", "t" }, "<C-S-.>", function()
+      local cli = require("codecompanion.interactions.cli").last_cli()
+      if cli then
+        cli.toggle()
       end
-    end, { noremap = true, silent = true, desc = "CodeCompanion Toggle" })
+    end, { noremap = true, silent = true, desc = "CodeCompanionCLI Toggle" })
   end,
 }
 

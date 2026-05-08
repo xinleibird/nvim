@@ -121,6 +121,7 @@ local M = {
       bigfile = { enabled = true },
       notifier = {
         timeout = 2000,
+        sort = { "added" },
         icons = {
           error = icons.diagnostics.Error,
           warn = icons.diagnostics.Warn,
