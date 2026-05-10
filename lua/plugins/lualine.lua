@@ -62,8 +62,7 @@ local M = {
       },
 
       cwd = {
-        "mode",
-        fmt = function()
+        function()
           local cwd_tail = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
 
           return icons.ui.FolderOpen .. " " .. cwd_tail
@@ -78,7 +77,7 @@ local M = {
         icon = icons.ui.Branch,
         fmt = function(branch)
           if branch == "" then
-            return require("configs.icons").ui.NoEntry
+            return icons.ui.NoEntry
           end
           return branch
         end,
@@ -117,11 +116,11 @@ local M = {
           return "󰇖"
         end,
         on_click = function()
-          local clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })
+          local clients = vim.lsp.get_clients({ bufnr = 0 })
           if #clients == 0 then
             vim.notify("✗ ~LSP Clients~", vim.log.levels.WARN, {
               title = "LSP Clients",
-              icon = "󰮌",
+              icon = "󰇖",
               timeout = 3000,
               id = "lsp_lualine",
             })
@@ -140,7 +139,7 @@ local M = {
           end
         end,
         color = function()
-          local clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })
+          local clients = vim.lsp.get_clients({ bufnr = 0 })
           return #clients > 0 and "LualineLspActive" or "LualineLspInactive"
         end,
         padding = { left = 1, right = 0 },
@@ -158,7 +157,7 @@ local M = {
             linters = lint._resolve_linter_by_ft(vim.bo.ft)
           end
 
-          local clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })
+          local clients = vim.lsp.get_clients({ bufnr = 0 })
           if #clients > 0 then
             for _, client in ipairs(clients) do
               if vim.tbl_contains({ "eslint", "oxlint" }, client.name) then
@@ -189,7 +188,7 @@ local M = {
           end
         end,
         color = function()
-          local clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })
+          local clients = vim.lsp.get_clients({ bufnr = 0 })
           if #clients > 0 then
             for _, client in ipairs(clients) do
               if vim.tbl_contains({ "eslint", "oxlint" }, client.name) then
@@ -221,7 +220,7 @@ local M = {
           if #formatters == 0 then
             vim.notify("✗ ~Formatters~", vim.log.levels.WARN, {
               title = "Formatter",
-              icon = "󱎝",
+              icon = "󰑌",
               timeout = 3000,
               id = "formatter_lualine",
             })
@@ -251,90 +250,51 @@ local M = {
         separator = { left = "", right = "" },
       },
 
-      codecompanion_chat = {
+      opencode = {
         function()
           return "󰭻"
         end,
         on_click = function()
-          local ok, codecompanion = pcall(require, "codecompanion")
+          local ok, sidekick = pcall(require, "sidekick.cli.session")
           if ok then
-            local chat = codecompanion.last_chat()
-            if chat then
-              local adapter = chat.adapter
-              local adapter_name = adapter.formatted_name or adapter.name or "CodeCompanion"
-              vim.notify("💬 **" .. adapter_name .. "** Chat OK!", vim.log.levels.INFO, {
-                title = "CodeCompanion",
-                id = "codecompanion_chat_lualine",
-                icon = "󰭻",
-                timeout = 3000,
-              })
-            else
-              vim.notify("💬 Chat Mode not Ready!", vim.log.levels.WARN, {
-                title = "CodeCompanion",
-                id = "codecompanion_chat_lualine",
-                icon = "󰭻",
-                timeout = 3000,
-              })
-            end
-          else
-            vim.notify(require("configs.icons").ui.GhostOutline .. "CodeCompanion Broken!", vim.log.levels.ERROR, {
-              title = "CodeCompanion",
-              id = "codecompanion_lualine",
-              timeout = 3000,
-            })
-          end
-        end,
-        color = function()
-          local ok, codecompanion = pcall(require, "codecompanion")
-          if ok then
-            local status = codecompanion.last_chat()
-            return status and "LualineCodeCompanionActive" or "LualineCodeCompanionInactive"
-          end
-          return "LualineCodeCompanionInactive"
-        end,
-        separator = { left = "", right = "" },
-        padding = { left = 0, right = 1 },
-      },
+            local sessions = sidekick.sessions()
+            if #sessions > 0 then
+              local ids = {}
+              for _, item in ipairs(sessions) do
+                table.insert(ids, (item.id):match("([^%s]+)"))
+              end
 
-      codecompanion_cli = {
-        function()
-          return ""
-        end,
-        on_click = function()
-          local ok = pcall(require, "codecompanion")
-          if ok then
-            local cli_session = require("codecompanion.interactions.cli").last_cli()
-            if cli_session then
-              local cli_name = cli_session.agent.description or cli_session.agent_name
-              vim.notify("🤖 **" .. cli_name .. "** CLI OK!", vim.log.levels.INFO, {
-                title = "CodeCompanion",
-                icon = "",
-                id = "codecompanion_cli_lualine",
+              local result = table.concat(ids, ", ")
+
+              vim.notify("💬 **" .. result .. "** OK!", vim.log.levels.INFO, {
+                title = "SideKick",
+                id = "sidekick",
+                icon = "󰭻",
                 timeout = 3000,
               })
             else
-              vim.notify("🤖 CLI Mode not Ready!", vim.log.levels.WARN, {
-                title = "CodeCompanion",
-                icon = "",
-                id = "codecompanion_cli_lualine",
+              vim.notify("💬 There's **NO** Sessions!", vim.log.levels.WARN, {
+                title = "SideKick",
+                id = "sidekick",
+                icon = "󰭻",
                 timeout = 3000,
               })
             end
           else
-            vim.notify(require("configs.icons").ui.GhostOutline .. "CodeCompanion Broken!", vim.log.levels.ERROR, {
-              title = "CodeCompanion",
-              id = "codecompanion_lualine",
+            vim.notify(require("configs.icons").ui.GhostOutline .. "SideKick Broken!", vim.log.levels.ERROR, {
+              title = "SideKick",
+              id = "sidekick",
               timeout = 3000,
             })
           end
         end,
         color = function()
-          local ok = pcall(require, "codecompanion")
+          local ok, sidekick_cli_session = pcall(require, "sidekick.cli.session")
           if ok then
-            local cli_session = require("codecompanion.interactions.cli").last_cli()
-            return cli_session and "LualineCodeCompanionActive" or "LualineCodeCompanionInactive"
+            local sessions = sidekick_cli_session.sessions()
+            return #sessions > 0 and "LualineSideKickActive" or "LualineSideKickInactive"
           end
-          return "LualineCodeCompanionInactive"
+          return "LualineSideKickInactive"
         end,
         separator = { left = "", right = "" },
         padding = { left = 0, right = 0 },
@@ -342,8 +302,7 @@ local M = {
 
       filetype = {
         function()
-          local bufnr = vim.api.nvim_get_current_buf()
-          local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
+          local filetype = vim.api.nvim_get_option_value("filetype", { buf = 0 })
           local icon = require("nvim-web-devicons").get_icon_by_filetype(filetype, { default = false })
           return icon or ""
         end,
@@ -357,8 +316,7 @@ local M = {
           local ok, palettes = pcall(require, "catppuccin.palettes")
           if ok then
             local palette = palettes.get_palette()
-            local bufnr = vim.api.nvim_get_current_buf()
-            local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
+            local filetype = vim.api.nvim_get_option_value("filetype", { buf = 0 })
             local _, fg = devicons.get_icon_color_by_filetype(filetype, { default = false })
             if fg == nil then
               fg = palette.overlay0
@@ -375,8 +333,7 @@ local M = {
         padding = { left = 0, right = 0 },
         separator = { left = "", right = "" },
         on_click = function()
-          local bufnr = vim.api.nvim_get_current_buf()
-          local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
+          local filetype = vim.api.nvim_get_option_value("filetype", { buf = 0 })
           local language = vim.treesitter.language.get_lang(filetype) or filetype
 
           local parser = vim.treesitter.language.add(language)
@@ -483,8 +440,7 @@ local M = {
           components.formatters,
           components.lsp_clients,
           components.blank,
-          components.codecompanion_chat,
-          components.codecompanion_cli,
+          components.opencode,
           components.blank,
         },
         lualine_y = {

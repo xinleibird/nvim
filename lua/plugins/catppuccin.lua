@@ -240,9 +240,9 @@ local M = {
           LualineLsp = { bg = C.surface0, fg = C.lavender },
           LualineFiletype = { bg = C.surface0 },
 
-          -- Lualine CodeCompanion
-          LualineCodeCompanionActive = { bg = C.surface0, fg = C.red },
-          LualineCodeCompanionInactive = { bg = C.surface0, fg = C.overlay0 },
+          -- Lualine SideKick
+          LualineSideKickActive = { bg = C.surface0, fg = C.red },
+          LualineSideKickInactive = { bg = C.surface0, fg = C.overlay0 },
 
           -- Lualine Lsp
           LualineLspActive = { bg = C.surface0, fg = C.yellow },
