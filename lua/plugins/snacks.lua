@@ -31,8 +31,8 @@ local M = {
         vim.api.nvim_create_autocmd("QuitPre", {
           group = vim.api.nvim_create_augroup("user_quit_vim_make_sure_persistence_save", { clear = true }),
           callback = function()
-            -- The autocmd for persistence doesn't work, manually save.
-            -- cause used "QuitPre"
+            -- The built-in autocmd for persistence doesn't work, manually save.
+            -- @lua/configs/autocmds.lua
             local persistence_ok, persistence = pcall(require, "persistence")
             if persistence_ok then
               persistence.save()
@@ -88,7 +88,7 @@ local M = {
         "node_modules",
       }
       for _, pattern in ipairs(patterns) do
-        if rtp:match(pattern) then
+        if pattern and rtp:match(pattern) then
           return false
         end
       end
