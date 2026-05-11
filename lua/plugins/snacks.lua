@@ -25,7 +25,7 @@ local M = {
           require("persistence").select()
         end, { desc = "Restore Sessions" })
         vim.keymap.set("n", "<leader>sS", function()
-          require("persistence").select()
+          require("persistence").save()
         end, { desc = "Save Session" })
 
         vim.api.nvim_create_autocmd("QuitPre", {
@@ -74,7 +74,7 @@ local M = {
 
   config = function()
     local icons = require("configs.icons")
-    local function filter_rtp(rtp)
+    local function path_filter(rtp)
       local patterns = {
         vim.fn.stdpath("data"),
         vim.fn.stdpath("cache"),
@@ -194,7 +194,7 @@ local M = {
             confirm = "load_session",
             filter = {
               filter = function(item)
-                return filter_rtp(item.file)
+                return path_filter(item.file)
               end,
             },
           },
@@ -257,7 +257,7 @@ local M = {
             title = "Most Recently Used Files",
             filter = {
               filter = function(item)
-                return filter_rtp(item.file)
+                return path_filter(item.file)
               end,
             },
           },
@@ -451,7 +451,7 @@ local M = {
                 indent = 3,
                 padding = 1,
                 filter = function(file)
-                  return filter_rtp(file)
+                  return path_filter(file)
                 end,
               },
               { section = "keys", gap = 1, padding = 1 },
