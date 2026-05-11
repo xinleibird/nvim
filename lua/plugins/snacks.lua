@@ -59,7 +59,6 @@ local M = {
     { "<leader>e", function() Snacks.picker.explorer() end, desc = "Explorer" },
     { "]]", function() Snacks.words.jump(vim.v.count1) end, desc = "Next reference" },
     { "[[", function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev reference" },
-    {"<C-x>", "<C-\\><C-N>", { desc = "Escape terminal mode" }, mode ="t"},
     { "<leader>ld", function() Snacks.picker.diagnostics_buffer() end,  desc = "Buff diagnostics" },
     { "<leader>lD", function() Snacks.picker.diagnostics() end,  desc = "Diagnostics" },
     { "<leader>gg", function()
