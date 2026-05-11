@@ -107,13 +107,29 @@ local M = {
             path_mappings = {
               ["/"] = "${folder}/public/",
             },
+            show_hidden_files_by_default = true,
           },
+          transform_items = function(_, items)
+            for _, item in ipairs(items) do
+              if item.label:sub(1, 1) == "." then
+                item.score_offset = -1
+              end
+            end
+            return items
+          end,
         },
         path = {
           opts = {
-            -- TIP: Show hidden files by pressing <C-e> to close completion, then press "."
-            show_hidden_files_by_default = false,
+            show_hidden_files_by_default = true,
           },
+          transform_items = function(_, items)
+            for _, item in ipairs(items) do
+              if item.label:sub(1, 1) == "." then
+                item.score_offset = -1
+              end
+            end
+            return items
+          end,
         },
         emmet = {
           name = "emmet",
