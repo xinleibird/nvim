@@ -5,9 +5,21 @@ local cli_name = "opencode"
 local M = {
   "folke/sidekick.nvim",
   event = { "BufRead", "BufNewFile", "User SnacksDashboardClosed" },
+  dependencies = {
+    "folke/snacks.nvim",
+    optional = true,
+  },
   opts = {
     -- add any options here
     nes = { enabled = false },
+    cli = {
+      win = {
+        split = {
+          width = 0, -- set to 0 for default split width
+          height = 0, -- set to 0 for default split height
+        },
+      },
+    },
   },
   keys = {
     {
