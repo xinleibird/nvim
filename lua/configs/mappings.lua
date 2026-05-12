@@ -34,26 +34,29 @@ vim.keymap.set("n", "<Esc>", function()
   end
 end, { desc = "Clear highlights, Escape popup and virtual lines" })
 
--- stylua: ignore start
 -- quit window
-vim.keymap.set("n", "<leader>q", function() vim.cmd("confirm q") end, { desc = "Quit" })
+vim.keymap.set("n", "<leader>q", function()
+  vim.cmd("confirm q")
+end, { desc = "Quit" })
 
--- easy paste
 local current_os = require("utils").detect_os()
-local paste_map = current_os == "macos" and "<M-v>" or "<C-v>"
+local modi_key = current_os == "macos" and "M" or "C"
 if vim.g.neovide then
-  paste_map = "<D-v>"
+  modi_key = "D"
 end
 if vim.env.TERM and (vim.env.TERM == "xterm-kitty" or vim.env.TERM == "xterm-ghostty") then
-  paste_map = "<D-v>"
+  modi_key = "D"
 end
+-- easy copy
+vim.keymap.set("v", string.format("<%s-c>", modi_key), '"+y', { desc = "Copy selection" })
+-- easy paste
 vim.keymap.set(
   { "i", "n" },
-  paste_map,
-  "<esc>:set paste<cr>a<c-r>=getreg('+')<cr><esc>:set nopaste<cr>mi`[=`]`ia",
-  { desc = "Paste insert-mode" }
+  string.format("<%s-v>", modi_key),
+  "<esc>:setlocal paste<cr>a<c-r>=getreg('+')<cr><esc>:setlocal nopaste<cr>mi`[=`]`ia",
+  { desc = "Paste" }
 )
-vim.keymap.set("c", paste_map, "<C-r>+", { desc = "Paste" })
+vim.keymap.set("c", string.format("<%s-v>", modi_key), "<C-r>+", { desc = "Paste" })
 
 -- save
 vim.keymap.set("n", "<leader>w", "<cmd>w!<CR>", { desc = "Save with formatting" })
@@ -64,6 +67,9 @@ vim.keymap.set("v", "<", "<gv", { desc = "Indent line backward" })
 vim.keymap.set("v", ">", ">gv", { desc = "Indent line forward" })
 
 -- quickfix loclist
-vim.keymap.set("n", "<C-q>", function() require("utils").quickfix_toggle() end, { desc = "Toggle quickfix window" })
-vim.keymap.set("n", "<C-`>", function() require("utils").loclist_toggle() end, { desc = "Toggle loclist window" })
--- stylua: ignore end
+vim.keymap.set("n", "<C-q>", function()
+  require("utils").quickfix_toggle()
+end, { desc = "Toggle quickfix window" })
+vim.keymap.set("n", "<C-`>", function()
+  require("utils").loclist_toggle()
+end, { desc = "Toggle loclist window" })
