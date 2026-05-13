@@ -59,5 +59,5 @@ Run the following commands within Neovim to complete the installation:
 - **Dashboard**: Powered by [snacks.dashboard](https://github.com/folke/snacks.nvim/blob/main/docs/dashboard.md). [Chafa](https://github.com/hpjansson/chafa) for displaying `.gif` files in the terminal.
   - **Homebrew**: `chafa`
 - **System Tools**:
-  - **Homebrew**: `fzf`, `ripgrep`, `fd`
+  - **Homebrew**: `fzf`, `ripgrep`, `fd`, `zellij`
   - **npm**: `@google/gemini-cli`, ~`@qwen-code/qwen-code`~ (R.I.P. 😭), `opencode-ai`

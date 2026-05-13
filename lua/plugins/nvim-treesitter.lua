@@ -68,6 +68,7 @@ local M = {
       "jsdoc",
       "json",
       "jsx",
+      "kdl",
       "latex",
       "lua",
       "luadoc",
