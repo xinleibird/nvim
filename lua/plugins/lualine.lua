@@ -259,14 +259,14 @@ local M = {
           if ok then
             local sessions = sidekick.sessions()
             if #sessions > 0 then
-              local ids = {}
+              local sids = {}
               for _, item in ipairs(sessions) do
-                table.insert(ids, (item.id):match("([^%s]+)"))
+                table.insert(sids, (item.sid):match("([^%s]+)$"))
               end
 
-              local result = table.concat(ids, ", ")
+              local result = table.concat(sids, ", ")
 
-              vim.notify("💬 **" .. result .. "** OK!", vim.log.levels.INFO, {
+              vim.notify("💬 Sessions **" .. result .. "** OK!", vim.log.levels.INFO, {
                 title = "SideKick",
                 id = "sidekick",
                 icon = "󰭻",
