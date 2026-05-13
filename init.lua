@@ -1,14 +1,3 @@
--- enable vim-plugin just for VSCode-Neovim
-if vim.g.vscode then
-  vim.cmd.runtime("./vscode.vim")
-  return -- in vscode stop load
-end
-
--- within Neovide
-if vim.g.neovide then
-  require("configs.neovide")
-end
-
 -- load options
 require("configs.options")
 -- bootstrap lazy and all plugins
