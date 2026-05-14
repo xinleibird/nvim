@@ -32,10 +32,20 @@ local M = {
     -- add any options here
     nes = { enabled = false },
     cli = {
-      mux = {
-        backend = "zellij",
-        enabled = true,
+      win = {
+        layout = "right",
+        split = {
+          width = 80,
+          height = 20,
+        },
+        float = {
+          width = 0.8,
+          height = 0.8,
+        },
       },
+    },
+    mux = {
+      enabled = false,
     },
   },
   keys = function()
@@ -76,10 +86,8 @@ local M = {
       {
         "<leader>at",
         function()
-          require("sidekick.cli").select()
+          require("sidekick.cli").select({ filter = { installed = true } })
         end,
-        -- Or to select only installed tools:
-        -- require("sidekick.cli").select({ filter = { installed = true } })
         desc = "Select CLI",
       },
       {

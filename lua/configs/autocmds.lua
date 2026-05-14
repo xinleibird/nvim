@@ -5,6 +5,13 @@ vim.api.nvim_create_autocmd({ "BufWinEnter", "BufNewFile" }, {
   command = "setlocal formatoptions-=o",
 })
 
+-- Set numberwidth for all filetypes
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "*",
+  group = vim.api.nvim_create_augroup("user_numberwidth", { clear = true }),
+  command = "setlocal numberwidth=6",
+})
+
 -- Automatically close auxiliary windows (e.g., DAP REPL) and prompt to quit Neovim
 -- when the last editable buffer is closed.
 vim.api.nvim_create_autocmd("QuitPre", {
