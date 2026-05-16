@@ -35,7 +35,7 @@ local M = {
       win = {
         layout = "right",
         split = {
-          width = 80,
+          width = 82,
           height = 20,
         },
         float = {
@@ -43,9 +43,9 @@ local M = {
           height = 0.8,
         },
       },
-    },
-    mux = {
-      enabled = false,
+      mux = {
+        enabled = false,
+      },
     },
   },
   keys = function()
