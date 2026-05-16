@@ -35,7 +35,7 @@ local M = {
       win = {
         layout = "right",
         split = {
-          width = 82,
+          width = 72,
           height = 20,
         },
         float = {
