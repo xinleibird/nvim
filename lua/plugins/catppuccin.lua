@@ -295,6 +295,9 @@ local M = {
           ModesSelect = { bg = C.red },
           ModesVisual = { bg = C.pink },
           Cursor = { bg = C.yellow },
+
+          -- OpenCode WinBar
+          WinBar = { fg = C.surface0 },
         }
       end,
       default_integrations = false,

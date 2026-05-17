@@ -38,9 +38,8 @@ local M = {
           width = 72,
           height = 20,
         },
-        float = {
-          width = 0.8,
-          height = 0.8,
+        wo = {
+          winbar = "💬 %{b:term_title}",
         },
       },
       mux = {
@@ -62,7 +61,7 @@ local M = {
       {
         "<leader>aa",
         function()
-          require("sidekick.cli").toggle({ name = cli_name })
+          require("sidekick.cli").send({ msg = "{this}", name = cli_name })
         end,
         mode = { "n" },
         desc = "Sidekick Toggle CLI",

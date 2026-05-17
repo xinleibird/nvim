@@ -5,9 +5,13 @@ local M = {
   event = "VeryLazy",
   opts = {
     right = {
+      -- {
+      --   title = "Outline",
+      --   ft = "Outline",
+      --   -- pinned = true,
+      -- },
       {
-        title = "Outline",
-        ft = "Outline",
+        ft = "sidekick_terminal",
         -- pinned = true,
       },
     },
@@ -65,7 +69,7 @@ local M = {
     },
     options = {
       left = { size = 28 },
-      right = { size = 28 },
+      right = { size = 62 },
       top = { size = 0.23 },
       bottom = { size = 0.35 },
     },
