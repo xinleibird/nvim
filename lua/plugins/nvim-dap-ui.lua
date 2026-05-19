@@ -202,7 +202,7 @@ local M = {
         vim.keymap.set("n", "q", function()
           require("dapui").close()
         end, { buffer = true, silent = true, nowait = true })
-        vim.keymap.set("n", "<leader>q", function()
+        vim.keymap.set({ "n", "x" }, "<leader>q", function()
           require("dapui").close()
         end, { buffer = true, silent = true, nowait = true })
       end,

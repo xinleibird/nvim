@@ -35,7 +35,7 @@ vim.keymap.set("n", "<Esc>", function()
 end, { desc = "Clear highlights, Escape popup and virtual lines" })
 
 -- quit window
-vim.keymap.set("n", "<leader>q", function()
+vim.keymap.set({ "n", "x" }, "<leader>q", function()
   vim.cmd("confirm q")
 end, { desc = "Quit" })
 
