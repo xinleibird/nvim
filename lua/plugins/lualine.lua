@@ -276,9 +276,9 @@ local M = {
           local ok, process_tool = pcall(require, "opencode.server.discovery.process")
           if ok then
             local processes = process_tool.get()
-            return #processes > 0 and "LualineSideKickActive" or "LualineSideKickInactive"
+            return #processes > 0 and "LualineOpencodeActive" or "LualineOpencodeInactive"
           end
-          return "LualineSideKickInactive"
+          return "LualineOpencodeInactive"
         end,
         separator = { left = "", right = "" },
         padding = { left = 0, right = 0 },
