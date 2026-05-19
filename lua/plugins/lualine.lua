@@ -237,44 +237,46 @@ local M = {
           return "󰭻"
         end,
         on_click = function()
-          local ok, sidekick = pcall(require, "sidekick.cli.session")
+          require("opencode.server.discovery.process").get()
+
+          local ok, process_tool = pcall(require, "opencode.server.discovery.process")
           if ok then
-            local sessions = sidekick.sessions()
-            if #sessions > 0 then
-              local sids = {}
-              for _, item in ipairs(sessions) do
-                table.insert(sids, (item.sid):match("([^%s]+)$"))
+            local processes = process_tool.get()
+            if #processes > 0 then
+              local pids = {}
+              for _, process in ipairs(processes) do
+                table.insert(pids, process.pid)
               end
 
-              local result = table.concat(sids, ", ")
+              local result = table.concat(pids, ", ")
 
-              vim.notify("💬 Sessions **" .. result .. "** OK!", vim.log.levels.INFO, {
-                title = "SideKick",
-                id = "sidekick",
+              vim.notify("💬 Process **" .. result .. "** OK!", vim.log.levels.INFO, {
+                title = "OpenCode",
+                id = "OpenCode",
                 icon = "󰭻",
                 timeout = 3000,
               })
             else
-              vim.notify("💬 There's **NO** Sessions!", vim.log.levels.WARN, {
-                title = "SideKick",
-                id = "sidekick",
+              vim.notify("💬 There's **NO** Process!", vim.log.levels.WARN, {
+                title = "OpenCode",
+                id = "OpenCode",
                 icon = "󰭻",
                 timeout = 3000,
               })
             end
           else
-            vim.notify(require("configs.icons").ui.GhostOutline .. "SideKick Broken!", vim.log.levels.ERROR, {
-              title = "SideKick",
-              id = "sidekick",
+            vim.notify(require("configs.icons").ui.GhostOutline .. " OpenCode.nvim Broken!", vim.log.levels.ERROR, {
+              title = "OpenCode",
+              id = "OpenCode",
               timeout = 3000,
             })
           end
         end,
         color = function()
-          local ok, sidekick_cli_session = pcall(require, "sidekick.cli.session")
+          local ok, process_tool = pcall(require, "opencode.server.discovery.process")
           if ok then
-            local sessions = sidekick_cli_session.sessions()
-            return #sessions > 0 and "LualineSideKickActive" or "LualineSideKickInactive"
+            local processes = process_tool.get()
+            return #processes > 0 and "LualineSideKickActive" or "LualineSideKickInactive"
           end
           return "LualineSideKickInactive"
         end,
