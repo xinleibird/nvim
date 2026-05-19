@@ -103,9 +103,16 @@ local M = {
     vim.api.nvim_create_autocmd("DirChanged", {
       group = vim.api.nvim_create_augroup("user_dir_osc7", { clear = true }),
       callback = function()
+        local hostname = vim.fn.hostname()
         local cwd = vim.fn.getcwd()
-        local osc7 = string.format("\27]7;file://localhost%s\27\\", cwd)
+        local osc7 = string.format("\27]7;file://%s/%s\27\\", hostname, cwd)
         io.write(osc7)
+
+        local f = io.open("/tmp/cwd", "w")
+        if f then
+          f:write(cwd)
+          f:close()
+        end
       end,
     })
   end,
