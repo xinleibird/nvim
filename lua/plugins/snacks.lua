@@ -395,8 +395,9 @@ local M = {
             {
               section = "terminal",
               enabled = function()
-                return vim.api.nvim_win_get_width(1000) == vim.o.columns
-                  and vim.api.nvim_win_get_height(1000) >= vim.o.lines - 3
+                local dashboard_winid = 1000
+                return vim.api.nvim_win_get_width(dashboard_winid) == vim.o.columns
+                  and vim.api.nvim_win_get_height(dashboard_winid) >= vim.o.lines - 3
               end,
               cmd = cmd,
               height = 28,
