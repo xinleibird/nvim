@@ -86,7 +86,11 @@ local M = {
       },
 
       format_on_save = function(bufnr)
-        vim.snippet.stop() -- fix snippet didn't stop issue
+        -- Stop active snippet before formatting to avoid broken snippet state
+        -- and leftover snippet highlights that persist after format.
+        if vim.snippet.active() then
+          vim.snippet.stop()
+        end
         if vim.b.disable_autoformat then -- for bigfile disable autoformat
           return
         end
