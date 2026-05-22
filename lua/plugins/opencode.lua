@@ -11,7 +11,23 @@ local M = {
       "folke/snacks.nvim",
       optional = true,
       opts = {
-        input = {}, -- Enhances `ask()`
+        input = {
+          keys = {
+            i_cr = {
+              "<cr>",
+              {
+                "cmp_accept",
+                "confirm",
+                function()
+                  local esc = vim.api.nvim_replace_termcodes("<Esc>", true, true, true)
+                  vim.api.nvim_feedkeys(esc, "n", false)
+                end,
+              },
+              mode = { "i", "n" },
+              expr = true,
+            },
+          },
+        }, -- Enhances `ask()`
         picker = { -- Enhances `select()`
           actions = {
             opencode_send = function(...)
@@ -157,10 +173,10 @@ local M = {
       require("opencode").select()
     end, { desc = "Select opencode…" })
 
-    vim.keymap.set("n", "<C-Esc>", function()
+    vim.keymap.set({ "n", "i", "x" }, "<C-Esc>", function()
       require("opencode").command("session.interrupt")
     end, { desc = "Interrupt the current session" })
-    vim.keymap.set("n", "<C-t>", function()
+    vim.keymap.set({ "n", "i", "x" }, "<C-t>", function()
       require("opencode").command("agent.cycle")
     end, { desc = "Cycle the selected agent" })
 

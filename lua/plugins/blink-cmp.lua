@@ -88,7 +88,6 @@ local M = {
         css = { "lsp", "alias_path", "snippets", "buffer" },
         javascriptreact = { "lsp", "alias_path", "snippets", "buffer" },
         typescriptreact = { "lsp", "alias_path", "snippets", "buffer" },
-        opencode_ask = { "lsp", "alias_path" },
         ["dap-repl"] = { "dap", "lsp" },
       },
       min_keyword_length = 0,
