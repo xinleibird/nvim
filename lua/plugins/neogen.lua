@@ -6,7 +6,7 @@ local M = {
   config = function()
     ---@type neogen.Configuration
     require("neogen").setup({})
-    vim.keymap.set("n", "<Leader>n", function()
+    vim.keymap.set("n", "<Leader>nn", function()
       require("neogen").generate()
     end, { desc = "Generate annotations" })
   end,

@@ -71,7 +71,6 @@ local M = {
 
       -- markdown
       "marksman",
-      "zk",
       "mmdc", -- mermaid, required by snacks
 
       -- latex
