@@ -230,12 +230,11 @@ M.get_last_time = function()
   return last_time
 end
 M.start_async_clock = function()
-  local uv = vim.uv or vim.loop
-  local timer = uv.new_timer()
+  local timer = vim.uv.new_timer()
   if not timer then
     return
   end
-  uv.timer_start(
+  vim.uv.timer_start(
     timer,
     0,
     10000,

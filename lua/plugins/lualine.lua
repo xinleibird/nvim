@@ -400,7 +400,7 @@ local M = {
         theme = "catppuccin-nvim", -- for catppuccin colorscheme
         globalstatus = true,
         refresh = { -- sets how often lualine should refresh it's contents (in ms)
-          statusline = 50, -- The refresh option sets minimum time that lualine tries
+          statusline = 200, -- The refresh option sets minimum time that lualine tries
         },
       },
       sections = {
