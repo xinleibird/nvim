@@ -243,21 +243,16 @@ local M = {
           if ok then
             local processes = process_tool.get()
             if #processes > 0 then
-              local pids = {}
-              for _, process in ipairs(processes) do
-                table.insert(pids, process.pid)
-              end
+              local result = require("opencode").statusline()
 
-              local result = table.concat(pids, ", ")
-
-              vim.notify("💬 Process **" .. result .. "** OK!", vim.log.levels.INFO, {
+              vim.notify("💬 **" .. result .. "** OK!", vim.log.levels.INFO, {
                 title = "OpenCode",
                 id = "OpenCode",
                 icon = "󰭻",
                 timeout = 3000,
               })
             else
-              vim.notify("💬 There's **NO** Process!", vim.log.levels.WARN, {
+              vim.notify("💬 There's **NO** OpenCode Process!", vim.log.levels.WARN, {
                 title = "OpenCode",
                 id = "OpenCode",
                 icon = "󰭻",
@@ -265,7 +260,7 @@ local M = {
               })
             end
           else
-            vim.notify(require("configs.icons").ui.GhostOutline .. " OpenCode.nvim Broken!", vim.log.levels.ERROR, {
+            vim.notify(require("configs.icons").ui.GhostOutline .. " OpenCode.nvim is Broken!", vim.log.levels.ERROR, {
               title = "OpenCode",
               id = "OpenCode",
               timeout = 3000,
