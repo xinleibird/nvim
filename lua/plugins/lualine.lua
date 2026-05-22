@@ -154,7 +154,7 @@ local M = {
           local lint_ok, lint = pcall(require, "lint")
           local linters = {}
           if lint_ok then
-            linters = lint._resolve_linter_by_ft(vim.bo.ft)
+            linters = lint._resolve_linter_by_ft(vim.bo[0].ft)
           end
           if #linters == 0 then
             vim.notify("✗ ~Linters~", vim.log.levels.WARN, {
@@ -180,7 +180,7 @@ local M = {
         color = function()
           local ok, lint = pcall(require, "lint")
           if ok then
-            local linters = lint._resolve_linter_by_ft(vim.bo.ft)
+            local linters = lint._resolve_linter_by_ft(vim.bo[0].ft)
             return #linters > 0 and "LualineLspActive" or "LualineLspInactive"
           end
           return "LualineLspInactive"

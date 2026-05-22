@@ -11,7 +11,7 @@ local M = {
         pattern = { "LumenLight", "LumenDark" },
         group = vim.api.nvim_create_augroup("user_lumen_toggle_dark_mode", { clear = true }),
         callback = function()
-          if vim.bo.filetype == "snacks_dashboard" then
+          if vim.bo[0].filetype == "snacks_dashboard" then
             if vim.g.lumen_dashboard_update_count > 0 then
               require("snacks").dashboard.update()
             end

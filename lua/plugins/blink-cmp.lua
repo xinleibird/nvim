@@ -90,9 +90,6 @@ local M = {
         typescriptreact = { "lsp", "alias_path", "snippets", "buffer" },
         ["dap-repl"] = { "dap", "lsp" },
       },
-      -- min_keyword_length = function()
-      --   return vim.bo.filetype == "markdown" and 2 or 0
-      -- end,
       min_keyword_length = 0,
       providers = {
         dap = {
@@ -149,7 +146,7 @@ local M = {
               "svelte",
               "typescriptreact",
               "vue",
-            }, vim.bo.filetype)
+            }, vim.bo[0].filetype)
           end,
           transform_items = function(_, items)
             return vim.tbl_filter(function(item)

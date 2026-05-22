@@ -12,10 +12,10 @@ local M = {
     direction = "horizontal",
     close_on_exit = true,
     on_open = function()
-      vim.wo.cursorline = false
-      vim.wo.cursorcolumn = false
-      vim.wo.number = false
-      vim.wo.relativenumber = false
+      vim.wo[0].cursorline = false
+      vim.wo[0].cursorcolumn = false
+      vim.wo[0].number = false
+      vim.wo[0].relativenumber = false
     end,
   },
   init = function()
@@ -27,7 +27,7 @@ local M = {
       decorate = "D"
     end
     vim.keymap.set({ "n", "t" }, "<" .. decorate .. "-S-j>", function()
-      if vim.bo.filetype == "snacks_picker_list" then
+      if vim.bo[0].filetype == "snacks_picker_list" then
         vim.cmd("wincmd p")
       end
 
@@ -37,7 +37,7 @@ local M = {
     end, { desc = "New Terminal Instance" })
 
     vim.keymap.set({ "n", "t" }, "<" .. decorate .. "-j>", function()
-      if vim.bo.filetype == "snacks_picker_list" then
+      if vim.bo[0].filetype == "snacks_picker_list" then
         vim.cmd("wincmd p")
       end
 
