@@ -94,30 +94,63 @@ local M = {
       require("nvim-treesitter").install(ensure_languages):wait(600000)
     end, { desc = "Install all ensured treesitter parsers" })
 
+    local known_langs = {}
+    for _, lang in ipairs(ensure_languages) do
+      known_langs[lang] = true
+    end
+
+    local exclude_ft = {
+      qf = true,
+      toggleterm = true,
+      snacks_dashboard = true,
+      oil = true,
+      checkhealth = true,
+      help = true,
+      man = true,
+      ["neo-tree"] = true,
+    }
+
+    local cached_queries = setmetatable({}, {
+      __index = function(self, lang)
+        local folds = vim.treesitter.query.get(lang, "folds")
+        local indents = vim.treesitter.query.get(lang, "indents")
+        local val = { folds = folds, indents = indents }
+        self[lang] = val
+        return val
+      end,
+    })
+
     vim.api.nvim_create_autocmd("FileType", {
       group = vim.api.nvim_create_augroup("user_treesitter_setup", { clear = true }),
       callback = function(e)
         local bufnr = e.buf
         local filetype = e.match
 
-        -- you need some mechanism to avoid running on buffers that do not
-        -- correspond to a language (like oil.nvim buffers), this implementation
-        -- checks if a parser exists for the current language
-        local language = vim.treesitter.language.get_lang(filetype) or filetype
-
-        local parser = vim.treesitter.language.add(language)
-        if parser then
-          vim.treesitter.start(bufnr, language)
+        if vim.bo[bufnr].buftype ~= "" then
+          return
+        end
+        if exclude_ft[filetype] then
+          return
         end
 
-        local folds = vim.treesitter.query.get(language, "folds")
-        if folds then
+        local language = vim.treesitter.language.get_lang(filetype) or filetype
+        if not known_langs[language] then
+          return
+        end
+
+        local parser = vim.treesitter.language.add(language)
+        if not parser then
+          return
+        end
+
+        vim.treesitter.start(bufnr, language)
+
+        local queries = cached_queries[language]
+        if queries.folds then
           vim.wo[0].foldmethod = "expr"
           vim.wo[0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
         end
-
-        local indents = vim.treesitter.query.get(language, "indents")
-        if indents then
+        if queries.indents then
           vim.bo[bufnr].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         end
       end,
