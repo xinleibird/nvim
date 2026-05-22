@@ -146,10 +146,12 @@ local M = {
         vim.treesitter.start(bufnr, language)
 
         local queries = cached_queries[language]
-        if queries.folds then
-          vim.wo[0].foldmethod = "expr"
-          vim.wo[0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
-        end
+
+        -- Managed by nvim-ufo:L10
+        -- if queries.folds then
+        --   vim.wo.foldmethod = "expr"
+        --   vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+        -- end
         if queries.indents then
           vim.bo[bufnr].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         end
