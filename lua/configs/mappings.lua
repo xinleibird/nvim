@@ -14,17 +14,7 @@ vim.keymap.set("c", "<C-a>", "<C-b>", { desc = "Move beginning of line" })
 vim.keymap.set("i", "<C-a>", "<C-o>I", { desc = "Move beginning of line" })
 vim.keymap.set("i", "<C-e>", "<C-o>A", { desc = "Move ending of line" })
 
-local function close_float()
-  for _, winid in ipairs(vim.api.nvim_list_wins()) do
-    if vim.api.nvim_win_get_config(winid).relative ~= "" then
-      local bufnr = vim.api.nvim_win_get_buf(winid)
-      local filetype = vim.bo[bufnr].filetype
-      if (filetype == "" or filetype == "markdown") and vim.bo[bufnr].buftype == "nofile" then
-        vim.api.nvim_win_close(winid, true)
-      end
-    end
-  end
-end
+local close_float = require("utils").setup_float_tracker()
 -- esc clear highlights, Escape popup
 vim.keymap.set("n", "<Esc>", function()
   vim.cmd("noh")

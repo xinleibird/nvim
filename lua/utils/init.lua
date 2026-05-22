@@ -225,6 +225,39 @@ M.get_ancestors = function(pid)
   return ancestors
 end
 
+M.setup_float_tracker = function()
+  local float_wins = {}
+
+  local function track_wins()
+    local next = {}
+    for _, winid in ipairs(vim.api.nvim_list_wins()) do
+      if vim.api.nvim_win_get_config(winid).relative ~= "" then
+        next[winid] = true
+      end
+    end
+    float_wins = next
+  end
+
+  track_wins()
+
+  vim.api.nvim_create_autocmd({ "WinNew", "WinClosed" }, {
+    group = vim.api.nvim_create_augroup("float_tracker", { clear = true }),
+    callback = track_wins,
+  })
+
+  return function()
+    for winid in pairs(float_wins) do
+      if vim.api.nvim_win_is_valid(winid) then
+        local bufnr = vim.api.nvim_win_get_buf(winid)
+        local filetype = vim.bo[bufnr].filetype
+        if (filetype == "" or filetype == "markdown") and vim.bo[bufnr].buftype == "nofile" then
+          pcall(vim.api.nvim_win_close, winid, true)
+        end
+      end
+    end
+  end
+end
+
 local last_time = ""
 M.get_last_time = function()
   return last_time
