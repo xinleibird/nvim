@@ -157,6 +157,13 @@ local M = {
       require("opencode").select()
     end, { desc = "Select opencode…" })
 
+    vim.keymap.set("n", "<C-Esc>", function()
+      require("opencode").command("session.interrupt")
+    end, { desc = "Interrupt the current session" })
+    vim.keymap.set("n", "<C-t>", function()
+      require("opencode").command("agent.cycle")
+    end, { desc = "Cycle the selected agent" })
+
     vim.keymap.set("n", "<S-C-u>", function()
       require("opencode").command("session.half.page.up")
     end, { desc = "Scroll opencode up" })
