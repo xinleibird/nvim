@@ -2,7 +2,7 @@
 ---@type LazySpec
 local M = {
   "airblade/vim-rooter",
-  lazy = false,
+  event = "VeryLazy",
   init = function()
     vim.g.rooter_patterns = {
       -- exclude

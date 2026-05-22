@@ -2,7 +2,7 @@
 ---@type LazySpec
 local M = {
   "xinleibird/switch-abc.nvim",
-  lazy = false,
+  event = "VeryLazy",
   build = "make",
   enabled = function()
     return require("utils").detect_os() == "macos"
