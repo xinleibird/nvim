@@ -77,7 +77,7 @@ local M = {
       "index.html",
 
       -- miscellaneous
-      "README.md",
+      -- "README.md",
       "README.rst",
       "LICENSE",
       "Vagrantfile",
