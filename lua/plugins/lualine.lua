@@ -418,8 +418,8 @@ local M = {
           components.linters,
           components.formatters,
           components.lsp_clients,
-          components.blank,
-          components.opencode,
+          -- components.blank,
+          -- components.opencode,
           components.blank,
         },
         lualine_y = {
