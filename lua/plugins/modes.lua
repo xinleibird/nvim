@@ -5,7 +5,7 @@ local M = {
   event = { "BufRead", "BufNewFile", "User SnacksDashboardClosed" },
   opts = function()
     return {
-      line_opacity = 0.15,
+      line_opacity = 0.30,
       set_cursorline = false,
       ignore = {
         "lspinfo",
