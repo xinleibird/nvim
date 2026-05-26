@@ -77,6 +77,8 @@ local M = {
         vue = { "oxfmt" },
         yaml = { "oxfmt" },
 
+        rust = { "rustfmt" },
+
         conf = { "auto_indent" },
         vim = { "auto_indent" },
 
