@@ -8,6 +8,45 @@ local M = {
     "echasnovski/mini.diff",
   },
   opts = function()
+    local lsp_cache = { clients = {}, ft = "", dirty = true }
+    local linter_cache = { linters = {}, ft = "", dirty = true }
+    local formatter_cache = { formatters = {}, ft = "", dirty = true }
+
+    vim.api.nvim_create_autocmd("LspAttach", {
+      group = vim.api.nvim_create_augroup("user_lualine_lsp_attach", { clear = true }),
+      callback = function()
+        lsp_cache.dirty = true
+      end,
+    })
+
+    vim.api.nvim_create_autocmd("LspDetach", {
+      group = vim.api.nvim_create_augroup("user_lualine_lsp_detach", { clear = true }),
+      callback = function()
+        lsp_cache.dirty = true
+      end,
+    })
+
+    vim.api.nvim_create_autocmd("BufEnter", {
+      group = vim.api.nvim_create_augroup("user_lualine_buf_enter", { clear = true }),
+      callback = function()
+        lsp_cache.dirty = true
+        linter_cache.dirty = true
+        formatter_cache.dirty = true
+      end,
+    })
+
+    vim.api.nvim_create_autocmd("Filetype", {
+      group = vim.api.nvim_create_augroup("user_lualine_file_type", { clear = true }),
+      callback = function(args)
+        linter_cache.ft = args.match
+        linter_cache.dirty = true
+        formatter_cache.ft = args.match
+        formatter_cache.dirty = true
+        lsp_cache.dirty = true
+        lsp_cache.ft = args.match
+      end,
+    })
+
     local function get_statusline_bufnr()
       return vim.api.nvim_win_get_buf(vim.g.statusline_winid or 0)
     end
@@ -139,8 +178,11 @@ local M = {
           end
         end,
         color = function()
-          local clients = vim.lsp.get_clients({ bufnr = 0 })
-          return #clients > 0 and "LualineLspActive" or "LualineLspInactive"
+          if lsp_cache.dirty then
+            lsp_cache.clients = vim.lsp.get_clients({ bufnr = 0 })
+            lsp_cache.dirty = false
+          end
+          return #lsp_cache.clients > 0 and "LualineLspActive" or "LualineLspInactive"
         end,
         padding = { left = 1, right = 0 },
         separator = { left = "", right = "" },
@@ -178,12 +220,16 @@ local M = {
           end
         end,
         color = function()
-          local ok, lint = pcall(require, "lint")
-          if ok then
-            local linters = lint._resolve_linter_by_ft(vim.bo[0].ft)
-            return #linters > 0 and "LualineLspActive" or "LualineLspInactive"
+          if linter_cache.dirty then
+            local ok, lint = pcall(require, "lint")
+            if ok then
+              linter_cache.linters = lint._resolve_linter_by_ft(vim.bo[0].ft)
+            else
+              linter_cache.linters = {}
+            end
+            linter_cache.dirty = false
           end
-          return "LualineLspInactive"
+          return #linter_cache.linters > 0 and "LualineLspActive" or "LualineLspInactive"
         end,
         padding = { left = 0, right = 0 },
         separator = { left = "", right = "" },
@@ -221,12 +267,16 @@ local M = {
           end
         end,
         color = function()
-          local ok, conform = pcall(require, "conform")
-          if ok then
-            local formatters = conform.list_formatters_for_buffer(0)
-            return #formatters > 0 and "LualineLspActive" or "LualineLspInactive"
+          if formatter_cache.dirty then
+            local ok, conform = pcall(require, "conform")
+            if ok then
+              formatter_cache.formatters = conform.list_formatters_for_buffer(0)
+            else
+              formatter_cache.formatters = {}
+            end
+            formatter_cache.dirty = false
           end
-          return "LualineLspInactive"
+          return #formatter_cache.formatters > 0 and "LualineLspActive" or "LualineLspInactive"
         end,
         padding = { left = 1, right = 0 },
         separator = { left = "", right = "" },
