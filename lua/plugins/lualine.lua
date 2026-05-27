@@ -282,53 +282,6 @@ local M = {
         separator = { left = "", right = "" },
       },
 
-      opencode = {
-        function()
-          return "󰭻"
-        end,
-        on_click = function()
-          require("opencode.server.discovery.process").get()
-
-          local ok, process_tool = pcall(require, "opencode.server.discovery.process")
-          if ok then
-            local processes = process_tool.get()
-            if #processes > 0 then
-              local result = require("opencode").statusline()
-
-              vim.notify("💬 **" .. result .. "** OK!", vim.log.levels.INFO, {
-                title = "OpenCode",
-                id = "OpenCode",
-                icon = "󰭻",
-                timeout = 3000,
-              })
-            else
-              vim.notify("💬 There's **NO** OpenCode Process!", vim.log.levels.WARN, {
-                title = "OpenCode",
-                id = "OpenCode",
-                icon = "󰭻",
-                timeout = 3000,
-              })
-            end
-          else
-            vim.notify(require("configs.icons").ui.GhostOutline .. " OpenCode.nvim is Broken!", vim.log.levels.ERROR, {
-              title = "OpenCode",
-              id = "OpenCode",
-              timeout = 3000,
-            })
-          end
-        end,
-        color = function()
-          local ok, process_tool = pcall(require, "opencode.server.discovery.process")
-          if ok then
-            local processes = process_tool.get()
-            return #processes > 0 and "LualineOpencodeActive" or "LualineOpencodeInactive"
-          end
-          return "LualineOpencodeInactive"
-        end,
-        separator = { left = "", right = "" },
-        padding = { left = 0, right = 0 },
-      },
-
       filetype = {
         function()
           local filetype = vim.api.nvim_get_option_value("filetype", { buf = 0 })
@@ -468,8 +421,6 @@ local M = {
           components.linters,
           components.formatters,
           components.lsp_clients,
-          -- components.blank,
-          -- components.opencode,
           components.blank,
         },
         lualine_y = {
