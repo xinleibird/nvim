@@ -91,7 +91,7 @@ local M = {
       "zsh",
     }
     vim.api.nvim_create_user_command("TSInstallEnsured", function()
-      require("nvim-treesitter").install(ensure_languages):wait(600000)
+      require("nvim-treesitter").install(ensure_languages)
     end, { desc = "Install all ensured treesitter parsers" })
 
     local known_langs = {}

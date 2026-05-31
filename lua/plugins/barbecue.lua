@@ -1,8 +1,7 @@
 ---@module "lazy"
 ---@type LazySpec
 local M = {
-  "BrunoKrugel/bbq.nvim",
-  name = "barbecue",
+  "xinleibird/barbecue.nvim",
   event = { "BufRead", "BufNewFile", "User SnacksDashboardClosed" },
   dependencies = {
     "SmiteshP/nvim-navic",
@@ -10,9 +9,9 @@ local M = {
   },
   config = function()
     require("barbecue").setup({
-      create_autocmd = false,
+      create_autocmd = true,
       show_dirname = true,
-      show_basename = false,
+      show_basename = true,
 
       theme = {
         -- these highlights are used for context/navic icons
@@ -60,21 +59,6 @@ local M = {
       kinds = require("configs.icons").lspkind,
 
       exclude_filetypes = { "netrw", "FTerm", "snacks_layout_box", "nvim-dap-view" },
-    })
-
-    vim.api.nvim_create_autocmd({
-      "WinScrolled",
-      "BufWinEnter",
-      "CursorHold",
-      "InsertLeave",
-      "BufModifiedSet",
-    }, {
-      group = vim.api.nvim_create_augroup("barbecue.updater", { clear = true }),
-      callback = function()
-        vim.schedule(function()
-          coroutine.wrap(require("barbecue.ui").update)()
-        end)
-      end,
     })
   end,
 }
