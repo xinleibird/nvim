@@ -79,7 +79,7 @@
   },
   "named function": {
     "prefix": "fn",
-    "body": "function ${1:name} (${2:arguments}) {\n\t${0}\n}"
+    "body": "function ${1:name}(${2:arguments}) {\n\t${0}\n}"
   },
   "immediately-invoked function expression": {
     "prefix": "iife",

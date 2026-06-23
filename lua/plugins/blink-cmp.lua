@@ -2,6 +2,7 @@
 ---@type LazySpec
 local M = {
   "saghen/blink.cmp",
+  event = { "BufRead", "BufNewFile", "User SnacksDashboardClosed" },
   -- use a release tag to download pre-built binaries
   version = "*",
   -- or build it yourself

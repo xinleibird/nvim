@@ -2,7 +2,17 @@
 ---@type LazySpec
 local M = {
   "saghen/blink.pairs",
+  event = { "BufRead", "BufNewFile", "User SnacksDashboardClosed" },
   version = "*", -- (recommended) only required with prebuilt binaries
+  -- download prebuilt binaries from github releases, must be on a versioned release
+  -- build = function()
+  --   require("blink.pairs").download():pwait(60000)
+  -- end,
+  -- OR build from source
+  build = function()
+    ---@diagnostic disable-next-line: undefined-field
+    require("blink.pairs").build():pwait(60000)
+  end,
   lazy = false,
   dependencies = {
     -- download prebuilt binaries from github releases
