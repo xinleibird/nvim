@@ -300,7 +300,6 @@ local M = {
           WinBar = { fg = C.surface0 },
         }
       end,
-      default_integrations = false,
       integrations = {
         barbecue = {
           dim_dirname = false, -- directory name is dimmed by default
