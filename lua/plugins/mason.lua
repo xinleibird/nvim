@@ -39,7 +39,8 @@ local M = {
       "html-lsp",
       "typescript-language-server",
       "vtsls",
-      "tsgo",
+      "tsc",
+      -- "tsgo",
 
       "emmet-language-server",
       "svelte-language-server",
