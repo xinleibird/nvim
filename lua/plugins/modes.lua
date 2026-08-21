@@ -2,6 +2,7 @@
 ---@type LazySpec
 local M = {
   "mvllow/modes.nvim",
+  commit = "2badf8771dbb2d1e1066fd6a5dddaad2fc836e72",
   event = { "BufRead", "BufNewFile", "User SnacksDashboardClosed" },
   opts = function()
     return {
