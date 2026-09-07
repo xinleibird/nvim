@@ -4,9 +4,9 @@ local M = {
   "saghen/blink.cmp",
   event = { "BufRead", "BufNewFile", "User SnacksDashboardClosed" },
   -- use a release tag to download pre-built binaries
-  version = "*",
+  version = "1.*",
   -- or build it yourself
-  -- build = "cargo build --release",
+  build = "cargo build --release",
   dependencies = {
     "mayromr/blink-cmp-dap",
     {

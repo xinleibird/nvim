@@ -3,26 +3,15 @@
 local M = {
   "saghen/blink.pairs",
   event = { "BufRead", "BufNewFile", "User SnacksDashboardClosed" },
-  version = "*", -- (recommended) only required with prebuilt binaries
-  -- download prebuilt binaries from github releases, must be on a versioned release
-  -- build = function()
-  --   require("blink.pairs").download():pwait(60000)
-  -- end,
-  -- OR build from source
+  version = "*",
+  -- build prebuilt binaries from github releases, must be on a versioned release
   build = function()
     ---@diagnostic disable-next-line: undefined-field
     require("blink.pairs").build():pwait(60000)
   end,
   lazy = false,
   dependencies = {
-    -- download prebuilt binaries from github releases
     "saghen/blink.lib",
-    -- OR build from source, requires nightly:
-    -- https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
-    -- build = "cargo build --release",
-    -- If you use nix, you can build from source using latest nightly rust with:
-    -- build = 'nix run .#build-plugin',
-
     {
       "windwp/nvim-autopairs",
       config = function()
